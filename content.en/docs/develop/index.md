@@ -7,8 +7,6 @@ weight: 4
 
 OneXray private sharing protocol supports one-click opening of the app and importing of configurations.
 
-Please note: OneXray private sharing protocol does not support subscription. If you put sharing links in subscription, they will not be imported.
-
 ## Xray Setting
 
 ```
