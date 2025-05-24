@@ -83,7 +83,7 @@ The birth of OneXray is inseparable from many open source projects.
 
 [XLog](https://github.com/elvishew/xLog) - [Apache-2.0 license](https://github.com/elvishew/xLog/raw/refs/heads/master/LICENSE)
 
-[KPermissions](https://github.com/fondesa/kpermissions) - [Apache-2.0 license](https://github.com/fondesa/kpermissions/raw/refs/heads/master/LICENSE)
+[XXPermissions](https://github.com/getActivity/XXPermissions) - [Apache-2.0 license](https://github.com/getActivity/XXPermissions/raw/refs/heads/master/LICENSE)
 
 # Linux Only
 
