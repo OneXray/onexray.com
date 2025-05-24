@@ -89,7 +89,7 @@ The birth of OneXray is inseparable from many open source projects.
 
 [netlink](https://github.com/vishvananda/netlink) - [Apache-2.0 license](https://github.com/vishvananda/netlink/raw/refs/heads/main/LICENSE)
 
-### Windows Only
+# Windows Only
 
 [Leaf](https://github.com/eycorsican/leaf) - [Apache-2.0 license](https://github.com/eycorsican/leaf/raw/refs/heads/master/LICENSE)
 

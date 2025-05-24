@@ -89,7 +89,7 @@ OneXray 的诞生离不开众多开源项目。
 
 [netlink](https://github.com/vishvananda/netlink) - [Apache-2.0 license](https://github.com/vishvananda/netlink/raw/refs/heads/main/LICENSE)
 
-### 仅 Windows
+# 仅 Windows
 
 [Leaf](https://github.com/eycorsican/leaf) - [Apache-2.0 license](https://github.com/eycorsican/leaf/raw/refs/heads/master/LICENSE)
 
