@@ -1,6 +1,6 @@
 ---
 title: 隐私政策
-weight: 6
+weight: 7
 ---
 
 # 隐私政策
