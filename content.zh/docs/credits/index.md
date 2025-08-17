@@ -69,8 +69,6 @@ OneXray 的诞生离不开众多开源项目。
 
 [flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications) - [BSD-3-Clause license](https://github.com/MaikuB/flutter_local_notifications/raw/refs/heads/master/flutter_local_notifications/LICENSE)
 
-[Universal Platform](https://github.com/gskinnerTeam/flutter-universal-platform) - [MIT License](https://github.com/gskinnerTeam/flutter-universal-platform/raw/refs/heads/master/LICENSE)
-
 [in_app_review](https://github.com/britannio/in_app_review) - [MIT License](https://github.com/britannio/in_app_review/raw/refs/heads/master/in_app_review/LICENSE)
 
 [tray_manager](https://github.com/leanflutter/tray_manager) - [MIT License](https://github.com/leanflutter/tray_manager/raw/refs/heads/main/LICENSE)
