@@ -91,7 +91,7 @@ The birth of OneXray is inseparable from many open source projects.
 
 # Windows Only
 
-[Leaf](https://github.com/eycorsican/leaf) - [Apache-2.0 license](https://github.com/eycorsican/leaf/raw/refs/heads/master/LICENSE)
+[tun2proxy](https://github.com/tun2proxy/tun2proxy) - [MIT License](https://github.com/tun2proxy/tun2proxy/raw/refs/heads/master/LICENSE)
 
 [Wintun Network Adapter](https://github.com/WireGuard/wintun) - [Prebuilt Binaries License](https://github.com/WireGuard/wintun/raw/refs/heads/master/prebuilt-binaries-license.txt)
 
