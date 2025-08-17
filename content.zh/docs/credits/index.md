@@ -59,8 +59,6 @@ OneXray 的诞生离不开众多开源项目。
 
 [archive](https://github.com/brendan-duncan/archive) - [MIT License](https://github.com/brendan-duncan/archive/raw/refs/heads/main/LICENSE)
 
-[Flutter Quill](https://github.com/singerdmx/flutter-quill) - [MIT License](https://github.com/singerdmx/flutter-quill/raw/refs/heads/master/LICENSE)
-
 [GetX](https://github.com/jonataslaw/getx) - [MIT License](https://github.com/jonataslaw/getx/raw/refs/heads/master/LICENSE)
 
 [FlexColorScheme](https://github.com/rydmike/flex_color_scheme) - [BSD-3-Clause license](https://github.com/rydmike/flex_color_scheme/raw/refs/heads/master/LICENSE)
