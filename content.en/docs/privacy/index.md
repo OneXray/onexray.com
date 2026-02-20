@@ -5,84 +5,74 @@ weight: 7
 
 # Privacy Policy
 
-Effective Date: May 1, 2025
+**Effective Date: May 1, 2025** **Last Updated: February 20, 2026**
 
-Thank you for using our VPN application (hereinafter referred to as the "App"). We highly value your privacy and are
-committed to protecting your personal information. This Privacy Policy is intended to explain how we collect, use, and
-protect your information when you use this App.
+Thank you for choosing our VPN application (the "**App**"). We are committed to protecting your privacy and ensuring a transparent experience. This Privacy Policy explains how we handle information and our commitment to your anonymity.
 
-## We Do Not Collect VPN Data
+---
 
-We solemnly promise that we do not collect any activity data related to your VPN connection, including but not limited
-to:
+## 1. Strict No-Logs Policy
+We maintain a **zero-logs policy**. We solemnly promise that we **do not** collect, store, or monitor any activity data related to your VPN connection, including:
+* Your original (real) IP address.
+* The websites you visit or applications you use while connected.
+* Data transfer volume or throughput.
+* Connection timestamps or session durations.
 
-1. Your original IP address
-2. The websites and applications you visit
-3. Your data transfer volume
-4. Your connection timestamps
+Our system is designed to ensure that your online activities cannot be tracked or identified by us.
 
-We do not store any log information that can track your online activities. Our system is designed to protect your
-anonymity and privacy.
+---
 
-## Non-Personal Information We Collect
+## 2. Information We Collect
+To optimize performance and support our free services through advertising, we collect certain non-personal and technical information:
 
-To continuously improve our App, we may collect certain non-personal information:
+### A. Analytics & Performance
+* **Google Analytics & Firebase Crashlytics:** We use these services to collect anonymous data such as device model, OS version, in-app interactions, and crash reports. This data is aggregated and does not identify you personally.
+* **Purpose:** To diagnose bugs, improve app stability, and understand user needs.
 
-Log Analysis Using Google Analytics: We use Google Analytics, a web analytics service, to collect anonymous log
-information about App usage. This information may include your device model, operating system version, in-app
-operations, frequency of feature use, etc. This data is aggregated and anonymized and is not associated with your
-personal identity. It helps us understand how users use the App, thereby optimizing the user experience and improving
-App features. You can view Google's Privacy Policy for more
-information: [https://policies.google.com/privacy](https://policies.google.com/privacy)
+### B. Advertising (Google AdMob)
+We use **Google AdMob** to display advertisements. To provide relevant ads and limit ad repetition, AdMob may collect and use:
+* **Device Identifiers:** Such as the Advertising ID (AAID on Android) or IDFA (on iOS).
+* **General Location:** Coarse location data (e.g., country or city) derived from your IP to show localized ads.
+* **Ad Interaction:** Information about which ads you see and click.
+* **Reference:** Please review [How Google uses information from sites or apps that use our services](https://policies.google.com/technologies/partner-sites).
 
-Crash Reporting Using Firebase Crashlytics: When the App experiences an unexpected crash, we use Firebase Crashlytics to
-collect crash reports. These reports contain technical data such as device information, operating system version, and
-the App's status at the time of the crash, but do not contain any personally identifiable information or your VPN
-activity data. We use these crash reports to diagnose and fix issues in the App to improve its stability and
-reliability. You can view Firebase's Privacy Policy for more
-information: [https://firebase.google.com/support/privacy](https://firebase.google.com/support/privacy)
+---
 
-## Use of Information
+## 3. Use of Information
+The collected non-personal information is used for:
+* **App Optimization:** Enhancing features, fixing crashes, and improving UI/UX.
+* **Ad Delivery:** Showing relevant advertisements and measuring their effectiveness.
+* **Fraud Prevention:** Detecting and preventing invalid clicks or fraudulent activity.
 
-The non-personal information we collect will be used for the following purposes:
+---
 
-Improving App Performance and User Experience: By analyzing App usage and crash reports, we can better understand user
-needs, optimize App design and features, and enhance App stability and performance.
-Problem Diagnosis and Bug Fixing: Crash reports help us quickly identify and resolve issues in the App, ensuring its
-normal operation.
+## 4. Third-Party Sharing
+We **do not sell** your personal information. We only share anonymized data with the following service providers:
+* **Google (Analytics, Firebase, AdMob):** These partners process data according to their own privacy policies to provide us with essential services.
+* **Legal Compliance:** Since we do not store VPN logs, we have no browsing history or IP logs to share with any authorities even if requested.
 
-## Sharing of Information
+---
 
-We will not associate the non-personal information collected with any personally identifiable information, nor will we
-share your personally identifiable information with third parties. We may share anonymized log information and crash
-reports with Google (the provider of Google Analytics and Firebase Crashlytics) so that they can provide us with
-relevant services. These third parties are obligated to protect relevant information in accordance with their own
-privacy policies.
+## 5. Your Choices & Privacy Rights
+You have control over how your data is used for advertising:
+* **Opt-out of Personalized Ads:** You can reset or limit your advertising ID in your device settings:
+    * *Android:* Settings > Google > Ads > Opt out of Ads Personalization.
+    * *iOS:* Settings > Privacy & Security > Tracking.
+* **Data Access:** Since we do not collect personally identifiable information (PII) or link data to a specific user identity, we are generally unable to provide specific "data access" or "deletion" for individual users.
 
-## Data Security
+---
 
-We take reasonable security measures to protect the non-personal information we collect from unauthorized access, use,
-or disclosure.
+## 6. Children’s Privacy
+The App is not directed at children under the age of 13 (or 16 in certain jurisdictions). We do not knowingly collect personal information from minors. If you believe a child has provided us with information, please contact us immediately.
 
-## Your Rights
+---
 
-Since we do not collect your personally identifiable information or VPN activity data, we cannot provide rights to
-access, correct, or delete such data. For the anonymous information collected by Google Analytics and Firebase
-Crashlytics, you can refer to their privacy policies to understand your relevant rights and choices.
+## 7. Updates to This Policy
+We may update this Privacy Policy from time to time. Any changes will be effective immediately upon posting the updated version on this page. We encourage you to review this policy periodically.
 
-## Children's Privacy
+---
 
-This App is not directed at children, and we do not knowingly collect personal information from minors. If you are a
-parent or guardian and discover that your child has provided us with personal information, please contact us
-immediately, and we will take steps to delete such information.
+## 8. Contact Us
+If you have any questions or concerns regarding this Privacy Policy, please contact us at:
 
-## Updates to this Privacy Policy
-
-We may update this Privacy Policy from time to time. Any changes will be effective when we post the updated Privacy
-Policy on this page. We encourage you to review this Privacy Policy periodically for the latest information.
-
-## Contact Us
-
-If you have any questions or comments about this Privacy Policy, please contact us through the following means:
-
-[yuan@yuandev.net](mailto:yuan@yuandev.net)
+**Email:** [yuan@yuandev.net](mailto:yuan@yuandev.net)

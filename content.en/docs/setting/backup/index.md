@@ -9,11 +9,10 @@ The backup feature will back up the following information.
 
 1. All "Xray Setting".
 2. All "Local" outbounds.
-3. All "Full Config".
-4. All "Raw Config".
-5. All "Subscription".
-6. All "Rule Set".
-7. Rule Set associated geosite.dat and geoip.dat files.
+3. All "Raw Config".
+4. All "Subscription".
+5. All "Rule Set".
+6. Rule Set associated geosite.dat and geoip.dat files.
 
 The following information will not be backed up.
 

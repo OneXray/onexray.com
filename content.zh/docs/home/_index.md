@@ -20,8 +20,6 @@ weight: 1
 
 [节点]({{< relref path="outbound/_index.md" lang="zh">}})
 
-[完整配置]({{< relref path="fullConfig/index.md" lang="zh">}})
-
 [原始配置]({{< relref path="rawConfig/index.md" lang="zh">}})
 
 [启动]({{< relref path="start/index.md" lang="zh">}})

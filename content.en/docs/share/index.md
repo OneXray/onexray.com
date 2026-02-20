@@ -7,10 +7,9 @@ The App allows you to share the following configurations.
 
 1. All "Xray Setting".
 2. All "Outbound".
-3. All "Full Config".
-4. All "Raw Config".
-5. All "Subscription".
-6. All "Rule Set".
+3. All "Raw Config".
+4. All "Subscription".
+5. All "Rule Set".
 
 # General Protocol
 
@@ -26,7 +25,6 @@ OneXray private sharing protocol supports you to share the following configurati
 
 1. All "Xray Setting".
 2. All "Outbound".
-3. All "Full Config".
-4. All "Raw Config".
-5. All "Subscription".
-6. All "Rule Set".
+3. All "Raw Config".
+4. All "Subscription".
+5. All "Rule Set".

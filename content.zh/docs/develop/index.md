@@ -39,16 +39,6 @@ onexray://onexray.com/config/add?core=xray&type=outbound&data=yourBase64Data#nam
 
 `name` 为节点名称，建议您对其进行 `encodeURIComponent` 转义处理。
 
-## 完整配置
-
-```
-onexray://onexray.com/config/add?core=xray&type=full&data=yourBase64Data#name
-```
-
-`data` 为 XrayJson 经过 base64 编码之后的文本，建议您对其进行 `encodeURIComponent` 转义处理。
-
-`name` 为配置名称，建议您对其进行 `encodeURIComponent` 转义处理。
-
 ## 原始配置
 
 ```

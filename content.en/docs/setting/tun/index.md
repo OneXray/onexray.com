@@ -19,6 +19,14 @@ The reason why I say "seem" is that after the DNS query traffic reaches Xray-cor
 The DNS configuration here has another function, which is to resolve your server address.
 When `address` in your outbound configuration is in the form of a domain name, the query of the domain name will be executed by the DNS configured here, not the DNS you specified in "Xray Setting".
 
+### DNS Over TLS
+
+This configuration item is only available on iOS and macOS.
+
+When DoT is enabled, Xray-core will no longer take over DNS traffic, but you can route DoT traffic via routing rules. See the `dnsDoT` rule in the routing configuration.
+
+Note: Enabling this option can help mitigate memory issues on iOS. See [iOS packet tunnel provider limit](https://github.com/XTLS/Xray-core/issues/4422).
+
 ## Priority
 
 This configuration item is only applicable to Linux systems.
@@ -42,15 +50,11 @@ When VPN is turned on, the app will specify a network card for VPN traffic. You 
 Please note: When you do not specify a network card, the app will automatically select the first network card that meets the conditions, but it may not always get the right result and it may select the wrong network card.
 Especially if you have virtualization software such as Vmware Workstation or VirtualBox installed, they will create several virtual network cards. The app may select these virtual network cards.
 
-# Always-on
+# On-demand
 
-This configuration item is only applicable to iOS and macOS systems.
+This configuration item is only available on iOS and macOS.
 
-When this configuration item is turned on, the system will automatically start the VPN, regardless of whether the system is restarted or the VPN process is killed.
-If you want to turn this option off, please restart the VPN once after turning it off for the option to take effect.
-
-The "Always-on" function of the Android system requires you to turn it on in the system settings. Since the firmware of each brand is different, here is only one operation path:
-System "Settings" App ➡️ VPN (it may be in the homepage, network or sharing) ➡️ OneXray ➡️ Always-on VPN.
+Supports rules configured by network interface.
 
 # Per-app VPN
 

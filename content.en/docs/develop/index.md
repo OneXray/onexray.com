@@ -39,18 +39,6 @@ onexray://onexray.com/config/add?core=xray&type=outbound&data=yourBase64Data#nam
 
 `name` is the outbound name. It is recommended that you escape it with `encodeURIComponent`.
 
-## Full Config
-
-The "Full Config" supports only Xray-core.
-
-```
-onexray://onexray.com/config/add?core=xray&type=full&data=yourBase64Data#name
-```
-
-`data` is the text encoded by XrayJson with base64. It is recommended that you escape it with `encodeURIComponent`.
-
-`name` is the configuration name. It is recommended that you escape it with `encodeURIComponent`.
-
 ## Raw Config
 
 ```

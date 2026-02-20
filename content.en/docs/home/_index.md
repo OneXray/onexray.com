@@ -20,8 +20,6 @@ Note: You can adjust the default direct connection rules in Xray Settings accord
 
 [Outbound]({{< relref path="outbound/_index.md" lang="en">}})
 
-[Full Config]({{< relref path="fullConfig/index.md" lang="en">}})
-
 [Raw Config]({{< relref path="rawConfig/index.md" lang="en">}})
 
 [Start]({{< relref path="start/index.md" lang="en">}})
