@@ -3,9 +3,9 @@ title: Raw Config
 weight: 4
 ---
 
-"Raw Config" supports Xray-core and Hysteria 2.
+"Raw Config" supports Xray-core.
 
-Please note: The functions on this page require you to be proficient in Xray-core and Hysteria 2. Please use it after reading the relevant documents.
+Please note: The functions on this page require you to be proficient in Xray-core. Please use it after reading the relevant documents.
 
 [Xray-core Config Reference](https://xtls.github.io/en/config/)
 
@@ -47,11 +47,20 @@ It is recommended that you use the following template directly.
                     "http",
                     "tls",
                     "quic"
-                ],
-                "domainsExcluded": [
-                    "courier.push.apple.com"
                 ]
             }
+        },
+        {
+            "listen": "[::1]",
+            "port": "11025",
+            "protocol": "http",
+            "tag": "httpIn"
+        },
+        {
+            "listen": "[::1]",
+            "port": "11026",
+            "protocol": "http",
+            "tag": "pingIn"
         }
     ]
 }
@@ -85,6 +94,21 @@ The following two routing rules are used to ensure the normal operation of DNS. 
                 "port": "53",
                 "outboundTag": "dnsOut",
                 "ruleTag": "dnsOut"
+            },
+            {
+                "inboundTag": [
+                    "socksIn"
+                ],
+                "port": "853",
+                "outboundTag": "proxy",
+                "ruleTag": "dnsDoT"
+            },
+            {
+                "inboundTag": [
+                    "pingIn"
+                ],
+                "outboundTag": "proxy",
+                "ruleTag": "ping"
             }
         ]
     }

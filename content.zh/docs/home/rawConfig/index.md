@@ -45,11 +45,20 @@ weight: 4
                     "http",
                     "tls",
                     "quic"
-                ],
-                "domainsExcluded": [
-                    "courier.push.apple.com"
                 ]
             }
+        },
+        {
+            "listen": "[::1]",
+            "port": "11025",
+            "protocol": "http",
+            "tag": "httpIn"
+        },
+        {
+            "listen": "[::1]",
+            "port": "11026",
+            "protocol": "http",
+            "tag": "pingIn"
         }
     ]
 }
@@ -83,6 +92,21 @@ weight: 4
                 "port": "53",
                 "outboundTag": "dnsOut",
                 "ruleTag": "dnsOut"
+            },
+            {
+                "inboundTag": [
+                    "socksIn"
+                ],
+                "port": "853",
+                "outboundTag": "proxy",
+                "ruleTag": "dnsDoT"
+            },
+            {
+                "inboundTag": [
+                    "pingIn"
+                ],
+                "outboundTag": "proxy",
+                "ruleTag": "ping"
             }
         ]
     }
