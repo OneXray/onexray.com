@@ -17,13 +17,12 @@ weight: 4
 
 您必须编写一个入站，该入站必须满足以下条件。
 
-1. `listen` 必须为 `[::1]`。其他地址将导致流量无法被正确处理。
-2. `port` 必须为单数字的字符串格式，如 `"11024"`，不可为其他格式。其他格式将导致读取错误。支持设置为 `"0"`。
-3. `protocol` 必须为 `socks`。不支持其他协议。
-4. `auth` 必须为 `noauth`。
-5. `udp` 必须为 `true`。设置为 `false` 或不设置将导致 DNS 无法解析。
-6. `tag` 必须为 `socksIn`。App 将使用 `protocol` 和 `tag` 来判断是否存在符合条件的入站。
-7. `sniffing` 建议开启，否则分流功能有可能无法正常工作。
+1. `listen` 必须为 `127.0.0.1`。其他地址将导致流量无法被正确处理。
+2. `protocol` 必须为 `tun`。不支持其他协议。
+3. `tag` 必须为 `tunIn`。App 将使用 `protocol` 和 `tag` 来判断是否存在符合条件的入站。
+4. `sniffing` 建议开启，否则分流功能有可能无法正常工作。
+
+注意：tunIn 入站不会被校验，请自行保证配置的正确性。
 
 建议您直接使用下面的模版。
 
@@ -31,14 +30,9 @@ weight: 4
 {
     "inbounds": [
         {
-            "listen": "[::1]",
-            "port": "11024",
-            "protocol": "socks",
-            "settings": {
-                "auth": "noauth",
-                "udp": true
-            },
-            "tag": "socksIn",
+            "listen": "127.0.0.1",
+            "protocol": "tun",
+            "tag": "tunIn",
             "sniffing": {
                 "enabled": true,
                 "destOverride": [
@@ -49,14 +43,8 @@ weight: 4
             }
         },
         {
-            "listen": "[::1]",
-            "port": "11025",
-            "protocol": "http",
-            "tag": "httpIn"
-        },
-        {
-            "listen": "[::1]",
-            "port": "11026",
+            "listen": "127.0.0.1",
+            "port": "11024",
             "protocol": "http",
             "tag": "pingIn"
         }
@@ -87,7 +75,7 @@ weight: 4
             {
                 "domainMatcher": "hybrid",
                 "inboundTag": [
-                    "socksIn"
+                    "tunIn"
                 ],
                 "port": "53",
                 "outboundTag": "dnsOut",
@@ -95,7 +83,7 @@ weight: 4
             },
             {
                 "inboundTag": [
-                    "socksIn"
+                    "tunIn"
                 ],
                 "port": "853",
                 "outboundTag": "proxy",

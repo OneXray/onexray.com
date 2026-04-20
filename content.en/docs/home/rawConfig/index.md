@@ -20,12 +20,11 @@ Setting ➡️ Log ➡️ Xray config File.
 You must write an inbound, which must meet the following conditions.
 
 1. `listen` must be `[::1]`. Other addresses will cause traffic to not be processed correctly.
-2. `port` must be a single-digit string format, such as `"11024"`, and cannot be other formats. Other formats will cause read errors. Support setting to `"0"`.
-3. `protocol` must be `socks`. Other protocols are not supported.
-4. `auth` must be `noauth`.
-5. `udp` must be `true`. Setting it to `false` or not setting it will cause DNS resolution failure.
-6. `tag` must be `socksIn`. The app will use `protocol` and `tag` to determine whether there is an inbound that meets the conditions.
-7. `sniffing` is recommended to be turned on, otherwise the diversion function may not work properly.
+2. `protocol` must be `tun`. Other protocols are not supported.
+3. `tag` must be `tunIn`. The app will use `protocol` and `tag` to determine whether there is an inbound that meets the conditions.
+4. `sniffing` is recommended to be turned on, otherwise the diversion function may not work properly.
+
+Note: The `tunIn` inbound will not be validated, please ensure the correctness of the configuration yourself.
 
 It is recommended that you use the following template directly.
 
@@ -33,14 +32,9 @@ It is recommended that you use the following template directly.
 {
     "inbounds": [
         {
-            "listen": "[::1]",
-            "port": "11024",
-            "protocol": "socks",
-            "settings": {
-                "auth": "noauth",
-                "udp": true
-            },
-            "tag": "socksIn",
+            "listen": "127.0.0.1",
+            "protocol": "tun",
+            "tag": "tunIn",
             "sniffing": {
                 "enabled": true,
                 "destOverride": [
@@ -51,14 +45,8 @@ It is recommended that you use the following template directly.
             }
         },
         {
-            "listen": "[::1]",
-            "port": "11025",
-            "protocol": "http",
-            "tag": "httpIn"
-        },
-        {
-            "listen": "[::1]",
-            "port": "11026",
+            "listen": "127.0.0.1",
+            "port": "11024",
             "protocol": "http",
             "tag": "pingIn"
         }
@@ -89,7 +77,7 @@ The following two routing rules are used to ensure the normal operation of DNS. 
             {
                 "domainMatcher": "hybrid",
                 "inboundTag": [
-                    "socksIn"
+                    "tunIn"
                 ],
                 "port": "53",
                 "outboundTag": "dnsOut",
@@ -97,7 +85,7 @@ The following two routing rules are used to ensure the normal operation of DNS. 
             },
             {
                 "inboundTag": [
-                    "socksIn"
+                    "tunIn"
                 ],
                 "port": "853",
                 "outboundTag": "proxy",

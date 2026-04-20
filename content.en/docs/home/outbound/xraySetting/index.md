@@ -73,11 +73,11 @@ Then when a connection matches this rule, it will be considered to have hit the 
 
 ## inboundTag
 
-Generally, there are three inbounds, namely `socksIn`, `httpIn`, and `dnsQuery`.
+Generally, there are three inbounds, namely `tunIn`, `pingIn`, and `dnsQuery`.
 
 When you specify `tag` for the DNS server, there will be more inbounds.
 
-In Tun mode, there is only one inbound, namely `socksIn`.
+In Tun mode, there is only one inbound, namely `tunIn`.
 
 ## outboundTag
 
