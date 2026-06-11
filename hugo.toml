@@ -30,6 +30,12 @@ weight = 3
 [params]
 BookTheme = 'auto'
 
+BookLogo = 'logo.png'
+
+BookFavicon = 'favicon.png'
+
+images = ['logo.png']
+
 BookToC = true
 
 BookSection = 'docs'
