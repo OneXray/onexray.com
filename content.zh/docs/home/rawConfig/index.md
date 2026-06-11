@@ -1,115 +1,122 @@
 ---
-title: 原始配置
+title: Raw Config
 weight: 4
 ---
 
-请注意：本页面功能需要您熟练掌握 Xray-core 。请在阅读完相关文档后使用。
+Raw Config 保存完整 Xray JSON 文档。当结构化 Xray Setting 页面没有暴露你需要的 Xray-core 功能时，可以使用 Raw Config。
+
+该页面要求你理解 Xray-core 配置。保存前，OneXray 会校验 JSON，并通过内置 core API 测试配置。
 
 [Xray-core 配置指南](https://xtls.github.io/config/)
 
-建议您直接复制一份 App 生成的 “Xray 配置文件” 进行修改。
+推荐先复制 App 生成的 Xray 配置文件：
 
-您按照如下操作路径找到“Xray 配置文件”：
-
-设置 ➡️ 日志 ➡️ Xray 配置文件。
-
-## 入站
-
-您必须编写一个入站，该入站必须满足以下条件。
-
-1. `listen` 必须为 `127.0.0.1`。其他地址将导致流量无法被正确处理。
-2. `protocol` 必须为 `tun`。不支持其他协议。
-3. `tag` 必须为 `tunIn`。App 将使用 `protocol` 和 `tag` 来判断是否存在符合条件的入站。
-4. `sniffing` 建议开启，否则分流功能有可能无法正常工作。
-
-注意：tunIn 入站不会被校验，请自行保证配置的正确性。
-
-建议您直接使用下面的模版。
-
-```json
-{
-    "inbounds": [
-        {
-            "listen": "127.0.0.1",
-            "protocol": "tun",
-            "tag": "tunIn",
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls",
-                    "quic"
-                ]
-            }
-        },
-        {
-            "listen": "127.0.0.1",
-            "port": "11024",
-            "protocol": "http",
-            "tag": "pingIn"
-        }
-    ]
-}
+```text
+设置 > 日志 > Xray 配置文件
 ```
 
-## 日志
+然后在副本基础上编辑 Raw Config。
 
-`log` 中的 `access` 和 `error` 字段无法自定义。它们将在生成 Xray-core 配置文件时被重写为一个固定路径。
+# 必要字段
 
-## 路由
+## `name`
 
-下面两条路由规则用于保证 DNS 正常工作。请设置为路由规则的前两条。
+OneXray 要求顶层 `name` 非空，用于在配置列表中显示。
+
+## TUN 入站
+
+OneXray 要求至少存在一个 inbound 满足：
+
+| 字段 | 必要值 |
+| --- | --- |
+| `protocol` | `tun` |
+| `tag` | `tunIn` |
+
+建议开启 sniffing，因为基于域名的路由依赖它。
 
 ```json
 {
-    "routing": {
-        "rules": [
-            {
-                "domainMatcher": "hybrid",
-                "inboundTag": [
-                    "dnsQuery"
-                ],
-                "outboundTag": "proxy",
-                "ruleTag": "dnsQuery"
-            },
-            {
-                "domainMatcher": "hybrid",
-                "inboundTag": [
-                    "tunIn"
-                ],
-                "port": "53",
-                "outboundTag": "dnsOut",
-                "ruleTag": "dnsOut"
-            },
-            {
-                "inboundTag": [
-                    "tunIn"
-                ],
-                "port": "853",
-                "outboundTag": "proxy",
-                "ruleTag": "dnsDoT"
-            },
-            {
-                "inboundTag": [
-                    "pingIn"
-                ],
-                "outboundTag": "proxy",
-                "ruleTag": "ping"
-            }
+  "name": "RawXrayConfig",
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "protocol": "tun",
+      "tag": "tunIn",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
         ]
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": "11024",
+      "protocol": "http",
+      "tag": "pingIn"
     }
+  ]
 }
 ```
 
-## 扩展字段
+# 运行时修正
+
+启动前，OneXray 会按当前平台修正 Raw Config：
+
+| 区域 | 运行时行为 |
+| --- | --- |
+| 网卡 | 开启 TUN 网卡绑定时，填充 outbound `streamSettings.sockopt.interface` 和 TUN `autoOutboundsInterface`；未开启时，移除已有 outbound `interface` 字段。 |
+| Ping inbound 端口 | `pingIn` HTTP inbound 若使用随机端口，会替换为运行时 ping 端口。 |
+| 日志 | `access` 和 `error` 会改写为 OneXray 日志路径。macOS System Extension 模式下会强制关闭日志。 |
+| Metrics | 运行时 Raw Config 会移除 `policy`、`metrics` 和 `stats`。 |
+
+# 推荐路由骨架
 
 ```json
 {
-    "name": "RawXrayConfig",
-    "type": "raw"
+  "routing": {
+    "rules": [
+      {
+        "domainMatcher": "hybrid",
+        "inboundTag": [
+          "dnsQuery"
+        ],
+        "outboundTag": "proxy",
+        "ruleTag": "dnsQuery"
+      },
+      {
+        "domainMatcher": "hybrid",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": "53",
+        "outboundTag": "dnsOut",
+        "ruleTag": "dnsOut"
+      },
+      {
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": "853",
+        "outboundTag": "proxy",
+        "ruleTag": "dnsDoT"
+      },
+      {
+        "inboundTag": [
+          "pingIn"
+        ],
+        "outboundTag": "proxy",
+        "ruleTag": "ping"
+      }
+    ]
+  }
 }
 ```
 
-`name` ，配置的名称，用于在列表中显示。
+第一条规则处理 DNS 组件查询。第二条规则把普通 `53` 端口 DNS 流量转发到 DNS outbound。第三条规则处理 `853` 端口 DNS over TLS。第四条规则让 OneXray 测速流量走当前代理。
 
-`type`，配置的类型，这里固定为 `raw`。注意，`type` 可省略，即使配置错误也没关系，没有任何影响。
+# 导入和分享
+
+Raw Config 可通过 OneXray URL Scheme 使用 `type=raw` 导入。详见 [开发]({{< relref path="../../develop/index.md" lang="zh" >}})。

@@ -1,26 +1,49 @@
 ---
-title: Rule Set
+title: GeoData
 weight: 3
 ---
 
-The app has two built-in rule sets, which are [geosite.dat](https://github.com/v2fly/domain-list-community) and [geoip.dat](https://github.com/v2fly/geoip) from the [v2fly](https://github.com/v2fly) community.
+GeoData provides rule-set files used by Xray-core expressions such as:
 
-# Add
+```text
+geosite:CN
+geoip:CN
+```
 
-When you need to use a third-party rule set, you can add it here.
-Since the App needs to parse the rule set once, you need to determine whether the newly added rule set is `domain` rules or `ip` rules.
-The name of the rule set cannot be repeated with the existing rule set, otherwise it cannot be added. The rule set supports importing through the toolbar. You can also share your rule set.
+OneXray has two built-in GeoData files:
 
-Below are some third-party rule sets.
+| Name | Type | Source |
+| --- | --- | --- |
+| `geosite` | `domain` | `v2fly/domain-list-community` latest `dlc.dat` |
+| `geoip` | `ip` | `v2fly/geoip` latest `geoip.dat` |
 
-[V2Ray Routing rules file enhanced version](https://github.com/Loyalsoldier/v2ray-rules-dat)
+# Custom GeoData
 
-[Iran Hosted Domains](https://github.com/bootmortis/iran-hosted-domains)
+Custom rule sets require:
 
-[Iran-v2ray-rules](https://github.com/Chocolate4U/Iran-v2ray-rules)
+| Field | Meaning |
+| --- | --- |
+| Name | Unique name. It becomes the file base name and rule prefix target. |
+| Type | `domain` for geosite-style data or `ip` for geoip-style data. |
+| URL | Download URL for the `.dat` file. |
 
-[russia-v2ray-rules-dat](https://github.com/runetfreedom/russia-v2ray-rules-dat)
+When a custom rule set is added or updated, OneXray downloads the `.dat` file, asks the host core API to count categories and rules, saves the `.dat` file, and saves a generated JSON summary.
 
-# Limitation of Use
+# Auto Update
 
-When you use rule sets on an iOS or iPadOS device, it is not recommended to use enhanced data. When there are too many rules, the VPN may fail to start because it exceeds the memory limit.
+GeoData auto update is configured on [Subscription Update]({{< relref path="../subUpdate/index.md" lang="en" >}}). System GeoData and custom GeoData are checked separately from subscription refresh but run from the same Home-page update service.
+
+# Sharing and Backup
+
+Custom GeoData can be shared with OneXray URL Scheme:
+
+```text
+onexray://onexray.com/dat/add?type=domain&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
+onexray://onexray.com/dat/add?type=ip&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
+```
+
+When an Xray Setting references custom GeoData, OneXray share output includes the needed GeoData links before the config link.
+
+# iOS and iPadOS
+
+Very large rule-set files can increase memory usage. If the VPN fails to start on iOS or iPadOS, use smaller GeoData files or fewer routing rules.

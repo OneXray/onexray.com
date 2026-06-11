@@ -1,26 +1,49 @@
 ---
-title: 规则集
+title: GeoData
 weight: 3
 ---
 
-App 内置两个规则集，它们是来自 [v2fly](https://github.com/v2fly) 社区的 [geosite.dat](https://github.com/v2fly/domain-list-community) 和 [geoip.dat](https://github.com/v2fly/geoip) 。
+GeoData 提供 Xray-core 规则表达式使用的数据文件，例如：
 
-# 添加
+```text
+geosite:CN
+geoip:CN
+```
 
-当您需要使用第三方规则集时，您可以在这里进行添加。
-由于 App 需要对规则集进行一次解析，您需要确定新增的规则集是 `domain` （域名）规则还是 `ip` 规则。
-规则集的名字不可与现有规则集重复，否则无法添加。规则集支持通过“添加”按钮进行导入。您也可以分享您的规则集。
+OneXray 内置两个 GeoData：
 
-下面是一些第三方规则集。
+| 名称 | 类型 | 来源 |
+| --- | --- | --- |
+| `geosite` | `domain` | `v2fly/domain-list-community` 最新 `dlc.dat` |
+| `geoip` | `ip` | `v2fly/geoip` 最新 `geoip.dat` |
 
-[V2Ray 路由规则文件加强版](https://github.com/Loyalsoldier/v2ray-rules-dat)
+# 自定义 GeoData
 
-[Iran Hosted Domains](https://github.com/bootmortis/iran-hosted-domains)
+自定义规则集需要：
 
-[Iran-v2ray-rules](https://github.com/Chocolate4U/Iran-v2ray-rules)
+| 字段 | 含义 |
+| --- | --- |
+| 名称 | 唯一名称，会成为文件基础名和规则引用名。 |
+| 类型 | `domain` 表示 geosite 类型数据，`ip` 表示 geoip 类型数据。 |
+| URL | `.dat` 文件下载地址。 |
 
-[russia-v2ray-rules-dat](https://github.com/runetfreedom/russia-v2ray-rules-dat)
+添加或更新自定义规则集时，OneXray 会下载 `.dat` 文件，通过 host core API 统计 category 和 rule 数量，保存 `.dat` 文件，并保存生成的 JSON 摘要。
 
-# 使用限制
+# 自动更新
 
-当您在 iOS 或 iPadOS 设备上使用规则集时，不建议使用增强版数据。当规则过多时，VPN 可能因为超出内存限制而无法启动。
+GeoData 自动更新在 [订阅更新]({{< relref path="../subUpdate/index.md" lang="zh" >}}) 中配置。系统 GeoData 和自定义 GeoData 与订阅刷新分开判断，但由同一个主页自动更新服务执行。
+
+# 分享和备份
+
+自定义 GeoData 可通过 OneXray URL Scheme 分享：
+
+```text
+onexray://onexray.com/dat/add?type=domain&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
+onexray://onexray.com/dat/add?type=ip&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
+```
+
+当 Xray Setting 引用自定义 GeoData 时，OneXray 分享结果会在配置链接之前包含所需 GeoData 链接。
+
+# iOS 和 iPadOS
+
+非常大的规则集文件会增加内存占用。如果 iOS 或 iPadOS 上 VPN 无法启动，请使用更小的 GeoData 文件或更少的路由规则。

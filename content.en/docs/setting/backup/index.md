@@ -1,37 +1,53 @@
 ---
 title: Backup and Restore
-weight: 5
+weight: 6
 ---
 
-# Backup
+Backup exports OneXray data to a ZIP file that can be shared, saved, and imported later.
 
-The backup feature will back up the following information.
+# Included Data
 
-1. All "Xray Setting".
-2. All "Local" outbounds.
-3. All "Raw Config".
-4. All "Subscription".
-5. All "Rule Set".
-6. Rule Set associated geosite.dat and geoip.dat files.
+| Data | Included |
+| --- | --- |
+| Local Xray Settings | Yes |
+| Local outbound nodes | Yes |
+| Raw Configs | Yes |
+| Subscriptions | Yes, as subscription links |
+| Custom GeoData rows | Yes |
+| Custom GeoData `.dat` and generated `.json` files | Yes |
+| Subscription node rows | No; they are downloaded again from subscription URLs during restore. |
+| Simple Setting preferences | No |
+| Other app preferences | No |
 
-The following information will not be backed up.
+# File Structure
 
-1. "Outbound" in subscriptions. This data will be re-downloaded when restoring.
-2. All "Simple" configurations.
-3. Other configuration information.
+Backup files are named by date:
 
-## Backup Files
+```text
+OneXray-yyyy-MM-dd.zip
+```
 
-The backup files will be sorted by date. If a backup already exists on that day, the new backup file will overwrite the old one.
+Internal structure:
 
-Backup files can be shared and saved. You can also import backup files from external sources.
+```text
+timestamp.txt
+sha256sum.txt
+data.zip
+```
+
+`data.zip` contains:
+
+```text
+config.txt
+subscription.txt
+dat.txt
+dat/
+```
+
+The text files contain OneXray share links. The `dat` directory contains custom GeoData files.
 
 # Restore
 
-Restoring will delete all your data and then re-import it from the backup file.
+Restore clears local OneXray data, restores bundled system GeoData assets, copies backed-up custom GeoData files, then imports the saved share links.
 
-# System Backup
-
-When you flash or replace a device, the database and configuration information will be restored.
-However, the geosite.dat and geoip.dat files associated with custom rule sets will not be restored.
-After you restore the system, you will need to download these files again. You can click the "Refresh" button on the rule set page to download these files.
+Keep a separate copy of important backup ZIP files. System-level cloud backups may not include user-managed backup archives.

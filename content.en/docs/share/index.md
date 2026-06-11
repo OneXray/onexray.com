@@ -1,30 +1,41 @@
 ---
 title: Share
-weight: 5
+weight: 2
 ---
 
-The App allows you to share the following configurations.
+OneXray can share configs as QR codes, text links, or app share targets.
 
-1. All "Xray Setting".
-2. All "Outbound".
-3. All "Raw Config".
-4. All "Subscription".
-5. All "Rule Set".
+Supported share targets:
 
-# General Protocol
+| Type | Share format |
+| --- | --- |
+| Outbound nodes | Standard Xray share links when possible; OneXray URL Scheme for app-native data. |
+| Xray Setting | OneXray URL Scheme with Base64 config data. |
+| Raw Config | OneXray URL Scheme with Base64 raw JSON. |
+| Subscriptions | OneXray subscription link wrapper. |
+| GeoData | OneXray GeoData link. |
 
-Xray-core outbounds use the [VMessAEAD / VLESS share link standard](https://github.com/XTLS/Xray-core/discussions/716) to maintain compatibility with other apps.
+# Common Protocol
 
-Subscriptions use the https link format to maintain compatibility with other apps.
+Outbound nodes use common Xray share-link formats through libXray when possible.
+
+Subscriptions can also be shared as plain `https://` URLs.
 
 # OneXray URL Scheme
 
-OneXray private sharing protocol is mainly used for backup and restore. Different versions will try to maintain compatibility, but it is recommended that you always use the latest version to generate sharing links. If you are a VPN service provider, you can refer to [Develop]({{< relref path="../develop/index.md" lang="en">}}) to provide one-click jump for your customers.
+OneXray URL Scheme is the native format for app-to-app import, backup, restore, CLI import, and AI automation.
 
-OneXray private sharing protocol supports you to share the following configurations.
+Main paths:
 
-1. All "Xray Setting".
-2. All "Outbound".
-3. All "Raw Config".
-4. All "Subscription".
-5. All "Rule Set".
+```text
+onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
+onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
+onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
+onexray://onexray.com/sub/add?url=<url>#<name>
+onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
+onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
+```
+
+When sharing an Xray Setting that references custom GeoData files, OneXray includes the required GeoData links before the config link.
+
+See [Develop]({{< relref path="../develop/index.md" lang="en" >}}) for exact field semantics.

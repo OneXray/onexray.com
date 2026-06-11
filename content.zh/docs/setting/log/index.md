@@ -1,24 +1,35 @@
 ---
 title: 日志
-weight: 4
+weight: 5
 ---
 
-日志页面包含两个功能。
+日志页面提供诊断文件。
 
-1. Xray-core 的日志文件。
-2. Xray-core 的配置文件。
+| 项目 | 含义 |
+| --- | --- |
+| App log | OneXray 应用日志。 |
+| Xray access log | 开启时的 Xray-core access 日志。 |
+| Xray error log | 开启时的 Xray-core error 日志。 |
+| Xray config file | Xray-core 实际读取的最终 JSON。 |
 
-# 日志文件
+# Xray 日志
 
-当您需要记录 Xray-core 的运行情况时，您可以打开 Xray-core 的日志功能。
+Xray 日志由当前 Xray Setting 或 Simple Setting 控制。
 
-操作路径：
+结构化 Xray Setting：
 
-1. Xray 设置 ➡️ 自定义设置 ➡️ 编辑 Log。
-2. 完整配置 ➡️ Xray 配置 ➡️ 编辑 Log。
+```text
+Xray Setting > Edit Log
+```
 
-您可根据需要调整 `loglevel` 和 打开 `dnsLog`。
+Simple Setting：
 
-# 配置文件
+```text
+Simple Setting > Log > Enable Log
+```
 
-Xray-core 的最终配置文件。当 Xray-core 运行时，内核将读取它们。若您的 VPN 运行不正常，您可在此处检查这些配置文件。
+macOS 且启用 System Extension 模式时，OneXray 会在运行时配置中强制关闭 Xray 日志。
+
+# 生成配置
+
+生成的 Xray config file 是最重要的排查材料。它显示 OneXray 应用运行时修正后，Xray-core 实际读取的 JSON。

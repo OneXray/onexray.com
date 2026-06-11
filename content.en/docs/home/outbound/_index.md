@@ -1,23 +1,52 @@
 ---
-title: Outbound
+title: Outbound Nodes
 weight: 2
 ---
 
-The field structure in this page is basically the same as the Xray Json configuration structure. Please refer to the official documentation for more information.
+An outbound node is a reusable Xray outbound profile. It stores the proxy protocol, server address, transport, TLS or REALITY options, mux options, and outbound socket options.
 
-[Outbound Proxies](https://xtls.github.io/en/config/outbound.html)
+# Runtime Tag
 
-## XHTTP
+When you start a node, OneXray assigns the selected node the reserved runtime tag:
 
-`extra` is displayed by default. If you do not modify the default value, the field will not appear in the final Xray configuration file.
+```text
+proxy
+```
 
-## Fragment
+Routing rules in Xray Setting should target `proxy` for the active node.
 
-When Fragment is turned on, the App will generate a `freedom` outbound, whose `tag` is **outbound tag + Fragment**.
-If the current outbound `tag` is `proxy`, the Fragment outbound `tag` is `proxyFragment`.
+# Supported Outbound Families
 
-## interface
+The editor follows Xray-core outbound concepts and exposes fields according to the selected protocol and transport.
 
-This configuration item is only applicable to Linux and Windows systems.
+| Area | Examples |
+| --- | --- |
+| Protocol | VLESS, VMess, Trojan, Shadowsocks, SOCKS, HTTP, Hysteria2. |
+| Transport | raw, TCP header, WebSocket, HTTPUpgrade, XHTTP, gRPC, KCP, Hysteria. |
+| Security | TLS, REALITY, ECH-related fields, fingerprints, ALPN, pinned certificates. |
+| Mux | mux enablement, concurrency, XUDP behavior. |
+| Socket options | TCP Fast Open, MPTCP, network interface, dialer proxy. |
 
-You can specify a network card for outbound traffic. If not specified, the network card configured in [Tun Setting]({{< relref path="../../setting/tun/index.md" lang="en">}}) will be used.
+# Chain Proxy
+
+When a chain proxy is configured, the active outbound is still written as `proxy`, but its `dialerProxy` is set to:
+
+```text
+chainProxy
+```
+
+The same node cannot be used as both the active outbound and the chain proxy. OneXray rejects that startup path.
+
+# Fragment
+
+The Xray Setting page contains a system `fragment` outbound. Use routing rules to send selected traffic to `fragment` when freedom fragmentation behavior is needed.
+
+# Network Interface
+
+The `interface` socket option is only meaningful on Linux and Windows. If a node leaves it empty, the startup fixer can apply the interface selected in TUN settings.
+
+# Related Pages
+
+- [Xray Setting]({{< relref path="xraySetting/index.md" lang="en" >}})
+- [TUN Setting]({{< relref path="../../setting/tun/index.md" lang="en" >}})
+- [AI Reference]({{< relref path="../../reference/index.md" lang="en" >}})

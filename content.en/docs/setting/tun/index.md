@@ -1,64 +1,49 @@
 ---
-title: Tun Setting
+title: TUN Setting
 weight: 1
 ---
 
-Here are some optional configurations for VPN.
+TUN Setting controls the platform tunnel and network-interface behavior used by all configurations.
 
-# Tun
+# TUN
 
-You can think of the Tun device as a virtual network card. When the VPN is started, the operating system will create a new Tun device to take over all network traffic of the system.
+A TUN device is a virtual network interface. When the VPN starts, the platform creates or activates a tunnel and routes traffic through Xray-core.
 
 ## DNS
 
-There are two DNS configurations here, one IPv4 address and one IPv6 address. Please note that the address does not include the port number. When the VPN is started, these two addresses will be set to the Tun device.
+TUN DNS contains one IPv4 address and one IPv6 address. They are plain IP addresses without ports.
 
-These two DNS addresses will become the default DNS for the system. When other applications initiate DNS queries, the DNS query results they get "seem" to be obtained from these two addresses.
-The reason why I say "seem" is that after the DNS query traffic reaches Xray-core, it will be taken over by Xray-core.
+At startup, these addresses are applied to the tunnel. System DNS queries then enter Xray-core and are handled by routing and DNS outbound rules.
 
-The DNS configuration here has another function, which is to resolve your server address.
-When `address` in your outbound configuration is in the form of a domain name, the query of the domain name will be executed by the DNS configured here, not the DNS you specified in "Xray Setting".
+These DNS addresses also affect how the platform resolves proxy server domain names before Xray Setting DNS is available.
 
-### DNS Over TLS
+## DNS over TLS
 
-This configuration item is only available on iOS and macOS.
+DNS over TLS is available on iOS and macOS. When enabled, DoT traffic can be handled by the `dnsDoT` routing rule.
 
-When DoT is enabled, Xray-core will no longer take over DNS traffic, but you can route DoT traffic via routing rules. See the `dnsDoT` rule in the routing configuration.
-
-Note: Enabling this option can help mitigate memory issues on iOS. See [iOS packet tunnel provider limit](https://github.com/XTLS/Xray-core/issues/4422).
+Using DoT can reduce memory pressure on some iOS packet tunnel setups.
 
 ## Priority
 
-This configuration item is only applicable to Linux systems.
+Priority is Linux-only. It controls the metric of default routes added for the OneXray TUN device.
 
-In Linux systems, you will see a "priority" configuration item in the Tun configuration, with a default value of 20. This priority is actually the priority of the Tun device in the routing table.
-When the VPN is started, the App will modify the system routing table, which is equivalent to the following two instructions.
+Example equivalent behavior:
 
 ```shell
 sudo ip route add default dev OneXrayTun metric 20
 sudo ip -6 route add default dev OneXrayTun metric 20
 ```
 
-If you encounter issues with the routing table when using the App in Linux, try modifying the "Priority" configuration.
+## Network Interface
 
-# Network Interface
+Network interface selection is available on Linux and Windows.
 
-This configuration item is only available for Linux and Windows systems.
+When interface fixing is enabled, OneXray can write the selected interface into outbound socket options and TUN inbound `autoOutboundsInterface`. This helps keep proxy traffic on the expected physical adapter.
 
-When VPN is turned on, the app will specify a network card for VPN traffic. You can specify a physical network card yourself.
+# On Demand
 
-Please note: When you do not specify a network card, the app will automatically select the first network card that meets the conditions, but it may not always get the right result and it may select the wrong network card.
-Especially if you have virtualization software such as Vmware Workstation or VirtualBox installed, they will create several virtual network cards. The app may select these virtual network cards.
+On-demand rules are available on iOS and macOS. They let the system decide whether to activate the VPN for selected network conditions.
 
-# On-demand
+# Per-App VPN
 
-This configuration item is only available on iOS and macOS.
-
-Supports rules configured by network interface.
-
-# Per-app VPN
-
-This configuration item is only applicable to Android systems.
-
-When you need to specify specific apps to use VPN, you can configure this option. After configuration, only those specified apps will be proxied.
-If you do not specify any apps, all apps will be proxied.
+Per-app VPN is available on Android. If no app is selected, all apps use the VPN. If apps are selected, only selected apps use the VPN.

@@ -3,109 +3,153 @@ title: Xray Setting
 weight: 1
 ---
 
-The page structure set in this section is exactly the same as the Xray Json configuration structure. You can refer to the official documentation for more information.
+Xray Setting is OneXray's structured writer for Xray-core JSON. It is suitable when UI-managed DNS, FakeDNS, routing, inbounds, outbounds, logs, or chain proxy behavior is required.
 
-[Config Reference](https://xtls.github.io/en/config/)
+The final runtime config is generated from this state when the VPN starts. Runtime fixers may adjust ports, interfaces, and logs for the current platform.
 
-# How DNS works
+# Sections
 
-## Note
+| Section | Writes |
+| --- | --- |
+| Log | `log` |
+| DNS | `dns` |
+| FakeDNS | `fakeDns` |
+| Routing | `routing` |
+| Inbounds | `inbounds` |
+| Outbounds | `outbounds` |
 
-The DNS queries involved in this section only support regular queries, that is, queries through port 53. Other queries such as `DNS over HTTPS` and `DNS over QUIC` will be treated as normal traffic.
+# DNS
 
-When `address` in your outbound configuration is in the form of a domain name, queries for this domain name will not go through the DNS you specified in "Xray Setting". For details, please refer to [Tun Setting]({{< relref path="../../../setting/tun/index.md" lang="en">}}).
+The DNS page writes the Xray `dns` object.
 
-## Query Process
+| Field | Meaning |
+| --- | --- |
+| `hosts` | Static host mappings. |
+| `servers` | DNS server list. Each server may have address, port, domains, expectIPs, skipFallback, clientIP, queryStrategy, and tag. |
+| `queryStrategy` | `UseIP`, `UseIPv4`, or `UseIPv6`. |
+| `disableCache` | Disables DNS cache. |
+| `disableFallback` | Disables fallback server behavior. |
+| `disableFallbackIfMatch` | Stops fallback when a domain rule matched. |
+| `useSystemHosts` | Lets Xray use system hosts data. |
 
-When the system's DNS query traffic reaches Xray-core, the routing component will forward the query traffic to the DNS outbound (i.e., dnsOut).
-Among them, A and AAAA record queries will be performed by the DNS component, and other queries (such as TXT records) will be forwarded to other outbounds, depending on your DNS outbound configuration.
+If a DNS server has a non-empty `tag`, OneXray exposes that tag as an `inboundTag` option for routing rules.
 
-## Related Configuration
+# FakeDNS
 
-### DNS
+FakeDNS is always present in Xray Setting output. The FakeDNS page only configures the pools; it does not contain an enable switch.
 
-Operation path: Edit DNS.
+Default pools:
 
-### DNS Outbound
+| Pool | Default `ipPool` | Default `poolSize` |
+| --- | --- | --- |
+| IPv4 | `198.18.0.0/15` | `32768` |
+| IPv6 | `fc00::/18` | `32768` |
 
-Operation path: Edit Outbounds ➡️ DNS .
+The written pools follow DNS `queryStrategy`:
 
-Note: When the `tag` specified by `dialerProxy` is not found in all outbounds, it will be automatically corrected to `direct` .
+| `queryStrategy` | Written FakeDNS pools |
+| --- | --- |
+| `UseIP` | IPv4 and IPv6 |
+| `UseIPv4` | IPv4 only |
+| `UseIPv6` | IPv6 only |
 
-### DNS related rules
-
-Operation path: Edit Routing ➡️ dnsQuery and dnsOut .
-
-Note: When the `outboundTag` in `dnsQuery` is not found in all outbounds, it will be automatically corrected to `direct`.
-
-## Avoid DNS leaks
-
-When you don't want the local ISP to know which websites you visit, you can avoid DNS Leak by setting the following.
-
-Note: When `address` is in the form of a domain name in your outbound configuration, queries for the domain name will inevitably be sent to the local ISP.
-
-1. Edit Outbounds ➡️ DNS, and change `dialerProxy` to `proxy` or other custom outbound (if any).
-
-2. Edit Routing ➡️ dnsQuery, and change `outboundTag` to `proxy` or other custom outbound (if any).
-
-## Diversion Example
-
-Sometimes you may need to use different DNS to resolve different domain names. Since Xray-core's DNS only supports one `tag`, we need to use some tricks to achieve this requirement.
-
-1. Edit DNS.
-2. Click the "Add" button in the servers configuration.
-3. Click the server you just added to enter the "DNS Name Server" page.
-4. Change `address` to `tcp+local://{yourDnsServer}` format, such as `tcp+local://223.5.5.5`.
-5. Add a rule set in `domains`, such as `geosite:CN`.
-6. Click the "Save" button to return to the "DNS" page.
-7. Turn on the `disableFallbackIfMatch` switch.
-8. Click the "Save" button.
+To make FakeDNS useful, the TUN inbound sniffing destination override should include `fakedns+others`. The Simple Setting switch adds that value automatically.
 
 # Routing
 
-The app includes two default rules, which you cannot delete or reorder.
+Routing writes `routing.domainStrategy` and `routing.rules`.
 
-## Rules "Traps"
+Default rules are included before custom rules:
 
-When you write rules, you need to pay attention to the overlapping relationship between the conditions in a single rule.
-For example, there is a rule where `domain` contains `geosite:CN` and `ip` contains `geoip:CN`.
-Then when a connection matches this rule, it will be considered to have hit the rule if and only if its domain name hits `geosite:CN` and its IP hits `geoip:CN`.
+| `ruleTag` | Match | Default outbound |
+| --- | --- | --- |
+| `dnsQuery` | `inboundTag: ["dnsQuery"]` | `proxy` |
+| `dnsOut` | `inboundTag: ["tunIn"]`, `port: "53"` | `dnsOut` |
+| `dnsDoT` | `inboundTag: ["tunIn"]`, `port: "853"` | `proxy` |
+| `ping` | `inboundTag: ["pingIn"]` | `proxy` |
 
-## inboundTag
+Rule conditions in a single rule are combined. A rule with both `domain` and `ip` matches only when both conditions match the same connection.
 
-Generally, there are three inbounds, namely `tunIn`, `pingIn`, and `dnsQuery`.
+The `process` condition is written only on Windows and Linux. On macOS, iOS, and Android, OneXray does not write `process` into the generated Xray JSON.
 
-When you specify `tag` for the DNS server, there will be more inbounds.
+# Outbounds
 
-In Tun mode, there is only one inbound, namely `tunIn`.
+System outbound tags:
 
-## outboundTag
+| Tag | Protocol | Purpose |
+| --- | --- | --- |
+| `proxy` | Selected node at runtime | Main exit node. |
+| `chainProxy` | Imported or replaced custom node | Front proxy or relay node. |
+| `direct` | `freedom` | Direct connection. |
+| `fragment` | `freedom` | Fragment outbound. |
+| `block` | `blackhole` | Block traffic. |
+| `dnsOut` | `dns` | DNS outbound. |
 
-The app reserves the following `outboundTag`, which you cannot use as a custom outbound `tag`.
+Runtime order:
 
-1. proxy
-2. direct
-3. block
-4. dnsOut
-5. metrics
+1. `proxy`
+2. `chainProxy`, if configured
+3. Other custom outbounds
+4. `direct`
+5. `fragment`
+6. `block`
+7. `dnsOut`
 
-When you enter the "Rule" page, the App automatically calculates the currently available `tags`. You cannot select a `tag` that does not exist.
+## Chain Proxy
 
-## balancerTag
+The custom chain proxy tag is fixed:
 
-When you enter the "Rule" page, the App automatically calculates the currently available `balancer`. You cannot select a `balancer` that does not exist.
+```text
+chainProxy
+```
 
-## ruleTag
+In Xray Setting, the Outbounds page supports importing, replacing, and deleting the chain proxy. In Simple Setting, the chain proxy is selected by outbound id from local outbound nodes.
 
-The app reserves the following `ruleTag`, which you cannot use as a custom outbound `ruleTag`.
+When active, OneXray sets the selected `proxy` outbound's `dialerProxy` to `chainProxy`. Startup fails if the selected exit node and the chain proxy point to the same local outbound id.
 
-1. dnsQuery
-2. dnsOut
+## DNS Outbound
 
-# Port Description
+DNS outbound writes:
 
-In some settings, you can set `port`, such as "Edit Inbounds" and "Edit Metrics". When `port` is 0, it means use a random port.
+| Field | Behavior |
+| --- | --- |
+| `network` | Empty by default. Written only when `tcp` or `udp` is selected. |
+| `address` | Optional upstream address. |
+| `port` | Optional upstream port. |
+| `rules` | Written when the rules list is not empty. |
+| `blockTypes` | Written only when `rules` is empty and block types are configured. |
+
+Default DNS outbound rules:
+
+```json
+[
+  {
+    "action": "hijack",
+    "qType": "1,28"
+  },
+  {
+    "action": "direct"
+  }
+]
+```
+
+`qType` is a string field.
+
+# Inbounds
+
+The structured writer includes the TUN inbound and ping inbound. The TUN inbound should keep sniffing enabled for routing based on domain and protocol. When FakeDNS is enabled in Simple Setting, sniffing adds `fakedns+others`.
+
+# Logs
+
+On macOS with System Extension mode enabled, OneXray forces Xray Setting logs off before writing the runtime config:
+
+```json
+{
+  "loglevel": "none",
+  "dnsLog": false
+}
+```
 
 # Sharing
 
-When you share your Xray settings, it is recommended that you also share the ruleset data used to avoid import failures. Please refer to [Sharing]({{< relref path="../../../share/index.md" lang="en">}}).
+When an Xray Setting references custom rule sets, OneXray-generated share text includes the related rule-set links before the config link.

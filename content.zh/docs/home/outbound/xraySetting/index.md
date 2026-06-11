@@ -1,107 +1,155 @@
 ---
-title: Xray 设置
+title: Xray Setting
 weight: 1
 ---
 
-本部分设置的页面结构与 Xray Json 配置结构完全一致。可参考官方文档学习。
+Xray Setting 是 OneXray 的结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或链式代理的场景。
 
-[配置指南](https://xtls.github.io/config/)
+最终运行时配置会在 VPN 启动时由该状态生成。根据当前平台，启动修正逻辑可能会调整端口、网卡和日志。
 
-[使用指南](https://xtls.github.io/document/)
+# 页面结构
 
-# DNS 工作原理
+| 页面 | 写出内容 |
+| --- | --- |
+| Log | `log` |
+| DNS | `dns` |
+| FakeDNS | `fakeDns` |
+| Routing | `routing` |
+| Inbounds | `inbounds` |
+| Outbounds | `outbounds` |
 
-## 注意事项
+# DNS
 
-本部分涉及到的 DNS 查询仅支持常规查询，即通过 53 端口进行的查询。其他查询如 `DNS over HTTPS`，`DNS over QUIC` 将被当作普通流量处理。
+DNS 页面写出 Xray 的 `dns` 对象。
 
-当您的节点配置中，`address` 为域名形式时，该域名的查询不会通过您在“Xray 设置”中指定的 DNS。具体可参考 [Tun 设置]({{< relref path="../../../setting/tun/index.md" lang="zh">}})。
+| 字段 | 含义 |
+| --- | --- |
+| `hosts` | 静态 host 映射。 |
+| `servers` | DNS server 列表。每个 server 可包含 address、port、domains、expectIPs、skipFallback、clientIP、queryStrategy 和 tag。 |
+| `queryStrategy` | `UseIP`、`UseIPv4` 或 `UseIPv6`。 |
+| `disableCache` | 禁用 DNS 缓存。 |
+| `disableFallback` | 禁用 fallback server 行为。 |
+| `disableFallbackIfMatch` | 域名规则匹配后停止 fallback。 |
+| `useSystemHosts` | 允许 Xray 使用系统 hosts 数据。 |
 
-## 查询流程
+当 DNS server 设置了非空 `tag` 时，OneXray 会把该 tag 作为路由规则的 `inboundTag` 选项。
 
-当系统的 DNS 查询流量到达 Xray-core 时，路由组件会将查询流量转发至 DNS 出站（即 dnsOut）。
-其中，A 和 AAAA 记录查询将由 DNS 组件执行，其他查询（如 TXT record）将被转发至其他出站，具体取决于您的 DNS 出站配置。
+# FakeDNS
 
-## 相关配置
+Xray Setting 输出中固定写出 FakeDNS。FakeDNS 页面只负责配置地址池，不包含 enabled 开关。
 
-### DNS
+默认地址池：
 
-操作路径： 编辑 DNS 。
+| 池 | 默认 `ipPool` | 默认 `poolSize` |
+| --- | --- | --- |
+| IPv4 | `198.18.0.0/15` | `32768` |
+| IPv6 | `fc00::/18` | `32768` |
 
-### DNS 出站
+实际写出的池跟随 DNS `queryStrategy`：
 
-操作路径： 编辑 Outbounds ➡️ DNS 。
+| `queryStrategy` | 写出的 FakeDNS 池 |
+| --- | --- |
+| `UseIP` | IPv4 和 IPv6 |
+| `UseIPv4` | 仅 IPv4 |
+| `UseIPv6` | 仅 IPv6 |
 
-注意：当 `dialerProxy` 指定的 `tag` 未在所有出站中找到时，它将被自动修正为 `direct` 。
+要让 FakeDNS 生效，TUN inbound 的 sniffing destination override 应包含 `fakedns+others`。Simple Setting 的 FakeDNS 开关会自动添加该值。
 
-### DNS 相关路由
+# Routing
 
-操作路径： 编辑 Routing ➡️ dnsQuery 和 dnsOut 。
+Routing 写出 `routing.domainStrategy` 和 `routing.rules`。
 
-注意：当 `dnsQuery` 中的 `outboundTag` 未在所有出站中找到时，它将被自动修正为 `direct` 。
+默认规则会写在自定义规则之前：
 
-## 避免泄漏
+| `ruleTag` | 匹配条件 | 默认出站 |
+| --- | --- | --- |
+| `dnsQuery` | `inboundTag: ["dnsQuery"]` | `proxy` |
+| `dnsOut` | `inboundTag: ["tunIn"]`，`port: "53"` | `dnsOut` |
+| `dnsDoT` | `inboundTag: ["tunIn"]`，`port: "853"` | `proxy` |
+| `ping` | `inboundTag: ["pingIn"]` | `proxy` |
 
-当您不想让当地 ISP 知道您访问那些网站时，您可以通过以下设置来避免 DNS Leak。
+单条规则内的条件是叠加关系。例如同一条规则同时包含 `domain` 和 `ip` 时，连接必须同时满足两者才会命中。
 
-注意：当您的节点配置中，`address` 为域名形式时，该域名的查询将不可避免地被发送给当地 ISP。
+`process` 条件只会在 Windows 和 Linux 写入。macOS、iOS 和 Android 不会把 `process` 写入最终 Xray JSON。
 
-1. 编辑 Outbounds ➡️ DNS，将 `dialerProxy` 修改为 `proxy` 或其他自定义出站（若有）。
-2. 编辑 Routing ➡️ dnsQuery，将 `outboundTag` 修改为 `proxy` 或其他自定义出站（若有）。
+# Outbounds
 
-## 分流示例
+系统出站 tag：
 
-有时您可能需要使用不同的 DNS 来解析不同的域名。由于 Xray-core 的 DNS 仅支持一个 `tag` ，我们需要通过一些取巧的方法来实现这种需求。
+| Tag | 协议 | 用途 |
+| --- | --- | --- |
+| `proxy` | 运行时选中的节点 | 主出口节点。 |
+| `chainProxy` | 导入或替换的自定义节点 | 前置或中转节点。 |
+| `direct` | `freedom` | 直连。 |
+| `fragment` | `freedom` | Fragment 出站。 |
+| `block` | `blackhole` | 阻断。 |
+| `dnsOut` | `dns` | DNS 出站。 |
 
-1. 编辑 DNS。
-2. 点击 servers 配置中的“添加”按钮。
-3. 点击刚才添加的 server，进入“DNS 域名服务器”页面。
-4. 将 `address` 修改为 `tcp+local://{yourDnsServer}` 形式，如 `tcp+local://223.5.5.5`。
-5. 在 `domains` 中添加规则集，如 `geosite:CN`。
-6. 点击“保存”按钮，回到“DNS”页面。
-7. 打开 `disableFallbackIfMatch` 开关。
-8. 点击“保存”按钮。
+运行时出站顺序：
 
-# 路由
+1. `proxy`
+2. `chainProxy`，如果已配置
+3. 其他自定义出站
+4. `direct`
+5. `fragment`
+6. `block`
+7. `dnsOut`
 
-App 包含两条默认规则，您无法删除它们，也无法调整它们的顺序。
+## 链式代理
 
-## 规则“陷阱”
+链式代理的 tag 固定为：
 
-当您编写规则时，您需要注意单个规则中的各个条件之间是叠加关系。
-比如有这样一条规则，`domain` 中包含 `geosite:CN`，`ip` 中包含 `geoip:CN`。
-那么当某条连接匹配至该规则时，当且仅当它的域名命中 `geosite:CN`，且 IP 命中 `geoip:CN` 时，它才算命中该规则。
+```text
+chainProxy
+```
 
-## inboundTag
+在 Xray Setting 中，Outbounds 页面支持导入、替换和删除链式代理。在 Simple Setting 中，链式代理通过本地 outbound 节点 id 选择。
 
-一般情况下，入站有三个，分别为 `tunIn`，`pingIn`，`dnsQuery`。
+启用后，OneXray 会把当前 `proxy` 出站的 `dialerProxy` 设置为 `chainProxy`。如果当前出口节点和链式代理指向同一个本地 outbound id，启动会失败。
 
-当您为 DNS server 指定 `tag` 时，入站将会更多。
+## DNS 出站
 
-Tun 模式下，实际入站只有一个，即 `tunIn`。
+DNS 出站写出：
 
-## outboundTag
+| 字段 | 行为 |
+| --- | --- |
+| `network` | 默认空，不写出；只有选择 `tcp` 或 `udp` 时写出。 |
+| `address` | 可选上游地址。 |
+| `port` | 可选上游端口。 |
+| `rules` | 当 rules 列表非空时写出。 |
+| `blockTypes` | 仅当 `rules` 为空且配置了 block types 时写出。 |
 
-App 保留以下 `outboundTag`，您不可将其作为自定义出站的 `tag` 。
+默认 DNS outbound rules：
 
-1. proxy
-2. direct
-3. block
-4. dnsOut
+```json
+[
+  {
+    "action": "hijack",
+    "qType": "1,28"
+  },
+  {
+    "action": "direct"
+  }
+]
+```
 
-当您进入“规则”页面时，App 会自动计算当前可用的 `tag`。您无法选择一个不存在的 `tag`。
+`qType` 是字符串字段。
 
-## ruleTag
+# Inbounds
 
-App 保留以下 `ruleTag`，您不可将其作为自定义规则的 `ruleTag` 。
+结构化写出器包含 TUN inbound 和 ping inbound。TUN inbound 建议保持 sniffing 开启，以便基于域名和协议分流。Simple Setting 启用 FakeDNS 时，sniffing 会添加 `fakedns+others`。
 
-1. dnsQuery
-2. dnsOut
+# Logs
 
-# 端口说明
+macOS 且启用 System Extension 模式时，OneXray 会在运行时写出前强制关闭 Xray Setting 日志：
 
-在某些设置中，你可以设置 `port`，如“编辑 Inbounds”和“编辑 Metrics”。当 `port` 为 0 时，它意味着使用随机端口。
+```json
+{
+  "loglevel": "none",
+  "dnsLog": false
+}
+```
 
 # 分享
 
-当您分享您的 Xray 设置时，建议您同时分享用到的规则集数据，以避免导入失败。请参考[分享]({{< relref path="../../../share/index.md" lang="zh">}})。
+当 Xray Setting 引用了自定义规则集时，OneXray 生成的分享文本会先包含相关规则集链接，再包含配置链接。

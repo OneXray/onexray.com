@@ -1,27 +1,35 @@
 ---
 title: Log
-weight: 4
+weight: 5
 ---
 
-The log page contains two functions.
+The Log page exposes diagnostic files.
 
-1. Xray-core's log files.
-2. Xray-core config file.
+| Item | Meaning |
+| --- | --- |
+| App log | OneXray application log. |
+| Xray access log | Xray-core access log when enabled. |
+| Xray error log | Xray-core error log when enabled. |
+| Xray config file | The final generated JSON used by Xray-core. |
 
-# Log Files
+# Xray Logs
 
-When you need to record the operation of Xray-core, you can turn on the log function of Xray-core.
+Xray logs are controlled by the selected Xray Setting or Simple Setting.
 
-Operation path:
+For structured Xray Setting:
 
-1. Xray Setting ➡️ Custom Settings ➡️ Edit Log.
+```text
+Xray Setting > Edit Log
+```
 
-2. Full Config ➡️ Xray Configs ➡️ Edit Log.
+For Simple Setting:
 
-You can adjust `loglevel` and turn on `dnsLog` as needed.
+```text
+Simple Setting > Log > Enable Log
+```
 
-Log files only support Xray-core.
+On macOS with System Extension mode enabled, OneXray forces Xray logs off for runtime configs.
 
-# Config Files
+# Generated Config
 
-Final config files for Xray-core. The core will read them when Xray-core is running. If your VPN is not running properly, you can check these config files here.
+The generated Xray config file is the best troubleshooting artifact. It shows the exact JSON that Xray-core reads after OneXray applies runtime fixes.

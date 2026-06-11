@@ -15,13 +15,17 @@ startLevel = 1
 
 [languages]
 [languages.en]
-languageName = 'English'
+label = 'English'
 contentDir = 'content.en'
 weight = 1
 [languages.zh]
-languageName = '中文'
+label = '中文'
 contentDir = 'content.zh'
 weight = 2
+[languages.ru]
+label = 'Русский'
+contentDir = 'content.ru'
+weight = 3
 
 [params]
 BookTheme = 'auto'

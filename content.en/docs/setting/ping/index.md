@@ -3,5 +3,11 @@ title: Ping
 weight: 2
 ---
 
-The ping uses the Cloudflare address by default for testing. You can also use other addresses.
-The ping and connectivity test on the home page will use this configuration.
+Ping settings control node latency tests and connection checks.
+
+| Field | Meaning |
+| --- | --- |
+| URL | Test URL used by ping and connection checks. |
+| Timeout | Maximum wait time for a single test. |
+
+Home page ping, subscription auto-ping, and post-start checks share this configuration.

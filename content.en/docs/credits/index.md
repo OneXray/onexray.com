@@ -3,92 +3,110 @@ title: Credits
 weight: 5
 ---
 
-The birth of OneXray is inseparable from many open source projects.
+OneXray is built on top of open source runtimes, libraries, platform SDKs, and build tools. This page tracks the direct third-party components referenced by the current project.
 
-# All Platforms
+# Core Runtime
 
-[Project X](https://github.com/XTLS/Xray-core) - [Mozilla Public License 2.0](https://github.com/XTLS/Xray-core/raw/refs/heads/main/LICENSE)
+- [Xray-core](https://github.com/XTLS/Xray-core)
+- [libXray](https://github.com/XTLS/libXray)
+- [Wintun](https://github.com/WireGuard/wintun)
 
-[libXray](https://github.com/XTLS/libXray) - [MIT License](https://github.com/XTLS/libXray/raw/refs/heads/main/LICENSE)
+# Application Framework
 
-[HevSocks5Tunnel](https://github.com/heiher/hev-socks5-tunnel) - [MIT License](https://github.com/heiher/hev-socks5-tunnel/raw/refs/heads/master/License)
+- [Flutter](https://github.com/flutter/flutter)
+- [Dart](https://github.com/dart-lang/sdk)
+- [Go](https://go.dev/)
 
-[Flutter](https://github.com/flutter/flutter) - [BSD-3-Clause license](https://github.com/flutter/flutter/raw/refs/heads/master/LICENSE)
+# Flutter and Dart Packages
 
-[Flutter Packages](https://github.com/flutter/packages) - [BSD-3-Clause license](https://github.com/flutter/packages/raw/refs/heads/main/LICENSE)
+- [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html)
+- [cupertino_icons](https://pub.dev/packages/cupertino_icons)
+- [path_provider](https://pub.dev/packages/path_provider)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
+- [url_launcher](https://pub.dev/packages/url_launcher)
+- [quick_actions](https://pub.dev/packages/quick_actions)
+- [go_router](https://pub.dev/packages/go_router)
+- [image_picker](https://pub.dev/packages/image_picker)
+- [process](https://pub.dev/packages/process)
+- [path](https://pub.dev/packages/path)
+- [collection](https://pub.dev/packages/collection)
+- [crypto](https://pub.dev/packages/crypto)
+- [pub_semver](https://pub.dev/packages/pub_semver)
+- [intl](https://pub.dev/packages/intl)
+- [async](https://pub.dev/packages/async)
+- [ffi](https://pub.dev/packages/ffi)
+- [json_annotation](https://pub.dev/packages/json_annotation)
+- [tuple](https://pub.dev/packages/tuple)
+- [package_info_plus](https://pub.dev/packages/package_info_plus)
+- [device_info_plus](https://pub.dev/packages/device_info_plus)
+- [share_plus](https://pub.dev/packages/share_plus)
+- [drift](https://pub.dev/packages/drift)
+- [drift_flutter](https://pub.dev/packages/drift_flutter)
+- [sqlite3](https://pub.dev/packages/sqlite3)
+- [dio](https://pub.dev/packages/dio)
+- [uuid](https://pub.dev/packages/uuid)
+- [permission_handler](https://pub.dev/packages/permission_handler)
+- [app_links](https://pub.dev/packages/app_links)
+- [file_picker](https://pub.dev/packages/file_picker)
+- [mobile_scanner](https://pub.dev/packages/mobile_scanner)
+- [image](https://pub.dev/packages/image)
+- [zxing2](https://pub.dev/packages/zxing2)
+- [archive](https://pub.dev/packages/archive)
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+- [flex_seed_scheme](https://pub.dev/packages/flex_seed_scheme)
+- [flutter_markdown_plus](https://pub.dev/packages/flutter_markdown_plus)
+- [duration](https://pub.dev/packages/duration)
+- [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications)
+- [in_app_review](https://pub.dev/packages/in_app_review)
+- [isolate_manager](https://pub.dev/packages/isolate_manager)
+- [tray_manager](https://pub.dev/packages/tray_manager)
+- [window_manager](https://pub.dev/packages/window_manager)
+- [win32](https://pub.dev/packages/win32)
 
-[dart-lang core](https://github.com/dart-lang/core) - [BSD-3-Clause license](https://github.com/dart-lang/core/raw/refs/heads/main/LICENSE)
+# Firebase, Google, and Ads
 
-[dart-lang tools](https://github.com/dart-lang/tools) - [BSD-3-Clause license](https://github.com/dart-lang/tools/raw/refs/heads/main/LICENSE)
+- [FlutterFire](https://github.com/firebase/flutterfire): `firebase_core`, `firebase_analytics`, `firebase_crashlytics`
+- [Google Mobile Ads for Flutter](https://pub.dev/packages/google_mobile_ads)
+- [Google Mobile Ads SDK](https://developers.google.com/admob)
+- [Google Play Integrity API](https://developer.android.com/google/play/integrity)
+- [Google services Gradle plugin](https://developers.google.com/android/guides/google-services-plugin)
+- [Firebase Crashlytics Gradle plugin](https://firebase.google.com/docs/crashlytics/get-started)
 
-[dart-lang i18n](https://github.com/dart-lang/i18n) - [BSD-3-Clause license](https://github.com/dart-lang/i18n/raw/refs/heads/main/LICENSE)
+# Android Platform Libraries
 
-[dart-lang native](https://github.com/dart-lang/native) - [BSD-3-Clause license](https://github.com/dart-lang/native/raw/refs/heads/main/LICENSE)
+- [Android Gradle Plugin](https://developer.android.com/build/releases/gradle-plugin)
+- [Kotlin](https://kotlinlang.org/)
+- [AndroidX Core](https://developer.android.com/jetpack/androidx/releases/core)
+- [AndroidX Fragment](https://developer.android.com/jetpack/androidx/releases/fragment)
+- [AndroidX Activity](https://developer.android.com/jetpack/androidx/releases/activity)
+- [AndroidX DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
+- [Kotlinx Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+- [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
+- [XXPermissions](https://github.com/getActivity/XXPermissions)
+- [XLog](https://github.com/elvishew/xLog)
+- [desugar_jdk_libs](https://github.com/google/desugar_jdk_libs)
 
-[json_serializable](https://github.com/google/json_serializable.dart) - [BSD-3-Clause license](https://github.com/google/json_serializable.dart/raw/refs/heads/master/LICENSE)
+# Apple Platform Packages
 
-[tuple](https://github.com/google/tuple.dart) - [BSD-2-Clause license](https://github.com/google/tuple.dart/raw/refs/heads/master/LICENSE)
+OneXray uses FlutterFire and Google Mobile Ads on Apple platforms. The Apple builds resolve Firebase and Google packages through Swift Package Manager, including:
 
-[FlutterFire](https://github.com/firebase/flutterfire) - [BSD-3-Clause license](https://github.com/firebase/flutterfire/raw/refs/heads/main/LICENSE)
+- [firebase-ios-sdk](https://github.com/firebase/firebase-ios-sdk)
+- [GoogleAppMeasurement](https://github.com/google/GoogleAppMeasurement)
+- [GoogleDataTransport](https://github.com/google/GoogleDataTransport)
+- [GoogleUtilities](https://github.com/google/GoogleUtilities)
+- [Google Mobile Ads SDK for iOS](https://github.com/googleads/swift-package-manager-google-mobile-ads)
+- [Google User Messaging Platform SDK](https://github.com/googleads/swift-package-manager-google-user-messaging-platform)
+- [abseil-cpp-binary](https://github.com/google/abseil-cpp-binary)
+- [grpc-binary](https://github.com/google/grpc-binary)
+- [nanopb](https://github.com/firebase/nanopb)
+- [Promises](https://github.com/google/promises)
 
-[Plus plugins](https://github.com/fluttercommunity/plus_plugins) - [BSD-3-Clause license](https://github.com/fluttercommunity/plus_plugins/raw/refs/heads/main/LICENSE)
+# Development and Code Generation
 
-[Drift](https://github.com/simolus3/drift) - [MIT License](https://github.com/simolus3/drift/raw/refs/heads/develop/LICENSE)
-
-[sqlite3.dart](https://github.com/simolus3/sqlite3.dart) - [MIT License](https://github.com/simolus3/sqlite3.dart/raw/refs/heads/main/LICENSE)
-
-[dio](https://github.com/cfug/dio) - [MIT License](https://github.com/cfug/dio/raw/refs/heads/main/LICENSE)
-
-[uuid](https://github.com/daegalus/dart-uuid) - [MIT License](https://github.com/daegalus/dart-uuid/raw/refs/heads/main/LICENSE)
-
-[permission_handler](https://github.com/baseflow/flutter-permission-handler) - [MIT License](https://github.com/Baseflow/flutter-permission-handler/raw/refs/heads/main/LICENSE)
-
-[Logger](https://github.com/SourceHorizon/logger) - [MIT License](https://github.com/SourceHorizon/logger/raw/refs/heads/main/LICENSE)
-
-[BotToast](https://github.com/MMMzq/bot_toast) - [Apache-2.0 license](https://github.com/MMMzq/bot_toast/raw/refs/heads/master/LICENSE)
-
-[app_links](https://github.com/llfbandit/app_links) - [Apache-2.0 license](https://github.com/llfbandit/app_links/raw/refs/heads/master/LICENSE)
-
-[File Picker](https://github.com/miguelpruivo/flutter_file_picker) - [MIT License](https://github.com/miguelpruivo/flutter_file_picker/raw/refs/heads/master/LICENSE)
-
-[mobile_scanner](https://github.com/juliansteenbakker/mobile_scanner) - [BSD-3-Clause license](https://github.com/juliansteenbakker/mobile_scanner/raw/refs/heads/develop/LICENSE)
-
-[Dart Image Library](https://github.com/brendan-duncan/image) - [MIT License](https://github.com/brendan-duncan/image/raw/refs/heads/main/LICENSE)
-
-[zxing-dart](https://github.com/xvrh/zxing-dart) - [BSD-3-Clause license](https://github.com/xvrh/zxing-dart/raw/refs/heads/master/LICENSE)
-
-[archive](https://github.com/brendan-duncan/archive) - [MIT License](https://github.com/brendan-duncan/archive/raw/refs/heads/main/LICENSE)
-
-[GetX](https://github.com/jonataslaw/getx) - [MIT License](https://github.com/jonataslaw/getx/raw/refs/heads/master/LICENSE)
-
-[FlexColorScheme](https://github.com/rydmike/flex_color_scheme) - [BSD-3-Clause license](https://github.com/rydmike/flex_color_scheme/raw/refs/heads/master/LICENSE)
-
-[Flutter Markdown](https://github.com/foresightmobile/flutter_markdown_plus) - [BSD-3-Clause license](https://github.com/foresightmobile/flutter_markdown_plus/raw/refs/heads/main/LICENSE)
-
-[duration](https://github.com/desktop-dart/duration) - [BSD-3-Clause license](https://github.com/desktop-dart/duration/raw/refs/heads/master/LICENSE)
-
-[flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications) - [BSD-3-Clause license](https://github.com/MaikuB/flutter_local_notifications/raw/refs/heads/master/flutter_local_notifications/LICENSE)
-
-[in_app_review](https://github.com/britannio/in_app_review) - [MIT License](https://github.com/britannio/in_app_review/raw/refs/heads/master/in_app_review/LICENSE)
-
-[tray_manager](https://github.com/leanflutter/tray_manager) - [MIT License](https://github.com/leanflutter/tray_manager/raw/refs/heads/main/LICENSE)
-
-[window_manager](https://github.com/leanflutter/window_manager) - [MIT License](https://github.com/leanflutter/window_manager/raw/refs/heads/main/LICENSE)
-
-# Android Only
-
-[XLog](https://github.com/elvishew/xLog) - [Apache-2.0 license](https://github.com/elvishew/xLog/raw/refs/heads/master/LICENSE)
-
-[XXPermissions](https://github.com/getActivity/XXPermissions) - [Apache-2.0 license](https://github.com/getActivity/XXPermissions/raw/refs/heads/master/LICENSE)
-
-# Linux Only
-
-[netlink](https://github.com/vishvananda/netlink) - [Apache-2.0 license](https://github.com/vishvananda/netlink/raw/refs/heads/main/LICENSE)
-
-# Windows Only
-
-[tun2proxy](https://github.com/tun2proxy/tun2proxy) - [MIT License](https://github.com/tun2proxy/tun2proxy/raw/refs/heads/master/LICENSE)
-
-[Wintun Network Adapter](https://github.com/WireGuard/wintun) - [Prebuilt Binaries License](https://github.com/WireGuard/wintun/raw/refs/heads/master/prebuilt-binaries-license.txt)
-
-[win32](https://github.com/halildurmus/win32) - [BSD-3-Clause license](https://github.com/halildurmus/win32/raw/refs/heads/main/LICENSE)
+- [build_runner](https://pub.dev/packages/build_runner)
+- [json_serializable](https://pub.dev/packages/json_serializable)
+- [drift_dev](https://pub.dev/packages/drift_dev)
+- [pigeon](https://pub.dev/packages/pigeon)
+- [flutter_lints](https://pub.dev/packages/flutter_lints)
+- [flutter_gen_runner](https://pub.dev/packages/flutter_gen_runner)
+- [ffigen](https://pub.dev/packages/ffigen)
