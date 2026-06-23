@@ -63,11 +63,9 @@ OneXray 基于多个开源运行时、库、平台 SDK 和构建工具开发。�
 - [window_manager](https://pub.dev/packages/window_manager)
 - [win32](https://pub.dev/packages/win32)
 
-# Firebase、Google 和广告
+# Firebase 和 Google
 
 - [FlutterFire](https://github.com/firebase/flutterfire)：`firebase_core`、`firebase_analytics`、`firebase_crashlytics`
-- [Google Mobile Ads for Flutter](https://pub.dev/packages/google_mobile_ads)
-- [Google Mobile Ads SDK](https://developers.google.com/admob)
 - [Google Play Integrity API](https://developer.android.com/google/play/integrity)
 - [Google services Gradle plugin](https://developers.google.com/android/guides/google-services-plugin)
 - [Firebase Crashlytics Gradle plugin](https://firebase.google.com/docs/crashlytics/get-started)
@@ -88,14 +86,12 @@ OneXray 基于多个开源运行时、库、平台 SDK 和构建工具开发。�
 
 # Apple 平台 Packages
 
-OneXray 在 Apple 平台使用 FlutterFire 和 Google Mobile Ads。Apple 构建会通过 Swift Package Manager 解析 Firebase 和 Google packages，包括：
+OneXray 在 Apple 平台使用 FlutterFire。Apple 构建会通过 Swift Package Manager 解析 Firebase 和 Google packages，包括：
 
 - [firebase-ios-sdk](https://github.com/firebase/firebase-ios-sdk)
 - [GoogleAppMeasurement](https://github.com/google/GoogleAppMeasurement)
 - [GoogleDataTransport](https://github.com/google/GoogleDataTransport)
 - [GoogleUtilities](https://github.com/google/GoogleUtilities)
-- [Google Mobile Ads SDK for iOS](https://github.com/googleads/swift-package-manager-google-mobile-ads)
-- [Google User Messaging Platform SDK](https://github.com/googleads/swift-package-manager-google-user-messaging-platform)
 - [abseil-cpp-binary](https://github.com/google/abseil-cpp-binary)
 - [grpc-binary](https://github.com/google/grpc-binary)
 - [nanopb](https://github.com/firebase/nanopb)

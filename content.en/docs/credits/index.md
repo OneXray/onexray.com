@@ -63,11 +63,9 @@ OneXray is built on top of open source runtimes, libraries, platform SDKs, and b
 - [window_manager](https://pub.dev/packages/window_manager)
 - [win32](https://pub.dev/packages/win32)
 
-# Firebase, Google, and Ads
+# Firebase and Google
 
 - [FlutterFire](https://github.com/firebase/flutterfire): `firebase_core`, `firebase_analytics`, `firebase_crashlytics`
-- [Google Mobile Ads for Flutter](https://pub.dev/packages/google_mobile_ads)
-- [Google Mobile Ads SDK](https://developers.google.com/admob)
 - [Google Play Integrity API](https://developer.android.com/google/play/integrity)
 - [Google services Gradle plugin](https://developers.google.com/android/guides/google-services-plugin)
 - [Firebase Crashlytics Gradle plugin](https://firebase.google.com/docs/crashlytics/get-started)
@@ -88,14 +86,12 @@ OneXray is built on top of open source runtimes, libraries, platform SDKs, and b
 
 # Apple Platform Packages
 
-OneXray uses FlutterFire and Google Mobile Ads on Apple platforms. The Apple builds resolve Firebase and Google packages through Swift Package Manager, including:
+OneXray uses FlutterFire on Apple platforms. The Apple builds resolve Firebase and Google packages through Swift Package Manager, including:
 
 - [firebase-ios-sdk](https://github.com/firebase/firebase-ios-sdk)
 - [GoogleAppMeasurement](https://github.com/google/GoogleAppMeasurement)
 - [GoogleDataTransport](https://github.com/google/GoogleDataTransport)
 - [GoogleUtilities](https://github.com/google/GoogleUtilities)
-- [Google Mobile Ads SDK for iOS](https://github.com/googleads/swift-package-manager-google-mobile-ads)
-- [Google User Messaging Platform SDK](https://github.com/googleads/swift-package-manager-google-user-messaging-platform)
 - [abseil-cpp-binary](https://github.com/google/abseil-cpp-binary)
 - [grpc-binary](https://github.com/google/grpc-binary)
 - [nanopb](https://github.com/firebase/nanopb)
