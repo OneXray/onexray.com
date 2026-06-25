@@ -10,8 +10,8 @@ This page is a compact machine-readable reference for OneXray's current behavior
 | Identifier | Meaning |
 | --- | --- |
 | `CoreConfigType.outbound` | A single local or subscription node. |
-| `CoreConfigType.setting` | A structured Xray Setting stored by OneXray. |
-| `CoreConfigType.raw` | A full Raw Config JSON stored as text. |
+| `CoreConfigType.setting` | A structured Xray Setting stored by OneXray; always shown under Local in the Xray Setting list. |
+| `CoreConfigType.raw` | A full Raw Json config stored as text; always shown under Local in the Raw Json list. |
 | `Simple` | Built-in setting writer with id `-1`. |
 | `proxy` | Runtime tag of the selected exit node. |
 | `chainProxy` | Fixed tag for the front or relay node. |
@@ -22,11 +22,21 @@ This page is a compact machine-readable reference for OneXray's current behavior
 | `dnsDoT` | Routing rule tag for port `853`. |
 | `ping` | Routing rule tag for ping traffic. |
 
+# Primary Navigation
+
+| Primary route | Meaning |
+| --- | --- |
+| `/home` | Connection state and node operation. |
+| `/subscriptions` | Subscription source list. |
+| `/core` | Xray-core settings and diagnostics. |
+| `/settings` | App preferences and support. |
+
+Secondary pages are registered under every primary route. For example, `/home/tun`, `/core/tun`, and `/settings/tun` render the same TUN page while preserving the selected primary area.
+
 # Import Text Classification
 
 | Prefix or content | Import result |
 | --- | --- |
-| `onexray://onexray.com` | OneXray URL Scheme. |
 | `https://` | Subscription URL. |
 | Other Xray share content | Outbound nodes through libXray. |
 
@@ -34,80 +44,32 @@ Text files accepted by UI import: `txt`, `json`, `yaml`.
 
 Image files accepted by UI import: `png`, `jpg`, `jpeg`.
 
+Unsupported legacy private import text and old backup/share text return no valid config.
+
 # CLI Import Formats
 
 `onexray import` accepts text from `--text`, `--file`, or stdin through `--file -`.
 
 | Format | Accepted by CLI | Import result |
 | --- | --- | --- |
-| OneXray URL Scheme | yes | Configs, subscriptions, or GeoData. |
-| HTTPS subscription URL | yes | Subscription row and downloaded nodes. |
+| HTTPS subscription URL | yes | Subscription row and downloaded outbound nodes. |
 | Xray share link | yes | Outbound nodes through libXray; local outbound models support `vless`, `vmess`, `shadowsocks`, `trojan`, `socks`, and `hysteria`. |
 | Multi-line Xray share text | yes | Multiple outbound nodes through libXray. |
 | Clash.Meta YAML text | yes | Outbound nodes when supported by bundled libXray API. |
 | Xray JSON text | yes | Outbound nodes when supported by bundled libXray API. |
-| Multi-line OneXray share text | yes | Each `onexray://onexray.com/...` line is parsed independently. |
 
 CLI `--file` reads text files or `-` for stdin. QR images are imported from the app UI.
 
-# URL Scheme `data`
+# Subscription Semantics
 
-`/config/add` uses `data=<base64>`:
+Subscriptions are outbound-only. Subscription import and refresh ignore Setting and Raw semantics even if the remote text contains full Xray JSON sections.
 
-```text
-data = percentEncode(base64Encode(utf8Encode(jsonText)))
-```
-
-Use standard Base64.
-
-| `type` | `jsonText` organization | Name source |
-| --- | --- | --- |
-| `outbound` | Xray JSON object; first item of `outbounds` is imported. | First outbound `name`, then `sendThrough`, then `tag`, then `protocol`. |
-| `setting` | Full Xray Setting JSON object. | Top-level `name`. |
-| `raw` | Full Raw Config JSON text. | URL fragment for DB display name; top-level JSON `name` still required by validation. |
-
-Minimal `outbound` payload:
-
-```json
-{
-  "outbounds": [
-    {
-      "name": "My Node",
-      "protocol": "vless",
-      "settings": {}
-    }
-  ]
-}
-```
-
-Minimal `setting` payload:
-
-```json
-{
-  "name": "My Setting",
-  "log": {},
-  "dns": {},
-  "fakeDns": [],
-  "routing": {},
-  "inbounds": [],
-  "outbounds": []
-}
-```
-
-Minimal `raw` payload:
-
-```json
-{
-  "name": "My Raw Config",
-  "inbounds": [
-    {
-      "tag": "tunIn",
-      "protocol": "tun"
-    }
-  ],
-  "outbounds": []
-}
-```
+| Data | Subscription behavior |
+| --- | --- |
+| `outbounds` | Parsed and stored as subscription outbound nodes. |
+| `dns`, `routing`, `inbounds`, `log`, `policy`, `stats`, `metrics` | Ignored by subscription import. |
+| Raw Json | Not created from subscriptions. |
+| Xray Setting | Not created from subscriptions. |
 
 # Simple Setting Defaults
 
@@ -240,49 +202,45 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 `process` is written only on Windows and Linux.
 
-# Raw Config Validation
+# Raw Json Validation
 
-Raw Config must:
+Raw Json must:
 
 1. Be valid JSON.
 2. Have a non-empty top-level `name`.
 3. Have at least one inbound with `protocol: "tun"` and `tag: "tunIn"`.
-4. Pass the bundled Xray-core config test after OneXray removes TUN inbound and metrics for the test pass.
+4. Pass the bundled Xray-core config test after OneXray removes TUN inbound and runtime metrics for the test pass.
 
 # Runtime Fixes
 
 | Config type | Runtime fixes |
 | --- | --- |
-| Xray Setting | Interface binding, ping port, macOS System Extension log disabling. |
-| Raw Config | Interface binding, ping port, log path or log disabling, metrics removal. |
+| Xray Setting | Inbound ports, ping auth, interface binding, macOS System Extension log disabling, and optional metrics. |
+| Raw Json | Inbound ports, ping auth, interface binding, log path or log disabling, and optional metrics. |
 
-macOS System Extension mode disables Xray logs at runtime.
+When TUN metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into runtime configs. macOS System Extension mode disables Xray logs at runtime.
 
-# URL Scheme
+# Backup v2
+
+Outer ZIP:
 
 ```text
-onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
-onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
-onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
-onexray://onexray.com/sub/add?url=<url>#<name>
-onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
-onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
+timestamp.txt
+sha256sum.txt
+data.zip
 ```
 
-For `/config/add`, `data` is standard Base64 of UTF-8 JSON, then percent-encoded as a query value.
+`data.zip`:
 
-# CLI
-
-```shell
-onexray health
-onexray status
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-onexray debug session
-onexray vpn start
-onexray vpn start --id 123
-onexray vpn stop
+```text
+manifest.json
+core_configs.json
+subscriptions.json
+geo_data.json
+dat/
 ```
+
+`core_configs.json` stores local configs only. Subscription nodes are restored by refreshing subscription URLs.
 
 # Automation API
 

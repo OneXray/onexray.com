@@ -3,164 +3,49 @@ title: 开发
 weight: 4
 ---
 
-本页记录面向自动化工具、AI Agent、启动器和集成方的接口。
+本页面向自动化工具、AI Agent、启动器和集成工具。
 
 # 导入判断顺序
 
-当 OneXray 从 UI 导入、URL Scheme、CLI 或 Automation API 收到文本时，按以下顺序判断：
+当 OneXray 从 UI、桌面端 CLI 或 Automation API 收到导入文本时，按以下顺序判断：
 
-1. 以 `onexray://onexray.com` 开头的文本按 OneXray URL Scheme 解析。
-2. 以 `https://` 开头的文本按订阅 URL 解析。
-3. 其他文本交给 libXray 按 Xray 分享内容解析。
+1. 以 `https://` 开头的文本按订阅 URL 处理。
+2. 其他文本交给 libXray 按 Outbound 分享内容解析。
 
-# OneXray URL Scheme
+当前导入流程不再处理旧私有导入文本、GeoData 导入 payload、Raw Json 记录或 Xray Setting 记录。
 
-基础地址：
+# 支持的导入文本
 
-```text
-onexray://onexray.com
-```
-
-## Config
-
-```text
-onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
-onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
-onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
-```
-
-| Query 或 fragment | 含义 |
+| 格式 | 结果 |
 | --- | --- |
-| `type` | `setting`、`outbound` 或 `raw`。 |
-| `data` | Base64 编码的 UTF-8 配置文本。 |
-| Fragment | 显示名称。名称为空时使用 `anonymous`。 |
+| HTTPS 订阅 URL | 添加订阅行，刷新 URL，并导入 Outbound 节点。 |
+| 标准 Xray 分享链接 | 通过 libXray 导入 Outbound 节点。 |
+| 多行 Xray 分享文本 | libXray 支持时导入多个 Outbound 节点。 |
+| Clash.Meta YAML | 内置 libXray API 支持时导入 Outbound 节点。 |
+| Xray JSON | 内置 libXray API 支持时导入 Outbound 节点。 |
 
-`data` 应先 Base64，再进行 URL 编码。
+订阅只支持 Outbound。订阅不会创建 Raw Json、Xray Setting、GeoData、DNS、routing、inbounds、policy、stats、metrics 或 logs。
 
-### Config `data` 组织方式
-
-`data` 只存在于 `/config/add`。它不是直接放在 URL 里的原始 JSON。
-
-生成顺序：
-
-1. 按 `type` 生成对应的 JSON 文本。
-2. 将 JSON 文本按 UTF-8 转为 bytes。
-3. 使用标准 Base64 编码 bytes。
-4. 将 Base64 字符串作为 query value 进行百分号编码。
-
-这里使用标准 Base64，不使用 Base64URL。
-
-不同 `type` 的明文内容：
-
-| `type` | Base64 前的明文 | 导入行为 |
-| --- | --- | --- |
-| `outbound` | 包含 `outbounds` 数组的 Xray JSON object。 | OneXray 只读取第一个 outbound，并导入为本地节点。 |
-| `setting` | 完整的 Xray Setting JSON object。 | OneXray 导入为结构化 Xray Setting。 |
-| `raw` | 完整 Raw Config JSON 文本。 | 校验通过后保存为 Raw Config。 |
-
-`outbound` payload 结构：
-
-```json
-{
-  "outbounds": [
-    {
-      "name": "My Node",
-      "protocol": "vless",
-      "tag": "proxy",
-      "settings": {},
-      "streamSettings": {}
-    }
-  ]
-}
-```
-
-`outbound` 的保存名称从第一个 outbound 中读取，顺序是 `name`、`sendThrough`、`tag`、`protocol`。
-
-`setting` payload 结构：
-
-```json
-{
-  "name": "My Setting",
-  "log": {},
-  "dns": {},
-  "fakeDns": [],
-  "routing": {},
-  "inbounds": [],
-  "outbounds": []
-}
-```
-
-`setting` 的保存名称从顶层 `name` 字段读取。
-
-`raw` payload 结构：
-
-```json
-{
-  "name": "My Raw Config",
-  "inbounds": [
-    {
-      "tag": "tunIn",
-      "protocol": "tun"
-    }
-  ],
-  "outbounds": []
-}
-```
-
-`raw` 的数据库显示名称使用 URL fragment。JSON 内仍然需要顶层 `name`，因为 Raw Config 校验会检查它。
-
-构造示例：
-
-```text
-jsonText = compact-or-pretty-json
-data = percentEncode(base64Encode(utf8Encode(jsonText)))
-url = onexray://onexray.com/config/add?type=setting&data=<data>#My%20Setting
-```
-
-## Subscription
-
-```text
-onexray://onexray.com/sub/add?url=<url>#<name>
-```
-
-| Query 或 fragment | 含义 |
-| --- | --- |
-| `url` | 订阅下载地址。 |
-| Fragment | 订阅名称。名称为空时使用 `anonymous`。 |
-
-## GeoData
-
-```text
-onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
-onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
-```
-
-| Query 或 fragment | 含义 |
-| --- | --- |
-| `type` | `domain` 或 `ip`。 |
-| `url` | `.dat` 下载地址。 |
-| Fragment | GeoData 名称。名称为空时使用 `anonymous`。 |
-
-支持多行 OneXray 分享文本，每一行会独立解析。
+Raw Json 和 Xray Setting 仍然可以从各自页面导出为 JSON 文本或 JSON 文件，但不会通过通用导入流程作为 App 内部记录导入。
 
 # 桌面端 CLI
 
-桌面端包内包含 `onexray` CLI。它通过本地 Automation API 连接正在运行的 App。使用前必须打开 App。
+桌面端包提供 `onexray` CLI。CLI 通过本地 Automation API 连接正在运行的 App，因此 App 必须保持打开。
 
 ```text
 Usage: onexray [options] <command>
 ```
 
-全局参数：
+全局选项：
 
-| 参数 | 含义 |
+| 选项 | 含义 |
 | --- | --- |
 | `--json` | 输出机器可读 JSON envelope。 |
 | `--api <url>` | 覆盖本地 Automation API base URL。 |
 | `--token <token>` | 覆盖 token。 |
 | `--session <path>` | 覆盖 Automation session 文件路径。 |
-| `-v`、`--version` | 输出 CLI 版本。 |
-| `-h`、`--help` | 输出帮助。 |
+| `-v`, `--version` | 输出 CLI 版本。 |
+| `-h`, `--help` | 输出帮助。 |
 
 命令：
 
@@ -176,29 +61,15 @@ onexray vpn start --id 123
 onexray vpn stop
 ```
 
-## CLI 支持的导入格式
+`onexray import` 从 `--text`、`--file` 或 `--file -` 标准输入接收一份文本。CLI 不解析内容本身，而是通过 `POST /v1/import` 发送给正在运行的 App。
 
-`onexray import` 通过 `--text`、`--file` 或 `--file -` 标准输入接收一段导入文本。CLI 不自行解析内容，而是把文本发送给正在运行的 App，由 `POST /v1/import` 处理。
-
-CLI 支持的文本格式：
-
-| 格式 | 示例 | 结果 |
-| --- | --- | --- |
-| OneXray URL Scheme | `onexray://onexray.com/config/add?...` | 导入配置、订阅或 GeoData。 |
-| HTTPS 订阅 URL | `https://example.com/sub.txt#Name` | 添加并下载订阅。 |
-| Xray 分享链接 | `vless://...`、`vmess://...`、`trojan://...`、`ss://...`，以及内置 libXray 可识别的 SOCKS 或 Hysteria 分享文本。 | 导入为节点。OneXray 本地 outbound model 支持 `vless`、`vmess`、`shadowsocks`、`trojan`、`socks`、`hysteria`。 |
-| 多行 Xray 分享文本 | 每行一条分享链接。 | 一次导入多个节点。 |
-| Clash.Meta YAML | 通过 `--text`、文本文件或 stdin 传入 YAML 文本。 | 在内置 libXray API 支持时导入为节点。 |
-| Xray JSON | 通过 `--text`、文本文件或 stdin 传入 JSON 文本。 | 在内置 libXray API 支持时导入为节点。 |
-| 多行 OneXray 分享文本 | 每行一条 `onexray://onexray.com/...` 链接。 | 逐行导入 OneXray 分享内容。 |
-
-`--file` 用于文本文件。二维码图片导入属于 App UI 功能，不属于 CLI 文件格式。
+`--file` 用于文本文件。二维码图片导入属于 App UI 功能。
 
 # Automation API
 
-Automation API 仅适用于桌面端。它绑定到 `127.0.0.1` 的随机端口，并要求 bearer token。
+Automation API 仅支持桌面端。它绑定到 `127.0.0.1` 的随机端口，并要求 bearer token。
 
-App 会写出 `automation-session.json`：
+App 会写入 `automation-session.json`：
 
 ```json
 {
@@ -226,7 +97,7 @@ App 会写出 `automation-session.json`：
 Authorization: Bearer <token>
 ```
 
-## 响应 Envelope
+## Response Envelope
 
 成功：
 
@@ -251,11 +122,11 @@ Authorization: Bearer <token>
 
 ### `GET /v1/health`
 
-返回 App 版本、build number、平台和进程 id。
+返回 App version、build number、platform 和 process id。
 
 ### `GET /v1/status`
 
-返回 App 版本、VPN 运行状态、运行中的配置 id/name、启动时间、运行时长和当前 Xray Setting id。
+返回 App version、VPN 运行状态、运行中的 config id/name、启动时间、运行时长和当前 Xray Setting id。
 
 ### `POST /v1/import`
 
@@ -286,7 +157,7 @@ Authorization: Bearer <token>
 }
 ```
 
-`source` 可为 `oneXrayShare`、`httpsSubscription` 或 `xrayShare`。
+当前导入来源为 `httpsSubscription` 和 `xrayShare`。
 
 ### `POST /v1/vpn/start`
 
@@ -298,11 +169,11 @@ Authorization: Bearer <token>
 }
 ```
 
-`configId` 可省略。省略时，OneXray 启动默认或上次选中的配置。
+`configId` 可省略。省略时 OneXray 启动默认或上次选择的配置。
 
 ### `POST /v1/vpn/stop`
 
-请求体可为空 JSON object：
+请求体可以是空 JSON object：
 
 ```json
 {

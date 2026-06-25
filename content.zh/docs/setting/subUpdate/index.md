@@ -1,35 +1,35 @@
 ---
-title: 订阅更新
+title: Auto Update
 weight: 4
 ---
 
-订阅更新控制主页启动后的自动数据刷新。它不会在 App 初始化早期执行。
+Auto Update 控制 App 初始化完成后的自动数据刷新。它不会在早期启动阶段运行。
 
 # 订阅刷新
 
 | 设置 | 含义 |
 | --- | --- |
-| 启用 | 自动刷新过期订阅。 |
-| 间隔 | `1 day`、`3 days` 或 `1 week`。 |
-| 自动测速 | 订阅刷新后，对该订阅下的节点测速。 |
+| Enable | 自动刷新过期订阅。 |
+| Interval | `1 day`、`3 days` 或 `1 week`。 |
+| Auto Ping | 订阅刷新后对该订阅的 Outbound 节点测速。 |
 
-刷新订阅不会立即替换正在运行的配置。只有用户下次启动 VPN 时，新的节点数据才会进入运行时配置。订阅更新会替换该订阅下保存的节点，并更新 timestamp 和 count。
+刷新订阅不会影响已经运行中的配置，直到用户下一次启动 VPN 才会使用新节点。更新订阅会替换该订阅保存的 Outbound 节点，并更新 timestamp 和 count。
 
 # GeoData 刷新
 
 | 设置 | 含义 |
 | --- | --- |
-| 启用 GeoData | 自动刷新系统和自定义 GeoData。 |
-| GeoData 间隔 | `1 day`、`3 days` 或 `1 week`。 |
+| Enable GeoData | 自动刷新系统和自定义 GeoData。 |
+| GeoData interval | `1 day`、`3 days` 或 `1 week`。 |
 
-系统 GeoData 会一起刷新 `geosite` 和 `geoip`。自定义 GeoData 会逐个判断 timestamp，超过间隔后更新。
+系统 GeoData 会一起刷新 `geosite` 和 `geoip`。自定义 GeoData 会在 timestamp 超过所选间隔时逐个刷新。
 
 # 执行规则
 
-自动更新服务会：
+自动更新服务：
 
-1. 仅在没有其他下载或更新任务时运行。
-2. 读取保存的订阅更新设置。
-3. 如果开启订阅更新，则刷新过期订阅。
-4. 如果开启 GeoData 更新，则刷新过期 GeoData。
-5. 执行期间使用 App 全局 downloading 状态。
+1. 仅在没有其他下载/更新任务运行时执行。
+2. 读取保存的 Auto Update 设置。
+3. 如果启用了订阅更新，则刷新过期订阅。
+4. 如果启用了 GeoData 更新，则刷新过期 GeoData。
+5. 工作期间使用 App 全局 downloading 状态。

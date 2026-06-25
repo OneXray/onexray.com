@@ -152,4 +152,6 @@ On macOS with System Extension mode enabled, OneXray forces Xray Setting logs of
 
 # Sharing
 
-When an Xray Setting references custom rule sets, OneXray-generated share text includes the related rule-set links before the config link.
+Xray Setting can be shared as JSON text or a `.json` file from the Xray Setting menu.
+
+Custom GeoData is not bundled into Xray Setting share output. If a setting references custom rule sets, add those GeoData entries manually first or use [Backup and Restore]({{< relref path="../../../setting/backup/index.md" lang="en" >}}) for full migration.

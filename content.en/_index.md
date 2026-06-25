@@ -5,11 +5,16 @@ type: docs
 
 OneXray is a cross-platform Xray-core client for iOS, macOS, Android, Windows, and Linux.
 
-It focuses on three workflows:
+The current app is organized around four primary areas:
 
-1. Import an outbound node or subscription and start the VPN with the Simple setting.
-2. Build a reusable Xray Setting from structured UI pages.
-3. Import or edit a complete Raw Config when direct Xray-core control is required.
+| Area | Purpose |
+| --- | --- |
+| Home | Connection status, the selected node, VPN start and stop, and the main Outbound / Raw Json node lists. |
+| Subscriptions | Subscription source management and per-subscription outbound node lists. |
+| Core | Xray-core related settings such as TUN, Ping, Logs, Xray Settings, and GeoData. |
+| Settings | App preferences, auto update, backup, clear data, support links, credits, and privacy. |
+
+On phones, these areas are shown in the bottom navigation. On tablets and desktops, they are shown in the side rail. Secondary pages stay scoped under the current primary area.
 
 ## Download
 
@@ -24,4 +29,4 @@ It focuses on three workflows:
 
 For Linux ZIP setup and desktop CLI notes, see [Install]({{< relref path="docs/install/index.md" lang="en" >}}).
 
-For automation tools and AI agents, start with the [AI reference]({{< relref path="docs/reference/index.md" lang="en" >}}) and the [Develop]({{< relref path="docs/develop/index.md" lang="en" >}}) page. They document exact URL schemes, CLI commands, local Automation API paths, import payloads, and current configuration semantics.
+For automation tools and AI agents, start with the [AI reference]({{< relref path="docs/reference/index.md" lang="en" >}}) and the [Develop]({{< relref path="docs/develop/index.md" lang="en" >}}) page. They document the current CLI, Automation API, import formats, and runtime configuration semantics.

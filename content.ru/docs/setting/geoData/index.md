@@ -10,40 +10,35 @@ geosite:CN
 geoip:CN
 ```
 
-OneXray имеет два встроенных GeoData файла:
+OneXray содержит два built-in GeoData files:
 
 | Name | Type | Source |
 | --- | --- | --- |
-| `geosite` | `domain` | latest `dlc.dat` из `v2fly/domain-list-community` |
-| `geoip` | `ip` | latest `geoip.dat` из `v2fly/geoip` |
+| `geosite` | `domain` | `v2fly/domain-list-community` latest `dlc.dat` |
+| `geoip` | `ip` | `v2fly/geoip` latest `geoip.dat` |
 
 # Custom GeoData
 
-Custom rule sets требуют:
+Custom rule sets require:
 
-| Поле | Значение |
+| Field | Meaning |
 | --- | --- |
-| Name | Уникальное имя. Оно становится base name файла и целью rule prefix. |
-| Type | `domain` для geosite-style data или `ip` для geoip-style data. |
-| URL | Download URL для `.dat` file. |
+| Name | Unique name. It becomes the file base name and rule prefix target. |
+| Type | `domain` for geosite-style data or `ip` for geoip-style data. |
+| URL | Download URL for the `.dat` file. |
 
-Когда custom rule set добавляется или обновляется, OneXray загружает `.dat` file, вызывает host core API для подсчета categories и rules, сохраняет `.dat` file и generated JSON summary.
+When a custom rule set is added or updated, OneXray downloads the `.dat` file, asks the host core API to count categories and rules, saves the `.dat` file, and saves a generated JSON summary.
 
 # Auto Update
 
-GeoData auto update настраивается в [Subscription Update]({{< relref path="../subUpdate/index.md" lang="ru" >}}). System GeoData и custom GeoData проверяются отдельно от subscription refresh, но выполняются тем же Home-page update service.
+GeoData auto update is configured on [Auto Update]({{< relref path="../subUpdate/index.md" lang="ru" >}}). System GeoData and custom GeoData are checked separately from subscription refresh but run from the same update service.
 
 # Sharing and Backup
 
-Custom GeoData можно шарить через OneXray URL Scheme:
+GeoData is no longer shared as a standalone app link. For full migration, use [Backup and Restore]({{< relref path="../backup/index.md" lang="ru" >}}), which includes custom GeoData database rows, `.dat` files, and generated `.json` summaries.
 
-```text
-onexray://onexray.com/dat/add?type=domain&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
-onexray://onexray.com/dat/add?type=ip&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
-```
+Routing templates can still reference custom GeoData with `ext:<Name>.dat:<Code>`. Add the required custom GeoData manually before importing those templates into Xray Settings.
 
-Когда Xray Setting ссылается на custom GeoData, OneXray share output включает нужные GeoData links перед config link.
+# iOS and iPadOS
 
-# iOS и iPadOS
-
-Очень большие rule-set files могут увеличить потребление памяти. Если VPN не запускается на iOS или iPadOS, используйте меньшие GeoData files или меньше routing rules.
+Very large rule-set files can increase memory usage. If the VPN fails to start on iOS or iPadOS, use smaller GeoData files or fewer routing rules.

@@ -3,31 +3,32 @@ title: Backup and Restore
 weight: 6
 ---
 
-Backup экспортирует данные OneXray в ZIP file, который можно отправить, сохранить и позже импортировать.
+Backup экспортирует данные OneXray в ZIP file, который можно сохранить, передать и позже импортировать.
 
-# Включенные данные
+# Included Data
 
 | Data | Included |
 | --- | --- |
-| Local Xray Settings | Да |
-| Local outbound nodes | Да |
-| Raw Configs | Да |
-| Subscriptions | Да, как subscription links |
-| Custom GeoData rows | Да |
-| Custom GeoData `.dat` и generated `.json` files | Да |
-| Subscription node rows | Нет; они загружаются заново из subscription URLs при restore. |
-| Simple Setting preferences | Нет |
-| Other app preferences | Нет |
+| Local Xray Settings | Yes |
+| Local outbound nodes | Yes |
+| Raw Json configs | Yes |
+| Subscriptions | Yes, as subscription records and URLs |
+| Subscription node rows | No; they are downloaded again from subscription URLs during restore. |
+| Custom GeoData rows | Yes |
+| Custom GeoData `.dat` and generated `.json` files | Yes |
+| Built-in `geosite` and `geoip` rows | No; they are restored from bundled assets. |
+| Simple Setting preferences | No; kept outside backup data. |
+| Other app preferences | No |
 
 # File Structure
 
-Backup files именуются по дате:
+Backup files are named by date:
 
 ```text
 OneXray-yyyy-MM-dd.zip
 ```
 
-Внутренняя структура:
+Outer ZIP structure:
 
 ```text
 timestamp.txt
@@ -35,19 +36,26 @@ sha256sum.txt
 data.zip
 ```
 
-`data.zip` содержит:
+`data.zip` contains:
 
 ```text
-config.txt
-subscription.txt
-dat.txt
+manifest.json
+core_configs.json
+subscriptions.json
+geo_data.json
 dat/
 ```
 
-Text files содержат OneXray share links. Директория `dat` содержит custom GeoData files.
+`manifest.json` identifies the current structured v2 backup format. Backups without this manifest are not restored by current OneXray versions.
+
+`core_configs.json` contains local configs only. It does not contain subscription nodes.
+
+`subscriptions.json` contains subscription name, URL, timestamp, and expanded state. During restore, OneXray recreates subscriptions and refreshes their URLs to download nodes again.
+
+`geo_data.json` contains custom GeoData metadata. The `dat/` directory contains matching custom `.dat` files and generated `.json` summaries.
 
 # Restore
 
-Restore очищает локальные данные OneXray, восстанавливает bundled system GeoData assets, копирует custom GeoData files из backup и импортирует сохраненные share links.
+Restore clears OneXray business data and the GeoData runtime directory, restores bundled `geosite` and `geoip`, copies custom GeoData files from backup, restores local configs, restores subscriptions, and refreshes subscription URLs.
 
-Храните важные backup ZIP files отдельно. System-level cloud backups могут не включать user-managed backup archives.
+Keep a separate copy of important backup ZIP files. System-level cloud backups may not include user-managed backup archives.

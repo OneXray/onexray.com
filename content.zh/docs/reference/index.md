@@ -3,111 +3,73 @@ title: AI 参考
 weight: 8
 ---
 
-本页是 OneXray 当前行为的机器可读参考，尽量使用准确的 identifier、tag、路径和 JSON key。
+本页是 OneXray 当前行为的紧凑机器可读参考，刻意保留精确 identifier、tag、path 和 JSON key。
 
 # 核心概念
 
 | Identifier | 含义 |
 | --- | --- |
 | `CoreConfigType.outbound` | 单个本地或订阅节点。 |
-| `CoreConfigType.setting` | OneXray 保存的结构化 Xray Setting。 |
-| `CoreConfigType.raw` | 以文本保存的完整 Raw Config JSON。 |
-| `Simple` | 内置设置写出器，id 为 `-1`。 |
+| `CoreConfigType.setting` | OneXray 保存的结构化 Xray Setting；在 Xray Setting 列表中统一显示在 Local 下。 |
+| `CoreConfigType.raw` | 以文本保存的完整 Raw Json 配置；在 Raw Json 列表中统一显示在 Local 下。 |
+| `Simple` | 内置 setting writer，id 为 `-1`。 |
 | `proxy` | 当前出口节点的运行时 tag。 |
-| `chainProxy` | 前置或中转节点的固定 tag。 |
+| `chainProxy` | 前置代理或中继节点的固定 tag。 |
 | `tunIn` | TUN inbound tag。 |
 | `pingIn` | HTTP ping inbound tag。 |
-| `dnsQuery` | DNS 组件 inbound tag 和 rule tag。 |
+| `dnsQuery` | DNS component inbound tag 和 rule tag。 |
 | `dnsOut` | DNS outbound tag 和 rule tag。 |
-| `dnsDoT` | `853` 端口规则 tag。 |
-| `ping` | 测速流量规则 tag。 |
+| `dnsDoT` | 端口 `853` 的 routing rule tag。 |
+| `ping` | 测速流量 rule tag。 |
+
+# 一级导航
+
+| 一级路径 | 含义 |
+| --- | --- |
+| `/home` | 连接状态和节点操作。 |
+| `/subscriptions` | 订阅源列表。 |
+| `/core` | Xray-core 设置和诊断。 |
+| `/settings` | App 偏好和支持。 |
+
+二级页面注册在所有一级路径下。例如 `/home/tun`、`/core/tun` 和 `/settings/tun` 渲染同一个 TUN 页面，但会保持各自一级入口选中态。
 
 # 导入文本分类
 
 | 前缀或内容 | 导入结果 |
 | --- | --- |
-| `onexray://onexray.com` | OneXray URL Scheme。 |
 | `https://` | 订阅 URL。 |
-| 其他 Xray 分享内容 | 通过 libXray 导入为节点。 |
+| 其他 Xray 分享内容 | 通过 libXray 导入 Outbound 节点。 |
 
 UI 导入接受的文本文件：`txt`、`json`、`yaml`。
 
 UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 
+不支持的旧私有导入文本和旧备份/分享文本会返回无有效配置。
+
 # CLI 导入格式
 
-`onexray import` 可通过 `--text`、`--file` 或 `--file -` 标准输入接收文本。
+`onexray import` 从 `--text`、`--file` 或 `--file -` 标准输入接收文本。
 
 | 格式 | CLI 支持 | 导入结果 |
 | --- | --- | --- |
-| OneXray URL Scheme | 是 | 配置、订阅或 GeoData。 |
-| HTTPS 订阅 URL | 是 | 创建订阅并下载节点。 |
-| Xray 分享链接 | 是 | 通过 libXray 导入为节点；本地 outbound model 支持 `vless`、`vmess`、`shadowsocks`、`trojan`、`socks`、`hysteria`。 |
-| 多行 Xray 分享文本 | 是 | 通过 libXray 导入多个节点。 |
-| Clash.Meta YAML 文本 | 是 | 在内置 libXray API 支持时导入为节点。 |
-| Xray JSON 文本 | 是 | 在内置 libXray API 支持时导入为节点。 |
-| 多行 OneXray 分享文本 | 是 | 每行 `onexray://onexray.com/...` 独立解析。 |
+| HTTPS 订阅 URL | 是 | 订阅行和下载后的 Outbound 节点。 |
+| Xray 分享链接 | 是 | 通过 libXray 导入 Outbound 节点；本地 outbound model 支持 `vless`、`vmess`、`shadowsocks`、`trojan`、`socks`、`hysteria`。 |
+| 多行 Xray 分享文本 | 是 | 通过 libXray 导入多个 Outbound 节点。 |
+| Clash.Meta YAML 文本 | 是 | 内置 libXray API 支持时导入 Outbound 节点。 |
+| Xray JSON 文本 | 是 | 内置 libXray API 支持时导入 Outbound 节点。 |
 
-CLI `--file` 读取文本文件，或使用 `-` 读取 stdin。二维码图片从 App UI 导入。
+CLI `--file` 读取文本文件，或用 `-` 从 stdin 读取。二维码图片从 App UI 导入。
 
-# URL Scheme `data`
+# 订阅语义
 
-`/config/add` 使用 `data=<base64>`：
+订阅只支持 Outbound。即使远端文本包含完整 Xray JSON sections，订阅导入和刷新也会忽略 Setting 和 Raw 语义。
 
-```text
-data = percentEncode(base64Encode(utf8Encode(jsonText)))
-```
-
-使用标准 Base64。
-
-| `type` | `jsonText` 组织方式 | 名称来源 |
-| --- | --- | --- |
-| `outbound` | Xray JSON object；导入 `outbounds` 的第一个元素。 | 第一个 outbound 的 `name`，然后是 `sendThrough`、`tag`、`protocol`。 |
-| `setting` | 完整 Xray Setting JSON object。 | 顶层 `name`。 |
-| `raw` | 完整 Raw Config JSON 文本。 | URL fragment 作为数据库显示名称；JSON 顶层 `name` 仍然是校验必需字段。 |
-
-最小 `outbound` payload：
-
-```json
-{
-  "outbounds": [
-    {
-      "name": "My Node",
-      "protocol": "vless",
-      "settings": {}
-    }
-  ]
-}
-```
-
-最小 `setting` payload：
-
-```json
-{
-  "name": "My Setting",
-  "log": {},
-  "dns": {},
-  "fakeDns": [],
-  "routing": {},
-  "inbounds": [],
-  "outbounds": []
-}
-```
-
-最小 `raw` payload：
-
-```json
-{
-  "name": "My Raw Config",
-  "inbounds": [
-    {
-      "tag": "tunIn",
-      "protocol": "tun"
-    }
-  ],
-  "outbounds": []
-}
-```
+| 数据 | 订阅行为 |
+| --- | --- |
+| `outbounds` | 解析并保存为订阅 Outbound 节点。 |
+| `dns`、`routing`、`inbounds`、`log`、`policy`、`stats`、`metrics` | 订阅导入会忽略。 |
+| Raw Json | 不会由订阅创建。 |
+| Xray Setting | 不会由订阅创建。 |
 
 # Simple Setting 默认值
 
@@ -120,17 +82,17 @@ data = percentEncode(base64Encode(utf8Encode(jsonText)))
 | `routing.localDirect` | `true` |
 | `routing.enableIPRule` | `true` |
 | `routing.localDns` | `true` |
-| `dns` | Cloudflare，通过 `proxy` |
+| `dns` | 通过 `proxy` 访问 Cloudflare |
 | `enableLog` | `false` |
 | `fakeDns` | `false` |
 | `chainProxyOutboundId` | `null` |
 
-# Simple Setting 生成的规则
+# Simple Setting 生成规则
 
 | `ruleTag` | 条件 | `outboundTag` |
 | --- | --- | --- |
 | `defaultDnsProxy` | `inboundTag: ["defaultDns"]` | `proxy` |
-| `localDnsDirect` | 开启 local DNS 时：`inboundTag: ["localDns"]` | `direct` |
+| `localDnsDirect` | 启用 local DNS 时 `inboundTag: ["localDns"]` | `direct` |
 | `domainDirect` | 直连域名规则 | `direct` |
 | `ipDirect` | 直连 IP 规则 | `direct` |
 
@@ -143,7 +105,7 @@ data = percentEncode(base64Encode(utf8Encode(jsonText)))
 | `RU` | `geosite:CATEGORY-GOV-RU`、`geosite:YANDEX`、`geosite:MAILRU`、`regexp:.ru$` |
 | `Other` | 无 |
 
-附加域名规则：
+额外域名规则：
 
 | 开关 | Domain |
 | --- | --- |
@@ -159,7 +121,7 @@ data = percentEncode(base64Encode(utf8Encode(jsonText)))
 | `RU` | `geoip:RU` |
 | `Other` | 无 |
 
-附加 IP 规则：
+额外 IP 规则：
 
 | 开关 | IP rule |
 | --- | --- |
@@ -167,20 +129,20 @@ data = percentEncode(base64Encode(utf8Encode(jsonText)))
 
 # Simple DNS Servers
 
-| 情况 | Server |
+| 场景 | Server |
 | --- | --- |
-| FakeDNS 开启 | 第一个 server 为 `address: "fakedns"`。 |
+| 启用 FakeDNS | 第一个 server 是 `address: "fakedns"`。 |
 | 默认 DNS | `tcp://1.1.1.1` 或 `https://1.1.1.1/dns-query`，通过 `proxy`。 |
-| `CN` local DNS | `tcp://223.5.5.5`，用于直连域名。 |
-| `IR` local DNS | `tcp://5.200.200.200`，用于直连域名。 |
-| `RU` local DNS | `tcp://9.9.9.9`，用于直连域名。 |
-| `Other` local DNS | `tcp://1.1.1.1`，用于直连域名。 |
+| `CN` 本地 DNS | `tcp://223.5.5.5`，用于直连域名。 |
+| `IR` 本地 DNS | `tcp://5.200.200.200`，用于直连域名。 |
+| `RU` 本地 DNS | `tcp://9.9.9.9`，用于直连域名。 |
+| `Other` 本地 DNS | `tcp://1.1.1.1`，用于直连域名。 |
 
-Simple Setting 开启 FakeDNS 时，TUN sniffing 会包含 `fakedns+others`。
+Simple Setting 启用 FakeDNS 时，TUN sniffing 会包含 `fakedns+others`。
 
 # Xray Setting FakeDNS
 
-默认池：
+默认地址池：
 
 ```json
 [
@@ -195,7 +157,7 @@ Simple Setting 开启 FakeDNS 时，TUN sniffing 会包含 `fakedns+others`。
 ]
 ```
 
-写出的池跟随 `dns.queryStrategy`：
+写出的 pools 跟随 `dns.queryStrategy`：
 
 | Strategy | Pools |
 | --- | --- |
@@ -215,7 +177,7 @@ block
 dnsOut
 ```
 
-只有配置了链式代理时才会出现 `chainProxy`。
+`chainProxy` 仅在已配置时存在。
 
 # DNS Outbound
 
@@ -227,11 +189,11 @@ dnsOut
 | `rules` | `[{"action":"hijack","qType":"1,28"},{"action":"direct"}]` |
 | `blockTypes` | `[]` |
 
-仅当 `rules` 为空时，才会写出 `blockTypes`。
+只有 `rules` 为空时才写出 `blockTypes`。
 
 # Routing Rule 字段
 
-OneXray 路由规则可写出：
+OneXray routing rules 可以写出：
 
 ```text
 domain, ip, port, sourcePort, localPort, network, sourceIP, localIP,
@@ -240,49 +202,45 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 `process` 只在 Windows 和 Linux 写出。
 
-# Raw Config 校验
+# Raw Json 校验
 
-Raw Config 必须：
+Raw Json 必须：
 
-1. 是有效 JSON。
-2. 顶层 `name` 非空。
+1. 是合法 JSON。
+2. 有非空顶层 `name`。
 3. 至少存在一个 `protocol: "tun"` 且 `tag: "tunIn"` 的 inbound。
-4. 在 OneXray 为测试移除 TUN inbound 和 metrics 后，通过内置 Xray-core 配置测试。
+4. OneXray 移除 TUN inbound 和运行时 metrics 后，能通过内置 Xray-core config test。
 
 # 运行时修正
 
 | 配置类型 | 运行时修正 |
 | --- | --- |
-| Xray Setting | 网卡绑定、ping 端口、macOS System Extension 日志关闭。 |
-| Raw Config | 网卡绑定、ping 端口、日志路径或日志关闭、metrics 移除。 |
+| Xray Setting | Inbound 端口、ping auth、网卡绑定、macOS System Extension 日志关闭、可选 metrics。 |
+| Raw Json | Inbound 端口、ping auth、网卡绑定、日志路径或日志关闭、可选 metrics。 |
 
-macOS System Extension 模式会在运行时关闭 Xray 日志。
+TUN metrics 关闭时，OneXray 不会把 `policy`、`stats` 或 `metrics` 写入运行时配置。macOS System Extension 模式会在运行时关闭 Xray 日志。
 
-# URL Scheme
+# Backup v2
+
+外层 ZIP：
 
 ```text
-onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
-onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
-onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
-onexray://onexray.com/sub/add?url=<url>#<name>
-onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
-onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
+timestamp.txt
+sha256sum.txt
+data.zip
 ```
 
-`/config/add` 的 `data` 是 UTF-8 JSON 的标准 Base64，再作为 query value 进行百分号编码。
+`data.zip`：
 
-# CLI
-
-```shell
-onexray health
-onexray status
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-onexray debug session
-onexray vpn start
-onexray vpn start --id 123
-onexray vpn stop
+```text
+manifest.json
+core_configs.json
+subscriptions.json
+geo_data.json
+dat/
 ```
+
+`core_configs.json` 只保存本地配置。订阅节点通过刷新订阅 URL 恢复。
 
 # Automation API
 
@@ -300,7 +258,7 @@ onexray vpn stop
 Authorization: Bearer <token>
 ```
 
-响应 envelope：
+Response envelope：
 
 ```json
 {

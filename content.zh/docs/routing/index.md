@@ -1,22 +1,22 @@
 ---
-title: 路由
+title: Routing
 weight: 6
 ---
 
-# 一键导入
+OneXray 路由模板以 Xray Setting JSON 文件维护在 [OneXray/Routing](https://github.com/OneXray/Routing) 仓库中。
 
-以下链接会把维护好的路由订阅导入 OneXray。
-
-[中国大陆 CNRouting](onexray://onexray.com/sub/add?url=https%3A%2F%2Fgithub.com%2FOneXray%2FRouting%2Fraw%2Frefs%2Fheads%2Fmain%2Fcn.txt#CNRouting)
-
-[伊朗 IRRouting](onexray://onexray.com/sub/add?url=https%3A%2F%2Fgithub.com%2FOneXray%2FRouting%2Fraw%2Frefs%2Fheads%2Fmain%2Fir.txt#IRRouting)
-
-[俄罗斯 RURouting](onexray://onexray.com/sub/add?url=https%3A%2F%2Fgithub.com%2FOneXray%2FRouting%2Fraw%2Frefs%2Fheads%2Fmain%2Fru.txt#RURouting)
+| 区域 | 模板 | 自定义 GeoData 依赖 |
+| --- | --- | --- |
+| 中国大陆 | [cn.json](https://github.com/OneXray/Routing/raw/refs/heads/main/cn.json) | `EnhancedGeoSite`、`EnhancedGeoIP` |
+| 伊朗 | [ir.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ir.json) | `IranGeoSite` |
+| 俄罗斯 | [ru.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ru.json) | `RussiaGeoSite`、`RussiaGeoIP` |
 
 # 使用方式
 
-1. 在已安装 OneXray 的设备上打开路由链接。
-2. OneXray 会将其导入为订阅。
-3. 在主页使用导入的节点或配置。
+1. 在 OneXray 中打开 `Core > GeoData`。
+2. 按上表名称添加所需的自定义 GeoData。
+3. 打开对应 JSON 模板链接，复制或下载 JSON。
+4. 在 OneXray 中打开 `Core > Xray Settings > Add > Raw Edit`。
+5. 粘贴模板 JSON，保存后选择该 Xray Setting。
 
-同样的链接也可以通过剪贴板、文件、二维码、CLI 或 Automation API 导入。
+模板只包含 `name`、`dns` 和 `routing`。它们不包含 `inbounds`、`outbounds`、`log`、`policy`、`stats`、`metrics` 等 App 运行时字段。当前选中的节点仍由 OneXray 在 VPN 启动时注入为运行时 `proxy` 出站。

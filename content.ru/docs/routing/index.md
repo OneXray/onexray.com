@@ -3,20 +3,20 @@ title: Routing
 weight: 6
 ---
 
-# One-click Import
+Routing templates для OneXray поддерживаются как Xray Setting JSON files в репозитории [OneXray/Routing](https://github.com/OneXray/Routing).
 
-Эти ссылки импортируют поддерживаемые routing subscriptions в OneXray.
-
-[China CNRouting](onexray://onexray.com/sub/add?url=https%3A%2F%2Fgithub.com%2FOneXray%2FRouting%2Fraw%2Frefs%2Fheads%2Fmain%2Fcn.txt#CNRouting)
-
-[Iran IRRouting](onexray://onexray.com/sub/add?url=https%3A%2F%2Fgithub.com%2FOneXray%2FRouting%2Fraw%2Frefs%2Fheads%2Fmain%2Fir.txt#IRRouting)
-
-[Russia RURouting](onexray://onexray.com/sub/add?url=https%3A%2F%2Fgithub.com%2FOneXray%2FRouting%2Fraw%2Frefs%2Fheads%2Fmain%2Fru.txt#RURouting)
+| Регион | Template | Custom GeoData dependencies |
+| --- | --- | --- |
+| China | [cn.json](https://github.com/OneXray/Routing/raw/refs/heads/main/cn.json) | `EnhancedGeoSite`, `EnhancedGeoIP` |
+| Iran | [ir.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ir.json) | `IranGeoSite` |
+| Russia | [ru.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ru.json) | `RussiaGeoSite`, `RussiaGeoIP` |
 
 # Как использовать
 
-1. Откройте routing link на устройстве с установленным OneXray.
-2. OneXray импортирует его как subscription.
-3. Используйте импортированные nodes или configs на главной странице.
+1. Откройте `Core > GeoData` в OneXray.
+2. Добавьте нужные custom GeoData entries с точными именами из таблицы выше.
+3. Откройте соответствующую ссылку JSON template и скопируйте или скачайте JSON.
+4. В OneXray откройте `Core > Xray Settings > Add > Raw Edit`.
+5. Вставьте template JSON, сохраните его и выберите этот Xray Setting.
 
-Эти же ссылки можно импортировать из clipboard, file, QR code, CLI или Automation API.
+Templates содержат `name`, `dns` и `routing`. Они не содержат runtime fields приложения: `inbounds`, `outbounds`, `log`, `policy`, `stats` или `metrics`. Выбранный outbound node по-прежнему добавляется OneXray при запуске VPN как runtime `proxy` outbound.

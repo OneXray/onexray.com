@@ -1,19 +1,29 @@
 ---
-title: Настройки
-weight: 4
+title: Settings
+weight: 5
 ---
 
-Settings содержит app-level инструменты, общие для всех узлов и конфигов.
+Settings содержит настройки приложения и инструменты обслуживания.
 
-| Страница | Назначение |
-| --- | --- |
-| TUN | Опции туннеля платформы, DNS addresses, interface binding, on-demand rules, per-app VPN. |
-| Ping | URL, timeout и поведение тестов узлов. |
-| Subscription Update | Автообновление подписок, auto ping и GeoData refresh. |
-| GeoData | Built-in и custom rule-set data для `geosite:` и `geoip:` rules. |
-| Log | App logs, Xray logs и generated Xray config files. |
-| Backup | Export и restore данных OneXray. |
-| Theme, Language, App Icon | UI preferences. |
-| Toolbox | Utility actions. |
+| Раздел | Страница или действие | Назначение |
+| --- | --- | --- |
+| Data | Auto Update | Обновляет подписки и GeoData по расписанию после инициализации приложения. |
+| Data | App update check | Проверяет обновления в текущем канале распространения. |
+| Data | Clear Data | Удаляет рабочие данные, runtime files, cache и custom GeoData, сохраняя app preferences и local backup files. |
+| App | Backup | Экспорт и восстановление данных OneXray. |
+| App | App Icon | Изменение iOS app icon. |
+| App | Toolbox | Utility actions для macOS. |
+| App | Theme | Выбор темы приложения. |
+| App | Language | Выбор языка приложения. |
+| Support | Docs, Review, Telegram, Issues, Source Code, Credits, Privacy | Поддержка и информация о проекте. |
+| Version | App и Xray versions | Показывает установленную версию приложения и встроенную версию Xray-core. |
 
-Проверка обновлений приложения запускается с Home page после инициализации. Уведомление об обновлении открывает App Store, Google Play или GitHub Releases в зависимости от платформы и macOS System Extension mode.
+Страницы, связанные с Xray-core, перенесены в [Core]({{< relref path="../core/_index.md" lang="ru" >}}). TUN, Ping, Logs, Xray Settings и GeoData больше не отображаются как корневые элементы Settings.
+
+# Clear Data
+
+Clear Data сначала останавливает VPN. Если остановить VPN не удалось, очистка отменяется.
+
+После успешной очистки OneXray удаляет local configs, subscriptions, GeoData database rows, runtime files, app cache и custom GeoData files. Встроенные `geosite` и `geoip` восстанавливаются.
+
+Операция сохраняет local backup ZIP files и app preferences: privacy acceptance, first-run state, Simple Xray Setting, TUN Setting, theme, language, Dock setting, query-all-packages acceptance и native iOS app icon. После очистки выбранный Xray Setting сбрасывается на `Simple`.

@@ -5,15 +5,20 @@ type: docs
 
 OneXray — кроссплатформенный клиент Xray-core для iOS, macOS, Android, Windows и Linux.
 
-Основные сценарии:
+Текущая версия приложения разделена на четыре основных раздела:
 
-1. Импортировать outbound-узел или подписку и запустить VPN с настройкой Simple.
-2. Создать переиспользуемый Xray Setting через структурированные страницы интерфейса.
-3. Импортировать или редактировать полный Raw Config, если нужен прямой контроль Xray-core.
+| Раздел | Назначение |
+| --- | --- |
+| Home | Состояние подключения, текущий узел, запуск и остановка VPN, списки Outbound и Raw Json. |
+| Subscriptions | Управление источниками подписок и список Outbound-узлов внутри каждой подписки. |
+| Core | Настройки Xray-core: TUN, Ping, Logs, Xray Settings и GeoData. |
+| Settings | Настройки приложения, автообновление, резервные копии, очистка данных, поддержка, Credits и Privacy. |
 
-## Скачать
+На телефонах эти разделы отображаются в нижней навигации. На планшетах и настольных системах используется боковая навигация. Вторичные страницы открываются внутри текущего основного раздела.
 
-| Платформа | Требования | Скачать |
+## Загрузка
+
+| Платформа | Требования | Загрузка |
 | --- | --- | --- |
 | iOS | iOS 15.0 и выше, arm64 | [App Store](https://apps.apple.com/us/app/onexray/id6745748773), [IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
 | macOS | macOS 12.0 и выше, Apple silicon или Intel | [Mac App Store](https://apps.apple.com/us/app/onexray/id6745748773), [Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
@@ -24,4 +29,4 @@ OneXray — кроссплатформенный клиент Xray-core для i
 
 Настройка Linux ZIP и заметки о настольном CLI описаны на странице [Установка]({{< relref path="docs/install/index.md" lang="ru" >}}).
 
-Для средств автоматизации и ИИ-агентов начните с [AI Reference]({{< relref path="docs/reference/index.md" lang="ru" >}}) и страницы [Develop]({{< relref path="docs/develop/index.md" lang="ru" >}}). Там описаны точные URL Scheme, команды CLI, локальный Automation API, форматы импорта и текущая семантика конфигурации.
+Для автоматизации и AI-агентов начните с [AI Reference]({{< relref path="docs/reference/index.md" lang="ru" >}}) и [Develop]({{< relref path="docs/develop/index.md" lang="ru" >}}). Эти страницы описывают текущий CLI, Automation API, форматы импорта и runtime-семантику конфигураций.

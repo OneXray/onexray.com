@@ -1,9 +1,9 @@
 ---
-title: Subscription Update
+title: Auto Update
 weight: 4
 ---
 
-Subscription Update controls automatic data refresh after the Home page has started. It does not run during early app initialization.
+Auto Update controls automatic data refresh after the app has initialized. It does not run during early startup.
 
 # Subscription Refresh
 
@@ -11,9 +11,9 @@ Subscription Update controls automatic data refresh after the Home page has star
 | --- | --- |
 | Enable | Refresh outdated subscriptions automatically. |
 | Interval | `1 day`, `3 days`, or `1 week`. |
-| Auto Ping | Ping nodes in a refreshed subscription after updating it. |
+| Auto Ping | Ping outbound nodes in a refreshed subscription after updating it. |
 
-Refresh keeps the old running config until the user starts VPN again. Updating a subscription replaces the subscription's stored nodes and updates its timestamp and count.
+Refresh keeps the old running config until the user starts VPN again. Updating a subscription replaces the subscription's stored outbound nodes and updates its timestamp and count.
 
 # GeoData Refresh
 
@@ -29,7 +29,7 @@ System GeoData refreshes `geosite` and `geoip` together. Custom GeoData rows are
 The automatic update service:
 
 1. Runs only when no other download/update task is already active.
-2. Reads the saved Subscription Update settings.
+2. Reads the saved Auto Update settings.
 3. Refreshes outdated subscriptions if subscription update is enabled.
 4. Refreshes outdated GeoData if GeoData update is enabled.
 5. Uses the app's global downloading state while it is working.

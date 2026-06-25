@@ -1,35 +1,35 @@
 ---
-title: Subscription Update
+title: Auto Update
 weight: 4
 ---
 
-Subscription Update управляет автоматическим обновлением данных после запуска Home page. Он не выполняется во время ранней инициализации приложения.
+Auto Update controls automatic data refresh after the app has initialized. It does not run during early startup.
 
 # Subscription Refresh
 
-| Setting | Значение |
+| Setting | Meaning |
 | --- | --- |
-| Enable | Автоматически обновлять устаревшие подписки. |
-| Interval | `1 day`, `3 days` или `1 week`. |
-| Auto Ping | Выполнять ping узлов обновленной подписки после обновления. |
+| Enable | Refresh outdated subscriptions automatically. |
+| Interval | `1 day`, `3 days`, or `1 week`. |
+| Auto Ping | Ping outbound nodes in a refreshed subscription after updating it. |
 
-Refresh сохраняет старый running config до следующего запуска VPN пользователем. Обновление подписки заменяет сохраненные nodes этой подписки и обновляет timestamp и count.
+Refresh keeps the old running config until the user starts VPN again. Updating a subscription replaces the subscription's stored outbound nodes and updates its timestamp and count.
 
 # GeoData Refresh
 
-| Setting | Значение |
+| Setting | Meaning |
 | --- | --- |
-| Enable GeoData | Автоматически обновлять system и custom GeoData. |
-| GeoData interval | `1 day`, `3 days` или `1 week`. |
+| Enable GeoData | Refresh system and custom GeoData automatically. |
+| GeoData interval | `1 day`, `3 days`, or `1 week`. |
 
-System GeoData обновляет `geosite` и `geoip` вместе. Custom GeoData rows обновляются по одной, если их timestamp старше выбранного interval.
+System GeoData refreshes `geosite` and `geoip` together. Custom GeoData rows are refreshed one by one when their timestamp is older than the selected interval.
 
-# Правила выполнения
+# Execution Rules
 
-Automatic update service:
+The automatic update service:
 
-1. Запускается только если нет другого активного download/update task.
-2. Читает сохраненные Subscription Update settings.
-3. Обновляет устаревшие subscriptions, если subscription update включен.
-4. Обновляет устаревшие GeoData, если GeoData update включен.
-5. Использует глобальное downloading state приложения во время работы.
+1. Runs only when no other download/update task is already active.
+2. Reads the saved Auto Update settings.
+3. Refreshes outdated subscriptions if subscription update is enabled.
+4. Refreshes outdated GeoData if GeoData update is enabled.
+5. Uses the app's global downloading state while it is working.

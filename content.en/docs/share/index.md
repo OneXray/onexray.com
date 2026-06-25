@@ -3,39 +3,34 @@ title: Share
 weight: 2
 ---
 
-OneXray can share configs as QR codes, text links, or app share targets.
-
-Supported share targets:
+OneXray shares data with common formats instead of a legacy private import format.
 
 | Type | Share format |
 | --- | --- |
-| Outbound nodes | Standard Xray share links when possible; OneXray URL Scheme for app-native data. |
-| Xray Setting | OneXray URL Scheme with Base64 config data. |
-| Raw Config | OneXray URL Scheme with Base64 raw JSON. |
-| Subscriptions | OneXray subscription link wrapper. |
-| GeoData | OneXray GeoData link. |
+| Outbound nodes | Standard Xray share link text and QR code when supported by libXray. |
+| Subscriptions | Plain HTTPS subscription URL. |
+| Raw Json | JSON text and a `.json` file. |
+| Xray Setting | JSON text and a `.json` file. |
+| GeoData | Not shared separately. Use Backup for full migration. |
 
-# Common Protocol
+# Import
 
-Outbound nodes use common Xray share-link formats through libXray when possible.
+Imported text is classified by the running app:
 
-Subscriptions can also be shared as plain `https://` URLs.
+| Input | Behavior |
+| --- | --- |
+| `https://...` | Adds a subscription and refreshes it. |
+| Standard Xray share text | Imports outbound nodes through libXray. |
+| Other text | Fails with no valid config if libXray cannot read outbound nodes from it. |
 
-# OneXray URL Scheme
+QR image import supports `png`, `jpg`, and `jpeg`. Text file import supports `txt`, `json`, and `yaml`; those files still pass through the same text import rules.
 
-OneXray URL Scheme is the native format for app-to-app import, backup, restore, CLI import, and AI automation.
+# Raw Json and Xray Setting
 
-Main paths:
+Raw Json and Xray Setting can be exported from their menus as JSON text or JSON files. They are intended for manual copy, external editing, or backup workflows.
 
-```text
-onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
-onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
-onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
-onexray://onexray.com/sub/add?url=<url>#<name>
-onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
-onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
-```
+They are not imported through the generic share/import pipeline as app-native records. To create them inside OneXray, use the relevant Core page.
 
-When sharing an Xray Setting that references custom GeoData files, OneXray includes the required GeoData links before the config link.
+# Backup
 
-See [Develop]({{< relref path="../develop/index.md" lang="en" >}}) for exact field semantics.
+Use [Backup and Restore]({{< relref path="../setting/backup/index.md" lang="en" >}}) when you need a complete migration that includes local configs, subscriptions, and custom GeoData files.

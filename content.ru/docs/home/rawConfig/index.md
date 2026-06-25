@@ -1,38 +1,44 @@
 ---
-title: Raw Config
+title: Raw Json
 weight: 4
 ---
 
-Raw Config хранит полный Xray JSON document. Используйте его, когда структурированные страницы Xray Setting не покрывают нужную функцию Xray-core.
+Raw Json хранит полный Xray JSON document. Используйте его, когда structured Xray Setting pages не покрывают нужную функцию Xray-core.
 
-Эта страница предполагает знание Xray-core. Перед сохранением OneXray проверяет JSON и тестирует его через встроенный core API.
+Эта страница предполагает знание Xray-core. OneXray validates JSON и тестирует его через bundled core API перед сохранением.
 
 [Xray-core Config Reference](https://xtls.github.io/en/config/)
 
-Самый безопасный поток — скопировать сгенерированный Xray config file:
+Самый безопасный workflow — скопировать generated Xray config file из:
 
 ```text
-Settings > Log > Xray config file
+Core > Logs > Xray config file
 ```
 
-Затем редактировать копию как Raw Config.
+Затем отредактировать копию как Raw Json config.
 
-# Обязательные поля
+# Local Only
+
+Raw Json is local-only. The Raw Json list always shows a single `Local` group and does not use subscription grouping. Historical Raw rows with non-local subscription ids are still displayed under Local; database rows are not migrated.
+
+Subscriptions do not create Raw Json entries.
+
+# Required Fields
 
 ## `name`
 
-OneXray требует непустое top-level поле `name` для отображения в списке конфигов.
+OneXray requires a non-empty top-level `name` field for display in the config list.
 
-## TUN inbound
+## TUN Inbound
 
-OneXray требует хотя бы один inbound:
+OneXray requires at least one inbound with:
 
-| Поле | Обязательное значение |
+| Field | Required value |
 | --- | --- |
 | `protocol` | `tun` |
 | `tag` | `tunIn` |
 
-Sniffing рекомендуется, потому что domain-based routing зависит от него.
+Sniffing is recommended because domain-based routing depends on it.
 
 ```json
 {
@@ -50,12 +56,6 @@ Sniffing рекомендуется, потому что domain-based routing з
           "quic"
         ]
       }
-    },
-    {
-      "listen": "127.0.0.1",
-      "port": "11024",
-      "protocol": "http",
-      "tag": "pingIn"
     }
   ]
 }
@@ -63,16 +63,16 @@ Sniffing рекомендуется, потому что domain-based routing з
 
 # Runtime Fixing
 
-Перед запуском OneXray изменяет Raw Config под текущую платформу:
+Before startup, OneXray adjusts the Raw Json config for the current platform:
 
-| Область | Runtime behavior |
+| Area | Runtime behavior |
 | --- | --- |
-| Interfaces | Если включен TUN interface binding, outbound `streamSettings.sockopt.interface` и TUN `autoOutboundsInterface` заполняются. Если binding выключен, существующие outbound `interface` удаляются. |
-| Ping inbound port | `pingIn` HTTP inbound со случайным портом заменяется на runtime ping port. |
-| Logs | `access` и `error` переписываются на log files OneXray. В macOS System Extension mode logs отключаются. |
-| Metrics | `policy`, `metrics` и `stats` удаляются из runtime Raw Config. |
+| Interfaces | When TUN interface binding is enabled, outbound `streamSettings.sockopt.interface` and TUN `autoOutboundsInterface` are filled. When it is not enabled, existing outbound `interface` fields are removed. |
+| Ping inbound | Do not define `pingIn` in Raw Json. At startup, OneXray removes any existing `pingIn` inbound, writes a runtime HTTP `pingIn` inbound with the current ping port and auth, and rewrites the ping routing rule. |
+| Logs | `access` and `error` paths are rewritten to OneXray's log files. On macOS System Extension mode, logs are forced off. |
+| Metrics | When TUN metrics are enabled, runtime metrics fields are written. When disabled, `policy`, `metrics`, and `stats` are not written. |
 
-# Рекомендуемый routing skeleton
+# Suggested Routing Skeleton
 
 ```json
 {
@@ -102,21 +102,16 @@ Sniffing рекомендуется, потому что domain-based routing з
         "port": "853",
         "outboundTag": "proxy",
         "ruleTag": "dnsDoT"
-      },
-      {
-        "inboundTag": [
-          "pingIn"
-        ],
-        "outboundTag": "proxy",
-        "ruleTag": "ping"
       }
     ]
   }
 }
 ```
 
-Первая rule маршрутизирует DNS component queries. Вторая отправляет обычный DNS traffic на port `53` в DNS outbound. Третья обрабатывает DNS over TLS на port `853`. Четвертая позволяет OneXray выполнять ping через активный proxy.
+The first rule routes DNS component queries. The second rule forwards normal port `53` DNS traffic to the DNS outbound. The third rule handles DNS over TLS traffic on port `853`.
 
-# Import and Sharing
+Do not add a `pingIn` routing rule manually. OneXray inserts the runtime ping rule together with the runtime `pingIn` inbound.
 
-Raw Config можно импортировать через OneXray URL Scheme с `type=raw`. См. [Develop]({{< relref path="../../develop/index.md" lang="ru" >}}).
+# Sharing
+
+Raw Json can be shared as JSON text or a `.json` file from the Raw Json menu. Generic import does not recreate a Raw Json record from that shared text; create or paste Raw Json from the Core Xray editor when needed.

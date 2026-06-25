@@ -40,6 +40,12 @@ Network interface selection is available on Linux and Windows.
 
 When interface fixing is enabled, OneXray can write the selected interface into outbound socket options and TUN inbound `autoOutboundsInterface`. This helps keep proxy traffic on the expected physical adapter.
 
+## Metrics
+
+Metrics controls whether OneXray writes Xray traffic statistics into runtime configs and reads traffic counters for the Home connection summary.
+
+When metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into the generated runtime Xray JSON.
+
 # On Demand
 
 On-demand rules are available on iOS and macOS. They let the system decide whether to activate the VPN for selected network conditions.

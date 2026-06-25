@@ -1,69 +1,68 @@
 ---
-title: Добавление и импорт
+title: Add and Import
 weight: 1
 ---
 
-Меню добавления на главной странице позволяет создать локальный узел, добавить подписку, сканировать QR-код, выбрать файл, выбрать изображение или прочитать текст из буфера обмена.
+Use the add menu on the Home page to create local outbound nodes, add subscriptions, scan QR codes, pick files, pick images, or read text from the clipboard.
 
-# Ввод
+# Manual Input
 
-## Ручной ввод
+Manual input opens the outbound editor. Use it when you want to create a local node directly in OneXray.
 
-Ручной ввод открывает редактор outbound. Используйте его, если хотите создать локальный узел прямо в OneXray.
+The outbound editor writes a single outbound node. At runtime OneXray assigns the active node the reserved `proxy` tag.
 
-Редактор сохраняет один outbound-узел. Во время запуска OneXray назначает активному узлу зарезервированный runtime tag `proxy`.
+# Subscription Link
 
-## Ссылка подписки
+Subscription input creates a subscription row and immediately downloads it. The subscription name is read from the URL fragment when available. Empty names become `anonymous`.
 
-Ввод подписки создает запись подписки и сразу загружает ее. Имя подписки берется из URL fragment, если он есть. Пустое имя становится `anonymous`.
-
-Пример:
+Example:
 
 ```text
 https://example.com/sub.txt#MySubscription
 ```
 
-# Поддерживаемый импортируемый текст
+Subscriptions only import outbound nodes.
 
-OneXray классифицирует текст по первому распознанному формату.
+# Supported Import Text
 
-| Ввод | Поведение |
+OneXray classifies imported text by the first valid format it can read.
+
+| Input | Behavior |
 | --- | --- |
-| `onexray://onexray.com/...` | OneXray URL Scheme. Может импортировать подписки, конфиги и rule sets. |
-| `https://...` | Subscription URL. |
-| Xray share links | Разбираются через libXray и импортируются как outbound-узлы. |
-| Subscription text | Можно импортировать несколько share links сразу. |
-| Clash.Meta YAML | Разбирается через libXray, если поддерживается встроенным core API. |
-| Xray JSON | Разбирается через libXray, если поддерживается встроенным core API. |
+| `https://...` | Parsed as a subscription URL. |
+| Xray share links | Parsed by libXray and imported as outbound nodes. |
+| Multi-line share text | Multiple outbound nodes can be imported at once when libXray supports the content. |
+| Clash.Meta YAML | Parsed by libXray when supported by the bundled core API. |
+| Xray JSON | Parsed by libXray when supported by the bundled core API, but only outbound nodes are imported. |
 
-Точный OneXray URL Scheme описан на странице [Develop]({{< relref path="../../develop/index.md" lang="ru" >}}).
+The generic import pipeline does not create Raw Json, Xray Setting, or GeoData records.
 
 ## Scan QRCode
 
-Страница QR-сканирования читает QR-коды с камеры. Она предназначена для коротких ссылок узлов и OneXray-ссылок.
+The QR scan page reads camera QR codes. It is intended for short node links and HTTPS subscription URLs.
 
-Длинные ссылки могут хуже распознаваться. Для длинных XHTTP или полных setting payload используйте текст, файл или URL Scheme.
+Long links can reduce QR recognition reliability. For long content, use text or file import.
 
 ## Pick Image
 
-Импорт изображения поддерживает QR-файлы `png`, `jpg`, `jpeg`.
+Image import supports common QR image files such as `png`, `jpg`, and `jpeg`.
 
 ## Pick File
 
-Импорт файлов поддерживает:
+File import supports:
 
-| Расширение | Обработка |
+| Extension | Handling |
 | --- | --- |
-| `png`, `jpg`, `jpeg` | Декодировать QR-код из изображения. |
-| `txt`, `json`, `yaml` | Прочитать файл как текст и импортировать. |
+| `png`, `jpg`, `jpeg` | Decode QR code from image. |
+| `txt`, `json`, `yaml` | Read file as text and import it. |
 
 ## Read Clipboard
 
-Импорт из буфера обмена читает plain text и использует тот же pipeline импорта.
+Clipboard import reads plain text and passes it through the same import pipeline.
 
-# Импорт для ИИ и CLI
+# AI and CLI Import
 
-Автоматизациям следует использовать настольный CLI:
+Automation tools should use the desktop CLI when available:
 
 ```shell
 onexray import --file /path/to/import.txt
@@ -71,6 +70,6 @@ onexray import --text 'vless://...'
 cat import.txt | onexray import --file -
 ```
 
-Приложение должно быть запущено, потому что CLI отправляет запрос в локальный Automation API.
+The app must be running because the CLI sends the import request to the local Automation API.
 
-CLI import поддерживает те же текстовые форматы: OneXray URL Scheme, HTTPS subscription URL, Xray share links, multi-line share text, Clash.Meta YAML и Xray JSON. `--file -` читает text из stdin. QR images импортируются из UI приложения.
+CLI import accepts the same text formats listed above. `--file -` reads text from stdin. QR images are imported from the app UI.

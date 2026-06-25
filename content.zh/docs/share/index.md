@@ -3,39 +3,34 @@ title: 分享
 weight: 2
 ---
 
-OneXray 可将配置分享为二维码、文本链接或系统分享目标。
-
-支持分享的对象：
+OneXray 使用通用格式分享数据，不再使用旧私有导入格式。
 
 | 类型 | 分享格式 |
 | --- | --- |
-| 节点 | 尽可能使用标准 Xray 分享链接；App 原生数据使用 OneXray URL Scheme。 |
-| Xray Setting | 携带 Base64 配置数据的 OneXray URL Scheme。 |
-| Raw Config | 携带 Base64 Raw JSON 的 OneXray URL Scheme。 |
-| 订阅 | OneXray 订阅链接包装。 |
-| GeoData | OneXray GeoData 链接。 |
+| Outbound 节点 | libXray 支持时导出标准 Xray 分享链接文本和二维码。 |
+| 订阅 | 普通 HTTPS 订阅 URL。 |
+| Raw Json | JSON 文本和 `.json` 文件。 |
+| Xray Setting | JSON 文本和 `.json` 文件。 |
+| GeoData | 不单独分享。完整迁移请使用 Backup。 |
 
-# 通用协议
+# 导入
 
-节点会尽可能通过 libXray 使用通用 Xray 分享链接格式。
+导入文本由当前运行的 App 按以下方式分类：
 
-订阅也可以直接分享为普通 `https://` URL。
+| 输入 | 行为 |
+| --- | --- |
+| `https://...` | 添加订阅并刷新。 |
+| 标准 Xray 分享文本 | 通过 libXray 导入 Outbound 节点。 |
+| 其他文本 | 如果 libXray 无法读取 Outbound 节点，则显示无有效配置。 |
 
-# OneXray URL Scheme
+二维码图片导入支持 `png`、`jpg` 和 `jpeg`。文本文件导入支持 `txt`、`json` 和 `yaml`；这些文件仍然走同一套文本导入规则。
 
-OneXray URL Scheme 是 App 间导入、备份、恢复、CLI 导入和 AI 自动化使用的原生格式。
+# Raw Json 和 Xray Setting
 
-主要路径：
+Raw Json 和 Xray Setting 可以从各自菜单导出为 JSON 文本或 JSON 文件。它们适合手动复制、外部编辑或备份流程。
 
-```text
-onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
-onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
-onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
-onexray://onexray.com/sub/add?url=<url>#<name>
-onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
-onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
-```
+它们不会通过通用分享/导入流程重新创建为 App 内部记录。需要创建时，请使用对应的 Core 页面。
 
-当分享引用了自定义 GeoData 的 Xray Setting 时，OneXray 会在配置链接之前包含所需 GeoData 链接。
+# Backup
 
-字段语义见 [开发]({{< relref path="../develop/index.md" lang="zh" >}})。
+如果需要完整迁移本地配置、订阅和自定义 GeoData 文件，请使用 [备份与恢复]({{< relref path="../setting/backup/index.md" lang="zh" >}})。

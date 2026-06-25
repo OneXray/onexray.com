@@ -40,6 +40,12 @@ sudo ip -6 route add default dev OneXrayTun metric 20
 
 开启网卡修正后，OneXray 可以把所选网卡写入 outbound socket option 和 TUN inbound 的 `autoOutboundsInterface`，用于确保代理流量走预期物理网卡。
 
+## Metrics
+
+Metrics 控制 OneXray 是否在运行时配置中写入 Xray 流量统计，并读取 Home 连接状态区展示所需的流量计数。
+
+Metrics 关闭时，OneXray 不会把 `policy`、`stats` 或 `metrics` 写入生成后的运行时 Xray JSON。
+
 # 按需开启
 
 按需规则适用于 iOS 和 macOS。它允许系统根据网络条件决定是否激活 VPN。

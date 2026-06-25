@@ -3,17 +3,15 @@ title: Add and Import
 weight: 1
 ---
 
-Use the add menu on the Home page to create local nodes, add subscriptions, scan QR codes, pick files, pick images, or read text from the clipboard.
+Use the add menu on the Home page to create local outbound nodes, add subscriptions, scan QR codes, pick files, pick images, or read text from the clipboard.
 
-# Input
-
-## Manual Input
+# Manual Input
 
 Manual input opens the outbound editor. Use it when you want to create a local node directly in OneXray.
 
 The outbound editor writes a single outbound node. At runtime OneXray assigns the active node the reserved `proxy` tag.
 
-## Subscription Link
+# Subscription Link
 
 Subscription input creates a subscription row and immediately downloads it. The subscription name is read from the URL fragment when available. Empty names become `anonymous`.
 
@@ -23,26 +21,27 @@ Example:
 https://example.com/sub.txt#MySubscription
 ```
 
+Subscriptions only import outbound nodes.
+
 # Supported Import Text
 
 OneXray classifies imported text by the first valid format it can read.
 
 | Input | Behavior |
 | --- | --- |
-| `onexray://onexray.com/...` | Parsed as OneXray URL Scheme. Can import subscriptions, configs, and rule sets. |
 | `https://...` | Parsed as a subscription URL. |
 | Xray share links | Parsed by libXray and imported as outbound nodes. |
-| Subscription text | Multiple share links can be imported at once. |
+| Multi-line share text | Multiple outbound nodes can be imported at once when libXray supports the content. |
 | Clash.Meta YAML | Parsed by libXray when supported by the bundled core API. |
-| Xray JSON | Parsed by libXray when supported by the bundled core API. |
+| Xray JSON | Parsed by libXray when supported by the bundled core API, but only outbound nodes are imported. |
 
-For the exact OneXray URL Scheme, see [Develop]({{< relref path="../../develop/index.md" lang="en" >}}).
+The generic import pipeline does not create Raw Json, Xray Setting, or GeoData records.
 
 ## Scan QRCode
 
-The QR scan page reads camera QR codes. It is intended for short node links and OneXray links.
+The QR scan page reads camera QR codes. It is intended for short node links and HTTPS subscription URLs.
 
-Long links can reduce QR recognition reliability. For long XHTTP or complete setting payloads, use text, file, or URL Scheme.
+Long links can reduce QR recognition reliability. For long content, use text or file import.
 
 ## Pick Image
 
@@ -73,4 +72,4 @@ cat import.txt | onexray import --file -
 
 The app must be running because the CLI sends the import request to the local Automation API.
 
-CLI import accepts the same text formats listed above: OneXray URL Scheme, HTTPS subscription URL, Xray share links, multi-line share text, Clash.Meta YAML, and Xray JSON. `--file -` reads text from stdin. QR images are imported from the app UI.
+CLI import accepts the same text formats listed above. `--file -` reads text from stdin. QR images are imported from the app UI.

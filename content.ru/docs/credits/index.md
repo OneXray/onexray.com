@@ -46,7 +46,6 @@ OneXray построен на open source runtimes, libraries, platform SDKs и 
 - [dio](https://pub.dev/packages/dio)
 - [uuid](https://pub.dev/packages/uuid)
 - [permission_handler](https://pub.dev/packages/permission_handler)
-- [app_links](https://pub.dev/packages/app_links)
 - [file_picker](https://pub.dev/packages/file_picker)
 - [mobile_scanner](https://pub.dev/packages/mobile_scanner)
 - [image](https://pub.dev/packages/image)

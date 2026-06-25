@@ -31,18 +31,13 @@ When a custom rule set is added or updated, OneXray downloads the `.dat` file, a
 
 # Auto Update
 
-GeoData auto update is configured on [Subscription Update]({{< relref path="../subUpdate/index.md" lang="en" >}}). System GeoData and custom GeoData are checked separately from subscription refresh but run from the same Home-page update service.
+GeoData auto update is configured on [Auto Update]({{< relref path="../subUpdate/index.md" lang="en" >}}). System GeoData and custom GeoData are checked separately from subscription refresh but run from the same update service.
 
 # Sharing and Backup
 
-Custom GeoData can be shared with OneXray URL Scheme:
+GeoData is no longer shared as a standalone app link. For full migration, use [Backup and Restore]({{< relref path="../backup/index.md" lang="en" >}}), which includes custom GeoData database rows, `.dat` files, and generated `.json` summaries.
 
-```text
-onexray://onexray.com/dat/add?type=domain&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
-onexray://onexray.com/dat/add?type=ip&url=https%3A%2F%2Fexample.com%2Fcustom.dat#custom
-```
-
-When an Xray Setting references custom GeoData, OneXray share output includes the needed GeoData links before the config link.
+Routing templates can still reference custom GeoData with `ext:<Name>.dat:<Code>`. Add the required custom GeoData manually before importing those templates into Xray Settings.
 
 # iOS and iPadOS
 

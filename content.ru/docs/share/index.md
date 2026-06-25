@@ -1,41 +1,36 @@
 ---
-title: Sharing
+title: Share
 weight: 2
 ---
 
-OneXray может делиться конфигами как QR codes, text links или через системный share target.
+OneXray использует общие форматы обмена данными вместо legacy private import format.
 
-Поддерживаемые объекты:
-
-| Type | Share format |
+| Тип | Формат share |
 | --- | --- |
-| Outbound nodes | Standard Xray share links, если возможно; OneXray URL Scheme для app-native data. |
-| Xray Setting | OneXray URL Scheme с Base64 config data. |
-| Raw Config | OneXray URL Scheme с Base64 raw JSON. |
-| Subscriptions | OneXray subscription link wrapper. |
-| GeoData | OneXray GeoData link. |
+| Outbound nodes | Стандартный Xray share link text и QR code, если это поддерживает libXray. |
+| Subscriptions | Обычный HTTPS subscription URL. |
+| Raw Json | JSON text и `.json` file. |
+| Xray Setting | JSON text и `.json` file. |
+| GeoData | Не передается отдельно. Для полной миграции используйте Backup. |
 
-# Common Protocol
+# Import
 
-Outbound nodes используют common Xray share-link formats через libXray, если возможно.
+Imported text классифицируется запущенным приложением:
 
-Subscriptions также можно делить как обычные `https://` URLs.
+| Input | Behavior |
+| --- | --- |
+| `https://...` | Добавляет подписку и обновляет ее. |
+| Standard Xray share text | Импортирует Outbound nodes через libXray. |
+| Other text | Завершается без valid config, если libXray не может прочитать Outbound nodes. |
 
-# OneXray URL Scheme
+QR image import поддерживает `png`, `jpg` и `jpeg`. Text file import поддерживает `txt`, `json` и `yaml`; такие файлы проходят через те же правила text import.
 
-OneXray URL Scheme — native format для app-to-app import, backup, restore, CLI import и AI automation.
+# Raw Json and Xray Setting
 
-Основные paths:
+Raw Json и Xray Setting можно экспортировать из их меню как JSON text или JSON files. Это предназначено для ручного копирования, внешнего редактирования или backup workflows.
 
-```text
-onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
-onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
-onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
-onexray://onexray.com/sub/add?url=<url>#<name>
-onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
-onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
-```
+Они не импортируются generic share/import pipeline как app-native records. Чтобы создать их внутри OneXray, используйте соответствующую страницу Core.
 
-Когда Xray Setting ссылается на custom GeoData files, OneXray добавляет нужные GeoData links перед config link.
+# Backup
 
-Точная семантика полей описана на странице [Develop]({{< relref path="../develop/index.md" lang="ru" >}}).
+Используйте [Backup and Restore]({{< relref path="../setting/backup/index.md" lang="ru" >}}), если нужна полная миграция local configs, subscriptions и custom GeoData files.

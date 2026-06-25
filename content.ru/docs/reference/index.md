@@ -3,16 +3,16 @@ title: AI Reference
 weight: 8
 ---
 
-Эта страница — компактный machine-readable reference текущего поведения OneXray. Здесь намеренно используются точные identifiers, tags, paths и JSON keys.
+Эта страница — компактный machine-readable reference текущего поведения OneXray. Она намеренно использует точные identifiers, tags, paths и JSON keys.
 
 # Core Concepts
 
-| Identifier | Значение |
+| Identifier | Meaning |
 | --- | --- |
-| `CoreConfigType.outbound` | Один локальный или subscription node. |
-| `CoreConfigType.setting` | Структурированный Xray Setting, сохраненный OneXray. |
-| `CoreConfigType.raw` | Полный Raw Config JSON, сохраненный как текст. |
-| `Simple` | Встроенный setting writer с id `-1`. |
+| `CoreConfigType.outbound` | Один local или subscription node. |
+| `CoreConfigType.setting` | Structured Xray Setting, сохраненный OneXray; всегда показывается под Local в списке Xray Setting. |
+| `CoreConfigType.raw` | Full Raw Json config, сохраненный как text; всегда показывается под Local в списке Raw Json. |
+| `Simple` | Built-in setting writer с id `-1`. |
 | `proxy` | Runtime tag выбранного exit node. |
 | `chainProxy` | Fixed tag для front или relay node. |
 | `tunIn` | TUN inbound tag. |
@@ -22,92 +22,54 @@ weight: 8
 | `dnsDoT` | Routing rule tag для port `853`. |
 | `ping` | Routing rule tag для ping traffic. |
 
+# Primary Navigation
+
+| Primary route | Meaning |
+| --- | --- |
+| `/home` | Connection state и node operation. |
+| `/subscriptions` | Subscription source list. |
+| `/core` | Xray-core settings и diagnostics. |
+| `/settings` | App preferences и support. |
+
+Secondary pages зарегистрированы под каждым primary route. Например, `/home/tun`, `/core/tun` и `/settings/tun` открывают одну и ту же TUN page, сохраняя выбранный primary section.
+
 # Import Text Classification
 
-| Prefix или content | Import result |
+| Prefix or content | Import result |
 | --- | --- |
-| `onexray://onexray.com` | OneXray URL Scheme. |
 | `https://` | Subscription URL. |
 | Other Xray share content | Outbound nodes через libXray. |
 
-Text files для UI import: `txt`, `json`, `yaml`.
+Text files accepted by UI import: `txt`, `json`, `yaml`.
 
-Image files для UI import: `png`, `jpg`, `jpeg`.
+Image files accepted by UI import: `png`, `jpg`, `jpeg`.
 
-# Форматы импорта CLI
+Unsupported legacy private import text и old backup/share text возвращают no valid config.
+
+# CLI Import Formats
 
 `onexray import` принимает text из `--text`, `--file` или stdin через `--file -`.
 
 | Format | Accepted by CLI | Import result |
 | --- | --- | --- |
-| OneXray URL Scheme | yes | Configs, subscriptions или GeoData. |
-| HTTPS subscription URL | yes | Subscription row и downloaded nodes. |
-| Xray share link | yes | Outbound nodes через libXray; local outbound models поддерживают `vless`, `vmess`, `shadowsocks`, `trojan`, `socks` и `hysteria`. |
+| HTTPS subscription URL | yes | Subscription row и downloaded outbound nodes. |
+| Xray share link | yes | Outbound nodes через libXray; local outbound models support `vless`, `vmess`, `shadowsocks`, `trojan`, `socks`, `hysteria`. |
 | Multi-line Xray share text | yes | Multiple outbound nodes через libXray. |
-| Clash.Meta YAML text | yes | Outbound nodes, если поддерживает bundled libXray API. |
-| Xray JSON text | yes | Outbound nodes, если поддерживает bundled libXray API. |
-| Multi-line OneXray share text | yes | Каждая строка `onexray://onexray.com/...` разбирается отдельно. |
+| Clash.Meta YAML text | yes | Outbound nodes, если поддерживается bundled libXray API. |
+| Xray JSON text | yes | Outbound nodes, если поддерживается bundled libXray API. |
 
-CLI `--file` читает text files или `-` для stdin. QR images импортируются из UI приложения.
+CLI `--file` читает text files или `-` for stdin. QR images импортируются из UI приложения.
 
-# URL Scheme `data`
+# Subscription Semantics
 
-`/config/add` использует `data=<base64>`:
+Subscriptions are outbound-only. Subscription import and refresh ignore Setting and Raw semantics even if remote text contains full Xray JSON sections.
 
-```text
-data = percentEncode(base64Encode(utf8Encode(jsonText)))
-```
-
-Используйте стандартный Base64.
-
-| `type` | Организация `jsonText` | Источник имени |
-| --- | --- | --- |
-| `outbound` | Xray JSON object; импортируется первый item массива `outbounds`. | Первый outbound `name`, затем `sendThrough`, затем `tag`, затем `protocol`. |
-| `setting` | Полный Xray Setting JSON object. | Top-level `name`. |
-| `raw` | Полный Raw Config JSON text. | URL fragment для DB display name; top-level JSON `name` все равно нужен для validation. |
-
-Минимальный `outbound` payload:
-
-```json
-{
-  "outbounds": [
-    {
-      "name": "My Node",
-      "protocol": "vless",
-      "settings": {}
-    }
-  ]
-}
-```
-
-Минимальный `setting` payload:
-
-```json
-{
-  "name": "My Setting",
-  "log": {},
-  "dns": {},
-  "fakeDns": [],
-  "routing": {},
-  "inbounds": [],
-  "outbounds": []
-}
-```
-
-Минимальный `raw` payload:
-
-```json
-{
-  "name": "My Raw Config",
-  "inbounds": [
-    {
-      "tag": "tunIn",
-      "protocol": "tun"
-    }
-  ],
-  "outbounds": []
-}
-```
+| Data | Subscription behavior |
+| --- | --- |
+| `outbounds` | Parsed and stored as subscription outbound nodes. |
+| `dns`, `routing`, `inbounds`, `log`, `policy`, `stats`, `metrics` | Ignored by subscription import. |
+| Raw Json | Not created from subscriptions. |
+| Xray Setting | Not created from subscriptions. |
 
 # Simple Setting Defaults
 
@@ -120,7 +82,7 @@ data = percentEncode(base64Encode(utf8Encode(jsonText)))
 | `routing.localDirect` | `true` |
 | `routing.enableIPRule` | `true` |
 | `routing.localDns` | `true` |
-| `dns` | Cloudflare через `proxy` |
+| `dns` | Cloudflare through `proxy` |
 | `enableLog` | `false` |
 | `fakeDns` | `false` |
 | `chainProxyOutboundId` | `null` |
@@ -130,7 +92,7 @@ data = percentEncode(base64Encode(utf8Encode(jsonText)))
 | `ruleTag` | Condition | `outboundTag` |
 | --- | --- | --- |
 | `defaultDnsProxy` | `inboundTag: ["defaultDns"]` | `proxy` |
-| `localDnsDirect` | `inboundTag: ["localDns"]`, если local DNS включен | `direct` |
+| `localDnsDirect` | `inboundTag: ["localDns"]` when local DNS is enabled | `direct` |
 | `domainDirect` | direct domain rules | `direct` |
 | `ipDirect` | direct IP rules | `direct` |
 
@@ -169,14 +131,14 @@ Additional IP rule:
 
 | Case | Server |
 | --- | --- |
-| FakeDNS enabled | Первый server: `address: "fakedns"`. |
-| Default DNS | `tcp://1.1.1.1` или `https://1.1.1.1/dns-query`, routed через `proxy`. |
-| Local DNS for `CN` | `tcp://223.5.5.5` для direct domains. |
-| Local DNS for `IR` | `tcp://5.200.200.200` для direct domains. |
-| Local DNS for `RU` | `tcp://9.9.9.9` для direct domains. |
-| Local DNS for `Other` | `tcp://1.1.1.1` для direct domains. |
+| FakeDNS enabled | First server is `address: "fakedns"`. |
+| Default DNS | `tcp://1.1.1.1` or `https://1.1.1.1/dns-query`, routed through `proxy`. |
+| Local DNS for `CN` | `tcp://223.5.5.5` for direct domains. |
+| Local DNS for `IR` | `tcp://5.200.200.200` for direct domains. |
+| Local DNS for `RU` | `tcp://9.9.9.9` for direct domains. |
+| Local DNS for `Other` | `tcp://1.1.1.1` for direct domains. |
 
-Когда FakeDNS включен в Simple Setting, TUN sniffing содержит `fakedns+others`.
+When FakeDNS is enabled in Simple Setting, TUN sniffing includes `fakedns+others`.
 
 # Xray Setting FakeDNS
 
@@ -195,11 +157,11 @@ Default pools:
 ]
 ```
 
-Записанные pools следуют `dns.queryStrategy`:
+Written pools follow `dns.queryStrategy`:
 
 | Strategy | Pools |
 | --- | --- |
-| `UseIP` | IPv4 и IPv6 |
+| `UseIP` | IPv4 and IPv6 |
 | `UseIPv4` | IPv4 |
 | `UseIPv6` | IPv6 |
 
@@ -215,7 +177,7 @@ block
 dnsOut
 ```
 
-`chainProxy` присутствует только если настроен.
+`chainProxy` present only when configured.
 
 # DNS Outbound
 
@@ -227,62 +189,58 @@ dnsOut
 | `rules` | `[{"action":"hijack","qType":"1,28"},{"action":"direct"}]` |
 | `blockTypes` | `[]` |
 
-`blockTypes` записывается только когда `rules` пустой.
+`blockTypes` is written only when `rules` is empty.
 
 # Routing Rule Fields
 
-OneXray routing rules могут записывать:
+OneXray routing rules can write:
 
 ```text
 domain, ip, port, sourcePort, localPort, network, sourceIP, localIP,
 inboundTag, protocol, attrs, process, outboundTag, ruleTag
 ```
 
-`process` записывается только на Windows и Linux.
+`process` is written only on Windows and Linux.
 
-# Raw Config Validation
+# Raw Json Validation
 
-Raw Config должен:
+Raw Json must:
 
-1. Быть valid JSON.
-2. Иметь непустой top-level `name`.
-3. Иметь хотя бы один inbound с `protocol: "tun"` и `tag: "tunIn"`.
-4. Пройти bundled Xray-core config test после того, как OneXray удалит TUN inbound и metrics для test pass.
+1. Be valid JSON.
+2. Have a non-empty top-level `name`.
+3. Have at least one inbound with `protocol: "tun"` and `tag: "tunIn"`.
+4. Pass the bundled Xray-core config test after OneXray removes TUN inbound and runtime metrics for the test pass.
 
 # Runtime Fixes
 
 | Config type | Runtime fixes |
 | --- | --- |
-| Xray Setting | Interface binding, ping port, macOS System Extension log disabling. |
-| Raw Config | Interface binding, ping port, log path или log disabling, metrics removal. |
+| Xray Setting | Inbound ports, ping auth, interface binding, macOS System Extension log disabling, and optional metrics. |
+| Raw Json | Inbound ports, ping auth, interface binding, log path or log disabling, and optional metrics. |
 
-macOS System Extension mode отключает Xray logs в runtime.
+When TUN metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into runtime configs. macOS System Extension mode disables Xray logs at runtime.
 
-# URL Scheme
+# Backup v2
+
+Outer ZIP:
 
 ```text
-onexray://onexray.com/config/add?type=setting&data=<base64>#<name>
-onexray://onexray.com/config/add?type=outbound&data=<base64>#<name>
-onexray://onexray.com/config/add?type=raw&data=<base64>#<name>
-onexray://onexray.com/sub/add?url=<url>#<name>
-onexray://onexray.com/dat/add?type=domain&url=<url>#<name>
-onexray://onexray.com/dat/add?type=ip&url=<url>#<name>
+timestamp.txt
+sha256sum.txt
+data.zip
 ```
 
-Для `/config/add` `data` — это standard Base64 от UTF-8 JSON, затем percent-encoded как query value.
+`data.zip`:
 
-# CLI
-
-```shell
-onexray health
-onexray status
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-onexray debug session
-onexray vpn start
-onexray vpn start --id 123
-onexray vpn stop
+```text
+manifest.json
+core_configs.json
+subscriptions.json
+geo_data.json
+dat/
 ```
+
+`core_configs.json` stores local configs only. Subscription nodes are restored by refreshing subscription URLs.
 
 # Automation API
 
@@ -291,10 +249,10 @@ onexray vpn stop
 | `GET` | `/v1/health` | none |
 | `GET` | `/v1/status` | none |
 | `POST` | `/v1/import` | `{ "text": "<import text>" }` |
-| `POST` | `/v1/vpn/start` | `{ "configId": 123 }` или `{}` |
+| `POST` | `/v1/vpn/start` | `{ "configId": 123 }` or `{}` |
 | `POST` | `/v1/vpn/stop` | `{}` |
 
-Все requests требуют:
+All requests require:
 
 ```http
 Authorization: Bearer <token>

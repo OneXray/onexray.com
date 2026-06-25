@@ -1,22 +1,23 @@
 ---
-title: 备份和恢复
+title: 备份与恢复
 weight: 6
 ---
 
-备份会把 OneXray 数据导出为 ZIP 文件，可分享、保存并在之后导入。
+Backup 会把 OneXray 数据导出为 ZIP 文件，方便保存、分享和后续导入。
 
 # 包含的数据
 
 | 数据 | 是否包含 |
 | --- | --- |
-| 本地 Xray Setting | 是 |
-| 本地节点 | 是 |
-| Raw Config | 是 |
-| 订阅 | 是，以订阅链接形式保存 |
-| 自定义 GeoData 行 | 是 |
+| 本地 Xray Settings | 是 |
+| 本地 Outbound 节点 | 是 |
+| Raw Json 配置 | 是 |
+| 订阅 | 是，以订阅记录和 URL 保存 |
+| 订阅节点行 | 否，恢复时通过订阅 URL 重新下载。 |
+| 自定义 GeoData 记录 | 是 |
 | 自定义 GeoData `.dat` 和生成的 `.json` 文件 | 是 |
-| 订阅中的节点行 | 否，恢复时会从订阅 URL 重新下载 |
-| Simple Setting 偏好 | 否 |
+| 内置 `geosite` 和 `geoip` 记录 | 否，它们会从内置资源恢复。 |
+| Simple Setting 偏好 | 否，保留在备份数据之外。 |
 | 其他 App 偏好 | 否 |
 
 # 文件结构
@@ -27,7 +28,7 @@ weight: 6
 OneXray-yyyy-MM-dd.zip
 ```
 
-内部结构：
+外层 ZIP 结构：
 
 ```text
 timestamp.txt
@@ -35,19 +36,26 @@ sha256sum.txt
 data.zip
 ```
 
-`data.zip` 内包含：
+`data.zip` 包含：
 
 ```text
-config.txt
-subscription.txt
-dat.txt
+manifest.json
+core_configs.json
+subscriptions.json
+geo_data.json
 dat/
 ```
 
-文本文件内保存 OneXray 分享链接。`dat` 目录保存自定义 GeoData 文件。
+`manifest.json` 表示这是当前结构化 v2 备份格式。缺少该 manifest 的备份不会被当前 OneXray 版本恢复。
+
+`core_configs.json` 只包含本地配置，不包含订阅节点。
+
+`subscriptions.json` 包含订阅名称、URL、timestamp 和 expanded 状态。恢复时 OneXray 会重建订阅并刷新 URL 重新下载节点。
+
+`geo_data.json` 包含自定义 GeoData 元数据。`dat/` 目录包含对应的自定义 `.dat` 文件和生成的 `.json` 摘要。
 
 # 恢复
 
-恢复会清空本地 OneXray 数据，恢复内置系统 GeoData 资源，复制备份中的自定义 GeoData 文件，然后导入保存的分享链接。
+恢复会清理 OneXray 业务数据和 GeoData 运行目录，恢复内置 `geosite` 和 `geoip`，复制备份中的自定义 GeoData 文件，恢复本地配置，恢复订阅，并刷新订阅 URL。
 
-重要备份 ZIP 应单独保存。系统级云备份不一定会包含用户自行管理的备份文件。
+请单独保存重要备份 ZIP。系统级云备份不一定包含用户手动管理的备份文件。

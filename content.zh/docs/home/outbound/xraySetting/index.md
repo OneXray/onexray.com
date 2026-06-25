@@ -152,4 +152,6 @@ macOS 且启用 System Extension 模式时，OneXray 会在运行时写出前强
 
 # 分享
 
-当 Xray Setting 引用了自定义规则集时，OneXray 生成的分享文本会先包含相关规则集链接，再包含配置链接。
+Xray Setting 可以从 Xray Setting 菜单分享为 JSON 文本或 `.json` 文件。
+
+自定义 GeoData 不会打包进 Xray Setting 分享结果。如果某个 setting 引用了自定义规则集，请先手动添加对应 GeoData，或使用 [备份与恢复]({{< relref path="../../../setting/backup/index.md" lang="zh" >}}) 进行完整迁移。

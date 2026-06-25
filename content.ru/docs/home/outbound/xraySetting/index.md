@@ -152,4 +152,6 @@ Default DNS outbound rules:
 
 # Sharing
 
-Если Xray Setting ссылается на custom rule sets, share text, созданный OneXray, включает связанные rule-set links перед config link.
+Xray Setting can be shared as JSON text or a `.json` file from the Xray Setting menu.
+
+Custom GeoData is not bundled into Xray Setting share output. If a setting references custom rule sets, add those GeoData entries manually first or use [Backup and Restore]({{< relref path="../../../setting/backup/index.md" lang="ru" >}}) for full migration.

@@ -46,7 +46,6 @@ OneXray 基于多个开源运行时、库、平台 SDK 和构建工具开发。�
 - [dio](https://pub.dev/packages/dio)
 - [uuid](https://pub.dev/packages/uuid)
 - [permission_handler](https://pub.dev/packages/permission_handler)
-- [app_links](https://pub.dev/packages/app_links)
 - [file_picker](https://pub.dev/packages/file_picker)
 - [mobile_scanner](https://pub.dev/packages/mobile_scanner)
 - [image](https://pub.dev/packages/image)

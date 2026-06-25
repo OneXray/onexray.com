@@ -40,6 +40,12 @@ sudo ip -6 route add default dev OneXrayTun metric 20
 
 Когда interface fixing включен, OneXray может записать выбранный interface в outbound socket options и TUN inbound `autoOutboundsInterface`. Это помогает отправлять proxy traffic через ожидаемый физический адаптер.
 
+## Metrics
+
+Metrics controls whether OneXray writes Xray traffic statistics into runtime configs and reads traffic counters for the Home connection summary.
+
+When metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into the generated runtime Xray JSON.
+
 # On Demand
 
 On-demand rules доступны на iOS и macOS. Они позволяют системе решать, активировать ли VPN для выбранных network conditions.
