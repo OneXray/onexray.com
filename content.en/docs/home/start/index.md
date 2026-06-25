@@ -32,5 +32,3 @@ Startup can fail when:
 | Invalid chain proxy | The selected chain proxy row is not an outbound or cannot be parsed. |
 | Same chain proxy and outbound | The chain proxy id is the same as the exit node id. |
 | Invalid Raw Json | The raw JSON fails OneXray validation or Xray-core test. |
-
-For machine control, desktop builds expose `onexray vpn start` and `onexray vpn stop`. See [Develop]({{< relref path="../../develop/index.md" lang="en" >}}).

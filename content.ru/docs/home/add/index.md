@@ -60,16 +60,8 @@ File import supports:
 
 Clipboard import reads plain text and passes it through the same import pipeline.
 
-# AI and CLI Import
+# Import Scope
 
-Automation tools should use the desktop CLI when available:
+Import выполняется через UI приложения. Используйте clipboard, file, image или QR scan import из add menu.
 
-```shell
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-cat import.txt | onexray import --file -
-```
-
-The app must be running because the CLI sends the import request to the local Automation API.
-
-CLI import accepts the same text formats listed above. `--file -` reads text from stdin. QR images are imported from the app UI.
+Imported subscriptions и share text создают только outbound nodes. Raw Json, Xray Setting и GeoData управляются со своих страниц.

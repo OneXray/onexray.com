@@ -27,6 +27,6 @@ OneXray — кроссплатформенный клиент Xray-core для i
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-Настройка Linux ZIP и заметки о настольном CLI описаны на странице [Установка]({{< relref path="docs/install/index.md" lang="ru" >}}).
+Настройка Linux ZIP описана на странице [Установка]({{< relref path="docs/install/index.md" lang="ru" >}}).
 
-Для автоматизации и AI-агентов начните с [AI Reference]({{< relref path="docs/reference/index.md" lang="ru" >}}) и [Develop]({{< relref path="docs/develop/index.md" lang="ru" >}}). Эти страницы описывают текущий CLI, Automation API, форматы импорта и runtime-семантику конфигураций.
+Для integration notes и точной runtime-семантики начните с [AI Reference]({{< relref path="docs/reference/index.md" lang="ru" >}}) и [Develop]({{< relref path="docs/develop/index.md" lang="ru" >}}).

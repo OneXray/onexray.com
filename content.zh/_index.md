@@ -27,6 +27,6 @@ OneXray 是面向 iOS、macOS、Android、Windows 和 Linux 的跨平台 Xray-co
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-Linux ZIP 设置和桌面端 CLI 说明见 [安装]({{< relref path="docs/install/index.md" lang="zh" >}})。
+Linux ZIP 设置见 [安装]({{< relref path="docs/install/index.md" lang="zh" >}})。
 
-如果你是自动化工具或 AI Agent，请优先阅读 [AI 参考]({{< relref path="docs/reference/index.md" lang="zh" >}}) 和 [开发]({{< relref path="docs/develop/index.md" lang="zh" >}})。这两页包含当前 CLI、Automation API、导入格式和运行时配置语义。
+如需了解集成说明和精确运行时语义，请优先阅读 [AI 参考]({{< relref path="docs/reference/index.md" lang="zh" >}}) 和 [开发]({{< relref path="docs/develop/index.md" lang="zh" >}})。

@@ -60,16 +60,8 @@ OneXray 会按第一个可识别格式分类导入文本。
 
 剪贴板导入会读取纯文本，并交给同一套导入流程。
 
-# AI 和 CLI 导入
+# 导入范围
 
-自动化工具应优先使用桌面端 CLI：
+导入属于 App UI 流程。请从添加菜单使用剪贴板、文件、图片或二维码扫描导入。
 
-```shell
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-cat import.txt | onexray import --file -
-```
-
-CLI 会把导入请求发送到本地 Automation API，因此 App 必须保持运行。
-
-CLI 导入支持上文列出的文本格式。`--file -` 从 stdin 读取文本。二维码图片从 App UI 导入。
+订阅和分享文本只会创建 Outbound 节点。Raw Json、Xray Setting 和 GeoData 从各自页面管理。

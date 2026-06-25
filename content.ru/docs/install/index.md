@@ -14,7 +14,7 @@ weight: 1
 | Linux x86_64 | glibc 2.39 | DEB, ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39 | DEB, ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-OneXray включает Xray-core и сетевую интеграцию для каждой платформы. Обычно VPN запускается из приложения. В настольные сборки также входит CLI `onexray`, который управляет запущенным приложением через локальный Automation API.
+OneXray включает Xray-core и сетевую интеграцию для каждой платформы. VPN запускается и останавливается из UI приложения.
 
 # Linux ZIP
 
@@ -45,16 +45,3 @@ sudo apt install ./OneXray-linux-x86_64.deb
 ```shell
 sudo apt remove onexray
 ```
-
-# Настольный CLI
-
-Настольные пакеты содержат CLI `onexray`. Перед выполнением команд приложение должно быть открыто.
-
-```shell
-onexray health
-onexray status
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-```
-
-Полный контракт CLI и API описан на странице [Develop]({{< relref path="../develop/index.md" lang="ru" >}}).

@@ -46,19 +46,19 @@ UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 
 不支持的旧私有导入文本和旧备份/分享文本会返回无有效配置。
 
-# CLI 导入格式
+# App 导入格式
 
-`onexray import` 从 `--text`、`--file` 或 `--file -` 标准输入接收文本。
+文本导入支持从 App UI 读取剪贴板文本或选择文本文件。
 
-| 格式 | CLI 支持 | 导入结果 |
-| --- | --- | --- |
-| HTTPS 订阅 URL | 是 | 订阅行和下载后的 Outbound 节点。 |
-| Xray 分享链接 | 是 | 通过 libXray 导入 Outbound 节点；本地 outbound model 支持 `vless`、`vmess`、`shadowsocks`、`trojan`、`socks`、`hysteria`。 |
-| 多行 Xray 分享文本 | 是 | 通过 libXray 导入多个 Outbound 节点。 |
-| Clash.Meta YAML 文本 | 是 | 内置 libXray API 支持时导入 Outbound 节点。 |
-| Xray JSON 文本 | 是 | 内置 libXray API 支持时导入 Outbound 节点。 |
+| 格式 | 导入结果 |
+| --- | --- |
+| HTTPS 订阅 URL | 订阅行和下载后的 Outbound 节点。 |
+| Xray 分享链接 | 通过 libXray 导入 Outbound 节点；本地 outbound model 支持 `vless`、`vmess`、`shadowsocks`、`trojan`、`socks`、`hysteria`。 |
+| 多行 Xray 分享文本 | 通过 libXray 导入多个 Outbound 节点。 |
+| Clash.Meta YAML 文本 | 内置 libXray API 支持时导入 Outbound 节点。 |
+| Xray JSON 文本 | 内置 libXray API 支持时导入 Outbound 节点。 |
 
-CLI `--file` 读取文本文件，或用 `-` 从 stdin 读取。二维码图片从 App UI 导入。
+二维码图片通过 App UI 中的相机扫描或图片文件导入。
 
 # 订阅语义
 
@@ -241,38 +241,3 @@ dat/
 ```
 
 `core_configs.json` 只保存本地配置。订阅节点通过刷新订阅 URL 恢复。
-
-# Automation API
-
-| Method | Path | Body |
-| --- | --- | --- |
-| `GET` | `/v1/health` | 无 |
-| `GET` | `/v1/status` | 无 |
-| `POST` | `/v1/import` | `{ "text": "<import text>" }` |
-| `POST` | `/v1/vpn/start` | `{ "configId": 123 }` 或 `{}` |
-| `POST` | `/v1/vpn/stop` | `{}` |
-
-所有请求都需要：
-
-```http
-Authorization: Bearer <token>
-```
-
-Response envelope：
-
-```json
-{
-  "ok": true,
-  "data": {
-    "key": "value"
-  }
-}
-```
-
-```json
-{
-  "ok": false,
-  "code": "invalid_request",
-  "message": "..."
-}
-```

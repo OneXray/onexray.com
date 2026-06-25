@@ -46,19 +46,19 @@ Image files accepted by UI import: `png`, `jpg`, `jpeg`.
 
 Unsupported legacy private import text и old backup/share text возвращают no valid config.
 
-# CLI Import Formats
+# App Import Formats
 
-`onexray import` принимает text из `--text`, `--file` или stdin через `--file -`.
+Text import принимает clipboard text и text files, выбранные в UI приложения.
 
-| Format | Accepted by CLI | Import result |
-| --- | --- | --- |
-| HTTPS subscription URL | yes | Subscription row и downloaded outbound nodes. |
-| Xray share link | yes | Outbound nodes через libXray; local outbound models support `vless`, `vmess`, `shadowsocks`, `trojan`, `socks`, `hysteria`. |
-| Multi-line Xray share text | yes | Multiple outbound nodes через libXray. |
-| Clash.Meta YAML text | yes | Outbound nodes, если поддерживается bundled libXray API. |
-| Xray JSON text | yes | Outbound nodes, если поддерживается bundled libXray API. |
+| Format | Import result |
+| --- | --- |
+| HTTPS subscription URL | Subscription row и downloaded outbound nodes. |
+| Xray share link | Outbound nodes через libXray; local outbound models support `vless`, `vmess`, `shadowsocks`, `trojan`, `socks`, `hysteria`. |
+| Multi-line Xray share text | Multiple outbound nodes через libXray. |
+| Clash.Meta YAML text | Outbound nodes, если поддерживается bundled libXray API. |
+| Xray JSON text | Outbound nodes, если поддерживается bundled libXray API. |
 
-CLI `--file` читает text files или `-` for stdin. QR images импортируются из UI приложения.
+QR images импортируются через camera scan или image file import в UI приложения.
 
 # Subscription Semantics
 
@@ -241,38 +241,3 @@ dat/
 ```
 
 `core_configs.json` stores local configs only. Subscription nodes are restored by refreshing subscription URLs.
-
-# Automation API
-
-| Method | Path | Body |
-| --- | --- | --- |
-| `GET` | `/v1/health` | none |
-| `GET` | `/v1/status` | none |
-| `POST` | `/v1/import` | `{ "text": "<import text>" }` |
-| `POST` | `/v1/vpn/start` | `{ "configId": 123 }` or `{}` |
-| `POST` | `/v1/vpn/stop` | `{}` |
-
-All requests require:
-
-```http
-Authorization: Bearer <token>
-```
-
-Response envelope:
-
-```json
-{
-  "ok": true,
-  "data": {
-    "key": "value"
-  }
-}
-```
-
-```json
-{
-  "ok": false,
-  "code": "invalid_request",
-  "message": "..."
-}
-```

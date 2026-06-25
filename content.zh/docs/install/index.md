@@ -14,7 +14,7 @@ weight: 1
 | Linux x86_64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-OneXray 内置 Xray-core 和各平台所需的网络集成。通常应从 App 内启动 VPN。桌面端还包含 `onexray` CLI，CLI 会通过本地 Automation API 控制正在运行的 App。
+OneXray 内置 Xray-core 和各平台所需的网络集成。VPN 通过 App UI 启动和停止。
 
 # Linux ZIP
 
@@ -45,16 +45,3 @@ sudo apt install ./OneXray-linux-x86_64.deb
 ```shell
 sudo apt remove onexray
 ```
-
-# 桌面端 CLI
-
-桌面端包内包含 `onexray` CLI。使用 CLI 前必须先打开 App。
-
-```shell
-onexray health
-onexray status
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-```
-
-完整 CLI 和 API 约定见 [开发]({{< relref path="../develop/index.md" lang="zh" >}})。

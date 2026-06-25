@@ -14,7 +14,7 @@ weight: 1
 | Linux x86_64 | glibc 2.39 | DEB, ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39 | DEB, ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-OneXray bundles Xray-core and the platform network integration required by the app. The VPN is normally started from the app. Desktop builds also include a CLI that controls the running app through a local Automation API.
+OneXray bundles Xray-core and the platform network integration required by the app. The VPN is started and stopped from the app UI.
 
 # Linux ZIP
 
@@ -45,16 +45,3 @@ Remove:
 ```shell
 sudo apt remove onexray
 ```
-
-# Desktop CLI
-
-Desktop packages include the `onexray` CLI. The app must be open before CLI commands can work.
-
-```shell
-onexray health
-onexray status
-onexray import --file /path/to/import.txt
-onexray import --text 'vless://...'
-```
-
-See [Develop]({{< relref path="../develop/index.md" lang="en" >}}) for the full CLI and API contract.

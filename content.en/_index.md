@@ -27,6 +27,6 @@ On phones, these areas are shown in the bottom navigation. On tablets and deskto
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-For Linux ZIP setup and desktop CLI notes, see [Install]({{< relref path="docs/install/index.md" lang="en" >}}).
+For Linux ZIP setup, see [Install]({{< relref path="docs/install/index.md" lang="en" >}}).
 
-For automation tools and AI agents, start with the [AI reference]({{< relref path="docs/reference/index.md" lang="en" >}}) and the [Develop]({{< relref path="docs/develop/index.md" lang="en" >}}) page. They document the current CLI, Automation API, import formats, and runtime configuration semantics.
+For integration notes and exact runtime semantics, start with the [AI reference]({{< relref path="docs/reference/index.md" lang="en" >}}) and the [Develop]({{< relref path="docs/develop/index.md" lang="en" >}}) page.

@@ -32,5 +32,3 @@ weight: 5
 | 链式代理无效 | 链式代理行不是 outbound，或无法解析。 |
 | 链式代理与出口相同 | 链式代理 id 与当前出口节点 id 相同。 |
 | Raw Json 无效 | Raw JSON 未通过 OneXray 校验或 Xray-core 测试。 |
-
-桌面端可通过 `onexray vpn start` 和 `onexray vpn stop` 进行机器控制。详见 [开发]({{< relref path="../../develop/index.md" lang="zh" >}})。
