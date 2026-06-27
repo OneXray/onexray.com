@@ -220,17 +220,9 @@ Raw Json 必须：
 
 TUN metrics 关闭时，OneXray 不会把 `policy`、`stats` 或 `metrics` 写入运行时配置。macOS System Extension 模式会在运行时关闭 Xray 日志。
 
-# Backup v2
+# Backup v3
 
-外层 ZIP：
-
-```text
-timestamp.txt
-sha256sum.txt
-data.zip
-```
-
-`data.zip`：
+ZIP 根目录：
 
 ```text
 manifest.json
@@ -240,4 +232,4 @@ geo_data.json
 dat/
 ```
 
-`core_configs.json` 只保存本地配置。订阅节点通过刷新订阅 URL 恢复。
+`manifest.json` 保存 `version: 3` 和备份创建时间。`core_configs.json` 只保存本地配置。订阅节点通过刷新订阅 URL 恢复。

@@ -28,15 +28,7 @@ Backup 会把 OneXray 数据导出为 ZIP 文件，方便保存、分享和后�
 OneXray-yyyy-MM-dd.zip
 ```
 
-外层 ZIP 结构：
-
-```text
-timestamp.txt
-sha256sum.txt
-data.zip
-```
-
-`data.zip` 包含：
+ZIP 根目录结构：
 
 ```text
 manifest.json
@@ -46,7 +38,7 @@ geo_data.json
 dat/
 ```
 
-`manifest.json` 表示这是当前结构化 v2 备份格式。缺少该 manifest 的备份不会被当前 OneXray 版本恢复。
+`manifest.json` 表示这是当前结构化 v3 备份格式，并记录备份创建时间。缺少 v3 manifest 的备份不会被当前 OneXray 版本恢复。
 
 `core_configs.json` 只包含本地配置，不包含订阅节点。
 

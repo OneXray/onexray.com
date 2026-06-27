@@ -28,15 +28,7 @@ Backup files are named by date:
 OneXray-yyyy-MM-dd.zip
 ```
 
-Outer ZIP structure:
-
-```text
-timestamp.txt
-sha256sum.txt
-data.zip
-```
-
-`data.zip` contains:
+ZIP root structure:
 
 ```text
 manifest.json
@@ -46,7 +38,7 @@ geo_data.json
 dat/
 ```
 
-`manifest.json` identifies the current structured v2 backup format. Backups without this manifest are not restored by current OneXray versions.
+`manifest.json` identifies the current structured v3 backup format and stores the backup creation timestamp. Backups without a v3 manifest are not restored by current OneXray versions.
 
 `core_configs.json` contains local configs only. It does not contain subscription nodes.
 

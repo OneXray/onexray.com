@@ -220,17 +220,9 @@ Raw Json must:
 
 When TUN metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into runtime configs. macOS System Extension mode disables Xray logs at runtime.
 
-# Backup v2
+# Backup v3
 
-Outer ZIP:
-
-```text
-timestamp.txt
-sha256sum.txt
-data.zip
-```
-
-`data.zip`:
+ZIP root:
 
 ```text
 manifest.json
@@ -240,7 +232,7 @@ geo_data.json
 dat/
 ```
 
-`core_configs.json` stores local configs only. Subscription nodes are restored by refreshing subscription URLs.
+`manifest.json` stores `version: 3` and the backup creation timestamp. `core_configs.json` stores local configs only. Subscription nodes are restored by refreshing subscription URLs.
 
 
 Response envelope:
