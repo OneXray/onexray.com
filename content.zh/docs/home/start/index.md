@@ -3,23 +3,32 @@ title: 启动和停止
 weight: 5
 ---
 
-使用主页底部按钮启动和停止 VPN。
+使用主页底部按钮启动和停止当前运行模式。
+
+OneXray 支持两种运行模式：
+
+| 模式 | 行为 |
+| --- | --- |
+| TUN | 启动平台 VPN/TUN 集成，并把流量导入 Xray-core。 |
+| 代理 | 在 App 进程内启动 Xray，提供本地 SOCKS/HTTP 代理端口，不修改系统代理、路由、DNS 或系统 VPN 状态。 |
 
 # 启动
 
 启动一个节点时，OneXray 会：
 
 1. 读取当前选中的节点。
-2. 读取当前选中的 Xray Setting，或写出内置 Simple 配置。
+2. 读取当前选中的 Xray Setting。如果保存的选择无效，则回落到内置 Simple 配置。
 3. 应用链式代理。
-4. 应用平台运行时修正，例如网卡绑定、ping 端口、macOS System Extension 日志处理。
+4. 应用运行时修正，例如当前模式的 inbounds、ping 端口、metrics、网卡绑定和 macOS System Extension 日志处理。
 5. 写出 Xray JSON 运行时配置。
-6. 启动平台 VPN 隧道。
+6. TUN 模式启动平台 VPN 隧道；代理模式启动本地 Xray。
 7. 在可用时测试延迟和节点出口 IP。
 
 # 停止
 
-停止 VPN 会关闭平台隧道，并清理 App 中的运行状态。
+停止会关闭当前运行时，并清理 App 中的运行状态。
+
+代理模式不会自动配置操作系统，也不会显示为系统 VPN 连接。使用代理模式时，请在浏览器、终端或系统代理中手动填写 Xray Settings 里显示的 SOCKS 或 HTTP 地址。
 
 # 启动校验
 

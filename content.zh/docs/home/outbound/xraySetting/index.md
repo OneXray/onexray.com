@@ -3,9 +3,11 @@ title: Xray Setting
 weight: 1
 ---
 
-Xray Setting 是 OneXray 的结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或链式代理的场景。
+Xray Setting 是 OneXray 必选的运行时 Profile，也是结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或链式代理的场景。
 
 最终运行时配置会在 VPN 启动时由该状态生成。根据当前平台，启动修正逻辑可能会调整端口、网卡和日志。
+
+OneXray 会始终保持一个 Xray Setting 处于选中状态。内置 Simple 配置是兜底 Profile，不能删除。
 
 # 页面结构
 
@@ -71,6 +73,20 @@ Routing 写出 `routing.domainStrategy` 和 `routing.rules`。
 单条规则内的条件是叠加关系。例如同一条规则同时包含 `domain` 和 `ip` 时，连接必须同时满足两者才会命中。
 
 `process` 条件只会在 Windows 和 Linux 写入。macOS、iOS 和 Android 不会把 `process` 写入最终 Xray JSON。
+
+# Inbounds
+
+Inbounds 页面按运行时角色分区：
+
+| 分区 | Inbounds |
+| --- | --- |
+| TUN 模式 | `tunIn` |
+| 代理模式 | `socksIn`、`httpIn` |
+| 内部入口 | `pingIn` |
+
+TUN 模式启动时注入 `tunIn + pingIn`。代理模式启动时注入 `socksIn + httpIn + pingIn`。`socksIn` 默认端口为 `11024`，`httpIn` 默认端口为 `11025`，两个端口都可以修改。SOCKS 和 HTTP 认证是可选项，默认留空。
+
+`pingIn` 和 metrics 端口始终在运行时随机分配。
 
 # Outbounds
 

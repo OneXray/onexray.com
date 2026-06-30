@@ -3,23 +3,32 @@ title: Start and Stop
 weight: 5
 ---
 
-Use the Home page bottom button to start and stop the VPN.
+Use the Home page bottom button to start and stop the current mode.
+
+OneXray supports two runtime modes:
+
+| Mode | Behavior |
+| --- | --- |
+| TUN | Starts the platform VPN/TUN integration and routes traffic through Xray-core. |
+| Proxy | Starts Xray inside the app process and exposes local SOCKS/HTTP proxy ports without changing system proxy, route, DNS, or system VPN state. |
 
 # Start
 
 When you start an outbound node, OneXray:
 
 1. Loads the selected node.
-2. Loads the selected Xray Setting, or writes the built-in Simple setting.
+2. Loads the selected Xray Setting. If the saved selection is invalid, OneXray falls back to the built-in Simple setting.
 3. Applies chain proxy if configured.
-4. Applies platform runtime fixes such as interface binding, ping port, and macOS System Extension log handling.
+4. Applies runtime fixes such as mode-specific inbounds, ping port, metrics, interface binding, and macOS System Extension log handling.
 5. Writes the Xray JSON runtime config.
-6. Starts the platform VPN tunnel.
+6. Starts the platform VPN tunnel in TUN mode, or starts local Xray in Proxy mode.
 7. Tests latency and node IP information when available.
 
 # Stop
 
-Stopping the VPN tears down the platform tunnel and clears the running state in the app.
+Stopping tears down the active runtime and clears the running state in the app.
+
+Proxy mode does not configure your operating system automatically and does not appear as a system VPN connection. Use the SOCKS or HTTP address shown in Xray Settings when configuring a browser, terminal, or system proxy manually.
 
 # Startup Validation
 

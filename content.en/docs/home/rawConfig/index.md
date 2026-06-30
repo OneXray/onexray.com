@@ -29,37 +29,16 @@ Subscriptions do not create Raw Json entries.
 
 OneXray requires a non-empty top-level `name` field for display in the config list.
 
-## TUN Inbound
+## Runtime Inbounds
 
-OneXray requires at least one inbound with:
+Raw Json no longer accepts custom `inbounds`. OneXray removes the Raw Json `inbounds` array at startup and writes app-managed runtime inbounds from the selected Xray Setting.
 
-| Field | Required value |
+| Mode | Runtime inbounds |
 | --- | --- |
-| `protocol` | `tun` |
-| `tag` | `tunIn` |
+| TUN | `tunIn` and `pingIn` |
+| Proxy | `socksIn`, `httpIn`, and `pingIn` |
 
-Sniffing is recommended because domain-based routing depends on it.
-
-```json
-{
-  "name": "RawXrayConfig",
-  "inbounds": [
-    {
-      "listen": "127.0.0.1",
-      "protocol": "tun",
-      "tag": "tunIn",
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ]
-      }
-    }
-  ]
-}
-```
+The selected Xray Setting is required. If the saved selection is missing or invalid, OneXray falls back to the built-in Simple setting before startup.
 
 # Runtime Fixing
 
@@ -67,8 +46,9 @@ Before startup, OneXray adjusts the Raw Json config for the current platform:
 
 | Area | Runtime behavior |
 | --- | --- |
-| Interfaces | When TUN interface binding is enabled, outbound `streamSettings.sockopt.interface` and TUN `autoOutboundsInterface` are filled. When it is not enabled, existing outbound `interface` fields are removed. |
-| Ping inbound | Do not define `pingIn` in Raw Json. At startup, OneXray removes any existing `pingIn` inbound, writes a runtime HTTP `pingIn` inbound with the current ping port and auth, and rewrites the ping routing rule. |
+| Inbounds | Raw Json `inbounds` are removed. OneXray injects `tunIn` for TUN mode, or `socksIn/httpIn` for Proxy mode, and always injects `pingIn`. |
+| Interfaces | In TUN mode, interface and route fields are filled for the current platform. In Proxy mode, system route and proxy settings are not changed. |
+| Ping inbound | Do not define `pingIn` in Raw Json. OneXray writes a runtime HTTP `pingIn` inbound with the current random ping port and auth, and rewrites the ping routing rule. |
 | Logs | `access` and `error` paths are rewritten to OneXray's log files. On macOS System Extension mode, logs are forced off. |
 | Metrics | When TUN metrics are enabled, runtime metrics fields are written. When disabled, `policy`, `metrics`, and `stats` are not written. |
 
@@ -110,7 +90,7 @@ Before startup, OneXray adjusts the Raw Json config for the current platform:
 
 The first rule routes DNS component queries. The second rule forwards normal port `53` DNS traffic to the DNS outbound. The third rule handles DNS over TLS traffic on port `853`.
 
-Do not add a `pingIn` routing rule manually. OneXray inserts the runtime ping rule together with the runtime `pingIn` inbound.
+Do not add a `pingIn` routing rule manually. OneXray inserts the runtime ping rule together with the runtime `pingIn` inbound. In Proxy mode, runtime fixing maps `tunIn` routing matches to `socksIn/httpIn` so templates written for TUN can still be used as Raw Json.
 
 # Sharing
 

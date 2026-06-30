@@ -3,23 +3,32 @@ title: Запуск и остановка
 weight: 5
 ---
 
-Используйте нижнюю кнопку на главной странице для запуска и остановки VPN.
+Используйте нижнюю кнопку на главной странице для запуска и остановки текущего runtime mode.
+
+OneXray поддерживает два runtime modes:
+
+| Mode | Behavior |
+| --- | --- |
+| TUN | Запускает platform VPN/TUN integration и направляет трафик через Xray-core. |
+| Proxy | Запускает Xray внутри процесса приложения и открывает локальные SOCKS/HTTP proxy ports без изменения system proxy, routes, DNS или system VPN state. |
 
 # Запуск
 
 При запуске outbound-узла OneXray:
 
 1. Загружает выбранный узел.
-2. Загружает выбранный Xray Setting или записывает встроенный Simple setting.
+2. Загружает выбранный Xray Setting. Если сохраненный выбор недействителен, OneXray возвращается к встроенному Simple setting.
 3. Применяет chain proxy, если он настроен.
-4. Применяет platform runtime fixes: interface binding, ping port, macOS System Extension log handling.
+4. Применяет runtime fixes: mode-specific inbounds, ping port, metrics, interface binding и macOS System Extension log handling.
 5. Записывает Xray JSON runtime config.
-6. Запускает VPN tunnel платформы.
+6. В TUN mode запускает VPN tunnel платформы; в Proxy mode запускает локальный Xray.
 7. Проверяет latency и node IP information, если доступно.
 
 # Остановка
 
-Остановка VPN закрывает tunnel платформы и очищает running state в приложении.
+Остановка закрывает активный runtime и очищает running state в приложении.
+
+Proxy mode не настраивает операционную систему автоматически и не отображается как system VPN connection. Используйте SOCKS или HTTP address из Xray Settings при ручной настройке browser, terminal или system proxy.
 
 # Проверка запуска
 

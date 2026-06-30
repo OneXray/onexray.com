@@ -3,9 +3,11 @@ title: Xray Setting
 weight: 1
 ---
 
-Xray Setting — структурированный writer Xray-core JSON в OneXray. Он подходит, когда нужны DNS, FakeDNS, routing, inbounds, outbounds, logs или chain proxy, управляемые через UI.
+Xray Setting — обязательный runtime profile и структурированный writer Xray-core JSON в OneXray. Он подходит, когда нужны DNS, FakeDNS, routing, inbounds, outbounds, logs или chain proxy, управляемые через UI.
 
 Финальный runtime config генерируется из этого состояния при запуске VPN. Runtime fixers могут изменить порты, интерфейсы и logs под текущую платформу.
+
+OneXray всегда держит один Xray Setting выбранным. Встроенный Simple setting является fallback profile и не может быть удален.
 
 # Разделы
 
@@ -71,6 +73,20 @@ Default rules записываются перед custom rules:
 Условия в одной rule объединяются. Rule с `domain` и `ip` срабатывает только если оба условия совпали для одного соединения.
 
 Условие `process` записывается только на Windows и Linux. На macOS, iOS и Android OneXray не пишет `process` в итоговый Xray JSON.
+
+# Inbounds
+
+Страница Inbounds разделена по runtime role:
+
+| Section | Inbounds |
+| --- | --- |
+| TUN Mode | `tunIn` |
+| Proxy Mode | `socksIn`, `httpIn` |
+| Internal | `pingIn` |
+
+TUN mode добавляет `tunIn + pingIn` при запуске. Proxy mode добавляет `socksIn + httpIn + pingIn`. `socksIn` по умолчанию использует порт `11024`, а `httpIn` — порт `11025`; оба порта можно изменить. SOCKS и HTTP authentication необязательны и по умолчанию пустые.
+
+`pingIn` и metrics ports всегда назначаются случайно во время runtime.
 
 # Outbounds
 

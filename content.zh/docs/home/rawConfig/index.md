@@ -29,37 +29,16 @@ Raw Json 只作为本地配置。Raw Json 列表固定显示一个 `Local` 分�
 
 OneXray 要求顶层存在非空 `name` 字段，用于配置列表显示。
 
-## TUN Inbound
+## 运行时 Inbounds
 
-OneXray 要求至少存在一个 inbound：
+Raw Json 不再接受自定义 `inbounds`。启动时 OneXray 会删除 Raw Json 中的 `inbounds` 数组，并根据当前选中的 Xray Setting 写入 App 管理的运行时 inbounds。
 
-| 字段 | 必需值 |
+| 模式 | 运行时 inbounds |
 | --- | --- |
-| `protocol` | `tun` |
-| `tag` | `tunIn` |
+| TUN | `tunIn` 和 `pingIn` |
+| 代理 | `socksIn`、`httpIn` 和 `pingIn` |
 
-建议开启 sniffing，因为基于域名的 routing 依赖它。
-
-```json
-{
-  "name": "RawXrayConfig",
-  "inbounds": [
-    {
-      "listen": "127.0.0.1",
-      "protocol": "tun",
-      "tag": "tunIn",
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ]
-      }
-    }
-  ]
-}
-```
+Xray Setting 是必选的。如果保存的选择缺失或无效，OneXray 会在启动前回落到内置 Simple 配置。
 
 # 运行时修正
 
@@ -67,8 +46,9 @@ OneXray 要求至少存在一个 inbound：
 
 | 区域 | 运行时行为 |
 | --- | --- |
-| 网卡 | TUN 网卡绑定启用时，会写入 outbound `streamSettings.sockopt.interface` 和 TUN `autoOutboundsInterface`。未启用时，会移除已有 outbound `interface` 字段。 |
-| Ping inbound | 不要在 Raw Json 中手写 `pingIn` 入站。启动时 OneXray 会移除已有 `pingIn` 入站，写入带当前 ping 端口和 auth 的运行时 HTTP `pingIn` 入站，并重写 ping routing rule。 |
+| Inbounds | Raw Json 的 `inbounds` 会被删除。OneXray 会在 TUN 模式注入 `tunIn`，在代理模式注入 `socksIn/httpIn`，并始终注入 `pingIn`。 |
+| 网卡 | TUN 模式会按当前平台写入接口和路由字段。代理模式不会修改系统路由或系统代理设置。 |
+| Ping inbound | 不要在 Raw Json 中手写 `pingIn` 入站。OneXray 会写入带随机 ping 端口和 auth 的运行时 HTTP `pingIn` 入站，并重写 ping routing rule。 |
 | 日志 | `access` 和 `error` 路径会改写到 OneXray 日志文件。macOS System Extension 模式下会强制关闭日志。 |
 | Metrics | TUN metrics 启用时写入运行时 metrics 字段；关闭时不写入 `policy`、`metrics` 和 `stats`。 |
 
@@ -110,7 +90,7 @@ OneXray 要求至少存在一个 inbound：
 
 第一条规则处理 DNS component queries。第二条把普通 `53` 端口 DNS 流量转给 DNS outbound。第三条处理 `853` 端口 DNS over TLS。
 
-不要手写 `pingIn` routing rule。OneXray 会在写入运行时 `pingIn` 入站时一并插入运行时 ping rule。
+不要手写 `pingIn` routing rule。OneXray 会在写入运行时 `pingIn` 入站时一并插入运行时 ping rule。代理模式下，运行时修正会把 `tunIn` routing 匹配映射为 `socksIn/httpIn`，因此面向 TUN 编写的模板仍可作为 Raw Json 使用。
 
 # 分享
 
