@@ -8,15 +8,16 @@ weight: 1
 | 平台 | 最低系统 | 分发方式 | 下载 |
 | --- | --- | --- | --- |
 | iOS | iOS 15 | App Store、IPA | [App Store](https://apps.apple.com/us/app/onexray/id6745748773)、[IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
-| macOS | macOS 12 | Mac App Store、Homebrew / ZIP（OneXraySE） | Mac App Store：[App Store](https://apps.apple.com/us/app/onexray/id6745748773)<br>Homebrew：`brew install --cask onexrayse`<br>[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
+| macOS（Mac App Store） | macOS 12 | Mac App Store | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
+| macOS（商店外分发） | macOS 12 | Homebrew、ZIP | Homebrew：`brew install --cask onexrayse`<br>[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
 | Android | Android 10 | Google Play、APK | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray)、[Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows x86_64 | Windows 10 | EXE、ZIP | [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
+| Windows x86_64 | Windows 10 | winget、EXE、ZIP | winget：`winget install --id YuanDevLLC.OneXray -e`<br>[EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
 | Linux x86_64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
 OneXray 内置 Xray-core 和各平台所需的网络集成。VPN 通过 App UI 启动和停止。
 
-# macOS Homebrew / ZIP
+# macOS 商店外分发
 
 Homebrew cask token 是 `onexrayse`。
 
@@ -25,6 +26,15 @@ Homebrew 安装的内容来自 `OneXray-macos-universal.zip`，和 Universal ZIP
 ```shell
 brew install --cask onexrayse
 brew uninstall --cask onexrayse
+```
+
+# Windows winget
+
+使用 winget 安装或卸载 OneXray：
+
+```shell
+winget install --id YuanDevLLC.OneXray -e
+winget uninstall --id YuanDevLLC.OneXray -e
 ```
 
 # Linux ZIP

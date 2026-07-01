@@ -21,12 +21,13 @@ OneXray 是面向 iOS、macOS、Android、Windows 和 Linux 的跨平台 Xray-co
 | 平台 | 要求 | 下载 |
 | --- | --- | --- |
 | iOS | iOS 15.0 及以上，arm64 | [App Store](https://apps.apple.com/us/app/onexray/id6745748773)，[IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
-| macOS | macOS 12.0 及以上，Apple silicon 或 Intel | Mac App Store：[App Store](https://apps.apple.com/us/app/onexray/id6745748773)<br>Homebrew / Universal ZIP（OneXraySE）：`brew install --cask onexrayse`，[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
+| macOS（Mac App Store） | macOS 12.0 及以上，Apple silicon 或 Intel | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
+| macOS（商店外分发） | macOS 12.0 及以上，Apple silicon 或 Intel | Homebrew：`brew install --cask onexrayse`，[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
 | Android | Android 10.0 及以上，arm32、arm64 或 x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray)，[Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows | Windows 10 或 Windows 11，x86_64 | [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
+| Windows | Windows 10 或 Windows 11，x86_64 | winget：`winget install --id YuanDevLLC.OneXray -e`，[EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-macOS Homebrew / ZIP 和 Linux ZIP 设置见 [安装]({{< relref path="docs/install/index.md" lang="zh" >}})。
+macOS 商店外分发、Windows winget 和 Linux ZIP 设置见 [安装]({{< relref path="docs/install/index.md" lang="zh" >}})。
 
 如需了解集成说明和精确运行时语义，请优先阅读 [AI 参考]({{< relref path="docs/reference/index.md" lang="zh" >}}) 和 [开发]({{< relref path="docs/develop/index.md" lang="zh" >}})。
