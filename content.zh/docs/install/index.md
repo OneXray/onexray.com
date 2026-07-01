@@ -51,7 +51,7 @@ sudo apt install -y procps libcap2-bin libayatana-appindicator3-1
 sudo setcap cap_net_admin,cap_net_raw+eip OneXray/bin/OneXrayCore
 ```
 
-GNOME 用户可能需要安装 AppIndicator 扩展才能显示托盘图标。
+GNOME 用户可能需要安装 [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) 扩展才能显示托盘图标。
 
 # Linux DEB
 

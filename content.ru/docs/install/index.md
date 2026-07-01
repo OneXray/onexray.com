@@ -51,7 +51,7 @@ sudo apt install -y procps libcap2-bin libayatana-appindicator3-1
 sudo setcap cap_net_admin,cap_net_raw+eip OneXray/bin/OneXrayCore
 ```
 
-Пользователям GNOME может понадобиться расширение AppIndicator для отображения значка в трее.
+Пользователям GNOME может понадобиться расширение [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) для отображения значка в трее.
 
 # Linux DEB
 

@@ -51,7 +51,7 @@ Grant the core binary the capability required to create and operate the TUN devi
 sudo setcap cap_net_admin,cap_net_raw+eip OneXray/bin/OneXrayCore
 ```
 
-GNOME users may need an AppIndicator extension to show the tray icon.
+GNOME users may need an [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) extension to show the tray icon.
 
 # Linux DEB
 
