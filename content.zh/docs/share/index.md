@@ -23,13 +23,13 @@ OneXray 使用通用格式分享数据，不再使用旧私有导入格式。
 | 标准 Xray 分享文本 | 通过 libXray 导入 Outbound 节点。 |
 | 其他文本 | 如果 libXray 无法读取 Outbound 节点，则显示无有效配置。 |
 
-二维码图片导入支持 `png`、`jpg` 和 `jpeg`。文本文件导入支持 `txt`、`json` 和 `yaml`；这些文件仍然走同一套文本导入规则。
+二维码图片导入支持 `png`、`jpg` 和 `jpeg`。文本文件导入支持 `txt`、`json`、`yaml` 和 `yml`；这些文件仍然走同一套文本导入规则。
 
 # Raw Json 和 Xray Setting
 
 Raw Json 和 Xray Setting 可以从各自菜单导出为 JSON 文本或 JSON 文件。它们适合手动复制、外部编辑或备份流程。
 
-它们不会通过通用分享/导入流程重新创建为 App 内部记录。需要创建时，请使用对应的 Core 页面。
+它们不会通过通用分享/导入流程重新创建为 App 内部记录。需要创建 Raw Json 时，请使用 `Home > 添加 > 手动输入 > Raw Json`；需要创建 Xray Setting 时，请使用对应的 Core 页面。
 
 # Backup
 

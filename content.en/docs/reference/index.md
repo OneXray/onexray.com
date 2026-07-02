@@ -11,7 +11,7 @@ This page is a compact machine-readable reference for OneXray's current behavior
 | --- | --- |
 | `CoreConfigType.outbound` | A single local or subscription node. |
 | `CoreConfigType.setting` | A structured Xray Setting stored by OneXray; always shown under Local in the Xray Setting list. |
-| `CoreConfigType.raw` | A full Raw Json config stored as text; always shown under Local in the Raw Json list. |
+| `CoreConfigType.raw` | A full Raw Json config stored as text; always shown under the Home `Local` group. |
 | `Simple` | Built-in setting writer with id `-1`. |
 | `proxy` | Runtime tag of the selected exit node. |
 | `chainProxy` | Fixed tag for the front or relay node. |
@@ -40,7 +40,7 @@ Secondary pages are registered under every primary route. For example, `/home/tu
 | `https://` | Subscription URL. |
 | Other Xray share content | Outbound nodes through libXray. |
 
-Text files accepted by UI import: `txt`, `json`, `yaml`.
+Text files accepted by UI import: `txt`, `json`, `yaml`, `yml`.
 
 Image files accepted by UI import: `png`, `jpg`, `jpeg`.
 
@@ -208,15 +208,14 @@ Raw Json must:
 
 1. Be valid JSON.
 2. Have a non-empty top-level `name`.
-3. Have at least one inbound with `protocol: "tun"` and `tag: "tunIn"`.
-4. Pass the bundled Xray-core config test after OneXray removes TUN inbound and runtime metrics for the test pass.
+3. Pass the bundled Xray-core config test after OneXray rewrites runtime inbounds and metrics for the test pass.
 
 # Runtime Fixes
 
 | Config type | Runtime fixes |
 | --- | --- |
 | Xray Setting | Inbound ports, ping auth, interface binding, macOS System Extension log disabling, and optional metrics. |
-| Raw Json | Inbound ports, ping auth, interface binding, log path or log disabling, and optional metrics. |
+| Raw Json | Runtime inbound rewrite for the current mode, ping auth, interface binding, log path or log disabling, and optional metrics. |
 
 When TUN metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into runtime configs. macOS System Extension mode disables Xray logs at runtime.
 

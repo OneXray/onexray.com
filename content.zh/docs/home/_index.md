@@ -5,7 +5,7 @@ weight: 2
 
 Home 是连接状态和节点操作的主工作区。
 
-它优先展示当前 VPN 状态、当前节点、启动/停止控制、Traffic 入口、Location 入口，以及 Outbound / Raw Json 节点列表。完整节点详情放在 Node Info 页面，而不是占据 Home 主工作区。
+它优先展示当前 VPN 状态、当前节点、启动/停止控制、Traffic 入口、Location 入口，以及统一节点列表。完整节点详情放在 Node Info 页面，而不是占据 Home 主工作区。
 
 配置修改会在下次启动 VPN 时生效。如果 VPN 已经运行，请先编辑配置，再停止并重新启动 VPN。
 
@@ -14,7 +14,7 @@ Home 是连接状态和节点操作的主工作区。
 | 类型 | 用途 | 所属位置 |
 | --- | --- | --- |
 | Outbound | 单个 Xray outbound 节点，例如 VLESS、VMess、Trojan、Shadowsocks、SOCKS、HTTP 或 Hysteria2。 | Home 节点列表和订阅。 |
-| Raw Json | 以文本方式导入和编辑的完整 Xray JSON 文档。 | 仅本地 Raw Json 列表。 |
+| Raw Json | 以文本方式导入和编辑的完整 Xray JSON 文档。 | 仅 Home 的 Local 分组。 |
 | Xray Setting | 由 OneXray 结构化页面生成的可复用 Xray 配置。 | Core > Xray Settings。 |
 | Simple | 内置 Xray Setting 写出器。 | Core > Xray Settings > Simple。 |
 
@@ -27,7 +27,7 @@ Home 是连接状态和节点操作的主工作区。
 
 # 节点列表
 
-Outbound 节点会在需要时按订阅分组。Raw Json 固定显示在 Local 下，不会由订阅创建。
+Home 不再区分 Outbound 和 JSON 标签页。本地 Outbound 节点和全部 Raw Json 配置会一起显示在 `Local` 分组下；订阅分组只包含订阅 Outbound 节点。Raw Json 不会由订阅创建。
 
 节点列表使用紧凑自适应网格。桌面端内容宽度会被限制，保证卡片可读性。
 

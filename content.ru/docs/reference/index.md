@@ -11,7 +11,7 @@ weight: 8
 | --- | --- |
 | `CoreConfigType.outbound` | Один local или subscription node. |
 | `CoreConfigType.setting` | Structured Xray Setting, сохраненный OneXray; всегда показывается под Local в списке Xray Setting. |
-| `CoreConfigType.raw` | Full Raw Json config, сохраненный как text; всегда показывается под Local в списке Raw Json. |
+| `CoreConfigType.raw` | Full Raw Json config, сохраненный как text; всегда показывается в группе Home `Local`. |
 | `Simple` | Built-in setting writer с id `-1`. |
 | `proxy` | Runtime tag выбранного exit node. |
 | `chainProxy` | Fixed tag для front или relay node. |
@@ -40,7 +40,7 @@ Secondary pages зарегистрированы под каждым primary rou
 | `https://` | Subscription URL. |
 | Other Xray share content | Outbound nodes через libXray. |
 
-Text files accepted by UI import: `txt`, `json`, `yaml`.
+Text files accepted by UI import: `txt`, `json`, `yaml`, `yml`.
 
 Image files accepted by UI import: `png`, `jpg`, `jpeg`.
 
@@ -208,15 +208,14 @@ Raw Json must:
 
 1. Be valid JSON.
 2. Have a non-empty top-level `name`.
-3. Have at least one inbound with `protocol: "tun"` and `tag: "tunIn"`.
-4. Pass the bundled Xray-core config test after OneXray removes TUN inbound and runtime metrics for the test pass.
+3. Pass the bundled Xray-core config test after OneXray rewrites runtime inbounds and metrics for the test pass.
 
 # Runtime Fixes
 
 | Config type | Runtime fixes |
 | --- | --- |
 | Xray Setting | Inbound ports, ping auth, interface binding, macOS System Extension log disabling, and optional metrics. |
-| Raw Json | Inbound ports, ping auth, interface binding, log path or log disabling, and optional metrics. |
+| Raw Json | Runtime inbound rewrite for the current mode, ping auth, interface binding, log path or log disabling, and optional metrics. |
 
 When TUN metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into runtime configs. macOS System Extension mode disables Xray logs at runtime.
 

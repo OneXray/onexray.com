@@ -23,13 +23,13 @@ Imported text классифицируется запущенным прилож
 | Standard Xray share text | Импортирует Outbound nodes через libXray. |
 | Other text | Завершается без valid config, если libXray не может прочитать Outbound nodes. |
 
-QR image import поддерживает `png`, `jpg` и `jpeg`. Text file import поддерживает `txt`, `json` и `yaml`; такие файлы проходят через те же правила text import.
+QR image import поддерживает `png`, `jpg` и `jpeg`. Text file import поддерживает `txt`, `json`, `yaml` и `yml`; такие файлы проходят через те же правила text import.
 
 # Raw Json and Xray Setting
 
 Raw Json и Xray Setting можно экспортировать из их меню как JSON text или JSON files. Это предназначено для ручного копирования, внешнего редактирования или backup workflows.
 
-Они не импортируются generic share/import pipeline как app-native records. Чтобы создать их внутри OneXray, используйте соответствующую страницу Core.
+Они не импортируются generic share/import pipeline как app-native records. Чтобы создать Raw Json внутри OneXray, используйте `Home > Add > Manual Input > Raw Json`. Чтобы создать Xray Setting, используйте соответствующую страницу Core.
 
 # Backup
 

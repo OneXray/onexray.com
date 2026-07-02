@@ -3,13 +3,13 @@ title: Add and Import
 weight: 1
 ---
 
-Use the add menu on the Home page to create local outbound nodes, add subscriptions, scan QR codes, pick files, pick images, or read text from the clipboard.
+Use the add menu on the Home page to create local nodes, add subscriptions, scan QR codes, pick files, pick images, or read text from the clipboard.
 
 # Manual Input
 
-Manual input opens the outbound editor. Use it when you want to create a local node directly in OneXray.
+Manual input открывает submenu. Выберите `Outbound`, чтобы создать structured local outbound node, или `Raw Json`, чтобы создать local full Xray JSON config.
 
-The outbound editor writes a single outbound node. At runtime OneXray assigns the active node the reserved `proxy` tag.
+Outbound editor записывает single outbound node. Raw Json editor записывает full JSON config. Оба варианта появляются в группе Home `Local`, а при запуске OneXray назначает активному узлу reserved tag `proxy`.
 
 # Subscription Link
 
@@ -54,7 +54,7 @@ File import supports:
 | Extension | Handling |
 | --- | --- |
 | `png`, `jpg`, `jpeg` | Decode QR code from image. |
-| `txt`, `json`, `yaml` | Read file as text and import it. |
+| `txt`, `json`, `yaml`, `yml` | Read file as text and import it. |
 
 ## Read Clipboard
 
@@ -64,4 +64,4 @@ Clipboard import reads plain text and passes it through the same import pipeline
 
 Import выполняется через UI приложения. Используйте clipboard, file, image или QR scan import из add menu.
 
-Imported subscriptions и share text создают только outbound nodes. Raw Json, Xray Setting и GeoData управляются со своих страниц.
+Imported subscriptions и share text создают только outbound nodes. Raw Json можно создать через `Manual Input > Raw Json`; Xray Setting и GeoData управляются со своих страниц.

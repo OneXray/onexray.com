@@ -19,7 +19,7 @@ Core > Logs > Xray config file
 
 # Local Only
 
-Raw Json is local-only. The Raw Json list always shows a single `Local` group and does not use subscription grouping. Historical Raw rows with non-local subscription ids are still displayed under Local; database rows are not migrated.
+Raw Json is local-only. Он показывается в группе Home `Local` вместе с local Outbound nodes и не использует subscription grouping. Historical Raw rows with non-local subscription ids are still displayed under Local; database rows are not migrated.
 
 Subscriptions do not create Raw Json entries.
 
@@ -94,4 +94,4 @@ Do not add a `pingIn` routing rule manually. OneXray inserts the runtime ping ru
 
 # Sharing
 
-Raw Json can be shared as JSON text or a `.json` file from the Raw Json menu. Generic import does not recreate a Raw Json record from that shared text; create or paste Raw Json from the Core Xray editor when needed.
+Raw Json can be shared as JSON text or a `.json` file from the Raw Json node menu. Generic import does not recreate a Raw Json record from that shared text; create or paste Raw Json from `Home > Add > Manual Input > Raw Json` when needed.

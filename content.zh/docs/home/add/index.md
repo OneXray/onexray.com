@@ -3,13 +3,13 @@ title: 添加与导入
 weight: 1
 ---
 
-Home 页添加菜单可用于创建本地 Outbound 节点、添加订阅、扫描二维码、选择文件、选择图片或读取剪贴板文本。
+Home 页添加菜单可用于创建本地节点、添加订阅、扫描二维码、选择文件、选择图片或读取剪贴板文本。
 
 # 手动输入
 
-手动输入会打开 Outbound 编辑器。需要直接在 OneXray 中创建本地节点时使用它。
+手动输入会打开二级菜单。选择 `Outbound` 可创建结构化本地 outbound 节点；选择 `Raw Json` 可创建本地完整 Xray JSON 配置。
 
-Outbound 编辑器写出单个 Outbound 节点。运行时 OneXray 会把当前节点分配为保留的 `proxy` tag。
+Outbound 编辑器写出单个 Outbound 节点，Raw Json 编辑器写出完整 JSON 配置。两者都会显示在 Home 的 `Local` 分组下。运行时 OneXray 会把当前节点分配为保留的 `proxy` tag。
 
 # 订阅链接
 
@@ -54,7 +54,7 @@ OneXray 会按第一个可识别格式分类导入文本。
 | 扩展名 | 处理方式 |
 | --- | --- |
 | `png`、`jpg`、`jpeg` | 从图片解码二维码。 |
-| `txt`、`json`、`yaml` | 以文本读取并导入。 |
+| `txt`、`json`、`yaml`、`yml` | 以文本读取并导入。 |
 
 ## 读取剪贴板
 
@@ -64,4 +64,4 @@ OneXray 会按第一个可识别格式分类导入文本。
 
 导入属于 App UI 流程。请从添加菜单使用剪贴板、文件、图片或二维码扫描导入。
 
-订阅和分享文本只会创建 Outbound 节点。Raw Json、Xray Setting 和 GeoData 从各自页面管理。
+订阅和分享文本只会创建 Outbound 节点。Raw Json 可通过 `手动输入 > Raw Json` 创建；Xray Setting 和 GeoData 从各自页面管理。

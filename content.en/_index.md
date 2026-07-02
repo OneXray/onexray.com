@@ -9,7 +9,7 @@ The current app is organized around four primary areas:
 
 | Area | Purpose |
 | --- | --- |
-| Home | Connection status, the selected node, VPN start and stop, and the main Outbound / Raw Json node lists. |
+| Home | Connection status, the selected node, VPN start and stop, and the unified node list. |
 | Subscriptions | Subscription source management and per-subscription outbound node lists. |
 | Core | Xray-core related settings such as TUN, Ping, Logs, Xray Settings, and GeoData. |
 | Settings | App preferences, auto update, backup, clear data, support links, credits, and privacy. |

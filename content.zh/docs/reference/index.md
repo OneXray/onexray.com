@@ -11,7 +11,7 @@ weight: 8
 | --- | --- |
 | `CoreConfigType.outbound` | 单个本地或订阅节点。 |
 | `CoreConfigType.setting` | OneXray 保存的结构化 Xray Setting；在 Xray Setting 列表中统一显示在 Local 下。 |
-| `CoreConfigType.raw` | 以文本保存的完整 Raw Json 配置；在 Raw Json 列表中统一显示在 Local 下。 |
+| `CoreConfigType.raw` | 以文本保存的完整 Raw Json 配置；统一显示在 Home 的 `Local` 分组下。 |
 | `Simple` | 内置 setting writer，id 为 `-1`。 |
 | `proxy` | 当前出口节点的运行时 tag。 |
 | `chainProxy` | 前置代理或中继节点的固定 tag。 |
@@ -40,7 +40,7 @@ weight: 8
 | `https://` | 订阅 URL。 |
 | 其他 Xray 分享内容 | 通过 libXray 导入 Outbound 节点。 |
 
-UI 导入接受的文本文件：`txt`、`json`、`yaml`。
+UI 导入接受的文本文件：`txt`、`json`、`yaml`、`yml`。
 
 UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 
@@ -208,15 +208,14 @@ Raw Json 必须：
 
 1. 是合法 JSON。
 2. 有非空顶层 `name`。
-3. 至少存在一个 `protocol: "tun"` 且 `tag: "tunIn"` 的 inbound。
-4. OneXray 移除 TUN inbound 和运行时 metrics 后，能通过内置 Xray-core config test。
+3. OneXray 重写运行时 inbounds 和 metrics 后，能通过内置 Xray-core config test。
 
 # 运行时修正
 
 | 配置类型 | 运行时修正 |
 | --- | --- |
 | Xray Setting | Inbound 端口、ping auth、网卡绑定、macOS System Extension 日志关闭、可选 metrics。 |
-| Raw Json | Inbound 端口、ping auth、网卡绑定、日志路径或日志关闭、可选 metrics。 |
+| Raw Json | 按当前模式重写运行时 inbounds、ping auth、网卡绑定、日志路径或日志关闭、可选 metrics。 |
 
 TUN metrics 关闭时，OneXray 不会把 `policy`、`stats` 或 `metrics` 写入运行时配置。macOS System Extension 模式会在运行时关闭 Xray 日志。
 

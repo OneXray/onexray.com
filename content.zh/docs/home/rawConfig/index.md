@@ -19,7 +19,7 @@ Core > Logs > Xray config file
 
 # 仅本地
 
-Raw Json 只作为本地配置。Raw Json 列表固定显示一个 `Local` 分组，不再按订阅分组。历史上 `subId` 非 Local 的 Raw 行仍会显示在 Local 下；数据库行不会迁移。
+Raw Json 只作为本地配置。它会和本地 Outbound 节点一起显示在 Home 的 `Local` 分组下，不再按订阅分组。历史上 `subId` 非 Local 的 Raw 行仍会显示在 Local 下；数据库行不会迁移。
 
 订阅不会创建 Raw Json 项。
 
@@ -94,4 +94,4 @@ Xray Setting 是必选的。如果保存的选择缺失或无效，OneXray 会�
 
 # 分享
 
-Raw Json 可以从 Raw Json 菜单分享为 JSON 文本或 `.json` 文件。通用导入不会从这些文本重新创建 Raw Json 记录；需要创建或粘贴 Raw Json 时，请使用 Core 里的 Xray 编辑器。
+Raw Json 可以从 Raw Json 节点菜单分享为 JSON 文本或 `.json` 文件。通用导入不会从这些文本重新创建 Raw Json 记录；需要创建或粘贴 Raw Json 时，请使用 `Home > 添加 > 手动输入 > Raw Json`。
