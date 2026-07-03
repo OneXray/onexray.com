@@ -12,7 +12,7 @@ weight: 4
 1. Текст, начинающийся с `https://`, обрабатывается как subscription URL.
 2. Остальной текст разбирается libXray как Outbound share content.
 
-Import pipeline больше не обрабатывает legacy private import text, GeoData import payloads, Raw Json records или Xray Setting records.
+Import pipeline больше не обрабатывает legacy private import text, GeoData import payloads, Raw Json records или Xray Profile records.
 
 # Поддерживаемый import text
 
@@ -24,9 +24,9 @@ Import pipeline больше не обрабатывает legacy private import
 | Clash.Meta YAML | Импортирует Outbound nodes, если это поддерживает bundled libXray API. |
 | Xray JSON | Импортирует Outbound nodes, если это поддерживает bundled libXray API. |
 
-Subscriptions поддерживают только Outbound. Они не создают Raw Json, Xray Setting, GeoData, DNS, routing, inbounds, policy, stats, metrics или logs.
+Subscriptions поддерживают только Outbound. Они не создают Raw Json, Xray Profile, GeoData, DNS, routing, inbounds, policy, stats, metrics или logs.
 
-Raw Json и Xray Setting по-прежнему можно экспортировать как JSON text или JSON files со своих страниц, но generic import pipeline не принимает их как app-native records.
+Raw Json и Xray Profile по-прежнему можно экспортировать как JSON text или JSON files со своих страниц, но generic import pipeline не принимает их как app-native records.
 
 # Desktop Integration
 

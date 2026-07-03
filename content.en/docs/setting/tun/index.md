@@ -1,9 +1,9 @@
 ---
-title: TUN Setting
+title: TUN Settings
 weight: 1
 ---
 
-TUN Setting controls the platform tunnel and network-interface behavior used by all configurations.
+TUN Settings control the platform tunnel and network-interface behavior used by all configurations.
 
 # TUN
 
@@ -15,7 +15,7 @@ TUN DNS contains one IPv4 address and one IPv6 address. They are plain IP addres
 
 At startup, these addresses are applied to the tunnel. System DNS queries then enter Xray-core and are handled by routing and DNS outbound rules.
 
-These DNS addresses also affect how the platform resolves proxy server domain names before Xray Setting DNS is available.
+These DNS addresses also affect how the platform resolves proxy server domain names before Xray Profile DNS is available.
 
 ## DNS over TLS
 

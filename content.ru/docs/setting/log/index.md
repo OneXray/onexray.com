@@ -14,18 +14,18 @@ weight: 5
 
 # Xray Logs
 
-Xray logs управляются выбранным Xray Setting или Simple Setting.
+Xray logs управляются выбранным Xray Profile или Simple Profile.
 
-Для структурированного Xray Setting:
+Для структурированного Xray Profile:
 
 ```text
-Xray Setting > Edit Log
+Xray Profile > Edit Log
 ```
 
-Для Simple Setting:
+Для Simple Profile:
 
 ```text
-Simple Setting > Log > Enable Log
+Simple Profile > Log > Enable Log
 ```
 
 На macOS с включенным System Extension mode OneXray принудительно отключает Xray logs в runtime configs.

@@ -11,7 +11,7 @@ OneXray 是面向 iOS、macOS、Android、Windows 和 Linux 的跨平台 Xray-co
 | --- | --- |
 | Home | 连接状态、当前节点、VPN 启动/停止，以及统一节点列表。 |
 | Subscriptions | 订阅源管理和单个订阅下的 Outbound 节点列表。 |
-| Core | Xray-core 相关设置，例如 TUN、Ping、Logs、Xray Settings、GeoData。 |
+| Core | Xray-core 相关设置，例如 TUN、Ping、Logs、Xray 配置、GeoData。 |
 | Settings | App 偏好、自动更新、备份、清理数据、支持链接、Credits 和 Privacy。 |
 
 手机上使用底部导航，平板和桌面端使用左侧导航栏。二级页面会保持在当前一级入口下。

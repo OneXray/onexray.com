@@ -1,13 +1,15 @@
 ---
-title: Xray Setting
+title: Xray 配置
 weight: 1
+aliases:
+  - /zh/docs/home/outbound/xraySetting/
 ---
 
-Xray Setting 是 OneXray 必选的运行时 Profile，也是结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或链式代理的场景。
+Xray 配置是 OneXray 必选的运行时配置，也是结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或链式代理的场景。
 
 最终运行时配置会在 VPN 启动时由该状态生成。根据当前平台，启动修正逻辑可能会调整端口、网卡和日志。
 
-OneXray 会始终保持一个 Xray Setting 处于选中状态。内置 Simple 配置是兜底 Profile，不能删除。
+OneXray 会始终保持一个 Xray 配置处于选中状态。内置简易配置是兜底配置，不能删除。
 
 # 页面结构
 
@@ -38,7 +40,7 @@ DNS 页面写出 Xray 的 `dns` 对象。
 
 # FakeDNS
 
-Xray Setting 输出中固定写出 FakeDNS。FakeDNS 页面只负责配置地址池，不包含 enabled 开关。
+Xray 配置输出中固定写出 FakeDNS。FakeDNS 页面只负责配置地址池，不包含 enabled 开关。
 
 默认地址池：
 
@@ -55,7 +57,7 @@ Xray Setting 输出中固定写出 FakeDNS。FakeDNS 页面只负责配置地址
 | `UseIPv4` | 仅 IPv4 |
 | `UseIPv6` | 仅 IPv6 |
 
-要让 FakeDNS 生效，TUN inbound 的 sniffing destination override 应包含 `fakedns+others`。Simple Setting 的 FakeDNS 开关会自动添加该值。
+要让 FakeDNS 生效，TUN inbound 的 sniffing destination override 应包含 `fakedns+others`。简易配置的 FakeDNS 开关会自动添加该值。
 
 # Routing
 
@@ -119,7 +121,7 @@ TUN 模式启动时注入 `tunIn + pingIn`。代理模式启动时注入 `socksI
 chainProxy
 ```
 
-在 Xray Setting 中，Outbounds 页面支持导入、替换和删除链式代理。在 Simple Setting 中，链式代理通过本地 outbound 节点 id 选择。
+在 Xray 配置中，Outbounds 页面支持导入、替换和删除链式代理。在 简易配置中，链式代理通过本地 outbound 节点 id 选择。
 
 启用后，OneXray 会把当前 `proxy` 出站的 `dialerProxy` 设置为 `chainProxy`。如果当前出口节点和链式代理指向同一个本地 outbound id，启动会失败。
 
@@ -153,11 +155,11 @@ DNS 出站写出：
 
 # Inbounds
 
-结构化写出器包含 TUN inbound 和 ping inbound。TUN inbound 建议保持 sniffing 开启，以便基于域名和协议分流。Simple Setting 启用 FakeDNS 时，sniffing 会添加 `fakedns+others`。
+结构化写出器包含 TUN inbound 和 ping inbound。TUN inbound 建议保持 sniffing 开启，以便基于域名和协议分流。简易配置启用 FakeDNS 时，sniffing 会添加 `fakedns+others`。
 
 # Logs
 
-macOS 且启用 System Extension 模式时，OneXray 会在运行时写出前强制关闭 Xray Setting 日志：
+macOS 且启用 System Extension 模式时，OneXray 会在运行时写出前强制关闭 Xray 配置日志：
 
 ```json
 {
@@ -168,6 +170,6 @@ macOS 且启用 System Extension 模式时，OneXray 会在运行时写出前强
 
 # 分享
 
-Xray Setting 可以从 Xray Setting 菜单分享为 JSON 文本或 `.json` 文件。
+Xray 配置可以从 Xray 配置菜单分享为 JSON 文本或 `.json` 文件。
 
-自定义 GeoData 不会打包进 Xray Setting 分享结果。如果某个 setting 引用了自定义规则集，请先手动添加对应 GeoData，或使用 [备份与恢复]({{< relref path="../../../setting/backup/index.md" lang="zh" >}}) 进行完整迁移。
+自定义 GeoData 不会打包进 Xray 配置分享结果。如果某个配置引用了自定义规则集，请先手动添加对应 GeoData，或使用 [备份与恢复]({{< relref path="../../../setting/backup/index.md" lang="zh" >}}) 进行完整迁移。

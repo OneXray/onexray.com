@@ -10,9 +10,9 @@ weight: 8
 | Identifier | 含义 |
 | --- | --- |
 | `CoreConfigType.outbound` | 单个本地或订阅节点。 |
-| `CoreConfigType.setting` | OneXray 保存的结构化 Xray Setting；在 Xray Setting 列表中统一显示在 Local 下。 |
+| `CoreConfigType.setting` | OneXray 保存的结构化 Xray 配置；在 Xray 配置列表中统一显示在 Local 下。 |
 | `CoreConfigType.raw` | 以文本保存的完整 Raw Json 配置；统一显示在 Home 的 `Local` 分组下。 |
-| `Simple` | 内置 setting writer，id 为 `-1`。 |
+| `Simple` | 内置配置写出器，id 为 `-1`。 |
 | `proxy` | 当前出口节点的运行时 tag。 |
 | `chainProxy` | 前置代理或中继节点的固定 tag。 |
 | `tunIn` | TUN inbound tag。 |
@@ -62,16 +62,16 @@ UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 
 # 订阅语义
 
-订阅只支持 Outbound。即使远端文本包含完整 Xray JSON sections，订阅导入和刷新也会忽略 Setting 和 Raw 语义。
+订阅只支持 Outbound。即使远端文本包含完整 Xray JSON sections，订阅导入和刷新也会忽略 Xray 配置和 Raw Json 语义。
 
 | 数据 | 订阅行为 |
 | --- | --- |
 | `outbounds` | 解析并保存为订阅 Outbound 节点。 |
 | `dns`、`routing`、`inbounds`、`log`、`policy`、`stats`、`metrics` | 订阅导入会忽略。 |
 | Raw Json | 不会由订阅创建。 |
-| Xray Setting | 不会由订阅创建。 |
+| Xray 配置 | 不会由订阅创建。 |
 
-# Simple Setting 默认值
+# 简易配置默认值
 
 | 字段 | 默认值 |
 | --- | --- |
@@ -87,7 +87,7 @@ UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 | `fakeDns` | `false` |
 | `chainProxyOutboundId` | `null` |
 
-# Simple Setting 生成规则
+# 简易配置生成规则
 
 | `ruleTag` | 条件 | `outboundTag` |
 | --- | --- | --- |
@@ -138,9 +138,9 @@ UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 | `RU` 本地 DNS | `tcp://9.9.9.9`，用于直连域名。 |
 | `Other` 本地 DNS | `tcp://1.1.1.1`，用于直连域名。 |
 
-Simple Setting 启用 FakeDNS 时，TUN sniffing 会包含 `fakedns+others`。
+简易配置启用 FakeDNS 时，TUN sniffing 会包含 `fakedns+others`。
 
-# Xray Setting FakeDNS
+# Xray 配置 FakeDNS
 
 默认地址池：
 
@@ -165,7 +165,7 @@ Simple Setting 启用 FakeDNS 时，TUN sniffing 会包含 `fakedns+others`。
 | `UseIPv4` | IPv4 |
 | `UseIPv6` | IPv6 |
 
-# Xray Setting 出站顺序
+# Xray 配置出站顺序
 
 ```text
 proxy
@@ -214,7 +214,7 @@ Raw Json 必须：
 
 | 配置类型 | 运行时修正 |
 | --- | --- |
-| Xray Setting | Inbound 端口、ping auth、网卡绑定、macOS System Extension 日志关闭、可选 metrics。 |
+| Xray 配置 | Inbound 端口、ping auth、网卡绑定、macOS System Extension 日志关闭、可选 metrics。 |
 | Raw Json | 按当前模式重写运行时 inbounds、ping auth、网卡绑定、日志路径或日志关闭、可选 metrics。 |
 
 TUN metrics 关闭时，OneXray 不会把 `policy`、`stats` 或 `metrics` 写入运行时配置。macOS System Extension 模式会在运行时关闭 Xray 日志。

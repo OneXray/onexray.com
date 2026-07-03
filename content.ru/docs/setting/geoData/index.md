@@ -37,7 +37,7 @@ GeoData auto update is configured on [Auto Update]({{< relref path="../subUpdate
 
 GeoData is no longer shared as a standalone app link. For full migration, use [Backup and Restore]({{< relref path="../backup/index.md" lang="ru" >}}), which includes custom GeoData database rows, `.dat` files, and generated `.json` summaries.
 
-Routing templates can still reference custom GeoData with `ext:<Name>.dat:<Code>`. Add the required custom GeoData manually before importing those templates into Xray Settings.
+Routing templates can still reference custom GeoData with `ext:<Name>.dat:<Code>`. Add the required custom GeoData manually before importing those templates into Xray Profiles.
 
 # iOS and iPadOS
 

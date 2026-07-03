@@ -17,7 +17,7 @@ OneXray поддерживает два runtime modes:
 При запуске outbound-узла OneXray:
 
 1. Загружает выбранный узел.
-2. Загружает выбранный Xray Setting. Если сохраненный выбор недействителен, OneXray возвращается к встроенному Simple setting.
+2. Загружает выбранный Xray Profile. Если сохраненный выбор недействителен, OneXray возвращается к встроенному Simple Profile.
 3. Применяет chain proxy, если он настроен.
 4. Применяет runtime fixes: mode-specific inbounds, ping port, metrics, interface binding и macOS System Extension log handling.
 5. Записывает Xray JSON runtime config.
@@ -28,7 +28,7 @@ OneXray поддерживает два runtime modes:
 
 Остановка закрывает активный runtime и очищает running state в приложении.
 
-Proxy mode не настраивает операционную систему автоматически и не отображается как system VPN connection. Используйте SOCKS или HTTP address из Xray Settings при ручной настройке browser, terminal или system proxy.
+Proxy mode не настраивает операционную систему автоматически и не отображается как system VPN connection. Используйте SOCKS или HTTP address из Xray Profiles при ручной настройке browser, terminal или system proxy.
 
 # Проверка запуска
 
@@ -37,7 +37,7 @@ Proxy mode не настраивает операционную систему �
 | Случай | Значение |
 | --- | --- |
 | Invalid outbound | Выбранный узел нельзя преобразовать в корректный Xray outbound. |
-| Missing chain proxy | Simple Setting указывает на удаленный chain proxy node. |
+| Missing chain proxy | Simple Profile указывает на удаленный chain proxy node. |
 | Invalid chain proxy | Выбранная chain proxy row не является outbound или не разбирается. |
 | Same chain proxy and outbound | Chain proxy id совпадает с exit node id. |
 | Invalid Raw Json | Raw JSON не проходит проверку OneXray или тест Xray-core. |

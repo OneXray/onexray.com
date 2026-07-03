@@ -15,7 +15,7 @@ TUN DNS 包含一个 IPv4 地址和一个 IPv6 地址。它们是纯 IP 地址�
 
 启动时，这些地址会应用到隧道上。系统 DNS 查询进入 Xray-core 后，由路由和 DNS outbound 处理。
 
-这些 DNS 地址也会影响平台在 Xray Setting DNS 可用之前如何解析代理服务器域名。
+这些 DNS 地址也会影响平台在 Xray 配置 DNS 可用之前如何解析代理服务器域名。
 
 ## DNS over TLS
 

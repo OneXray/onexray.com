@@ -10,9 +10,9 @@ weight: 8
 | Identifier | Meaning |
 | --- | --- |
 | `CoreConfigType.outbound` | Один local или subscription node. |
-| `CoreConfigType.setting` | Structured Xray Setting, сохраненный OneXray; всегда показывается под Local в списке Xray Setting. |
+| `CoreConfigType.setting` | Structured Xray Profile, сохраненный OneXray; всегда показывается под Local в списке Xray Profile. |
 | `CoreConfigType.raw` | Full Raw Json config, сохраненный как text; всегда показывается в группе Home `Local`. |
-| `Simple` | Built-in setting writer с id `-1`. |
+| `Simple` | Built-in profile writer с id `-1`. |
 | `proxy` | Runtime tag выбранного exit node. |
 | `chainProxy` | Fixed tag для front или relay node. |
 | `tunIn` | TUN inbound tag. |
@@ -62,16 +62,16 @@ QR images импортируются через camera scan или image file im
 
 # Subscription Semantics
 
-Subscriptions are outbound-only. Subscription import and refresh ignore Setting and Raw semantics even if remote text contains full Xray JSON sections.
+Subscriptions are outbound-only. Subscription import and refresh ignore Xray Profile and Raw Json semantics even if remote text contains full Xray JSON sections.
 
 | Data | Subscription behavior |
 | --- | --- |
 | `outbounds` | Parsed and stored as subscription outbound nodes. |
 | `dns`, `routing`, `inbounds`, `log`, `policy`, `stats`, `metrics` | Ignored by subscription import. |
 | Raw Json | Not created from subscriptions. |
-| Xray Setting | Not created from subscriptions. |
+| Xray Profile | Not created from subscriptions. |
 
-# Simple Setting Defaults
+# Simple Profile Defaults
 
 | Field | Default |
 | --- | --- |
@@ -87,7 +87,7 @@ Subscriptions are outbound-only. Subscription import and refresh ignore Setting 
 | `fakeDns` | `false` |
 | `chainProxyOutboundId` | `null` |
 
-# Simple Setting Generated Rules
+# Simple Profile Generated Rules
 
 | `ruleTag` | Condition | `outboundTag` |
 | --- | --- | --- |
@@ -138,9 +138,9 @@ Additional IP rule:
 | Local DNS for `RU` | `tcp://9.9.9.9` for direct domains. |
 | Local DNS for `Other` | `tcp://1.1.1.1` for direct domains. |
 
-When FakeDNS is enabled in Simple Setting, TUN sniffing includes `fakedns+others`.
+When FakeDNS is enabled in Simple Profile, TUN sniffing includes `fakedns+others`.
 
-# Xray Setting FakeDNS
+# Xray Profile FakeDNS
 
 Default pools:
 
@@ -165,7 +165,7 @@ Written pools follow `dns.queryStrategy`:
 | `UseIPv4` | IPv4 |
 | `UseIPv6` | IPv6 |
 
-# Xray Setting Outbound Order
+# Xray Profile Outbound Order
 
 ```text
 proxy
@@ -214,7 +214,7 @@ Raw Json must:
 
 | Config type | Runtime fixes |
 | --- | --- |
-| Xray Setting | Inbound ports, ping auth, interface binding, macOS System Extension log disabling, and optional metrics. |
+| Xray Profile | Inbound ports, ping auth, interface binding, macOS System Extension log disabling, and optional metrics. |
 | Raw Json | Runtime inbound rewrite for the current mode, ping auth, interface binding, log path or log disabling, and optional metrics. |
 
 When TUN metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into runtime configs. macOS System Extension mode disables Xray logs at runtime.

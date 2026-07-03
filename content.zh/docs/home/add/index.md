@@ -35,7 +35,7 @@ OneXray 会按第一个可识别格式分类导入文本。
 | Clash.Meta YAML | 内置 core API 支持时通过 libXray 解析。 |
 | Xray JSON | 内置 core API 支持时通过 libXray 解析，但只导入 Outbound 节点。 |
 
-通用导入流程不会创建 Raw Json、Xray Setting 或 GeoData 记录。
+通用导入流程不会创建 Raw Json、Xray 配置或 GeoData 记录。
 
 ## 扫描二维码
 
@@ -64,4 +64,4 @@ OneXray 会按第一个可识别格式分类导入文本。
 
 导入属于 App UI 流程。请从添加菜单使用剪贴板、文件、图片或二维码扫描导入。
 
-订阅和分享文本只会创建 Outbound 节点。Raw Json 可通过 `手动输入 > Raw Json` 创建；Xray Setting 和 GeoData 从各自页面管理。
+订阅和分享文本只会创建 Outbound 节点。Raw Json 可通过 `手动输入 > Raw Json` 创建；Xray 配置和 GeoData 从各自页面管理。

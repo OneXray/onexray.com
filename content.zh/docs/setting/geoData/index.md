@@ -37,7 +37,7 @@ GeoData 自动更新在 [Auto Update]({{< relref path="../subUpdate/index.md" la
 
 GeoData 不再作为单独 App 链接分享。完整迁移请使用 [备份与恢复]({{< relref path="../backup/index.md" lang="zh" >}})，它会包含自定义 GeoData 数据库记录、`.dat` 文件和生成的 `.json` 摘要。
 
-Routing 模板仍然可以通过 `ext:<Name>.dat:<Code>` 引用自定义 GeoData。把这些模板导入 Xray Settings 之前，请先手动添加所需自定义 GeoData。
+Routing 模板仍然可以通过 `ext:<Name>.dat:<Code>` 引用自定义 GeoData。把这些模板导入 Xray 配置之前，请先手动添加所需自定义 GeoData。
 
 # iOS 和 iPadOS
 

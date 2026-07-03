@@ -13,7 +13,7 @@ weight: 2
 proxy
 ```
 
-Xray Setting 中的路由规则应使用 `proxy` 指向当前启动的出口节点。
+Xray 配置中的路由规则应使用 `proxy` 指向当前启动的出口节点。
 
 # 支持的出站类型
 
@@ -39,7 +39,7 @@ chainProxy
 
 # Fragment
 
-Xray Setting 中包含系统 `fragment` 出站。需要 freedom fragmentation 行为时，可通过路由规则把指定流量转发到 `fragment`。
+Xray 配置中包含系统 `fragment` 出站。需要 freedom fragmentation 行为时，可通过路由规则把指定流量转发到 `fragment`。
 
 # 网卡
 
@@ -47,6 +47,6 @@ Xray Setting 中包含系统 `fragment` 出站。需要 freedom fragmentation �
 
 # 相关页面
 
-- [Xray Setting]({{< relref path="xraySetting/index.md" lang="zh" >}})
+- [Xray 配置]({{< relref path="xrayProfile/index.md" lang="zh" >}})
 - [TUN 设置]({{< relref path="../../setting/tun/index.md" lang="zh" >}})
 - [AI 参考]({{< relref path="../../reference/index.md" lang="zh" >}})

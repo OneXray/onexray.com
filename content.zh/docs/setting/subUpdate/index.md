@@ -7,7 +7,7 @@ Auto Update 控制 App 初始化完成后的自动数据刷新。它不会在早
 
 # 订阅刷新
 
-| 设置 | 含义 |
+| 选项 | 含义 |
 | --- | --- |
 | Enable | 自动刷新过期订阅。 |
 | Interval | `1 day`、`3 days` 或 `1 week`。 |
@@ -17,7 +17,7 @@ Auto Update 控制 App 初始化完成后的自动数据刷新。它不会在早
 
 # GeoData 刷新
 
-| 设置 | 含义 |
+| 选项 | 含义 |
 | --- | --- |
 | Enable GeoData | 自动刷新系统和自定义 GeoData。 |
 | GeoData interval | `1 day`、`3 days` 或 `1 week`。 |

@@ -14,18 +14,18 @@ The Log page exposes diagnostic files.
 
 # Xray Logs
 
-Xray logs are controlled by the selected Xray Setting or Simple Setting.
+Xray logs are controlled by the selected Xray Profile or Simple Profile.
 
-For structured Xray Setting:
+For structured Xray Profile:
 
 ```text
-Xray Setting > Edit Log
+Xray Profile > Edit Log
 ```
 
-For Simple Setting:
+For Simple Profile:
 
 ```text
-Simple Setting > Log > Enable Log
+Simple Profile > Log > Enable Log
 ```
 
 On macOS with System Extension mode enabled, OneXray forces Xray logs off for runtime configs.

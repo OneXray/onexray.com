@@ -13,7 +13,7 @@ Outbound-узел — переиспользуемый профиль Xray outbo
 proxy
 ```
 
-Routing rules в Xray Setting должны использовать `proxy` для активного выходного узла.
+Routing rules в Xray Profile должны использовать `proxy` для активного выходного узла.
 
 # Семейства outbound
 
@@ -39,7 +39,7 @@ chainProxy
 
 # Fragment
 
-Страница Xray Setting содержит системный outbound `fragment`. Используйте routing rules для отправки выбранного трафика в `fragment`, если нужно поведение freedom fragmentation.
+Страница Xray Profile содержит системный outbound `fragment`. Используйте routing rules для отправки выбранного трафика в `fragment`, если нужно поведение freedom fragmentation.
 
 # Network Interface
 
@@ -47,6 +47,6 @@ Socket option `interface` имеет смысл только на Linux и Windo
 
 # Связанные страницы
 
-- [Xray Setting]({{< relref path="xraySetting/index.md" lang="ru" >}})
-- [TUN Setting]({{< relref path="../../setting/tun/index.md" lang="ru" >}})
+- [Xray Profile]({{< relref path="xrayProfile/index.md" lang="ru" >}})
+- [TUN Settings]({{< relref path="../../setting/tun/index.md" lang="ru" >}})
 - [AI Reference]({{< relref path="../../reference/index.md" lang="ru" >}})

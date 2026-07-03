@@ -9,7 +9,7 @@ Subscriptions manage remote outbound node sources.
 
 Subscriptions only import outbound nodes. OneXray reads supported Xray share links, Clash.Meta YAML, or Xray JSON through the bundled libXray API and stores the resulting items as `CoreConfigType.outbound`.
 
-Subscriptions do not import Raw Json, Xray Setting, GeoData, DNS, routing, inbounds, policy, stats, metrics, or logs.
+Subscriptions do not import Raw Json, Xray Profile, GeoData, DNS, routing, inbounds, policy, stats, metrics, or logs.
 
 # List Behavior
 

@@ -17,7 +17,7 @@ OneXray supports two runtime modes:
 When you start an outbound node, OneXray:
 
 1. Loads the selected node.
-2. Loads the selected Xray Setting. If the saved selection is invalid, OneXray falls back to the built-in Simple setting.
+2. Loads the selected Xray Profile. If the saved selection is invalid, OneXray falls back to the built-in Simple Profile.
 3. Applies chain proxy if configured.
 4. Applies runtime fixes such as mode-specific inbounds, ping port, metrics, interface binding, and macOS System Extension log handling.
 5. Writes the Xray JSON runtime config.
@@ -28,7 +28,7 @@ When you start an outbound node, OneXray:
 
 Stopping tears down the active runtime and clears the running state in the app.
 
-Proxy mode does not configure your operating system automatically and does not appear as a system VPN connection. Use the SOCKS or HTTP address shown in Xray Settings when configuring a browser, terminal, or system proxy manually.
+Proxy mode does not configure your operating system automatically and does not appear as a system VPN connection. Use the SOCKS or HTTP address shown in Xray Profiles when configuring a browser, terminal, or system proxy manually.
 
 # Startup Validation
 
@@ -37,7 +37,7 @@ Startup can fail when:
 | Case | Meaning |
 | --- | --- |
 | Invalid outbound | The selected node cannot be converted to a valid Xray outbound. |
-| Missing chain proxy | Simple Setting points to a deleted chain proxy node. |
+| Missing chain proxy | Simple Profile points to a deleted chain proxy node. |
 | Invalid chain proxy | The selected chain proxy row is not an outbound or cannot be parsed. |
 | Same chain proxy and outbound | The chain proxy id is the same as the exit node id. |
 | Invalid Raw Json | The raw JSON fails OneXray validation or Xray-core test. |

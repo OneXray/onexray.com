@@ -10,7 +10,7 @@ OneXray использует общие форматы обмена данным
 | Outbound nodes | Стандартный Xray share link text и QR code, если это поддерживает libXray. |
 | Subscriptions | Обычный HTTPS subscription URL. |
 | Raw Json | JSON text и `.json` file. |
-| Xray Setting | JSON text и `.json` file. |
+| Xray Profile | JSON text и `.json` file. |
 | GeoData | Не передается отдельно. Для полной миграции используйте Backup. |
 
 # Import
@@ -25,11 +25,11 @@ Imported text классифицируется запущенным прилож
 
 QR image import поддерживает `png`, `jpg` и `jpeg`. Text file import поддерживает `txt`, `json`, `yaml` и `yml`; такие файлы проходят через те же правила text import.
 
-# Raw Json and Xray Setting
+# Raw Json and Xray Profile
 
-Raw Json и Xray Setting можно экспортировать из их меню как JSON text или JSON files. Это предназначено для ручного копирования, внешнего редактирования или backup workflows.
+Raw Json и Xray Profile можно экспортировать из их меню как JSON text или JSON files. Это предназначено для ручного копирования, внешнего редактирования или backup workflows.
 
-Они не импортируются generic share/import pipeline как app-native records. Чтобы создать Raw Json внутри OneXray, используйте `Home > Add > Manual Input > Raw Json`. Чтобы создать Xray Setting, используйте соответствующую страницу Core.
+Они не импортируются generic share/import pipeline как app-native records. Чтобы создать Raw Json внутри OneXray, используйте `Home > Add > Manual Input > Raw Json`. Чтобы создать Xray Profile, используйте соответствующую страницу Core.
 
 # Backup
 

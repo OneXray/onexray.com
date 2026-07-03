@@ -1,9 +1,9 @@
 ---
-title: TUN Setting
+title: TUN Settings
 weight: 1
 ---
 
-TUN Setting управляет туннелем платформы и сетевыми интерфейсами, которые используются всеми конфигурациями.
+TUN Settings управляют туннелем платформы и сетевыми интерфейсами, которые используются всеми конфигурациями.
 
 # TUN
 
@@ -15,7 +15,7 @@ TUN DNS содержит один IPv4 address и один IPv6 address. Это 
 
 При запуске эти адреса применяются к tunnel. System DNS queries затем входят в Xray-core и обрабатываются routing и DNS outbound rules.
 
-Эти DNS addresses также влияют на то, как платформа резолвит domain names proxy server до того, как DNS из Xray Setting станет доступен.
+Эти DNS addresses также влияют на то, как платформа резолвит domain names proxy server до того, как DNS из Xray Profile станет доступен.
 
 ## DNS over TLS
 

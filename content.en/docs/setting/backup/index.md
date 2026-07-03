@@ -9,7 +9,7 @@ Backup exports OneXray data to a ZIP file that can be saved, shared, and importe
 
 | Data | Included |
 | --- | --- |
-| Local Xray Settings | Yes |
+| Local Xray Profiles | Yes |
 | Local outbound nodes | Yes |
 | Raw Json configs | Yes |
 | Subscriptions | Yes, as subscription records and URLs |
@@ -17,7 +17,7 @@ Backup exports OneXray data to a ZIP file that can be saved, shared, and importe
 | Custom GeoData rows | Yes |
 | Custom GeoData `.dat` and generated `.json` files | Yes |
 | Built-in `geosite` and `geoip` rows | No; they are restored from bundled assets. |
-| Simple Setting preferences | No; kept outside backup data. |
+| Simple Profile preferences | No; kept outside backup data. |
 | Other app preferences | No |
 
 # File Structure

@@ -14,18 +14,18 @@ weight: 5
 
 # Xray 日志
 
-Xray 日志由当前 Xray Setting 或 Simple Setting 控制。
+Xray 日志由当前 Xray 配置或 简易配置控制。
 
-结构化 Xray Setting：
+结构化 Xray 配置：
 
 ```text
-Xray Setting > Edit Log
+Xray 配置 > Edit Log
 ```
 
-Simple Setting：
+简易配置：
 
 ```text
-Simple Setting > Log > Enable Log
+简易配置 > Log > Enable Log
 ```
 
 macOS 且启用 System Extension 模式时，OneXray 会在运行时配置中强制关闭 Xray 日志。

@@ -1,13 +1,15 @@
 ---
-title: Xray Setting
+title: Xray Profile
 weight: 1
+aliases:
+  - /docs/home/outbound/xraySetting/
 ---
 
-Xray Setting is OneXray's required runtime profile and structured writer for Xray-core JSON. It is suitable when UI-managed DNS, FakeDNS, routing, inbounds, outbounds, logs, or chain proxy behavior is required.
+Xray Profile is OneXray's required runtime profile and structured writer for Xray-core JSON. It is suitable when UI-managed DNS, FakeDNS, routing, inbounds, outbounds, logs, or chain proxy behavior is required.
 
 The final runtime config is generated from this state when the VPN starts. Runtime fixers may adjust ports, interfaces, and logs for the current platform.
 
-OneXray always keeps one Xray Setting selected. The built-in Simple setting is the fallback profile and cannot be deleted.
+OneXray always keeps one Xray Profile selected. The built-in Simple Profile is the fallback profile and cannot be deleted.
 
 # Sections
 
@@ -38,7 +40,7 @@ If a DNS server has a non-empty `tag`, OneXray exposes that tag as an `inboundTa
 
 # FakeDNS
 
-FakeDNS is always present in Xray Setting output. The FakeDNS page only configures the pools; it does not contain an enable switch.
+FakeDNS is always present in Xray Profile output. The FakeDNS page only configures the pools; it does not contain an enable switch.
 
 Default pools:
 
@@ -55,7 +57,7 @@ The written pools follow DNS `queryStrategy`:
 | `UseIPv4` | IPv4 only |
 | `UseIPv6` | IPv6 only |
 
-To make FakeDNS useful, the TUN inbound sniffing destination override should include `fakedns+others`. The Simple Setting switch adds that value automatically.
+To make FakeDNS useful, the TUN inbound sniffing destination override should include `fakedns+others`. The Simple Profile switch adds that value automatically.
 
 # Routing
 
@@ -119,7 +121,7 @@ The custom chain proxy tag is fixed:
 chainProxy
 ```
 
-In Xray Setting, the Outbounds page supports importing, replacing, and deleting the chain proxy. In Simple Setting, the chain proxy is selected by outbound id from local outbound nodes.
+In Xray Profile, the Outbounds page supports importing, replacing, and deleting the chain proxy. In Simple Profile, the chain proxy is selected by outbound id from local outbound nodes.
 
 When active, OneXray sets the selected `proxy` outbound's `dialerProxy` to `chainProxy`. Startup fails if the selected exit node and the chain proxy point to the same local outbound id.
 
@@ -153,11 +155,11 @@ Default DNS outbound rules:
 
 # Inbounds
 
-The structured writer includes the TUN inbound and ping inbound. The TUN inbound should keep sniffing enabled for routing based on domain and protocol. When FakeDNS is enabled in Simple Setting, sniffing adds `fakedns+others`.
+The structured writer includes the TUN inbound and ping inbound. The TUN inbound should keep sniffing enabled for routing based on domain and protocol. When FakeDNS is enabled in Simple Profile, sniffing adds `fakedns+others`.
 
 # Logs
 
-On macOS with System Extension mode enabled, OneXray forces Xray Setting logs off before writing the runtime config:
+On macOS with System Extension mode enabled, OneXray forces Xray Profile logs off before writing the runtime config:
 
 ```json
 {
@@ -168,6 +170,6 @@ On macOS with System Extension mode enabled, OneXray forces Xray Setting logs of
 
 # Sharing
 
-Xray Setting can be shared as JSON text or a `.json` file from the Xray Setting menu.
+Xray Profile can be shared as JSON text or a `.json` file from the Xray Profile menu.
 
-Custom GeoData is not bundled into Xray Setting share output. If a setting references custom rule sets, add those GeoData entries manually first or use [Backup and Restore]({{< relref path="../../../setting/backup/index.md" lang="en" >}}) for full migration.
+Custom GeoData is not bundled into Xray Profile share output. If a profile references custom rule sets, add those GeoData entries manually first or use [Backup and Restore]({{< relref path="../../../setting/backup/index.md" lang="en" >}}) for full migration.

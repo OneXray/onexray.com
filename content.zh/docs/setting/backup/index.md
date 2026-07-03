@@ -9,7 +9,7 @@ Backup 会把 OneXray 数据导出为 ZIP 文件，方便保存、分享和后�
 
 | 数据 | 是否包含 |
 | --- | --- |
-| 本地 Xray Settings | 是 |
+| 本地 Xray 配置 | 是 |
 | 本地 Outbound 节点 | 是 |
 | Raw Json 配置 | 是 |
 | 订阅 | 是，以订阅记录和 URL 保存 |
@@ -17,7 +17,7 @@ Backup 会把 OneXray 数据导出为 ZIP 文件，方便保存、分享和后�
 | 自定义 GeoData 记录 | 是 |
 | 自定义 GeoData `.dat` 和生成的 `.json` 文件 | 是 |
 | 内置 `geosite` 和 `geoip` 记录 | 否，它们会从内置资源恢复。 |
-| Simple Setting 偏好 | 否，保留在备份数据之外。 |
+| 简易配置偏好 | 否，保留在备份数据之外。 |
 | 其他 App 偏好 | 否 |
 
 # 文件结构

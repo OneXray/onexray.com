@@ -7,7 +7,7 @@ Auto Update controls automatic data refresh after the app has initialized. It do
 
 # Subscription Refresh
 
-| Setting | Meaning |
+| Option | Meaning |
 | --- | --- |
 | Enable | Refresh outdated subscriptions automatically. |
 | Interval | `1 day`, `3 days`, or `1 week`. |
@@ -17,7 +17,7 @@ Refresh keeps the old running config until the user starts VPN again. Updating a
 
 # GeoData Refresh
 
-| Setting | Meaning |
+| Option | Meaning |
 | --- | --- |
 | Enable GeoData | Refresh system and custom GeoData automatically. |
 | GeoData interval | `1 day`, `3 days`, or `1 week`. |

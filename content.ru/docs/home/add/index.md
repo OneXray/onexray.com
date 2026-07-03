@@ -35,7 +35,7 @@ OneXray classifies imported text by the first valid format it can read.
 | Clash.Meta YAML | Parsed by libXray when supported by the bundled core API. |
 | Xray JSON | Parsed by libXray when supported by the bundled core API, but only outbound nodes are imported. |
 
-The generic import pipeline does not create Raw Json, Xray Setting, or GeoData records.
+The generic import pipeline does not create Raw Json, Xray Profile, or GeoData records.
 
 ## Scan QRCode
 
@@ -64,4 +64,4 @@ Clipboard import reads plain text and passes it through the same import pipeline
 
 Import выполняется через UI приложения. Используйте clipboard, file, image или QR scan import из add menu.
 
-Imported subscriptions и share text создают только outbound nodes. Raw Json можно создать через `Manual Input > Raw Json`; Xray Setting и GeoData управляются со своих страниц.
+Imported subscriptions и share text создают только outbound nodes. Raw Json можно создать через `Manual Input > Raw Json`; Xray Profile и GeoData управляются со своих страниц.

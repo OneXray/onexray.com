@@ -15,14 +15,14 @@ Home 是连接状态和节点操作的主工作区。
 | --- | --- | --- |
 | Outbound | 单个 Xray outbound 节点，例如 VLESS、VMess、Trojan、Shadowsocks、SOCKS、HTTP 或 Hysteria2。 | Home 节点列表和订阅。 |
 | Raw Json | 以文本方式导入和编辑的完整 Xray JSON 文档。 | 仅 Home 的 Local 分组。 |
-| Xray Setting | 由 OneXray 结构化页面生成的可复用 Xray 配置。 | Core > Xray Settings。 |
-| Simple | 内置 Xray Setting 写出器。 | Core > Xray Settings > Simple。 |
+| Xray 配置 | 由 OneXray 结构化页面生成的可复用 Xray 配置。 | Core > Xray 配置。 |
+| Simple | 内置 Xray 配置写出器。 | Core > Xray 配置 > Simple。 |
 
 # 推荐流程
 
 1. 添加 Outbound 节点或订阅。
-2. 将节点使用的 Xray Setting 保持为 `Simple`。
-3. 只有在需要不同直连区域、FakeDNS、链式代理、DNS query strategy 或日志级别时才调整 Simple Setting。
+2. 将节点使用的 Xray 配置保持为 `Simple`。
+3. 只有在需要不同直连区域、FakeDNS、链式代理、DNS query strategy 或日志级别时才调整 简易配置。
 4. 从 Home 页面启动 VPN。
 
 # 节点列表
@@ -39,6 +39,6 @@ VPN 启动时，OneXray 会把 Xray config file 写入 App runtime 目录并启�
 
 - [添加与导入]({{< relref path="add/index.md" lang="zh" >}})
 - [Outbound 节点]({{< relref path="outbound/_index.md" lang="zh" >}})
-- [Xray Setting]({{< relref path="outbound/xraySetting/index.md" lang="zh" >}})
+- [Xray 配置]({{< relref path="outbound/xrayProfile/index.md" lang="zh" >}})
 - [Raw Json]({{< relref path="rawConfig/index.md" lang="zh" >}})
 - [启动与停止]({{< relref path="start/index.md" lang="zh" >}})

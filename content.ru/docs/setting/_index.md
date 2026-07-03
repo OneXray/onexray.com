@@ -18,7 +18,7 @@ Settings содержит настройки приложения и инстр�
 | Support | Docs, Review, Telegram, Issues, Source Code, Credits, Privacy | Поддержка и информация о проекте. |
 | Version | App и Xray versions | Показывает установленную версию приложения и встроенную версию Xray-core. |
 
-Страницы, связанные с Xray-core, перенесены в [Core]({{< relref path="../core/_index.md" lang="ru" >}}). TUN, Ping, Logs, Xray Settings и GeoData больше не отображаются как корневые элементы Settings.
+Страницы, связанные с Xray-core, перенесены в [Core]({{< relref path="../core/_index.md" lang="ru" >}}). TUN, Ping, Logs, Xray Profiles и GeoData больше не отображаются как корневые элементы Settings.
 
 # Clear Data
 
@@ -26,4 +26,4 @@ Clear Data сначала останавливает VPN. Если остано�
 
 После успешной очистки OneXray удаляет local configs, subscriptions, GeoData database rows, runtime files, app cache и custom GeoData files. Встроенные `geosite` и `geoip` восстанавливаются.
 
-Операция сохраняет local backup ZIP files и app preferences: privacy acceptance, first-run state, Simple Xray Setting, TUN Setting, theme, language, Dock setting, query-all-packages acceptance и native iOS app icon. После очистки выбранный Xray Setting сбрасывается на `Simple`.
+Операция сохраняет local backup ZIP files и app preferences: privacy acceptance, first-run state, Simple Profile, TUN Settings, theme, language, Dock setting, query-all-packages acceptance и native iOS app icon. После очистки выбранный Xray Profile сбрасывается на `Simple`.

@@ -3,7 +3,7 @@ title: Raw Json
 weight: 4
 ---
 
-Raw Json stores a complete Xray JSON document. Use it when the structured Xray Setting pages do not expose the Xray-core feature you need.
+Raw Json stores a complete Xray JSON document. Use it when the structured Xray Profile pages do not expose the Xray-core feature you need.
 
 This page expects Xray-core knowledge. OneXray validates the JSON and tests it through the bundled core API before saving.
 
@@ -31,14 +31,14 @@ OneXray requires a non-empty top-level `name` field for display in the config li
 
 ## Runtime Inbounds
 
-Raw Json no longer accepts custom `inbounds`. OneXray removes the Raw Json `inbounds` array at startup and writes app-managed runtime inbounds from the selected Xray Setting.
+Raw Json no longer accepts custom `inbounds`. OneXray removes the Raw Json `inbounds` array at startup and writes app-managed runtime inbounds from the selected Xray Profile.
 
 | Mode | Runtime inbounds |
 | --- | --- |
 | TUN | `tunIn` and `pingIn` |
 | Proxy | `socksIn`, `httpIn`, and `pingIn` |
 
-The selected Xray Setting is required. If the saved selection is missing or invalid, OneXray falls back to the built-in Simple setting before startup.
+The selected Xray Profile is required. If the saved selection is missing or invalid, OneXray falls back to the built-in Simple Profile before startup.
 
 # Runtime Fixing
 

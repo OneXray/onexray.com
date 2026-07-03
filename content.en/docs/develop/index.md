@@ -12,7 +12,7 @@ When OneXray receives import text from the app UI, it uses this order:
 1. Text starting with `https://` is treated as a subscription URL.
 2. Other text is parsed as outbound share content by libXray.
 
-The import pipeline no longer handles legacy private import text, GeoData import payloads, Raw Json records, or Xray Setting records.
+The import pipeline no longer handles legacy private import text, GeoData import payloads, Raw Json records, or Xray Profile records.
 
 # Supported Import Text
 
@@ -24,9 +24,9 @@ The import pipeline no longer handles legacy private import text, GeoData import
 | Clash.Meta YAML | Imports outbound nodes when supported by the bundled libXray API. |
 | Xray JSON | Imports outbound nodes when supported by the bundled libXray API. |
 
-Subscriptions are outbound-only. They do not create Raw Json, Xray Setting, GeoData, DNS, routing, inbounds, policy, stats, metrics, or logs.
+Subscriptions are outbound-only. They do not create Raw Json, Xray Profile, GeoData, DNS, routing, inbounds, policy, stats, metrics, or logs.
 
-Raw Json and Xray Setting can still be exported as JSON text or JSON files from their own pages, but they are not accepted by the generic import pipeline as app-native records.
+Raw Json and Xray Profile can still be exported as JSON text or JSON files from their own pages, but they are not accepted by the generic import pipeline as app-native records.
 
 # Desktop Integration
 

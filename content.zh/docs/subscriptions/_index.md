@@ -9,7 +9,7 @@ Subscriptions 用于管理远程 Outbound 节点来源。
 
 订阅只导入 Outbound 节点。OneXray 通过内置 libXray API 读取支持的 Xray 分享链接、Clash.Meta YAML 或 Xray JSON，并把结果保存为 `CoreConfigType.outbound`。
 
-订阅不会导入 Raw Json、Xray Setting、GeoData、DNS、routing、inbounds、policy、stats、metrics 或 logs。
+订阅不会导入 Raw Json、Xray 配置、GeoData、DNS、routing、inbounds、policy、stats、metrics 或 logs。
 
 # 列表行为
 

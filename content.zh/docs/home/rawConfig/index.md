@@ -3,7 +3,7 @@ title: Raw Json
 weight: 4
 ---
 
-Raw Json 保存完整 Xray JSON 文档。当结构化 Xray Setting 页面没有暴露你需要的 Xray-core 功能时，可以使用 Raw Json。
+Raw Json 保存完整 Xray JSON 文档。当结构化 Xray 配置页面没有暴露你需要的 Xray-core 功能时，可以使用 Raw Json。
 
 这个页面需要 Xray-core 配置知识。保存前 OneXray 会校验 JSON，并通过内置 core API 测试配置。
 
@@ -31,14 +31,14 @@ OneXray 要求顶层存在非空 `name` 字段，用于配置列表显示。
 
 ## 运行时 Inbounds
 
-Raw Json 不再接受自定义 `inbounds`。启动时 OneXray 会删除 Raw Json 中的 `inbounds` 数组，并根据当前选中的 Xray Setting 写入 App 管理的运行时 inbounds。
+Raw Json 不再接受自定义 `inbounds`。启动时 OneXray 会删除 Raw Json 中的 `inbounds` 数组，并根据当前选中的 Xray 配置写入 App 管理的运行时 inbounds。
 
 | 模式 | 运行时 inbounds |
 | --- | --- |
 | TUN | `tunIn` 和 `pingIn` |
 | 代理 | `socksIn`、`httpIn` 和 `pingIn` |
 
-Xray Setting 是必选的。如果保存的选择缺失或无效，OneXray 会在启动前回落到内置 Simple 配置。
+Xray 配置是必选的。如果保存的选择缺失或无效，OneXray 会在启动前回落到内置 Simple 配置。
 
 # 运行时修正
 

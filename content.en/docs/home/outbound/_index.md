@@ -13,7 +13,7 @@ When you start a node, OneXray assigns the selected node the reserved runtime ta
 proxy
 ```
 
-Routing rules in Xray Setting should target `proxy` for the active node.
+Routing rules in Xray Profile should target `proxy` for the active node.
 
 # Supported Outbound Families
 
@@ -39,7 +39,7 @@ The same node cannot be used as both the active outbound and the chain proxy. On
 
 # Fragment
 
-The Xray Setting page contains a system `fragment` outbound. Use routing rules to send selected traffic to `fragment` when freedom fragmentation behavior is needed.
+The Xray Profile page contains a system `fragment` outbound. Use routing rules to send selected traffic to `fragment` when freedom fragmentation behavior is needed.
 
 # Network Interface
 
@@ -47,6 +47,6 @@ The `interface` socket option is only meaningful on Linux and Windows. If a node
 
 # Related Pages
 
-- [Xray Setting]({{< relref path="xraySetting/index.md" lang="en" >}})
-- [TUN Setting]({{< relref path="../../setting/tun/index.md" lang="en" >}})
+- [Xray Profile]({{< relref path="xrayProfile/index.md" lang="en" >}})
+- [TUN Settings]({{< relref path="../../setting/tun/index.md" lang="en" >}})
 - [AI Reference]({{< relref path="../../reference/index.md" lang="en" >}})
