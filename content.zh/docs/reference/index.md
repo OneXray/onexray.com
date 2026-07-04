@@ -11,6 +11,7 @@ weight: 8
 | --- | --- |
 | `CoreConfigType.outbound` | 单个本地或订阅节点。 |
 | `CoreConfigType.setting` | OneXray 保存的结构化 Xray 配置；在 Xray 配置列表中统一显示在 Local 下。 |
+| `CoreConfigType.full` | 结构化 Full Config 节点；统一显示在 Home 的 `Local` 分组下。 |
 | `CoreConfigType.raw` | 以文本保存的完整 Raw Json 配置；统一显示在 Home 的 `Local` 分组下。 |
 | `Simple` | 内置配置写出器，id 为 `-1`。 |
 | `proxy` | 当前出口节点的运行时 tag。 |

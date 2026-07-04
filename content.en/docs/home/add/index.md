@@ -7,9 +7,9 @@ Use the add menu on the Home page to create local nodes, add subscriptions, scan
 
 # Manual Input
 
-Manual input opens a submenu. Choose `Outbound` to create a structured local outbound node, or choose `Raw Json` to create a local full Xray JSON config.
+Manual input opens a submenu. Choose `Outbound` to create a structured local outbound node, choose `Full Config` to create a structured local node with custom outbounds and routing, or choose `Raw Json` to create a local full Xray JSON config.
 
-The outbound editor writes a single outbound node. The Raw Json editor writes a full JSON config. Both appear under the Home `Local` group, and at runtime OneXray assigns the active node the reserved `proxy` tag.
+The outbound editor writes a single outbound node. The Full Config editor writes a structured node-level config. The Raw Json editor writes a full JSON config. All three appear under the Home `Local` group.
 
 # Subscription Link
 
@@ -35,7 +35,7 @@ OneXray classifies imported text by the first valid format it can read.
 | Clash.Meta YAML | Parsed by libXray when supported by the bundled core API. |
 | Xray JSON | Parsed by libXray when supported by the bundled core API, but only outbound nodes are imported. |
 
-The generic import pipeline does not create Raw Json, Xray Profile, or GeoData records.
+The generic import pipeline does not create Full Config, Raw Json, Xray Profile, or GeoData records.
 
 ## Scan QRCode
 
@@ -64,4 +64,4 @@ Clipboard import reads plain text and passes it through the same import pipeline
 
 Import is an app UI workflow. Use clipboard, file, image, or QR scan import from the add menu.
 
-Imported subscriptions and share text only create outbound nodes. Raw Json can be created from `Manual Input > Raw Json`; Xray Profile and GeoData are managed from their own pages.
+Imported subscriptions and share text only create outbound nodes. Full Config can be created from `Manual Input > Full Config`; Raw Json can be created from `Manual Input > Raw Json`; Xray Profile and GeoData are managed from their own pages.

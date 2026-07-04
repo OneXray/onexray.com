@@ -9,7 +9,7 @@ Subscriptions управляет удаленными источниками Out
 
 Подписки импортируют только Outbound-узлы. OneXray читает поддерживаемые Xray share links, Clash.Meta YAML или Xray JSON через встроенный libXray API и сохраняет результат как `CoreConfigType.outbound`.
 
-Подписки не импортируют Raw Json, Xray Profile, GeoData, DNS, routing, inbounds, policy, stats, metrics или logs.
+Подписки не импортируют Full Config, Raw Json, Xray Profile, GeoData, DNS, routing, inbounds, policy, stats, metrics или logs.
 
 # Поведение списка
 

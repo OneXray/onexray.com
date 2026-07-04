@@ -12,7 +12,7 @@ weight: 4
 1. 以 `https://` 开头的文本按订阅 URL 处理。
 2. 其他文本交给 libXray 按 Outbound 分享内容解析。
 
-当前导入流程不再处理旧私有导入文本、GeoData 导入 payload、Raw Json 记录或 Xray 配置记录。
+当前导入流程不再处理旧私有导入文本、GeoData 导入 payload、Full Config 记录、Raw Json 记录或 Xray 配置记录。
 
 # 支持的导入文本
 
@@ -24,7 +24,7 @@ weight: 4
 | Clash.Meta YAML | 内置 libXray API 支持时导入 Outbound 节点。 |
 | Xray JSON | 内置 libXray API 支持时导入 Outbound 节点。 |
 
-订阅只支持 Outbound。订阅不会创建 Raw Json、Xray 配置、GeoData、DNS、routing、inbounds、policy、stats、metrics 或 logs。
+订阅只支持 Outbound。订阅不会创建 Full Config、Raw Json、Xray 配置、GeoData、DNS、routing、inbounds、policy、stats、metrics 或 logs。
 
 Raw Json 和 Xray 配置仍然可以从各自页面导出为 JSON 文本或 JSON 文件，但不会通过通用导入流程作为 App 内部记录导入。
 

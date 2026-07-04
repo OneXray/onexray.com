@@ -11,6 +11,7 @@ weight: 8
 | --- | --- |
 | `CoreConfigType.outbound` | Один local или subscription node. |
 | `CoreConfigType.setting` | Structured Xray Profile, сохраненный OneXray; всегда показывается под Local в списке Xray Profile. |
+| `CoreConfigType.full` | Structured Full Config node; всегда показывается в группе Home `Local`. |
 | `CoreConfigType.raw` | Full Raw Json config, сохраненный как text; всегда показывается в группе Home `Local`. |
 | `Simple` | Built-in profile writer с id `-1`. |
 | `proxy` | Runtime tag выбранного exit node. |

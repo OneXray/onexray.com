@@ -7,9 +7,9 @@ Use the add menu on the Home page to create local nodes, add subscriptions, scan
 
 # Manual Input
 
-Manual input открывает submenu. Выберите `Outbound`, чтобы создать structured local outbound node, или `Raw Json`, чтобы создать local full Xray JSON config.
+Manual input открывает submenu. Выберите `Outbound`, чтобы создать structured local outbound node, `Full Config`, чтобы создать structured local node with custom outbounds and routing, или `Raw Json`, чтобы создать local full Xray JSON config.
 
-Outbound editor записывает single outbound node. Raw Json editor записывает full JSON config. Оба варианта появляются в группе Home `Local`, а при запуске OneXray назначает активному узлу reserved tag `proxy`.
+Outbound editor записывает single outbound node. Full Config editor записывает structured node-level config. Raw Json editor записывает full JSON config. Все три варианта появляются в группе Home `Local`.
 
 # Subscription Link
 
@@ -35,7 +35,7 @@ OneXray classifies imported text by the first valid format it can read.
 | Clash.Meta YAML | Parsed by libXray when supported by the bundled core API. |
 | Xray JSON | Parsed by libXray when supported by the bundled core API, but only outbound nodes are imported. |
 
-The generic import pipeline does not create Raw Json, Xray Profile, or GeoData records.
+The generic import pipeline does not create Full Config, Raw Json, Xray Profile, or GeoData records.
 
 ## Scan QRCode
 
@@ -64,4 +64,4 @@ Clipboard import reads plain text and passes it through the same import pipeline
 
 Import выполняется через UI приложения. Используйте clipboard, file, image или QR scan import из add menu.
 
-Imported subscriptions и share text создают только outbound nodes. Raw Json можно создать через `Manual Input > Raw Json`; Xray Profile и GeoData управляются со своих страниц.
+Imported subscriptions и share text создают только outbound nodes. Full Config можно создать через `Manual Input > Full Config`; Raw Json можно создать через `Manual Input > Raw Json`; Xray Profile и GeoData управляются со своих страниц.

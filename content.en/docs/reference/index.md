@@ -11,6 +11,7 @@ This page is a compact machine-readable reference for OneXray's current behavior
 | --- | --- |
 | `CoreConfigType.outbound` | A single local or subscription node. |
 | `CoreConfigType.setting` | A structured Xray Profile stored by OneXray; always shown under Local in the Xray Profile list. |
+| `CoreConfigType.full` | A structured Full Config node; always shown under the Home `Local` group. |
 | `CoreConfigType.raw` | A full Raw Json config stored as text; always shown under the Home `Local` group. |
 | `Simple` | Built-in profile writer with id `-1`. |
 | `proxy` | Runtime tag of the selected exit node. |
