@@ -31,14 +31,14 @@ OneXray requires a non-empty top-level `name` field for display in the config li
 
 ## Runtime Inbounds
 
-Raw Json больше не принимает custom `inbounds`. При запуске OneXray удаляет массив Raw Json `inbounds` и записывает app-managed runtime inbounds из выбранного Xray Profile.
+Raw Json больше не передает custom `inbounds` в Final Config. При запуске OneXray удаляет массив Raw Json `inbounds` и записывает app-managed runtime inbounds из выбранного Xray Profile.
 
 | Mode | Runtime inbounds |
 | --- | --- |
 | TUN | `tunIn` и `pingIn` |
 | Proxy | `socksIn`, `httpIn` и `pingIn` |
 
-Выбранный Xray Profile обязателен. Если сохраненный выбор отсутствует или недействителен, OneXray возвращается к встроенному Simple Profile перед запуском.
+Выбранный Xray Profile обязателен для сборки Final Config. Если сохраненный выбор отсутствует или недействителен, OneXray возвращается к встроенному Simple Profile перед запуском.
 
 # Runtime Fixing
 
@@ -51,6 +51,8 @@ Before startup, OneXray adjusts the Raw Json config for the current platform:
 | Ping inbound | Do not define `pingIn` in Raw Json. OneXray writes a runtime HTTP `pingIn` inbound with the current random ping port and auth, and rewrites the ping routing rule. |
 | Logs | `access` and `error` paths are rewritten to OneXray's log files. On macOS System Extension mode, logs are forced off. |
 | Metrics | When TUN metrics are enabled, runtime metrics fields are written. When disabled, `policy`, `metrics`, and `stats` are not written. |
+
+Остальные разделы Raw Json остаются основным JSON body для Final Config, но runtime-owned fields могут быть перезаписаны перед запуском Xray-core.
 
 # Suggested Routing Skeleton
 

@@ -10,7 +10,7 @@ OneXray 支持两种运行模式：
 | 模式 | 行为 |
 | --- | --- |
 | TUN | 启动平台 VPN/TUN 集成，并把流量导入 Xray-core。 |
-| 代理 | 在 App 进程内启动 Xray，提供本地 SOCKS/HTTP 代理端口，不修改系统代理、路由、DNS 或系统 VPN 状态。 |
+| 代理 | 启动本地 Xray，提供 SOCKS/HTTP 代理端口，不修改系统代理、路由、DNS 或系统 VPN 状态。 |
 
 # 启动
 
@@ -18,11 +18,14 @@ OneXray 支持两种运行模式：
 
 1. 读取当前选中的节点。
 2. 读取当前选中的 Xray 配置。如果保存的选择无效，则回落到内置 Simple 配置。
-3. 应用链式代理。
-4. 应用运行时修正，例如当前模式的 inbounds、ping 端口、metrics、网卡绑定和 macOS System Extension 日志处理。
-5. 写出 Xray JSON 运行时配置。
-6. TUN 模式启动平台 VPN 隧道；代理模式启动本地 Xray。
-7. 在可用时测试延迟和节点出口 IP。
+3. 根据当前节点和当前 Xray 配置合成最终配置（Final Config）。
+4. 应用链式代理。
+5. 应用运行时修正，例如当前模式的 inbounds、ping 端口、metrics、网卡绑定、env 路径和 macOS System Extension 日志处理。
+6. 把最终配置写出为运行时 `xray.json`。
+7. TUN 模式启动平台 VPN 隧道；代理模式启动本地 Xray。
+8. 在可用时测试延迟和节点出口 IP。
+
+TUN 和代理模式只影响最终配置中的运行时 inbounds 和 Core 启动方式，不改变 Xray 配置必须选中的规则。
 
 # 停止
 

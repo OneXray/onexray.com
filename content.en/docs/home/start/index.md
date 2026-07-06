@@ -10,19 +10,22 @@ OneXray supports two runtime modes:
 | Mode | Behavior |
 | --- | --- |
 | TUN | Starts the platform VPN/TUN integration and routes traffic through Xray-core. |
-| Proxy | Starts Xray inside the app process and exposes local SOCKS/HTTP proxy ports without changing system proxy, route, DNS, or system VPN state. |
+| Proxy | Starts local Xray and exposes SOCKS/HTTP proxy ports without changing system proxy, route, DNS, or system VPN state. |
 
 # Start
 
-When you start an outbound node, OneXray:
+When you start a node, OneXray:
 
 1. Loads the selected node.
 2. Loads the selected Xray Profile. If the saved selection is invalid, OneXray falls back to the built-in Simple Profile.
-3. Applies chain proxy if configured.
-4. Applies runtime fixes such as mode-specific inbounds, ping port, metrics, interface binding, and macOS System Extension log handling.
-5. Writes the Xray JSON runtime config.
-6. Starts the platform VPN tunnel in TUN mode, or starts local Xray in Proxy mode.
-7. Tests latency and node IP information when available.
+3. Composes the Final Config from the selected node and the selected Xray Profile.
+4. Applies chain proxy if configured.
+5. Applies runtime fixes such as mode-specific inbounds, ping port, metrics, interface binding, env paths, and macOS System Extension log handling.
+6. Writes the Final Config to the runtime `xray.json`.
+7. Starts the platform VPN tunnel in TUN mode, or starts local Xray in Proxy mode.
+8. Tests latency and node IP information when available.
+
+TUN and Proxy mode change which runtime inbounds are written and how the core is started. They do not remove the requirement that one Xray Profile is selected.
 
 # Stop
 

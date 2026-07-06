@@ -31,14 +31,14 @@ OneXray 要求顶层存在非空 `name` 字段，用于配置列表显示。
 
 ## 运行时 Inbounds
 
-Raw Json 不再接受自定义 `inbounds`。启动时 OneXray 会删除 Raw Json 中的 `inbounds` 数组，并根据当前选中的 Xray 配置写入 App 管理的运行时 inbounds。
+Raw Json 不再向最终配置（Final Config）提供自定义 `inbounds`。启动时 OneXray 会删除 Raw Json 中的 `inbounds` 数组，并根据当前选中的 Xray 配置写入 App 管理的运行时 inbounds。
 
 | 模式 | 运行时 inbounds |
 | --- | --- |
 | TUN | `tunIn` 和 `pingIn` |
 | 代理 | `socksIn`、`httpIn` 和 `pingIn` |
 
-Xray 配置是必选的。如果保存的选择缺失或无效，OneXray 会在启动前回落到内置 Simple 配置。
+最终配置合成必须依赖当前选中的 Xray 配置。如果保存的选择缺失或无效，OneXray 会在启动前回落到内置 Simple 配置。
 
 # 运行时修正
 
@@ -51,6 +51,8 @@ Xray 配置是必选的。如果保存的选择缺失或无效，OneXray 会在�
 | Ping inbound | 不要在 Raw Json 中手写 `pingIn` 入站。OneXray 会写入带随机 ping 端口和 auth 的运行时 HTTP `pingIn` 入站，并重写 ping routing rule。 |
 | 日志 | `access` 和 `error` 路径会改写到 OneXray 日志文件。macOS System Extension 模式下会强制关闭日志。 |
 | Metrics | TUN metrics 启用时写入运行时 metrics 字段；关闭时不写入 `policy`、`metrics` 和 `stats`。 |
+
+Raw Json 的其他部分仍会作为最终配置的主要 JSON 主体，但运行时托管字段可能会在 Xray-core 启动前被重写。
 
 # 推荐 Routing Skeleton
 

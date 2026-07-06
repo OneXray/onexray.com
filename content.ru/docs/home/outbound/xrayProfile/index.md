@@ -7,9 +7,23 @@ aliases:
 
 Xray Profile — обязательный runtime profile и структурированный writer Xray-core JSON в OneXray. Он подходит, когда нужны DNS, FakeDNS, routing, inbounds, outbounds, logs или chain proxy, управляемые через UI.
 
-Финальный runtime config генерируется из этого состояния при запуске VPN. Runtime fixers могут изменить порты, интерфейсы и logs под текущую платформу.
-
 OneXray всегда держит один Xray Profile выбранным. Встроенный Simple Profile является fallback profile и не может быть удален.
+
+# Final Config
+
+Final Config — это runtime `xray.json`, который OneXray записывает непосредственно перед запуском Xray-core. Это не то же самое, что отдельный Xray Profile, Outbound node, Full Config или Raw Json record в UI.
+
+Выбранный Xray Profile предоставляет базовую runtime structure: `dns`, `fakeDns`, `routing`, `inbounds`, `outbounds`, `log` и optional metrics-related fields.
+
+Активный тип узла затем изменяет эту базу:
+
+| Active node | Как он изменяет Final Config |
+| --- | --- |
+| Outbound | Выбранный узел становится runtime outbound `proxy`. Если chain proxy включен, OneXray записывает `chainProxy` и устанавливает `proxy.dialerProxy` в `chainProxy`. |
+| Full Config | Full Config заменяет `outbounds`, `routing`, `dns` и `fakeDns` выбранного Xray Profile. Выбранный Xray Profile и app runtime все еще предоставляют runtime inbounds, logs, metrics, env и platform fixes. |
+| Raw Json | Raw Json используется как основной JSON body, но его `inbounds` удаляются. OneXray записывает runtime inbounds из выбранного Xray Profile для текущего TUN или Proxy mode. |
+
+После этой композиции app runtime все еще управляет `pingIn`, случайными ping и metrics ports, Windows/Linux TUN route fields, `env.xray.location.asset`, `env.xray.location.cert`, mobile `env.xray.tun.fd` и отключением logs в macOS System Extension.
 
 # Разделы
 
@@ -153,9 +167,9 @@ Default DNS outbound rules:
 
 `qType` — string field.
 
-# Inbounds
+# Runtime Inbound Notes
 
-Структурированный writer включает TUN inbound и ping inbound. TUN inbound должен оставлять sniffing включенным для routing по domain и protocol. Когда FakeDNS включен в Simple Profile, sniffing добавляет `fakedns+others`.
+Структурированный writer включает runtime TUN, SOCKS, HTTP и ping inbound states. TUN inbound должен оставлять sniffing включенным для routing по domain и protocol. Когда FakeDNS включен в Simple Profile, sniffing добавляет `fakedns+others`.
 
 # Logs
 

@@ -7,9 +7,23 @@ aliases:
 
 Xray 配置是 OneXray 必选的运行时配置，也是结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或链式代理的场景。
 
-最终运行时配置会在 VPN 启动时由该状态生成。根据当前平台，启动修正逻辑可能会调整端口、网卡和日志。
-
 OneXray 会始终保持一个 Xray 配置处于选中状态。内置简易配置是兜底配置，不能删除。
+
+# 最终配置（Final Config）
+
+最终配置（Final Config）指 OneXray 在启动 Xray-core 前最终写出的运行时 `xray.json`。它不等同于 UI 中看到的单个 Xray 配置、Outbound 节点、Full Config 或 Raw Json 记录。
+
+当前选中的 Xray 配置提供运行时基础结构：`dns`、`fakeDns`、`routing`、`inbounds`、`outbounds`、`log` 和可选的 metrics 相关字段。
+
+当前启动的节点类型会在这个基础上继续修改最终配置：
+
+| 启动节点 | 如何修改最终配置 |
+| --- | --- |
+| Outbound | 当前节点会成为运行时 `proxy` 出站。启用链式代理时，OneXray 会写入 `chainProxy`，并把 `proxy.dialerProxy` 设置为 `chainProxy`。 |
+| Full Config | Full Config 会替换当前 Xray 配置中的 `outbounds`、`routing`、`dns` 和 `fakeDns`。当前 Xray 配置和 App runtime 仍负责运行时 inbounds、logs、metrics、env 和平台修正。 |
+| Raw Json | Raw Json 作为主要 JSON 主体，但它的 `inbounds` 会被删除。OneXray 会根据当前 TUN 或代理模式，从当前 Xray 配置写入运行时 inbounds。 |
+
+完成合成后，App runtime 仍然负责 `pingIn`、随机 ping 和 metrics 端口、Windows/Linux TUN route 字段、`env.xray.location.asset`、`env.xray.location.cert`、移动端 `env.xray.tun.fd`，以及 macOS System Extension 日志关闭逻辑。
 
 # 页面结构
 
@@ -153,9 +167,9 @@ DNS 出站写出：
 
 `qType` 是字符串字段。
 
-# Inbounds
+# 运行时 Inbounds 说明
 
-结构化写出器包含 TUN inbound 和 ping inbound。TUN inbound 建议保持 sniffing 开启，以便基于域名和协议分流。简易配置启用 FakeDNS 时，sniffing 会添加 `fakedns+others`。
+结构化写出器包含运行时 TUN、SOCKS、HTTP 和 ping inbound 状态。TUN inbound 建议保持 sniffing 开启，以便基于域名和协议分流。简易配置启用 FakeDNS 时，sniffing 会添加 `fakedns+others`。
 
 # Logs
 
