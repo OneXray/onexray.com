@@ -5,7 +5,7 @@ aliases:
   - /zh/docs/home/outbound/xraySetting/
 ---
 
-Xray 配置是 OneXray 必选的运行时配置，也是结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或链式代理的场景。
+Xray 配置是 OneXray 必选的运行时配置，也是结构化 Xray-core JSON 写出器。适合需要通过 UI 管理 DNS、FakeDNS、路由、入站、出站、日志或最终出口的场景。
 
 OneXray 会始终保持一个 Xray 配置处于选中状态。内置简易配置是兜底配置，不能删除。
 
@@ -19,7 +19,7 @@ OneXray 会始终保持一个 Xray 配置处于选中状态。内置简易配置
 
 | 启动节点 | 如何修改最终配置 |
 | --- | --- |
-| Outbound | 当前节点会成为运行时 `proxy` 出站。启用链式代理时，OneXray 会写入 `chainProxy`，并把 `proxy.dialerProxy` 设置为 `chainProxy`。 |
+| Outbound | 未配置最终出口时，当前节点会成为运行时 `proxy` 出站。配置最终出口后，最终出口会写为 `proxy`；当前节点会写为 `chainProxy`；`proxy.dialerProxy` 会设置为 `chainProxy`。 |
 | Full Config | Full Config 会替换当前 Xray 配置中的 `outbounds`、`routing`、`dns` 和 `fakeDns`。当前 Xray 配置和 App runtime 仍负责运行时 inbounds、logs、metrics、env 和平台修正。 |
 | Raw Json | Raw Json 作为主要 JSON 主体，但它的 `inbounds` 会被删除。OneXray 会根据当前 TUN 或代理模式，从当前 Xray 配置写入运行时 inbounds。 |
 
@@ -44,7 +44,7 @@ DNS 页面写出 Xray 的 `dns` 对象。
 | --- | --- |
 | `hosts` | 静态 host 映射。 |
 | `servers` | DNS server 列表。每个 server 可包含 address、port、domains、expectIPs、skipFallback、clientIP、queryStrategy 和 tag。 |
-| `queryStrategy` | `UseIP`、`UseIPv4` 或 `UseIPv6`。 |
+| `queryStrategy` | 运行时由 TUN 设置写出。开启 IPv6 时写为 `UseIP`；关闭 IPv6 时写为 `UseIPv4`。 |
 | `disableCache` | 禁用 DNS 缓存。 |
 | `disableFallback` | 禁用 fallback server 行为。 |
 | `disableFallbackIfMatch` | 域名规则匹配后停止 fallback。 |
@@ -63,13 +63,12 @@ Xray 配置输出中固定写出 FakeDNS。FakeDNS 页面只负责配置地址�
 | IPv4 | `198.18.0.0/15` | `32768` |
 | IPv6 | `fc00::/18` | `32768` |
 
-实际写出的池跟随 DNS `queryStrategy`：
+实际写出的池跟随 `TUN 设置 > 开启 IPv6`：
 
-| `queryStrategy` | 写出的 FakeDNS 池 |
+| TUN IPv6 | 写出的 FakeDNS 池 |
 | --- | --- |
-| `UseIP` | IPv4 和 IPv6 |
-| `UseIPv4` | 仅 IPv4 |
-| `UseIPv6` | 仅 IPv6 |
+| 开启 | IPv4 和 IPv6 |
+| 关闭 | 仅 IPv4 |
 
 要让 FakeDNS 生效，TUN inbound 的 sniffing destination override 应包含 `fakedns+others`。简易配置的 FakeDNS 开关会自动添加该值。
 
@@ -110,8 +109,8 @@ TUN 模式启动时注入 `tunIn + pingIn`。代理模式启动时注入 `socksI
 
 | Tag | 协议 | 用途 |
 | --- | --- | --- |
-| `proxy` | 运行时选中的节点 | 主出口节点。 |
-| `chainProxy` | 导入或替换的自定义节点 | 前置或中转节点。 |
+| `proxy` | 运行时选中的节点或最终出口 | 最终出口。 |
+| `chainProxy` | 配置最终出口时的当前节点 | 由 `proxy.dialerProxy` 使用的拨号中转节点。 |
 | `direct` | `freedom` | 直连。 |
 | `fragment` | `freedom` | Fragment 出站。 |
 | `block` | `blackhole` | 阻断。 |
@@ -127,17 +126,17 @@ TUN 模式启动时注入 `tunIn + pingIn`。代理模式启动时注入 `socksI
 6. `block`
 7. `dnsOut`
 
-## 链式代理
+## 最终出口
 
-链式代理的 tag 固定为：
+运行时中转 tag 仍固定为：
 
 ```text
 chainProxy
 ```
 
-在 Xray 配置中，Outbounds 页面支持导入、替换和删除链式代理。在 简易配置中，链式代理通过本地 outbound 节点 id 选择。
+在 Xray 配置中，Outbounds 页面支持导入、替换和删除最终出口。在简易配置中，最终出口通过本地 outbound 节点 id 选择。
 
-启用后，OneXray 会把当前 `proxy` 出站的 `dialerProxy` 设置为 `chainProxy`。如果当前出口节点和链式代理指向同一个本地 outbound id，启动会失败。
+启用最终出口后，OneXray 会把最终出口写为运行时 `proxy`。Home 当前节点会写为 `chainProxy`，并把 `proxy.dialerProxy` 设置为 `chainProxy`。如果 Home 当前节点和最终出口指向同一个本地 outbound id，启动会失败。
 
 ## DNS 出站
 

@@ -14,8 +14,8 @@ This page is a compact machine-readable reference for OneXray's current behavior
 | `CoreConfigType.full` | A structured Full Config node; always shown under the Home `Local` group. |
 | `CoreConfigType.raw` | A full Raw Json config stored as text; always shown under the Home `Local` group. |
 | `Simple` | Built-in profile writer with id `-1`. |
-| `proxy` | Runtime tag of the selected exit node. |
-| `chainProxy` | Fixed tag for the front or relay node. |
+| `proxy` | Runtime tag of the final exit outbound. |
+| `chainProxy` | Fixed runtime relay tag for the Home selected node when Final Outbound is configured. |
 | `tunIn` | TUN inbound tag. |
 | `pingIn` | HTTP ping inbound tag. |
 | `dnsQuery` | DNS component inbound tag and rule tag. |
@@ -77,7 +77,7 @@ Subscriptions are outbound-only. Subscription import and refresh ignore Xray Pro
 | Field | Default |
 | --- | --- |
 | `routing.domainStrategy` | `IpIfNonMatch` |
-| `routing.queryStrategy` | `UseIPv4` |
+| DNS query strategy | Derived from TUN Settings. `Enable IPv6` writes `UseIP`; disabling IPv6 writes `UseIPv4`. |
 | `routing.directSet` | `CN` |
 | `routing.appleDirect` | `true` |
 | `routing.localDirect` | `true` |
@@ -86,7 +86,7 @@ Subscriptions are outbound-only. Subscription import and refresh ignore Xray Pro
 | `dns` | Cloudflare through `proxy` |
 | `enableLog` | `false` |
 | `fakeDns` | `false` |
-| `chainProxyOutboundId` | `null` |
+| `finalOutboundId` | `null` |
 
 # Simple Profile Generated Rules
 
@@ -158,13 +158,12 @@ Default pools:
 ]
 ```
 
-Written pools follow `dns.queryStrategy`:
+Written pools follow `TUN Settings > Enable IPv6`:
 
-| Strategy | Pools |
+| TUN IPv6 | Pools |
 | --- | --- |
-| `UseIP` | IPv4 and IPv6 |
-| `UseIPv4` | IPv4 |
-| `UseIPv6` | IPv6 |
+| Enabled | IPv4 and IPv6 |
+| Disabled | IPv4 |
 
 # Xray Profile Outbound Order
 
@@ -178,7 +177,7 @@ block
 dnsOut
 ```
 
-`chainProxy` is present only when configured.
+`chainProxy` is present only when Final Outbound is configured. In that case, Final Outbound is written as `proxy`; the Home selected node is written as `chainProxy`; `proxy.dialerProxy` is set to `chainProxy`.
 
 # DNS Outbound
 

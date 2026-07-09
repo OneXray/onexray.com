@@ -27,15 +27,21 @@ Routing rules в Xray Profile должны использовать `proxy` дл
 | Mux | mux enablement, concurrency, XUDP behavior. |
 | Socket options | TCP Fast Open, MPTCP, network interface, dialer proxy. |
 
-# Chain Proxy
+# Final Outbound
 
-Если настроен chain proxy, активный outbound все равно записывается как `proxy`, но его `dialerProxy` устанавливается в:
+Без Final Outbound активный Home node записывается как:
+
+```text
+proxy
+```
+
+Если Final Outbound настроен, Final Outbound записывается как `proxy`. Активный Home node записывается как:
 
 ```text
 chainProxy
 ```
 
-Один и тот же узел нельзя использовать одновременно как активный outbound и chain proxy. OneXray отклоняет такой запуск.
+Затем OneXray устанавливает `proxy.dialerProxy` в `chainProxy`, поэтому Home node работает как dialer relay, а Final Outbound является финальным выходом. Один и тот же узел нельзя использовать одновременно как активный Home node и Final Outbound. OneXray отклоняет такой запуск.
 
 # Fragment
 

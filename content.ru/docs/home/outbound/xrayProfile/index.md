@@ -5,7 +5,7 @@ aliases:
   - /ru/docs/home/outbound/xraySetting/
 ---
 
-Xray Profile — обязательный runtime profile и структурированный writer Xray-core JSON в OneXray. Он подходит, когда нужны DNS, FakeDNS, routing, inbounds, outbounds, logs или chain proxy, управляемые через UI.
+Xray Profile — обязательный runtime profile и структурированный writer Xray-core JSON в OneXray. Он подходит, когда нужны DNS, FakeDNS, routing, inbounds, outbounds, logs или Final Outbound, управляемые через UI.
 
 OneXray всегда держит один Xray Profile выбранным. Встроенный Simple Profile является fallback profile и не может быть удален.
 
@@ -19,7 +19,7 @@ Final Config — это runtime `xray.json`, который OneXray записы
 
 | Active node | Как он изменяет Final Config |
 | --- | --- |
-| Outbound | Выбранный узел становится runtime outbound `proxy`. Если chain proxy включен, OneXray записывает `chainProxy` и устанавливает `proxy.dialerProxy` в `chainProxy`. |
+| Outbound | Без Final Outbound выбранный узел становится runtime outbound `proxy`. Если Final Outbound настроен, Final Outbound записывается как `proxy`; выбранный узел записывается как `chainProxy`; `proxy.dialerProxy` устанавливается в `chainProxy`. |
 | Full Config | Full Config заменяет `outbounds`, `routing`, `dns` и `fakeDns` выбранного Xray Profile. Выбранный Xray Profile и app runtime все еще предоставляют runtime inbounds, logs, metrics, env и platform fixes. |
 | Raw Json | Raw Json используется как основной JSON body, но его `inbounds` удаляются. OneXray записывает runtime inbounds из выбранного Xray Profile для текущего TUN или Proxy mode. |
 
@@ -44,7 +44,7 @@ Final Config — это runtime `xray.json`, который OneXray записы
 | --- | --- |
 | `hosts` | Статические host mappings. |
 | `servers` | Список DNS servers. Каждый server может иметь address, port, domains, expectIPs, skipFallback, clientIP, queryStrategy и tag. |
-| `queryStrategy` | `UseIP`, `UseIPv4` или `UseIPv6`. |
+| `queryStrategy` | Записывается во время runtime из TUN Settings. `Enable IPv6` записывает `UseIP`; отключенный IPv6 записывает `UseIPv4`. |
 | `disableCache` | Отключает DNS cache. |
 | `disableFallback` | Отключает fallback server behavior. |
 | `disableFallbackIfMatch` | Останавливает fallback, если сработало domain rule. |
@@ -63,13 +63,12 @@ FakeDNS всегда присутствует в выводе Xray Profile. Ст
 | IPv4 | `198.18.0.0/15` | `32768` |
 | IPv6 | `fc00::/18` | `32768` |
 
-Записанные pools следуют DNS `queryStrategy`:
+Записанные pools следуют `TUN Settings > Enable IPv6`:
 
-| `queryStrategy` | Записанные FakeDNS pools |
+| TUN IPv6 | Записанные FakeDNS pools |
 | --- | --- |
-| `UseIP` | IPv4 и IPv6 |
-| `UseIPv4` | Только IPv4 |
-| `UseIPv6` | Только IPv6 |
+| Enabled | IPv4 и IPv6 |
+| Disabled | Только IPv4 |
 
 Чтобы FakeDNS был полезен, TUN inbound sniffing destination override должен содержать `fakedns+others`. Переключатель FakeDNS в Simple Profile добавляет это значение автоматически.
 
@@ -110,8 +109,8 @@ TUN mode добавляет `tunIn + pingIn` при запуске. Proxy mode �
 
 | Tag | Protocol | Назначение |
 | --- | --- | --- |
-| `proxy` | Выбранный узел в runtime | Основной выходной узел. |
-| `chainProxy` | Импортированный или замененный custom node | Передний proxy или relay node. |
+| `proxy` | Выбранный узел или Final Outbound в runtime | Финальный выходной outbound. |
+| `chainProxy` | Выбранный узел, когда Final Outbound настроен | Dialer relay, используемый `proxy.dialerProxy`. |
 | `direct` | `freedom` | Прямое соединение. |
 | `fragment` | `freedom` | Fragment outbound. |
 | `block` | `blackhole` | Блокировка трафика. |
@@ -127,17 +126,17 @@ Runtime order:
 6. `block`
 7. `dnsOut`
 
-## Chain Proxy
+## Final Outbound
 
-Tag custom chain proxy фиксирован:
+Внутренний runtime relay tag остается фиксированным:
 
 ```text
 chainProxy
 ```
 
-В Xray Profile страница Outbounds поддерживает import, replace и delete chain proxy. В Simple Profile chain proxy выбирается по outbound id из локальных outbound nodes.
+В Xray Profile страница Outbounds поддерживает import, replace и delete Final Outbound. В Simple Profile Final Outbound выбирается по outbound id из локальных outbound nodes.
 
-Если chain proxy активен, OneXray устанавливает `dialerProxy` выбранного `proxy` outbound в `chainProxy`. Запуск завершается ошибкой, если exit node и chain proxy указывают на один и тот же локальный outbound id.
+Если Final Outbound активен, OneXray записывает Final Outbound как runtime `proxy`. Выбранный на Home узел записывается как `chainProxy`, а `proxy.dialerProxy` устанавливается в `chainProxy`. Запуск завершается ошибкой, если выбранный на Home узел и Final Outbound указывают на один и тот же локальный outbound id.
 
 ## DNS Outbound
 

@@ -27,15 +27,21 @@ Xray 配置中的路由规则应使用 `proxy` 指向当前启动的出口节点
 | Mux | mux 开关、并发数、XUDP 行为。 |
 | Socket 选项 | TCP Fast Open、MPTCP、网卡、dialer proxy。 |
 
-# 链式代理
+# 最终出口
 
-配置链式代理后，当前出口节点仍写为 `proxy`，但它的 `dialerProxy` 会被设置为：
+未配置最终出口时，当前 Home 节点会写为：
+
+```text
+proxy
+```
+
+配置最终出口后，最终出口会写为 `proxy`。当前 Home 节点会写为：
 
 ```text
 chainProxy
 ```
 
-同一个节点不能同时作为当前出口节点和链式代理节点。OneXray 会拒绝这种启动路径。
+随后 OneXray 会把 `proxy.dialerProxy` 设置为 `chainProxy`，因此 Home 节点作为拨号中转，最终出口才是最终处理目标流量的出站。同一个节点不能同时作为当前 Home 节点和最终出口。OneXray 会拒绝这种启动路径。
 
 # Fragment
 

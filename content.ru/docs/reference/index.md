@@ -14,8 +14,8 @@ weight: 8
 | `CoreConfigType.full` | Structured Full Config node; всегда показывается в группе Home `Local`. |
 | `CoreConfigType.raw` | Full Raw Json config, сохраненный как text; всегда показывается в группе Home `Local`. |
 | `Simple` | Built-in profile writer с id `-1`. |
-| `proxy` | Runtime tag выбранного exit node. |
-| `chainProxy` | Fixed tag для front или relay node. |
+| `proxy` | Runtime tag финального выходного outbound. |
+| `chainProxy` | Fixed runtime relay tag для выбранного на Home узла, когда Final Outbound настроен. |
 | `tunIn` | TUN inbound tag. |
 | `pingIn` | HTTP ping inbound tag. |
 | `dnsQuery` | DNS component inbound tag и rule tag. |
@@ -77,7 +77,7 @@ Subscriptions are outbound-only. Subscription import and refresh ignore Xray Pro
 | Field | Default |
 | --- | --- |
 | `routing.domainStrategy` | `IpIfNonMatch` |
-| `routing.queryStrategy` | `UseIPv4` |
+| DNS query strategy | Derived from TUN Settings. `Enable IPv6` writes `UseIP`; disabled IPv6 writes `UseIPv4`. |
 | `routing.directSet` | `CN` |
 | `routing.appleDirect` | `true` |
 | `routing.localDirect` | `true` |
@@ -86,7 +86,7 @@ Subscriptions are outbound-only. Subscription import and refresh ignore Xray Pro
 | `dns` | Cloudflare through `proxy` |
 | `enableLog` | `false` |
 | `fakeDns` | `false` |
-| `chainProxyOutboundId` | `null` |
+| `finalOutboundId` | `null` |
 
 # Simple Profile Generated Rules
 
@@ -158,13 +158,12 @@ Default pools:
 ]
 ```
 
-Written pools follow `dns.queryStrategy`:
+Written pools follow `TUN Settings > Enable IPv6`:
 
-| Strategy | Pools |
+| TUN IPv6 | Pools |
 | --- | --- |
-| `UseIP` | IPv4 and IPv6 |
-| `UseIPv4` | IPv4 |
-| `UseIPv6` | IPv6 |
+| Enabled | IPv4 and IPv6 |
+| Disabled | IPv4 |
 
 # Xray Profile Outbound Order
 
@@ -178,7 +177,7 @@ block
 dnsOut
 ```
 
-`chainProxy` present only when configured.
+`chainProxy` present only when Final Outbound is configured. In that case, Final Outbound is written as `proxy`; the Home selected node is written as `chainProxy`; `proxy.dialerProxy` is set to `chainProxy`.
 
 # DNS Outbound
 

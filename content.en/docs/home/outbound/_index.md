@@ -27,15 +27,21 @@ The editor follows Xray-core outbound concepts and exposes fields according to t
 | Mux | mux enablement, concurrency, XUDP behavior. |
 | Socket options | TCP Fast Open, MPTCP, network interface, dialer proxy. |
 
-# Chain Proxy
+# Final Outbound
 
-When a chain proxy is configured, the active outbound is still written as `proxy`, but its `dialerProxy` is set to:
+Without Final Outbound, the active Home node is written as:
+
+```text
+proxy
+```
+
+When Final Outbound is configured, the Final Outbound is written as `proxy`. The active Home node is written as:
 
 ```text
 chainProxy
 ```
 
-The same node cannot be used as both the active outbound and the chain proxy. OneXray rejects that startup path.
+Then OneXray sets `proxy.dialerProxy` to `chainProxy`, so the Home node acts as the dialer relay and the Final Outbound is the final exit. The same node cannot be used as both the active Home node and the Final Outbound. OneXray rejects that startup path.
 
 # Fragment
 

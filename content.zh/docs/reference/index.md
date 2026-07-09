@@ -14,8 +14,8 @@ weight: 8
 | `CoreConfigType.full` | 结构化 Full Config 节点；统一显示在 Home 的 `Local` 分组下。 |
 | `CoreConfigType.raw` | 以文本保存的完整 Raw Json 配置；统一显示在 Home 的 `Local` 分组下。 |
 | `Simple` | 内置配置写出器，id 为 `-1`。 |
-| `proxy` | 当前出口节点的运行时 tag。 |
-| `chainProxy` | 前置代理或中继节点的固定 tag。 |
+| `proxy` | 最终出口的运行时 tag。 |
+| `chainProxy` | 配置最终出口时，Home 当前节点使用的固定运行时中转 tag。 |
 | `tunIn` | TUN inbound tag。 |
 | `pingIn` | HTTP ping inbound tag。 |
 | `dnsQuery` | DNS component inbound tag 和 rule tag。 |
@@ -77,7 +77,7 @@ UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 | 字段 | 默认值 |
 | --- | --- |
 | `routing.domainStrategy` | `IpIfNonMatch` |
-| `routing.queryStrategy` | `UseIPv4` |
+| DNS query strategy | 由 TUN 设置决定。开启 IPv6 时写为 `UseIP`；关闭 IPv6 时写为 `UseIPv4`。 |
 | `routing.directSet` | `CN` |
 | `routing.appleDirect` | `true` |
 | `routing.localDirect` | `true` |
@@ -86,7 +86,7 @@ UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 | `dns` | 通过 `proxy` 访问 Cloudflare |
 | `enableLog` | `false` |
 | `fakeDns` | `false` |
-| `chainProxyOutboundId` | `null` |
+| `finalOutboundId` | `null` |
 
 # 简易配置生成规则
 
@@ -158,13 +158,12 @@ UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
 ]
 ```
 
-写出的 pools 跟随 `dns.queryStrategy`：
+写出的 pools 跟随 `TUN 设置 > 开启 IPv6`：
 
-| Strategy | Pools |
+| TUN IPv6 | Pools |
 | --- | --- |
-| `UseIP` | IPv4 和 IPv6 |
-| `UseIPv4` | IPv4 |
-| `UseIPv6` | IPv6 |
+| 开启 | IPv4 和 IPv6 |
+| 关闭 | IPv4 |
 
 # Xray 配置出站顺序
 
@@ -178,7 +177,7 @@ block
 dnsOut
 ```
 
-`chainProxy` 仅在已配置时存在。
+`chainProxy` 仅在已配置最终出口时存在。此时最终出口会写为 `proxy`；Home 当前节点会写为 `chainProxy`；`proxy.dialerProxy` 会设置为 `chainProxy`。
 
 # DNS Outbound
 

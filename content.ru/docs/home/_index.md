@@ -23,7 +23,7 @@ Home — основной рабочий экран для connection state и n
 
 1. Add an outbound node or subscription.
 2. Keep the node's Xray Profile as `Simple`.
-3. Adjust Simple Profile only when you need a different direct region, FakeDNS, chain proxy, DNS query strategy, or log level.
+3. Adjust Simple Profile only when you need a different direct region, FakeDNS, Final Outbound, or log level. DNS query strategy is controlled by the IPv6 switch in TUN Settings.
 4. Start the VPN from the Home page.
 
 # Node Lists

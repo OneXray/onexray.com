@@ -23,7 +23,7 @@ Home 是连接状态和节点操作的主工作区。
 
 1. 添加 Outbound 节点或订阅。
 2. 将节点使用的 Xray 配置保持为 `Simple`。
-3. 只有在需要不同直连区域、FakeDNS、链式代理、DNS query strategy 或日志级别时才调整 简易配置。
+3. 只有在需要不同直连区域、FakeDNS、最终出口或日志级别时才调整简易配置；DNS 查询策略由 TUN 设置中的 IPv6 开关统一控制。
 4. 从 Home 页面启动 VPN。
 
 # 节点列表

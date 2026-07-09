@@ -19,7 +19,7 @@ OneXray поддерживает два runtime modes:
 1. Загружает выбранный узел.
 2. Загружает выбранный Xray Profile. Если сохраненный выбор недействителен, OneXray возвращается к встроенному Simple Profile.
 3. Собирает Final Config из выбранного узла и выбранного Xray Profile.
-4. Применяет chain proxy, если он настроен.
+4. Применяет Final Outbound, если он настроен.
 5. Применяет runtime fixes: mode-specific inbounds, ping port, metrics, interface binding, env paths и macOS System Extension log handling.
 6. Записывает Final Config в runtime `xray.json`.
 7. В TUN mode запускает VPN tunnel платформы; в Proxy mode запускает локальный Xray.
@@ -40,7 +40,7 @@ Proxy mode не настраивает операционную систему �
 | Случай | Значение |
 | --- | --- |
 | Invalid outbound | Выбранный узел нельзя преобразовать в корректный Xray outbound. |
-| Missing chain proxy | Simple Profile указывает на удаленный chain proxy node. |
-| Invalid chain proxy | Выбранная chain proxy row не является outbound или не разбирается. |
-| Same chain proxy and outbound | Chain proxy id совпадает с exit node id. |
+| Missing Final Outbound | Simple Profile указывает на удаленный Final Outbound node. |
+| Invalid Final Outbound | Выбранная Final Outbound row не является outbound или не разбирается. |
+| Same Final Outbound and current node | Final Outbound id совпадает с current Home node id. |
 | Invalid Raw Json | Raw JSON не проходит проверку OneXray или тест Xray-core. |

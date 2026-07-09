@@ -19,7 +19,7 @@ When you start a node, OneXray:
 1. Loads the selected node.
 2. Loads the selected Xray Profile. If the saved selection is invalid, OneXray falls back to the built-in Simple Profile.
 3. Composes the Final Config from the selected node and the selected Xray Profile.
-4. Applies chain proxy if configured.
+4. Applies Final Outbound if configured.
 5. Applies runtime fixes such as mode-specific inbounds, ping port, metrics, interface binding, env paths, and macOS System Extension log handling.
 6. Writes the Final Config to the runtime `xray.json`.
 7. Starts the platform VPN tunnel in TUN mode, or starts local Xray in Proxy mode.
@@ -40,7 +40,7 @@ Startup can fail when:
 | Case | Meaning |
 | --- | --- |
 | Invalid outbound | The selected node cannot be converted to a valid Xray outbound. |
-| Missing chain proxy | Simple Profile points to a deleted chain proxy node. |
-| Invalid chain proxy | The selected chain proxy row is not an outbound or cannot be parsed. |
-| Same chain proxy and outbound | The chain proxy id is the same as the exit node id. |
+| Missing Final Outbound | Simple Profile points to a deleted Final Outbound node. |
+| Invalid Final Outbound | The selected Final Outbound row is not an outbound or cannot be parsed. |
+| Same Final Outbound and current node | The Final Outbound id is the same as the current Home node id. |
 | Invalid Raw Json | The raw JSON fails OneXray validation or Xray-core test. |

@@ -5,7 +5,7 @@ aliases:
   - /docs/home/outbound/xraySetting/
 ---
 
-Xray Profile is OneXray's required runtime profile and structured writer for Xray-core JSON. It is suitable when UI-managed DNS, FakeDNS, routing, inbounds, outbounds, logs, or chain proxy behavior is required.
+Xray Profile is OneXray's required runtime profile and structured writer for Xray-core JSON. It is suitable when UI-managed DNS, FakeDNS, routing, inbounds, outbounds, logs, or Final Outbound behavior is required.
 
 OneXray always keeps one Xray Profile selected. The built-in Simple Profile is the fallback profile and cannot be deleted.
 
@@ -19,7 +19,7 @@ The active node type then changes that base:
 
 | Active node | How it changes Final Config |
 | --- | --- |
-| Outbound | The selected node becomes the runtime `proxy` outbound. If chain proxy is enabled, OneXray writes `chainProxy` and sets `proxy.dialerProxy` to `chainProxy`. |
+| Outbound | Without Final Outbound, the selected node becomes the runtime `proxy` outbound. With Final Outbound, the configured Final Outbound becomes `proxy`; the selected node is written as `chainProxy`; `proxy.dialerProxy` is set to `chainProxy`. |
 | Full Config | Full Config replaces the selected Xray Profile's `outbounds`, `routing`, `dns`, and `fakeDns`. The selected Xray Profile and app runtime still provide runtime inbounds, logs, metrics, env, and platform fixes. |
 | Raw Json | Raw Json is used as the main JSON body, but its `inbounds` are removed. OneXray writes runtime inbounds from the selected Xray Profile for the current TUN or Proxy mode. |
 
@@ -44,7 +44,7 @@ The DNS page writes the Xray `dns` object.
 | --- | --- |
 | `hosts` | Static host mappings. |
 | `servers` | DNS server list. Each server may have address, port, domains, expectIPs, skipFallback, clientIP, queryStrategy, and tag. |
-| `queryStrategy` | `UseIP`, `UseIPv4`, or `UseIPv6`. |
+| `queryStrategy` | Written at runtime from TUN Settings. `Enable IPv6` writes `UseIP`; disabling IPv6 writes `UseIPv4`. |
 | `disableCache` | Disables DNS cache. |
 | `disableFallback` | Disables fallback server behavior. |
 | `disableFallbackIfMatch` | Stops fallback when a domain rule matched. |
@@ -63,13 +63,12 @@ Default pools:
 | IPv4 | `198.18.0.0/15` | `32768` |
 | IPv6 | `fc00::/18` | `32768` |
 
-The written pools follow DNS `queryStrategy`:
+The written pools follow `TUN Settings > Enable IPv6`:
 
-| `queryStrategy` | Written FakeDNS pools |
+| TUN IPv6 | Written FakeDNS pools |
 | --- | --- |
-| `UseIP` | IPv4 and IPv6 |
-| `UseIPv4` | IPv4 only |
-| `UseIPv6` | IPv6 only |
+| Enabled | IPv4 and IPv6 |
+| Disabled | IPv4 only |
 
 To make FakeDNS useful, the TUN inbound sniffing destination override should include `fakedns+others`. The Simple Profile switch adds that value automatically.
 
@@ -110,8 +109,8 @@ System outbound tags:
 
 | Tag | Protocol | Purpose |
 | --- | --- | --- |
-| `proxy` | Selected node at runtime | Main exit node. |
-| `chainProxy` | Imported or replaced custom node | Front proxy or relay node. |
+| `proxy` | Selected node or Final Outbound at runtime | Final exit outbound. |
+| `chainProxy` | Selected node when Final Outbound is configured | Dialer relay used by `proxy.dialerProxy`. |
 | `direct` | `freedom` | Direct connection. |
 | `fragment` | `freedom` | Fragment outbound. |
 | `block` | `blackhole` | Block traffic. |
@@ -127,17 +126,17 @@ Runtime order:
 6. `block`
 7. `dnsOut`
 
-## Chain Proxy
+## Final Outbound
 
-The custom chain proxy tag is fixed:
+The runtime relay tag is still fixed internally:
 
 ```text
 chainProxy
 ```
 
-In Xray Profile, the Outbounds page supports importing, replacing, and deleting the chain proxy. In Simple Profile, the chain proxy is selected by outbound id from local outbound nodes.
+In Xray Profile, the Outbounds page supports importing, replacing, and deleting the Final Outbound. In Simple Profile, Final Outbound is selected by outbound id from local outbound nodes.
 
-When active, OneXray sets the selected `proxy` outbound's `dialerProxy` to `chainProxy`. Startup fails if the selected exit node and the chain proxy point to the same local outbound id.
+When Final Outbound is active, OneXray writes the Final Outbound as runtime `proxy`. The Home selected node is written as `chainProxy`, and `proxy.dialerProxy` is set to `chainProxy`. Startup fails if the Home selected node and Final Outbound point to the same local outbound id.
 
 ## DNS Outbound
 
