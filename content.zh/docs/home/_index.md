@@ -14,7 +14,7 @@ Home 是连接状态和节点操作的主工作区。
 | 类型 | 用途 | 所属位置 |
 | --- | --- | --- |
 | Outbound | 单个 Xray outbound 节点，例如 VLESS、VMess、Trojan、Shadowsocks、SOCKS、HTTP 或 Hysteria2。 | Home 节点列表和订阅。 |
-| Full Config | 结构化本地节点，包含自己的 outbounds、routing、DNS 和 FakeDNS，运行时基于当前 Xray 配置生成。 | 仅 Home 的 Local 分组。 |
+| Full Config | 结构化本地节点，包含自己的 outbounds、routing 和 DNS，运行时基于当前 Xray 配置生成。FakeDNS 由当前 Xray 配置管理。 | 仅 Home 的 Local 分组。 |
 | Raw Json | 以文本方式导入和编辑的完整 Xray JSON 文档。 | 仅 Home 的 Local 分组。 |
 | Xray 配置 | 由 OneXray 结构化页面生成的可复用 Xray 配置。 | Core > Xray 配置。 |
 | Simple | 内置 Xray 配置写出器。 | Core > Xray 配置 > Simple。 |

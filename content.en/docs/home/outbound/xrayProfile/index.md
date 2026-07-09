@@ -20,7 +20,7 @@ The active node type then changes that base:
 | Active node | How it changes Final Config |
 | --- | --- |
 | Outbound | Without Final Outbound, the selected node becomes the runtime `proxy` outbound. With Final Outbound, the configured Final Outbound becomes `proxy`; the selected node is written as `chainProxy`; `proxy.dialerProxy` is set to `chainProxy`. |
-| Full Config | Full Config replaces the selected Xray Profile's `outbounds`, `routing`, `dns`, and `fakeDns`. The selected Xray Profile and app runtime still provide runtime inbounds, logs, metrics, env, and platform fixes. |
+| Full Config | Full Config replaces the selected Xray Profile's `outbounds`, `routing`, and `dns`. The selected Xray Profile and app runtime still provide FakeDNS, runtime inbounds, logs, metrics, env, and platform fixes. |
 | Raw Json | Raw Json is used as the main JSON body, but its `inbounds` are removed. OneXray writes runtime inbounds from the selected Xray Profile for the current TUN or Proxy mode. |
 
 After this composition, the app runtime still owns `pingIn`, random ping and metrics ports, Windows/Linux TUN route fields, `env.xray.location.asset`, `env.xray.location.cert`, mobile `env.xray.tun.fd`, and macOS System Extension log disabling.

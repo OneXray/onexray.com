@@ -20,7 +20,7 @@ OneXray 会始终保持一个 Xray 配置处于选中状态。内置简易配置
 | 启动节点 | 如何修改最终配置 |
 | --- | --- |
 | Outbound | 未配置最终出口时，当前节点会成为运行时 `proxy` 出站。配置最终出口后，最终出口会写为 `proxy`；当前节点会写为 `chainProxy`；`proxy.dialerProxy` 会设置为 `chainProxy`。 |
-| Full Config | Full Config 会替换当前 Xray 配置中的 `outbounds`、`routing`、`dns` 和 `fakeDns`。当前 Xray 配置和 App runtime 仍负责运行时 inbounds、logs、metrics、env 和平台修正。 |
+| Full Config | Full Config 会替换当前 Xray 配置中的 `outbounds`、`routing` 和 `dns`。当前 Xray 配置和 App runtime 仍负责 FakeDNS、运行时 inbounds、logs、metrics、env 和平台修正。 |
 | Raw Json | Raw Json 作为主要 JSON 主体，但它的 `inbounds` 会被删除。OneXray 会根据当前 TUN 或代理模式，从当前 Xray 配置写入运行时 inbounds。 |
 
 完成合成后，App runtime 仍然负责 `pingIn`、随机 ping 和 metrics 端口、Windows/Linux TUN route 字段、`env.xray.location.asset`、`env.xray.location.cert`、移动端 `env.xray.tun.fd`，以及 macOS System Extension 日志关闭逻辑。

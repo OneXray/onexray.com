@@ -20,7 +20,7 @@ Final Config — это runtime `xray.json`, который OneXray записы
 | Active node | Как он изменяет Final Config |
 | --- | --- |
 | Outbound | Без Final Outbound выбранный узел становится runtime outbound `proxy`. Если Final Outbound настроен, Final Outbound записывается как `proxy`; выбранный узел записывается как `chainProxy`; `proxy.dialerProxy` устанавливается в `chainProxy`. |
-| Full Config | Full Config заменяет `outbounds`, `routing`, `dns` и `fakeDns` выбранного Xray Profile. Выбранный Xray Profile и app runtime все еще предоставляют runtime inbounds, logs, metrics, env и platform fixes. |
+| Full Config | Full Config заменяет `outbounds`, `routing` и `dns` выбранного Xray Profile. Выбранный Xray Profile и app runtime все еще предоставляют FakeDNS, runtime inbounds, logs, metrics, env и platform fixes. |
 | Raw Json | Raw Json используется как основной JSON body, но его `inbounds` удаляются. OneXray записывает runtime inbounds из выбранного Xray Profile для текущего TUN или Proxy mode. |
 
 После этой композиции app runtime все еще управляет `pingIn`, случайными ping и metrics ports, Windows/Linux TUN route fields, `env.xray.location.asset`, `env.xray.location.cert`, mobile `env.xray.tun.fd` и отключением logs в macOS System Extension.
