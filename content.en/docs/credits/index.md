@@ -65,7 +65,6 @@ OneXray is built on top of open source runtimes, libraries, platform SDKs, and b
 # Firebase and Google
 
 - [FlutterFire](https://github.com/firebase/flutterfire): `firebase_core`, `firebase_analytics`, `firebase_crashlytics`
-- [Google Play Integrity API](https://developer.android.com/google/play/integrity)
 - [Google services Gradle plugin](https://developers.google.com/android/guides/google-services-plugin)
 - [Firebase Crashlytics Gradle plugin](https://firebase.google.com/docs/crashlytics/get-started)
 
@@ -76,7 +75,6 @@ OneXray is built on top of open source runtimes, libraries, platform SDKs, and b
 - [AndroidX Core](https://developer.android.com/jetpack/androidx/releases/core)
 - [AndroidX Fragment](https://developer.android.com/jetpack/androidx/releases/fragment)
 - [AndroidX Activity](https://developer.android.com/jetpack/androidx/releases/activity)
-- [AndroidX DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - [Kotlinx Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 - [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
 - [XXPermissions](https://github.com/getActivity/XXPermissions)

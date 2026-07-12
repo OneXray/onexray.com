@@ -65,7 +65,6 @@ OneXray 基于多个开源运行时、库、平台 SDK 和构建工具开发。�
 # Firebase 和 Google
 
 - [FlutterFire](https://github.com/firebase/flutterfire)：`firebase_core`、`firebase_analytics`、`firebase_crashlytics`
-- [Google Play Integrity API](https://developer.android.com/google/play/integrity)
 - [Google services Gradle plugin](https://developers.google.com/android/guides/google-services-plugin)
 - [Firebase Crashlytics Gradle plugin](https://firebase.google.com/docs/crashlytics/get-started)
 
@@ -76,7 +75,6 @@ OneXray 基于多个开源运行时、库、平台 SDK 和构建工具开发。�
 - [AndroidX Core](https://developer.android.com/jetpack/androidx/releases/core)
 - [AndroidX Fragment](https://developer.android.com/jetpack/androidx/releases/fragment)
 - [AndroidX Activity](https://developer.android.com/jetpack/androidx/releases/activity)
-- [AndroidX DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - [Kotlinx Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 - [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
 - [XXPermissions](https://github.com/getActivity/XXPermissions)

@@ -10,12 +10,14 @@ weight: 1
 | iOS | iOS 15 | App Store、IPA | [App Store](https://apps.apple.com/us/app/onexray/id6745748773)、[IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
 | macOS（Mac App Store） | macOS 12 | Mac App Store | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
 | macOS（商店外分发） | macOS 12 | Homebrew、ZIP | Homebrew：`brew install --cask onexrayse`<br>[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
-| Android | Android 10 | Google Play、APK | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray)、[Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
+| Android | Android 10，arm64-v8a 或 x86_64 | Google Play、APK | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray)、[Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
 | Windows x86_64 | Windows 10 | winget、EXE、ZIP | winget：`winget install --id YuanDevLLC.OneXray -e`<br>[EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
 | Linux x86_64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
 OneXray 内置 Xray-core 和各平台所需的网络集成。VPN 通过 App UI 启动和停止。
+
+Android 版本和 Universal APK 仅支持 `arm64-v8a` 与 `x86_64` 设备，不支持 32 位 ARM 设备。
 
 # macOS 商店外分发
 
