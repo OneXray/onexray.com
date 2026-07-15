@@ -1,76 +1,88 @@
 ---
-title: Privacy
+title: Конфиденциальность
 weight: 7
 ---
 
-# Privacy Policy
+# Политика конфиденциальности
 
-**Effective Date: May 1, 2025**  
-**Last Updated: June 25, 2026**
+**Дата вступления в силу: 1 мая 2025 г.**
 
-Thank you for choosing our VPN application (the "**App**"). We are committed to protecting your privacy and providing a transparent experience. This Privacy Policy explains how we handle information and our commitment to user anonymity.
+**Последнее обновление: 15 июля 2026 г.**
 
----
-
-## 1. Strict No-Logs Policy
-
-We maintain a zero-logs policy for VPN traffic. We do not collect, store, or monitor activity data related to your VPN connection, including:
-
-* Your original IP address.
-* The websites you visit or applications you use while connected.
-* Data transfer volume or throughput.
-* Connection timestamps or session durations.
-
-Our system is designed so your VPN activity cannot be tracked or identified by us.
+OneXray спроектирован так, чтобы работать без сбора ваших данных. Эта Политика конфиденциальности объясняет, какая информация обрабатывается локально на устройстве и какие данные никогда не отправляются нам.
 
 ---
 
-## 2. Information We Collect
+## 1. Мы не собираем данные приложения
 
-To improve reliability and performance, we collect limited non-personal technical information.
+OneXray не собирает, не загружает, не передает нам, не продает, не раскрывает и не хранит персональные данные или данные об использовании приложения.
 
-### A. Analytics and Performance
+В частности, мы не собираем:
 
-* **Google Analytics and Firebase Crashlytics:** We use these services to collect anonymous technical data such as device model, OS version, in-app interactions, and crash reports. This data is aggregated and does not identify you personally.
-* **Purpose:** To diagnose bugs, fix crashes, improve stability, and understand product quality.
+* Ваш IP-адрес, примерное или точное местоположение.
+* Историю просмотров, посещенные домены, DNS-запросы или содержимое сетевого трафика.
+* Время подключения, продолжительность сеанса или объем переданных данных.
+* Идентификаторы устройства, рекламные идентификаторы или данные учетной записи.
+* Сведения об использовании приложения, действиях с функциями, диагностике или сбоях.
+* Конфигурации VPN, адреса серверов, учетные данные, ссылки подписок или правила маршрутизации.
+* Фотографии, содержимое камеры, список установленных приложений или сведения о сетевых интерфейсах.
 
----
-
-## 3. Use of Information
-
-The collected non-personal information is used for app optimization, crash fixing, stability improvements, and UI/UX improvements.
-
----
-
-## 4. Third-Party Sharing
-
-We do not sell personal information. We only share anonymized technical data with service providers:
-
-* **Google (Analytics, Firebase):** These partners process data according to their own privacy policies to provide analytics and crash reporting services.
-* **Legal compliance:** Because we do not store VPN logs, we have no browsing history or IP logs to share with authorities even if requested.
+Приложение не требует учетной записи и не содержит рекламы, аналитики, отслеживания, телеметрии или сервисов отправки отчетов о сбоях. Мы не используем серверную систему для сбора данных приложения.
 
 ---
 
-## 5. Your Choices and Privacy Rights
+## 2. Локальная обработка и хранение
 
-Because we do not collect personally identifiable information or link technical data to a specific real-world identity, we are generally unable to provide individual data access or deletion for a specific user.
+Для работы своих функций OneXray обрабатывает определенную информацию только на вашем устройстве. К ней могут относиться:
 
----
+* Конфигурации VPN и прокси, подписки и настройки.
+* Локальные счетчики трафика и состояние подключения.
+* Журналы доступа и ошибок Xray, а также созданная конфигурация времени выполнения.
+* Выбранные приложения для раздельной маршрутизации на поддерживаемых платформах.
+* Сведения о сетевых интерфейсах для выбора исходящего интерфейса.
 
-## 6. Children's Privacy
-
-The App is not directed at children under the age of 13, or 16 in certain jurisdictions. We do not knowingly collect personal information from minors. If you believe a child has provided us with information, please contact us immediately.
-
----
-
-## 7. Updates to This Policy
-
-We may update this Privacy Policy from time to time. Changes are effective immediately after the updated version is posted on this page.
+Эти локальные данные не загружаются автоматически и недоступны нам. Вы можете управлять ими в приложении, очистить данные приложения или удалить их путем удаления приложения с учетом особенностей вашей операционной системы.
 
 ---
 
-## 8. Contact Us
+## 3. Выбранные вами сетевые подключения
 
-If you have any questions or concerns regarding this Privacy Policy, please contact us at:
+OneXray является сетевым клиентом. При запуске подключения трафик направляется на прокси-сервер, VPN-сервер, DNS-сервер или другой сервер, указанный в вашей конфигурации. Обновление подписок, проверка обновлений, загрузка GeoData и открытие внешних ссылок обращаются только к выбранному вами источнику.
 
-**Email:** [yuan@yuandev.net](mailto:yuan@yuandev.net)
+Эти подключения необходимы для выполнения выбранного действия и не отправляют нам аналитику приложения или персональные данные. Выбранные вами серверы и сервисы управляются третьими сторонами и регулируются их собственными политиками конфиденциальности. Мы не контролируем обработку данных такими сторонами.
+
+---
+
+## 4. Экспорт и передача
+
+OneXray не передает локальные данные автоматически. Данные покидают приложение только при выполнении инициированного вами подключения или когда вы явно экспортируете, копируете, сохраняете либо передаете их.
+
+Файлы конфигурации, ссылки подписок и журналы могут содержать конфиденциальную информацию. Перед передачей проверьте их и удалите учетные данные, адреса серверов, токены и другие личные сведения.
+
+---
+
+## 5. Хранение и удаление данных
+
+Поскольку мы не собираем данные приложения, на наших серверах нет связанных с вами данных приложения, которые мы могли бы хранить, просматривать, продавать, раскрывать или удалять.
+
+Если вы добровольно связываетесь с нами по электронной почте или через стороннюю платформу, соответствующий сервис может обрабатывать предоставленную вами информацию. Мы используем ее только для ответа на ваш запрос и не объединяем с данными об использовании приложения.
+
+---
+
+## 6. Дети
+
+OneXray сознательно не собирает персональную информацию ни о ком, включая детей. Приложение не предназначено для детей младше минимального возраста, установленного применимым законодательством.
+
+---
+
+## 7. Изменения политики
+
+Мы можем обновить эту Политику конфиденциальности, если изменится поведение приложения или требования законодательства. Текущая версия политики предоставляется вместе с приложением, а дата последнего обновления указана выше.
+
+---
+
+## 8. Контакты
+
+По вопросам, связанным с этой Политикой конфиденциальности, обращайтесь:
+
+**Электронная почта:** [yuan@yuandev.net](mailto:yuan@yuandev.net)
