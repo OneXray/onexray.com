@@ -5,184 +5,94 @@ aliases:
   - /docs/home/outbound/xraySetting/
 ---
 
-Xray Profile is OneXray's required runtime profile and structured writer for Xray-core JSON. It is suitable when UI-managed DNS, FakeDNS, routing, inbounds, outbounds, logs, or Final Outbound behavior is required.
+An Xray Profile is OneXray's required runtime base. Exactly one profile is selected at all times; the built-in Simple Profile is the fallback and cannot be deleted.
 
-OneXray always keeps one Xray Profile selected. The built-in Simple Profile is the fallback profile and cannot be deleted.
+# Final Config Composition
 
-# Final Config
+The Final Config is the runtime `xray.json` written immediately before Xray-core starts.
 
-Final Config means the runtime `xray.json` that OneXray writes immediately before starting Xray-core. It is not the same as a single Xray Profile, Outbound node, Full Config, or Raw Json record.
-
-The selected Xray Profile provides the base runtime structure: `dns`, `fakeDns`, `routing`, `inbounds`, `outbounds`, `log`, and optional metrics-related fields.
-
-The active node type then changes that base:
-
-| Active node | How it changes Final Config |
+| Home config | Composition |
 | --- | --- |
-| Outbound | Without Final Outbound, the selected node becomes the runtime `proxy` outbound. With Final Outbound, the configured Final Outbound becomes `proxy`; the selected node is written as `chainProxy`; `proxy.dialerProxy` is set to `chainProxy`. |
-| Full Config | Full Config replaces the selected Xray Profile's `outbounds`, `routing`, and `dns`. The selected Xray Profile and app runtime still provide FakeDNS, runtime inbounds, logs, metrics, env, and platform fixes. |
-| Raw Json | Raw Json is used as the main JSON body, but its `inbounds` are removed. OneXray writes runtime inbounds from the selected Xray Profile for the current TUN or Proxy mode. |
+| Outbound | The node becomes runtime `proxy`. If Final Outbound is configured, it becomes `proxy`, the Home node becomes `chainProxy`, and `proxy.dialerProxy` points to `chainProxy`. |
+| Full Config | Replaces the profile's `outbounds`, `routing`, and `dns`. The profile still supplies FakeDNS, inbounds, logs, metrics, and other runtime-owned sections. |
+| Raw Json | Supplies the main JSON body, but its inbounds are discarded and replaced by the selected profile's runtime inbounds. |
 
-After this composition, the app runtime still owns `pingIn`, random ping and metrics ports, Windows/Linux TUN route fields, `env.xray.location.asset`, `env.xray.location.cert`, mobile `env.xray.tun.fd`, and macOS System Extension log disabling.
+The selected Home routing mode is applied after composition. Global removes DNS/routing and keeps the proxy dependency chain; Direct keeps only `direct`.
 
-# Sections
+# Custom Profile Editor
 
-| Section | Writes |
+The editor contains six sections:
+
+| Section | Main fields |
 | --- | --- |
-| Log | `log` |
-| DNS | `dns` |
-| FakeDNS | `fakeDns` |
-| Routing | `routing` |
-| Inbounds | `inbounds` |
-| Outbounds | `outbounds` |
+| Inbounds | `tunIn` and internal `pingIn`. |
+| Outbounds | Final Outbound and system `direct`, `fragment`, `block`, `dnsOut`. |
+| Routing | Domain strategy, system rules, and ordered custom rules. |
+| DNS | Hosts, ordered servers, cache/fallback/stale options, client IP, and parallel/system-host behavior. |
+| FakeDNS | IPv4 and IPv6 pools. |
+| Log | Log level, DNS log, and address masking. |
+
+On phones these section controls scroll horizontally; on larger layouts they become a side navigation. The fields themselves are unchanged.
 
 # DNS
 
-The DNS page writes the Xray `dns` object.
+New Xray Profiles and Full Configs initialize their first DNS server from `TUN Settings > IPv4 DNS`. The DNS address remains editable in the structured editor.
 
-| Field | Meaning |
+The global and per-server `queryStrategy` fields are not shown in the UI. At runtime OneXray overwrites them from `TUN Settings > Enable IPv6`:
+
+| TUN IPv6 | Written strategy |
 | --- | --- |
-| `hosts` | Static host mappings. |
-| `servers` | DNS server list. Each server may have address, port, domains, expectIPs, skipFallback, clientIP, queryStrategy, and tag. |
-| `queryStrategy` | Written at runtime from TUN Settings. `Enable IPv6` writes `UseIP`; disabling IPv6 writes `UseIPv4`. |
-| `disableCache` | Disables DNS cache. |
-| `disableFallback` | Disables fallback server behavior. |
-| `disableFallbackIfMatch` | Stops fallback when a domain rule matched. |
-| `useSystemHosts` | Lets Xray use system hosts data. |
+| Enabled | `UseIP` |
+| Disabled | `UseIPv4` |
 
-If a DNS server has a non-empty `tag`, OneXray exposes that tag as an `inboundTag` option for routing rules.
+DNS servers support address, port, domains, expected/unexpected IPs, tag, client IP, timeout, fallback/cache/stale controls, and final-query behavior. A non-empty DNS-server tag can be selected as a routing-rule inbound tag.
 
 # FakeDNS
 
-FakeDNS is always present in Xray Profile output. The FakeDNS page only configures the pools; it does not contain an enable switch.
+FakeDNS is owned by the selected Xray Profile, including when a Full Config is active. Full Config does not store or edit FakeDNS.
 
-Default pools:
+Default pools are:
 
-| Pool | Default `ipPool` | Default `poolSize` |
+| Pool | Address | Size |
 | --- | --- | --- |
 | IPv4 | `198.18.0.0/15` | `32768` |
 | IPv6 | `fc00::/18` | `32768` |
 
-The written pools follow `TUN Settings > Enable IPv6`:
-
-| TUN IPv6 | Written FakeDNS pools |
-| --- | --- |
-| Enabled | IPv4 and IPv6 |
-| Disabled | IPv4 only |
-
-To make FakeDNS useful, the TUN inbound sniffing destination override should include `fakedns+others`. The Simple Profile switch adds that value automatically.
+The IPv6 pool is written only when TUN IPv6 is enabled.
 
 # Routing
 
-Routing writes `routing.domainStrategy` and `routing.rules`.
+System rules manage DNS component traffic, port 53, DNS over TLS, and internal ping. Custom rules can match domain, IP, ports, network, source/local addresses, inbound tags, protocols, attributes, and supported-platform processes.
 
-Default rules are included before custom rules:
+Conditions inside one rule are combined. For example, a rule containing both domain and IP conditions requires both to match the same connection.
 
-| `ruleTag` | Match | Default outbound |
-| --- | --- | --- |
-| `dnsQuery` | `inboundTag: ["dnsQuery"]` | `proxy` |
-| `dnsOut` | `inboundTag: ["tunIn"]`, `port: "53"` | `dnsOut` |
-| `dnsDoT` | `inboundTag: ["tunIn"]`, `port: "853"` | `proxy` |
-| `ping` | `inboundTag: ["pingIn"]` | `proxy` |
+# Outbounds and Final Outbound
 
-Rule conditions in a single rule are combined. A rule with both `domain` and `ip` matches only when both conditions match the same connection.
+Reserved system tags:
 
-The `process` condition is written only on Windows and Linux. On macOS, iOS, and Android, OneXray does not write `process` into the generated Xray JSON.
-
-# Inbounds
-
-The Inbounds page is split by runtime role:
-
-| Section | Inbounds |
+| Tag | Purpose |
 | --- | --- |
-| TUN Mode | `tunIn` |
-| Proxy Mode | `socksIn`, `httpIn` |
-| Internal | `pingIn` |
+| `proxy` | Final proxy exit at runtime. |
+| `chainProxy` | Home node used as the dialer relay when Final Outbound is active. |
+| `direct` | Freedom/direct outbound. |
+| `fragment` | Freedom fragmentation outbound. |
+| `block` | Blackhole outbound. |
+| `dnsOut` | DNS outbound. |
 
-TUN mode injects `tunIn + pingIn` at startup. Proxy mode injects `socksIn + httpIn + pingIn`. `socksIn` defaults to port `11024`, and `httpIn` defaults to port `11025`; both ports can be changed. SOCKS and HTTP authentication are optional and empty by default.
+Final Outbound can be selected from local outbound nodes. The same node cannot be both the Home node and Final Outbound.
 
-`pingIn` and metrics ports are always assigned randomly at runtime.
+# Simple Profile
 
-# Outbounds
+Simple Profile provides:
 
-System outbound tags:
+- Log enablement
+- Final Outbound selection
+- Direct region, domain strategy, Apple/local direct rules, IP rules, local DNS, and ad blocking
+- FakeDNS enablement
+- A read-only default DNS shown as `tcp://<TUN IPv4 DNS>`
 
-| Tag | Protocol | Purpose |
-| --- | --- | --- |
-| `proxy` | Selected node or Final Outbound at runtime | Final exit outbound. |
-| `chainProxy` | Selected node when Final Outbound is configured | Dialer relay used by `proxy.dialerProxy`. |
-| `direct` | `freedom` | Direct connection. |
-| `fragment` | `freedom` | Fragment outbound. |
-| `block` | `blackhole` | Block traffic. |
-| `dnsOut` | `dns` | DNS outbound. |
+The default DNS is routed through `proxy`. Optional region-specific local DNS is used only for the matching direct-domain set.
 
-Runtime order:
+# Runtime Ownership
 
-1. `proxy`
-2. `chainProxy`, if configured
-3. Other custom outbounds
-4. `direct`
-5. `fragment`
-6. `block`
-7. `dnsOut`
-
-## Final Outbound
-
-The runtime relay tag is still fixed internally:
-
-```text
-chainProxy
-```
-
-In Xray Profile, the Outbounds page supports importing, replacing, and deleting the Final Outbound. In Simple Profile, Final Outbound is selected by outbound id from local outbound nodes.
-
-When Final Outbound is active, OneXray writes the Final Outbound as runtime `proxy`. The Home selected node is written as `chainProxy`, and `proxy.dialerProxy` is set to `chainProxy`. Startup fails if the Home selected node and Final Outbound point to the same local outbound id.
-
-## DNS Outbound
-
-DNS outbound writes:
-
-| Field | Behavior |
-| --- | --- |
-| `network` | Empty by default. Written only when `tcp` or `udp` is selected. |
-| `address` | Optional upstream address. |
-| `port` | Optional upstream port. |
-| `rules` | Written when the rules list is not empty. |
-| `blockTypes` | Written only when `rules` is empty and block types are configured. |
-
-Default DNS outbound rules:
-
-```json
-[
-  {
-    "action": "hijack",
-    "qType": "1,28"
-  },
-  {
-    "action": "direct"
-  }
-]
-```
-
-`qType` is a string field.
-
-# Runtime Inbound Notes
-
-The structured writer includes the runtime TUN, SOCKS, HTTP, and ping inbound states. The TUN inbound should keep sniffing enabled for routing based on domain and protocol. When FakeDNS is enabled in Simple Profile, sniffing adds `fakedns+others`.
-
-# Logs
-
-On macOS with System Extension mode enabled, OneXray forces Xray Profile logs off before writing the runtime config:
-
-```json
-{
-  "loglevel": "none",
-  "dnsLog": false
-}
-```
-
-# Sharing
-
-Xray Profile can be shared as JSON text or a `.json` file from the Xray Profile menu.
-
-Custom GeoData is not bundled into Xray Profile share output. If a profile references custom rule sets, add those GeoData entries manually first or use [Backup and Restore]({{< relref path="../../../setting/backup/index.md" lang="en" >}}) for full migration.
+OneXray always rewrites runtime TUN and `pingIn` inbounds, ping/metrics ports, GeoData paths, Windows/Linux route fields, and macOS System Extension log behavior. Those generated values are not stable user-owned profile fields.

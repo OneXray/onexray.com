@@ -1,28 +1,34 @@
 ---
-title: Subscriptions
+title: 订阅
 weight: 3
 ---
 
-Subscriptions 用于管理远程 Outbound 节点来源。
+订阅是远程 Outbound 节点源。
 
-# 支持的内容
+# 支持内容
 
-订阅只导入 Outbound 节点。OneXray 通过内置 libXray API 读取支持的 Xray 分享链接、Clash.Meta YAML 或 Xray JSON，并把结果保存为 `CoreConfigType.outbound`。
+OneXray 通过 libXray 解析受支持的 Xray 分享链接、Clash / Mihomo YAML 和 Xray JSON，只保存有效 Outbound。
 
-订阅不会导入 Full Config、Raw Json、Xray 配置、GeoData、DNS、routing、inbounds、policy、stats、metrics 或 logs。
+订阅不会创建 Full Config、Raw Json、Xray 配置、GeoData、DNS、routing、inbound、log、policy、stats 或 metrics 记录。
+
+# 添加与批量导入
+
+独立添加页接收一个 HTTPS URL。通用文本/文件/剪贴板导入可批量添加订阅，条件是去除首尾空白后的文本以 `https://` 开头，且每行一个链接。
+
+URL fragment 用作初始名称，但不会保存到 URL：
+
+```text
+https://example.com/sub#工作
+```
+
+保存 URL 为 `https://example.com/sub`，名称为“工作”。下载接收超时为 60 秒。
 
 # 列表行为
 
-Subscriptions 页面展示订阅源。订阅行支持刷新、测速、以 HTTPS URL 分享、编辑、删除和清理。
+订阅可打开、刷新、测速、分享、编辑、清理或删除。订阅节点页复用 Home 的列表与搜索，但点击卡片不会修改 Home 当前节点。
 
-点击订阅会进入该订阅下的 Outbound 节点列表。这个页面只用于查看和管理：点击节点不会把它设为 Home 当前节点。
+批量导入会跳过自动测速队列，避免大量节点阻塞桌面端。单条导入和正常刷新仍可安排测速。
 
-# 恢复行为
+# 备份恢复
 
-备份会保存订阅记录和 URL，不保存订阅节点行。恢复时 OneXray 会重建订阅记录，并刷新订阅 URL 重新下载节点。
-
-相关页面：
-
-- [添加与导入]({{< relref path="../home/add/index.md" lang="zh" >}})
-- [分享]({{< relref path="../share/index.md" lang="zh" >}})
-- [备份与恢复]({{< relref path="../setting/backup/index.md" lang="zh" >}})
+备份保存订阅源记录，不保存已下载的订阅节点行。恢复后会重新请求各订阅 URL。

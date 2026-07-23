@@ -3,33 +3,24 @@ title: 开发
 weight: 4
 ---
 
-本页面说明面向高级用户和集成工具的导入行为与运行时数据语义。
+本页概述导入与运行时边界。
 
-# 导入判断顺序
+# 导入边界
 
-当 OneXray 从 App UI 收到导入文本时，按以下顺序判断：
+UI 导入判定保持简单：
 
-1. 以 `https://` 开头的文本按订阅 URL 处理。
-2. 其他文本交给 libXray 按 Outbound 分享内容解析。
+1. 去除文本首尾空白。
+2. 若以 `https://` 开头，则把每个有效 HTTPS 行解析为订阅。
+3. 否则把完整文本交给 libXray，只保留有效 Outbound model。
 
-当前导入流程不再处理旧私有导入文本、GeoData 导入 payload、Full Config 记录、Raw Json 记录或 Xray 配置记录。
+订阅 URL 不保存 fragment。通用导入不执行手动保存 Xray 配置时的测试，也不会创建 Full Config、Raw Json、Xray 配置或 GeoData。
 
-# 支持的导入文本
+# 运行时边界
 
-| 格式 | 结果 |
-| --- | --- |
-| HTTPS 订阅 URL | 添加订阅行，刷新 URL，并导入 Outbound 节点。 |
-| 标准 Xray 分享链接 | 通过 libXray 导入 Outbound 节点。 |
-| 多行 Xray 分享文本 | libXray 支持时导入多个 Outbound 节点。 |
-| Clash.Meta YAML | 内置 libXray API 支持时导入 Outbound 节点。 |
-| Xray JSON | 内置 libXray API 支持时导入 Outbound 节点。 |
+OneXray 保存的节点/Profile 数据不是 Xray-core 的直接进程契约。启动前 App 会合成最终配置，应用规则/全局/直连模式，修正运行时所有权字段，再写出 `xray.json`。
 
-订阅只支持 Outbound。订阅不会创建 Full Config、Raw Json、Xray 配置、GeoData、DNS、routing、inbounds、policy、stats、metrics 或 logs。
+Release 版本使用平台 TUN/VPN。Proxy run mode 只是内部 Debug 功能，不应被视为公开用户功能或稳定集成 API。
 
-Raw Json 和 Xray 配置仍然可以从各自页面导出为 JSON 文本或 JSON 文件，但不会通过通用导入流程作为 App 内部记录导入。
+# 桌面集成
 
-# 桌面端集成
-
-桌面端安装包只提供 App。本地启动、停止、导入、导出、备份和恢复都通过 OneXray UI 完成。
-
-OneXray 不暴露稳定的本地机器控制接口。外部工具应把文档中的 JSON 视为数据格式，而不是运行时控制契约。
+桌面包通过 OneXray UI 暴露生命周期操作，不提供供外部工具使用的稳定本机控制 API。

@@ -3,40 +3,35 @@ title: Home
 weight: 2
 ---
 
-Home 是连接状态和节点操作的主工作区。
+Home 是查看连接状态和操作节点的主要页面。
 
-它优先展示当前 VPN 状态、当前节点、启动/停止控制、Traffic 入口、Location 入口，以及统一节点列表。完整节点详情放在 Node Info 页面，而不是占据 Home 主工作区。
+连接信息会在运行时始终显示正在运行的节点；断开时显示当前选中的节点。Xray 配置、流量和位置使用独立的可点击区域，避免交互重叠。
 
-配置修改会在下次启动 VPN 时生效。如果 VPN 已经运行，请先编辑配置，再停止并重新启动 VPN。
+# 路由模式
+
+| 模式 | 最终配置行为 |
+| --- | --- |
+| 规则 | 使用选中节点，并保留当前 Xray 配置中的 DNS 与路由规则。 |
+| 全局 | 所有流量使用选中节点；移除运行时 DNS 和 routing，只保留 `proxy` 及其必须的 `dialerProxy` 依赖链。 |
+| 直连 | 所有流量使用 `direct`；不要求选择节点，移除 DNS 和 routing，并只保留 `direct` outbound。 |
+
+连接中切换路由模式会停止并重新启动 Core，使新的最终配置立即生效。
 
 # 配置类型
 
-| 类型 | 用途 | 所属位置 |
+| 类型 | 用途 | 位置 |
 | --- | --- | --- |
-| Outbound | 单个 Xray outbound 节点，例如 VLESS、VMess、Trojan、Shadowsocks、SOCKS、HTTP 或 Hysteria2。 | Home 节点列表和订阅。 |
-| Full Config | 结构化本地节点，包含自己的 outbounds、routing 和 DNS，运行时基于当前 Xray 配置生成。FakeDNS 由当前 Xray 配置管理。 | 仅 Home 的 Local 分组。 |
-| Raw Json | 以文本方式导入和编辑的完整 Xray JSON 文档。 | 仅 Home 的 Local 分组。 |
-| Xray 配置 | 由 OneXray 结构化页面生成的可复用 Xray 配置。 | Core > Xray 配置。 |
-| Simple | 内置 Xray 配置写出器。 | Core > Xray 配置 > Simple。 |
-
-# 推荐流程
-
-1. 添加 Outbound 节点或订阅。
-2. 将节点使用的 Xray 配置保持为 `Simple`。
-3. 只有在需要不同直连区域、FakeDNS、最终出口或日志级别时才调整简易配置；DNS 查询策略由 TUN 设置中的 IPv6 开关统一控制。
-4. 从 Home 页面启动 VPN。
+| Outbound | 单个代理出站，例如 VLESS、VMess、Trojan、Shadowsocks、SOCKS、HTTP 或 Hysteria2。 | Local 或订阅分组。 |
+| Full Config | 自带 outbounds、routing 和 DNS 的结构化本地节点。 | Home 的 `Local` 分组。 |
+| Raw Json | 以文本编辑的高级 Xray JSON 主体。 | Home 的 `Local` 分组。 |
+| Xray 配置 | 必选的运行时基础，负责 inbounds、DNS、routing、系统 outbounds、日志、metrics 和 FakeDNS。 | Core > Xray 配置。 |
+| 简易配置 | 内置的兜底 Xray 配置。 | Core > Xray 配置。 |
 
 # 节点列表
 
-Home 不再区分 Outbound 和 JSON 标签页。本地 Outbound 节点、Full Config 节点和全部 Raw Json 配置会一起显示在 `Local` 分组下；订阅分组只包含订阅 Outbound 节点。Full Config 和 Raw Json 不会由订阅创建。
+本地 Outbound、Full Config 和 Raw Json 共用 `Local` 分组；订阅分组只包含 Outbound。搜索会过滤统一列表，卡片按类型提供编辑、分享、复制、测速和删除操作。
 
-节点列表使用紧凑自适应网格。桌面端内容宽度会被限制，保证卡片可读性。
-
-# 状态与测试
-
-VPN 启动时，OneXray 会把 Xray config file 写入 App runtime 目录并启动平台网络隧道。启动后 App 可以测试延迟和节点 IP 信息。手动 ping、订阅 auto-ping 和启动后检查共用 Ping 设置。
-
-# 详细页面
+相关页面：
 
 - [添加与导入]({{< relref path="add/index.md" lang="zh" >}})
 - [Outbound 节点]({{< relref path="outbound/_index.md" lang="zh" >}})

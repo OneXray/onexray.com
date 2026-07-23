@@ -3,25 +3,22 @@ title: Core
 weight: 4
 ---
 
-Core содержит настройки, которые напрямую влияют на Xray-core, runtime mode, платформенный туннель, rule-set данные и диагностику.
+Раздел Core содержит настройки и диагностику, непосредственно влияющие на Xray-core.
 
-| Страница | Назначение |
+| Раздел | Назначение |
 | --- | --- |
-| Run Mode | Переключение между TUN mode и Proxy mode. |
-| TUN | Параметры туннеля, DNS-адреса, привязка интерфейса, Metrics, on-demand rules и per-app VPN. |
-| Ping | URL, timeout и поведение тестов узлов. |
-| Logs | Логи приложения, логи Xray и сгенерированные Xray config files. |
-| Xray Profiles | Структурированная конфигурация Xray-core, включая Simple Profile и advanced UI editor. |
-| GeoData | Встроенные и пользовательские rule-set данные для `geosite:` и `geoip:` rules. |
+| Network | Настройки TUN и Ping. |
+| Data | Xray Profiles, GeoData и шаблоны расширенной маршрутизации. |
+| Logs | Журналы access/error и сгенерированный Final Config. |
 
-TUN mode сохраняет текущее поведение VPN/TUN. Proxy mode только запускает Xray внутри процесса приложения и открывает локальные SOCKS и HTTP proxy ports. Он не меняет system proxy, routes или DNS и не отображается как system VPN connection; настройте систему или браузер вручную при использовании Proxy mode.
+Release-сборки работают через системную интеграцию TUN/VPN. Пользовательский переключатель TUN/Proxy и локальные SOCKS/HTTP inbounds удалены.
 
-Enhanced routing templates больше не импортируются из приложения напрямую. Используйте страницу [Routing]({{< relref path="../routing/index.md" lang="ru" >}}), чтобы скопировать актуальные JSON templates в Xray Profiles.
+Журналы Access и Error открываются прямо из раздела Logs. Просмотрщик читает только конец большого файла и отслеживает новые строки. Просмотрщик итогового Xray JSON поддерживает выделение и копирование текста.
 
 Связанные страницы:
 
 - [TUN Settings]({{< relref path="../setting/tun/index.md" lang="ru" >}})
 - [Ping]({{< relref path="../setting/ping/index.md" lang="ru" >}})
-- [Log]({{< relref path="../setting/log/index.md" lang="ru" >}})
+- [Logs]({{< relref path="../setting/log/index.md" lang="ru" >}})
 - [Xray Profile]({{< relref path="../home/outbound/xrayProfile/index.md" lang="ru" >}})
 - [GeoData]({{< relref path="../setting/geoData/index.md" lang="ru" >}})

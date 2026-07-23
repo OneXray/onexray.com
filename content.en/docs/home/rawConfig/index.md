@@ -3,97 +3,44 @@ title: Raw Json
 weight: 4
 ---
 
-Raw Json stores a complete Xray JSON document. Use it when the structured Xray Profile pages do not expose the Xray-core feature you need.
+Raw Json is an advanced local configuration type for Xray JSON fields that are not exposed by the structured editors.
 
-This page expects Xray-core knowledge. OneXray validates the JSON and tests it through the bundled core API before saving.
-
-[Xray-core Config Reference](https://xtls.github.io/en/config/)
-
-The safest workflow is to copy the generated Xray config file from:
+The safest starting point is the generated file at:
 
 ```text
-Core > Logs > Xray config file
+Core > Logs > Xray Config
 ```
 
-Then edit the copy as a Raw Json config.
+# Storage and Validation
 
-# Local Only
+Raw Json requires valid JSON and a non-empty top-level `name`.
 
-Raw Json is local-only. It is shown in the Home `Local` group together with local Outbound nodes and does not use subscription grouping. Historical Raw rows with non-local subscription ids are still displayed under Local; the database rows are not migrated.
+Before validation, Real Ping, and save, OneXray removes all supplied `inbounds` and writes only an app-managed `pingIn`. Manual save then runs the bundled Xray config test. This means user-defined inbounds are never preserved as the runtime inbound contract.
 
-Subscriptions do not create Raw Json entries.
+Generic share/file import does not create Raw Json entries. Create one from `Home > Add > Manual Input > Raw Json`.
 
-# Required Fields
+# Final Config
 
-## `name`
+In Rule mode, Raw Json remains the main body, but OneXray replaces its inbounds with the selected Xray Profile's runtime `tunIn` plus a newly generated `pingIn`.
 
-OneXray requires a non-empty top-level `name` field for display in the config list.
-
-## Runtime Inbounds
-
-Raw Json no longer contributes custom `inbounds` to the Final Config. OneXray removes the Raw Json `inbounds` array at startup and writes app-managed runtime inbounds from the selected Xray Profile.
-
-| Mode | Runtime inbounds |
-| --- | --- |
-| TUN | `tunIn` and `pingIn` |
-| Proxy | `socksIn`, `httpIn`, and `pingIn` |
-
-The selected Xray Profile is required for Final Config composition. If the saved selection is missing or invalid, OneXray falls back to the built-in Simple Profile before startup.
-
-# Runtime Fixing
-
-Before startup, OneXray adjusts the Raw Json config for the current platform:
+OneXray also applies:
 
 | Area | Runtime behavior |
 | --- | --- |
-| Inbounds | Raw Json `inbounds` are removed. OneXray injects `tunIn` for TUN mode, or `socksIn/httpIn` for Proxy mode, and always injects `pingIn`. |
-| Interfaces | In TUN mode, interface and route fields are filled for the current platform. In Proxy mode, system route and proxy settings are not changed. |
-| Ping inbound | Do not define `pingIn` in Raw Json. OneXray writes a runtime HTTP `pingIn` inbound with the current random ping port and auth, and rewrites the ping routing rule. |
-| Logs | `access` and `error` paths are rewritten to OneXray's log files. On macOS System Extension mode, logs are forced off. |
-| Metrics | When TUN metrics are enabled, runtime metrics fields are written. When disabled, `policy`, `metrics`, and `stats` are not written. |
+| DNS strategy | Rewrites DNS and DNS-server `queryStrategy` from TUN IPv6 settings. |
+| TUN route | Applies Windows/Linux gateway, DNS, route table, and outbound-interface fields. |
+| Logs | Rewrites access/error paths; macOS System Extension mode disables Xray logs. |
+| Metrics | Adds or removes policy, stats, and metrics according to TUN Settings. |
+| Environment | Writes the app-managed asset and certificate paths. |
 
-Other Raw Json sections remain the main JSON body of the Final Config, but runtime-owned fields may still be rewritten before Xray-core starts.
+Global mode removes `dns` and `routing`, then retains `proxy` and the complete outbound dependency chain reached through `dialerProxy`.
 
-# Suggested Routing Skeleton
+Direct mode does not use the Raw Json body. OneXray builds a direct-only Final Config from the selected Xray Profile so no proxy outbound is required.
 
-```json
-{
-  "routing": {
-    "rules": [
-      {
-        "domainMatcher": "hybrid",
-        "inboundTag": [
-          "dnsQuery"
-        ],
-        "outboundTag": "proxy",
-        "ruleTag": "dnsQuery"
-      },
-      {
-        "domainMatcher": "hybrid",
-        "inboundTag": [
-          "tunIn"
-        ],
-        "port": "53",
-        "outboundTag": "dnsOut",
-        "ruleTag": "dnsOut"
-      },
-      {
-        "inboundTag": [
-          "tunIn"
-        ],
-        "port": "853",
-        "outboundTag": "proxy",
-        "ruleTag": "dnsDoT"
-      }
-    ]
-  }
-}
-```
+# Ping Rule
 
-The first rule routes DNS component queries. The second rule forwards normal port `53` DNS traffic to the DNS outbound. The third rule handles DNS over TLS traffic on port `853`.
-
-Do not add a `pingIn` routing rule manually. OneXray inserts the runtime ping rule together with the runtime `pingIn` inbound. In Proxy mode, runtime fixing maps `tunIn` routing matches to `socksIn/httpIn` so templates written for TUN can still be used as Raw Json.
+Do not manage `pingIn` manually. OneXray rewrites both the inbound and its routing rule with the current random port and authentication.
 
 # Sharing
 
-Raw Json can be shared as JSON text or a `.json` file from the Raw Json node menu. Generic import does not recreate a Raw Json record from that shared text; create or paste Raw Json from `Home > Add > Manual Input > Raw Json` when needed.
+Raw Json can be exported as JSON text or a `.json` file. Exported text is intended for manual editing or backup; generic import does not recreate it as a Raw Json record.

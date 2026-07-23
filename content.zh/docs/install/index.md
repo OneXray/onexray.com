@@ -9,62 +9,53 @@ weight: 1
 | --- | --- | --- | --- |
 | iOS | iOS 15 | App Store、IPA | [App Store](https://apps.apple.com/us/app/onexray/id6745748773)、[IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
 | macOS（Mac App Store） | macOS 12 | Mac App Store | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
-| macOS（商店外分发） | macOS 12 | Homebrew、ZIP | Homebrew：`brew install --cask onexrayse`<br>[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
+| macOS（商店外分发） | macOS 12 | Homebrew、ZIP | `brew install --cask onexrayse`<br>[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
 | Android | Android 10，arm64-v8a 或 x86_64 | Google Play、APK | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray)、[Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows x86_64 | Windows 10 | winget、EXE、ZIP | winget：`winget install --id YuanDevLLC.OneXray -e`<br>[EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
+| Windows x86_64 | Windows 10 | winget、EXE、ZIP | [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
+| Windows ARM64 | Windows 11 | winget、EXE、ZIP | [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) |
 | Linux x86_64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39 | DEB、ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-OneXray 内置 Xray-core 和各平台所需的网络集成。VPN 通过 App UI 启动和停止。
-
-Android 版本和 Universal APK 仅支持 `arm64-v8a` 与 `x86_64` 设备，不支持 32 位 ARM 设备。
+Android 仅支持 `arm64-v8a` 和 `x86_64`，不支持 32 位 ARM。
 
 # macOS 商店外分发
 
-Homebrew cask token 是 `onexrayse`。
-
-Homebrew 安装的内容来自 `OneXray-macos-universal.zip`，和 Universal ZIP 一样都是 Developer ID `macos_se` 包，App bundle 为 `OneXraySE.app`。Mac App Store 版本是单独的商店包。
+Homebrew 和 Universal ZIP 包含同一份 Developer ID `macos_se` 包，安装 `OneXraySE.app`。Mac App Store 是独立商店包。
 
 ```shell
 brew install --cask onexrayse
 brew uninstall --cask onexrayse
 ```
 
-# Windows winget
+# Windows
 
-使用 winget 安装或卸载 OneXray：
+Winget 会自动选择 x86_64 或 ARM64 安装程序：
 
-```shell
+```powershell
 winget install --id YuanDevLLC.OneXray -e
 winget uninstall --id YuanDevLLC.OneXray -e
 ```
 
-# Linux ZIP
-
-先安装运行依赖：
-
-```shell
-sudo apt install -y procps libcap2-bin libayatana-appindicator3-1
-```
-
-给核心二进制文件授予创建和操作 TUN 设备所需的 capability：
-
-```shell
-sudo setcap cap_net_admin,cap_net_raw+eip OneXray/bin/OneXrayCore
-```
-
-GNOME 用户可能需要安装 [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) 扩展才能显示托盘图标。
-
 # Linux DEB
 
-安装：
+DEB 安装到 `/opt/OneXray`，并在安装过程中为内置 Core 设置所需网络 capability。
 
 ```shell
 sudo apt install ./OneXray-linux-x86_64.deb
-```
-
-卸载：
-
-```shell
 sudo apt remove onexray
 ```
+
+arm64 请使用 `OneXray-linux-aarch64.deb`。
+
+# Linux ZIP
+
+安装依赖后，为解压目录中的 Core 授权：
+
+```shell
+sudo apt install -y procps libcap2-bin libayatana-appindicator3-1
+sudo setcap cap_net_admin,cap_net_raw+eip OneXray/bin/OneXrayCore
+```
+
+请在包含 `OneXray` 解压目录的位置执行，或替换为绝对路径。GNOME 可能还需要安装 [AppIndicator 扩展](https://extensions.gnome.org/extension/615/appindicator-support/)。
+
+Linux arm64 当前会将 CJK locale 回退为英文。

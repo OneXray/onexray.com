@@ -3,225 +3,108 @@ title: AI Reference
 weight: 8
 ---
 
-This page is a compact machine-readable reference for OneXray's current behavior. It intentionally uses exact identifiers, tags, paths, and JSON keys.
+This page is a compact reference for OneXray's current persisted and runtime semantics.
 
-# Core Concepts
+# Config Types and Tags
 
 | Identifier | Meaning |
 | --- | --- |
-| `CoreConfigType.outbound` | A single local or subscription node. |
-| `CoreConfigType.setting` | A structured Xray Profile stored by OneXray; always shown under Local in the Xray Profile list. |
-| `CoreConfigType.full` | A structured Full Config node; always shown under the Home `Local` group. |
-| `CoreConfigType.raw` | A full Raw Json config stored as text; always shown under the Home `Local` group. |
-| `Simple` | Built-in profile writer with id `-1`. |
-| `proxy` | Runtime tag of the final exit outbound. |
-| `chainProxy` | Fixed runtime relay tag for the Home selected node when Final Outbound is configured. |
-| `tunIn` | TUN inbound tag. |
-| `pingIn` | HTTP ping inbound tag. |
-| `dnsQuery` | DNS component inbound tag and rule tag. |
-| `dnsOut` | DNS outbound tag and rule tag. |
-| `dnsDoT` | Routing rule tag for port `853`. |
-| `ping` | Routing rule tag for ping traffic. |
+| `CoreConfigType.outbound` | Local or subscription outbound node. |
+| `CoreConfigType.profile` | Xray Profile in Dart; persisted wire value remains `"setting"`. |
+| `CoreConfigType.full` | Structured Full Config under Home `Local`. |
+| `CoreConfigType.raw` | Raw Json under Home `Local`. |
+| `Simple` | Built-in profile id `-1`. |
+| `proxy` | Runtime final proxy exit. |
+| `chainProxy` | Runtime relay tag for the Home node when Final Outbound is active. |
+| `direct` | Direct freedom outbound. |
+| `tunIn` | Runtime TUN inbound. |
+| `pingIn` | Runtime HTTP ping inbound. |
 
-# Primary Navigation
+# Home Routing Modes
 
-| Primary route | Meaning |
+| Mode | Required node | Transformation |
+| --- | --- | --- |
+| `rule` | Yes | Keeps composed DNS, routing, and outbound structure. |
+| `global` | Yes | Removes DNS/routing; retains `proxy` and recursively required `dialerProxy` outbounds. |
+| `direct` | No | Removes DNS/routing; retains only `direct` and clears its `dialerProxy`. |
+
+A connected mode change restarts the Core.
+
+# Import Classification
+
+| Input | Result |
 | --- | --- |
-| `/home` | Connection state and node operation. |
-| `/subscriptions` | Subscription source list. |
-| `/core` | Xray-core settings and diagnostics. |
-| `/settings` | App preferences and support. |
+| Trimmed text beginning with `https://` | Every valid HTTPS line becomes a subscription import entry. |
+| Other supported text | libXray returns outbound models. |
 
-Secondary pages are registered under every primary route. For example, `/home/tun`, `/core/tun`, and `/settings/tun` render the same TUN page while preserving the selected primary area.
-
-# Import Text Classification
-
-| Prefix or content | Import result |
-| --- | --- |
-| `https://` | Subscription URL. |
-| Other Xray share content | Outbound nodes through libXray. |
-
-Text files accepted by UI import: `txt`, `json`, `yaml`, `yml`.
-
-Image files accepted by UI import: `png`, `jpg`, `jpeg`.
-
-Unsupported legacy private import text and old backup/share text return no valid config.
-
-# App Import Formats
-
-Text import accepts clipboard text and text files selected from the app UI.
-
-| Format | Import result |
-| --- | --- |
-| HTTPS subscription URL | Subscription row and downloaded outbound nodes. |
-| Xray share link | Outbound nodes through libXray; local outbound models support `vless`, `vmess`, `shadowsocks`, `trojan`, `socks`, and `hysteria`. |
-| Multi-line Xray share text | Multiple outbound nodes through libXray. |
-| Clash.Meta YAML text | Outbound nodes when supported by bundled libXray API. |
-| Xray JSON text | Outbound nodes when supported by bundled libXray API. |
-
-QR images are imported from camera scan or image file import in the app UI.
-
-# Subscription Semantics
-
-Subscriptions are outbound-only. Subscription import and refresh ignore Xray Profile and Raw Json semantics even if the remote text contains full Xray JSON sections.
-
-| Data | Subscription behavior |
-| --- | --- |
-| `outbounds` | Parsed and stored as subscription outbound nodes. |
-| `dns`, `routing`, `inbounds`, `log`, `policy`, `stats`, `metrics` | Ignored by subscription import. |
-| Raw Json | Not created from subscriptions. |
-| Xray Profile | Not created from subscriptions. |
+Subscription fragments provide names but are removed from saved URLs. File extensions: `txt`, `json`, `yaml`, `yml`, `png`, `jpg`, `jpeg`. Generic import never creates Raw Json, Full Config, Xray Profile, or GeoData.
 
 # Simple Profile Defaults
 
 | Field | Default |
 | --- | --- |
 | `routing.domainStrategy` | `IpIfNonMatch` |
-| DNS query strategy | Derived from TUN Settings. `Enable IPv6` writes `UseIP`; disabling IPv6 writes `UseIPv4`. |
 | `routing.directSet` | `CN` |
 | `routing.appleDirect` | `true` |
 | `routing.localDirect` | `true` |
 | `routing.enableIPRule` | `true` |
 | `routing.localDns` | `true` |
-| `dns` | Cloudflare through `proxy` |
+| `routing.blockAds` | `false` |
 | `enableLog` | `false` |
 | `fakeDns` | `false` |
 | `finalOutboundId` | `null` |
+| Default DNS | `tcp://<TUN IPv4 DNS>`, tag `defaultDns`, routed through `proxy` |
 
-# Simple Profile Generated Rules
+Region-specific local DNS remains `223.5.5.5` for CN, `5.200.200.200` for IR, `9.9.9.9` for RU, and `8.8.8.8` for Other. It is used only for matching direct-domain rules when Local DNS is enabled.
 
-| `ruleTag` | Condition | `outboundTag` |
+Ad blocking adds the built-in ad-domain rule to `block`.
+
+# DNS and FakeDNS
+
+Runtime query strategy is derived from TUN Settings:
+
+| IPv6 | Strategy | FakeDNS pools |
 | --- | --- | --- |
-| `defaultDnsProxy` | `inboundTag: ["defaultDns"]` | `proxy` |
-| `localDnsDirect` | `inboundTag: ["localDns"]` when local DNS is enabled | `direct` |
-| `domainDirect` | direct domain rules | `direct` |
-| `ipDirect` | direct IP rules | `direct` |
+| Enabled | `UseIP` | IPv4 `198.18.0.0/15` and IPv6 `fc00::/18` |
+| Disabled | `UseIPv4` | IPv4 only |
 
-Direct domain rules:
+New custom Profile and Full Config DNS servers default to the current TUN IPv4 DNS. Full Config owns `outbounds`, `routing`, and `dns`; it does not own FakeDNS.
 
-| Direct set | Domains |
+# Runtime Composition
+
+| Stored type | Rule-mode Final Config |
 | --- | --- |
-| `CN` | `geosite:CN` |
-| `IR` | `geosite:CATEGORY-IR` |
-| `RU` | `geosite:CATEGORY-GOV-RU`, `geosite:YANDEX`, `geosite:MAILRU`, `regexp:.ru$` |
-| `Other` | none |
+| Outbound | Selected profile plus Home outbound as `proxy`, with optional Final Outbound reversal through `chainProxy`. |
+| Full Config | Profile base with Full Config `outbounds/routing/dns`; Profile FakeDNS/inbounds/log/metrics remain. |
+| Raw Json | Raw body with app-managed inbounds, DNS strategy, logs, metrics, env, and route fields rewritten. |
 
-Additional domain rules:
+Release runtime inbounds are `tunIn` and `pingIn`. User Raw Json inbounds are removed during validation, Real Ping, save, and startup.
 
-| Toggle | Domain |
-| --- | --- |
-| `appleDirect` | `geosite:APPLE` |
-| `localDirect` | `geosite:PRIVATE` |
+# Runtime-Owned Fields
 
-Direct IP rules:
-
-| Direct set | IP rules |
-| --- | --- |
-| `CN` | `geoip:CN` |
-| `IR` | `geoip:IR` |
-| `RU` | `geoip:RU` |
-| `Other` | none |
-
-Additional IP rule:
-
-| Toggle | IP rule |
-| --- | --- |
-| `localDirect` | `geoip:PRIVATE` |
-
-# Simple DNS Servers
-
-| Case | Server |
-| --- | --- |
-| FakeDNS enabled | First server is `address: "fakedns"`. |
-| Default DNS | `tcp://1.1.1.1` or `https://1.1.1.1/dns-query`, routed through `proxy`. |
-| Local DNS for `CN` | `tcp://223.5.5.5` for direct domains. |
-| Local DNS for `IR` | `tcp://5.200.200.200` for direct domains. |
-| Local DNS for `RU` | `tcp://9.9.9.9` for direct domains. |
-| Local DNS for `Other` | `tcp://1.1.1.1` for direct domains. |
-
-When FakeDNS is enabled in Simple Profile, TUN sniffing includes `fakedns+others`.
-
-# Xray Profile FakeDNS
-
-Default pools:
-
-```json
-[
-  {
-    "ipPool": "198.18.0.0/15",
-    "poolSize": 32768
-  },
-  {
-    "ipPool": "fc00::/18",
-    "poolSize": 32768
-  }
-]
-```
-
-Written pools follow `TUN Settings > Enable IPv6`:
-
-| TUN IPv6 | Pools |
-| --- | --- |
-| Enabled | IPv4 and IPv6 |
-| Disabled | IPv4 |
-
-# Xray Profile Outbound Order
-
-```text
-proxy
-chainProxy
-<other custom outbounds>
-direct
-fragment
-block
-dnsOut
-```
-
-`chainProxy` is present only when Final Outbound is configured. In that case, Final Outbound is written as `proxy`; the Home selected node is written as `chainProxy`; `proxy.dialerProxy` is set to `chainProxy`.
-
-# DNS Outbound
-
-| Field | Default |
-| --- | --- |
-| `network` | empty, not written |
-| `address` | empty |
-| `port` | empty |
-| `rules` | `[{"action":"hijack","qType":"1,28"},{"action":"direct"}]` |
-| `blockTypes` | `[]` |
-
-`blockTypes` is written only when `rules` is empty.
+- Random `pingIn` and metrics ports
+- `env.xray.location.asset` and `env.xray.location.cert`
+- Mobile `env.xray.tun.fd`
+- Windows/Linux TUN gateway, DNS, routes, and outbound interface
+- Access/error log paths or macOS System Extension log disabling
+- Optional policy/stats/metrics
 
 # Routing Rule Fields
 
-OneXray routing rules can write:
+Custom rules support:
 
 ```text
 domain, ip, port, sourcePort, localPort, network, sourceIP, localIP,
 inboundTag, protocol, attrs, process, outboundTag, ruleTag
 ```
 
-`process` is written only on Windows and Linux.
+`process` is emitted only on Windows and Linux.
 
 # Raw Json Validation
 
-Raw Json must:
-
-1. Be valid JSON.
-2. Have a non-empty top-level `name`.
-3. Pass the bundled Xray-core config test after OneXray rewrites runtime inbounds and metrics for the test pass.
-
-# Runtime Fixes
-
-| Config type | Runtime fixes |
-| --- | --- |
-| Xray Profile | Inbound ports, ping auth, interface binding, macOS System Extension log disabling, and optional metrics. |
-| Raw Json | Runtime inbound rewrite for the current mode, ping auth, interface binding, log path or log disabling, and optional metrics. |
-
-When TUN metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into runtime configs. macOS System Extension mode disables Xray logs at runtime.
+Raw Json must be a JSON object with a non-empty `name`. Manual validation replaces inbounds with `pingIn`, removes metrics, applies runtime env, and invokes the bundled Xray config test. Importing ordinary outbound/share content does not run this manual-save test.
 
 # Backup v3
-
-ZIP root:
 
 ```text
 manifest.json
@@ -231,24 +114,4 @@ geo_data.json
 dat/
 ```
 
-`manifest.json` stores `version: 3` and the backup creation timestamp. `core_configs.json` stores local configs only. Subscription nodes are restored by refreshing subscription URLs.
-
-
-Response envelope:
-
-```json
-{
-  "ok": true,
-  "data": {
-    "key": "value"
-  }
-}
-```
-
-```json
-{
-  "ok": false,
-  "code": "invalid_request",
-  "message": "..."
-}
-```
+The manifest stores version `3` and creation time. Local configs and GeoData are restored from the archive; subscription nodes are downloaded again from restored source URLs.

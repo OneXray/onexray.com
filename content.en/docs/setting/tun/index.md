@@ -3,53 +3,37 @@ title: TUN Settings
 weight: 1
 ---
 
-TUN Settings control the platform tunnel and network-interface behavior used by all configurations.
+TUN Settings apply to every Home configuration and control the platform tunnel.
 
-# TUN
+# DNS
 
-A TUN device is a virtual network interface. When the VPN starts, the platform creates or activates a tunnel and routes traffic through Xray-core.
+TUN DNS contains one IPv4 and one IPv6 address, without ports.
 
-## DNS
+- The platform tunnel uses these addresses for system DNS traffic.
+- Simple Profile shows the IPv4 value as its read-only default `tcp://` DNS server.
+- New custom Xray Profiles and Full Configs initialize their first DNS server from the IPv4 value.
+- At runtime, DNS `queryStrategy` is forced to `UseIP` when IPv6 is enabled and `UseIPv4` when it is disabled.
 
-TUN DNS contains one IPv4 address and one IPv6 address. They are plain IP addresses without ports.
+# IPv6
 
-At startup, these addresses are applied to the tunnel. System DNS queries then enter Xray-core and are handled by routing and DNS outbound rules.
+The IPv6 switch controls the TUN IPv6 route, DNS query strategy, and whether the IPv6 FakeDNS pool is written. It replaces the old per-DNS `UseIP / UseIPv4 / UseIPv6` controls.
 
-These DNS addresses also affect how the platform resolves proxy server domain names before Xray Profile DNS is available.
+# DNS over TLS
 
-## DNS over TLS
+DNS over TLS is available on iOS and macOS. When enabled, the platform uses the configured server name and the profile's `dnsDoT` rule can route port 853 traffic.
 
-DNS over TLS is available on iOS and macOS. When enabled, DoT traffic can be handled by the `dnsDoT` routing rule.
+# Metrics
 
-Using DoT can reduce memory pressure on some iOS packet tunnel setups.
+Metrics enables runtime policy/stats/metrics fields and the Home traffic counters. When disabled, these sections are removed from the Final Config.
 
-## Priority
+# Network Interface
 
-Priority is Linux-only. It controls the metric of default routes added for the OneXray TUN device.
-
-Example equivalent behavior:
-
-```shell
-sudo ip route add default dev OneXrayTun metric 20
-sudo ip -6 route add default dev OneXrayTun metric 20
-```
-
-## Network Interface
-
-Network interface selection is available on Linux and Windows.
-
-When interface fixing is enabled, OneXray can write the selected interface into outbound socket options and TUN inbound `autoOutboundsInterface`. This helps keep proxy traffic on the expected physical adapter.
-
-## Metrics
-
-Metrics controls whether OneXray writes Xray traffic statistics into runtime configs and reads traffic counters for the Home connection summary.
-
-When metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into the generated runtime Xray JSON.
+Windows and Linux can select `auto` or a specific outbound network interface. OneXray writes the resolved choice to TUN route fields and prevents the Core's own traffic from being routed back into the TUN device.
 
 # On Demand
 
-On-demand rules are available on iOS and macOS. They let the system decide whether to activate the VPN for selected network conditions.
+iOS and macOS support ordered on-demand rules based on network interface type and Wi-Fi SSID. The platform can also disconnect on sleep.
 
 # Per-App VPN
 
-Per-app VPN is available on Android. If no app is selected, all apps use the VPN. If apps are selected, only selected apps use the VPN.
+Android supports allow-list and deny-list modes. Selected Apps and Installed Apps are managed from the Per-App VPN section. An empty list follows the current mode's normal all-app behavior.

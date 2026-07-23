@@ -3,31 +3,30 @@ title: OneXray
 type: docs
 ---
 
-OneXray 是面向 iOS、macOS、Android、Windows 和 Linux 的跨平台 Xray-core 客户端。
+OneXray 是适用于 iOS、macOS、Android、Windows 和 Linux 的跨平台 Xray-core 客户端。
 
-当前 App 按四个一级入口组织：
+App 由四个主要区域组成：
 
-| 入口 | 用途 |
+| 区域 | 用途 |
 | --- | --- |
-| Home | 连接状态、当前节点、VPN 启动/停止，以及统一节点列表。 |
-| Subscriptions | 订阅源管理和单个订阅下的 Outbound 节点列表。 |
-| Core | Xray-core 相关设置，例如 TUN、Ping、Logs、Xray 配置、GeoData。 |
-| Settings | App 偏好、自动更新、备份、清理数据、支持链接、Credits 和 Privacy。 |
+| Home | 连接状态、规则/全局/直连路由、当前 Xray 配置、流量、位置和节点列表。 |
+| 订阅 | 管理订阅源及其中的 Outbound 节点。 |
+| Core | 管理 TUN、Ping、Xray 配置、GeoData、日志和最终配置。 |
+| 设置 | 管理更新、备份、外观、语言、支持、版本、致谢和隐私。 |
 
-手机上使用底部导航，平板和桌面端使用左侧导航栏。二级页面会保持在当前一级入口下。
+手机使用底部导航；平板和桌面使用侧边导航。响应式编辑器会根据宽度调整导航和布局，但不会增删配置字段。
 
 ## 下载
 
 | 平台 | 要求 | 下载 |
 | --- | --- | --- |
-| iOS | iOS 15.0 及以上，arm64 | [App Store](https://apps.apple.com/us/app/onexray/id6745748773)，[IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
+| iOS | iOS 15.0 及以上，arm64 | [App Store](https://apps.apple.com/us/app/onexray/id6745748773)、[IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
 | macOS（Mac App Store） | macOS 12.0 及以上，Apple silicon 或 Intel | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
-| macOS（商店外分发） | macOS 12.0 及以上，Apple silicon 或 Intel | Homebrew：`brew install --cask onexrayse`，[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
-| Android | Android 10.0 及以上，arm64-v8a 或 x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray)，[Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows | Windows 10 或 Windows 11，x86_64 | winget：`winget install --id YuanDevLLC.OneXray -e`，[EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
-| Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
-| Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)，[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
+| macOS（商店外分发） | macOS 12.0 及以上，Apple silicon 或 Intel | Homebrew：`brew install --cask onexrayse`、[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
+| Android | Android 10.0 及以上，arm64-v8a 或 x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray)、[Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
+| Windows x86_64 | Windows 10 或 Windows 11 | winget：`winget install --id YuanDevLLC.OneXray -e`、[EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
+| Windows ARM64 | Windows 11 | winget：`winget install --id YuanDevLLC.OneXray -e`、[EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.exe)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) |
+| Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
+| Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-macOS 商店外分发、Windows winget 和 Linux ZIP 设置见 [安装]({{< relref path="docs/install/index.md" lang="zh" >}})。
-
-如需了解集成说明和精确运行时语义，请优先阅读 [AI 参考]({{< relref path="docs/reference/index.md" lang="zh" >}}) 和 [开发]({{< relref path="docs/develop/index.md" lang="zh" >}})。
+平台相关设置请参阅[安装]({{< relref path="docs/install/index.md" lang="zh" >}})。

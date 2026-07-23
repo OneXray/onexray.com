@@ -3,33 +3,20 @@ title: Auto Update
 weight: 4
 ---
 
-Auto Update controls automatic data refresh after the app has initialized. It does not run during early startup.
+Auto Update обновляет subscriptions и GeoData после инициализации приложения и не относится к ручной проверке версии OneXray.
 
-# Subscription Refresh
+# Subscriptions
 
-| Option | Meaning |
+| Опция | Значение |
 | --- | --- |
-| Enable | Refresh outdated subscriptions automatically. |
-| Interval | `1 day`, `3 days`, or `1 week`. |
-| Auto Ping | Ping outbound nodes in a refreshed subscription after updating it. |
+| Enable | Автоматически обновлять устаревшие подписки. |
+| Interval | `1 day`, `3 days` или `1 week`. |
+| Auto Ping | Проверять узлы после планового refresh. |
 
-Refresh keeps the old running config until the user starts VPN again. Updating a subscription replaces the subscription's stored outbound nodes and updates its timestamp and count.
+Refresh транзакционно заменяет узлы и обновляет timestamp/count. Запущенный VPN сохраняет текущий Final Config до restart.
 
-# GeoData Refresh
+# GeoData
 
-| Option | Meaning |
-| --- | --- |
-| Enable GeoData | Refresh system and custom GeoData automatically. |
-| GeoData interval | `1 day`, `3 days`, or `1 week`. |
+Системные `geosite`/`geoip` и custom GeoData используют те же интервалы. Custom entries обновляются отдельно.
 
-System GeoData refreshes `geosite` and `geoip` together. Custom GeoData rows are refreshed one by one when their timestamp is older than the selected interval.
-
-# Execution Rules
-
-The automatic update service:
-
-1. Runs only when no other download/update task is already active.
-2. Reads the saved Auto Update settings.
-3. Refreshes outdated subscriptions if subscription update is enabled.
-4. Refreshes outdated GeoData if GeoData update is enabled.
-5. Uses the app's global downloading state while it is working.
+Одновременно выполняется только одна операция download/update; global downloading state очищается при успехе и ошибке.

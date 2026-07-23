@@ -3,20 +3,29 @@ title: Routing
 weight: 6
 ---
 
-Routing templates для OneXray поддерживаются как Xray Profile JSON files в репозитории [OneXray/Routing](https://github.com/OneXray/Routing).
+# Режимы Home
 
-| Регион | Template | Custom GeoData dependencies |
+| Режим | Поведение |
+| --- | --- |
+| Rule | Использует routing rules выбранного Xray Profile или Full Config. |
+| Global | Весь трафик через `proxy`; DNS/routing удаляются, остается proxy dependency chain. |
+| Direct | Весь трафик через `direct`; выбранный узел не используется. |
+
+Смена режима во время подключения перезапускает Core.
+
+# Расширенные шаблоны
+
+Шаблоны находятся в [OneXray/Routing](https://github.com/OneXray/Routing).
+
+| Регион | Шаблон | Custom GeoData |
 | --- | --- | --- |
-| China | [cn.json](https://github.com/OneXray/Routing/raw/refs/heads/main/cn.json) | `EnhancedGeoSite`, `EnhancedGeoIP` |
-| Iran | [ir.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ir.json) | `IranGeoSite` |
-| Russia | [ru.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ru.json) | `RussiaGeoSite`, `RussiaGeoIP` |
+| Китай | [cn.json](https://github.com/OneXray/Routing/raw/refs/heads/main/cn.json) | `EnhancedGeoSite`, `EnhancedGeoIP` |
+| Иран | [ir.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ir.json) | `IranGeoSite` |
+| Россия | [ru.json](https://github.com/OneXray/Routing/raw/refs/heads/main/ru.json) | `RussiaGeoSite`, `RussiaGeoIP` |
 
-# Как использовать
+1. Добавьте нужные файлы в `Core > GeoData`.
+2. Откройте репозиторий через `Core > Import Enhanced Routing`.
+3. Создайте или отредактируйте Xray Profile и вставьте шаблон через Raw Edit.
+4. Сохраните и выберите профиль.
 
-1. Откройте `Core > GeoData` в OneXray.
-2. Добавьте нужные custom GeoData entries с точными именами из таблицы выше.
-3. Откройте соответствующую ссылку JSON template и скопируйте или скачайте JSON.
-4. В OneXray откройте `Core > Xray Profiles > Add > Raw Edit`.
-5. Вставьте template JSON, сохраните его и выберите этот Xray Profile.
-
-Templates содержат `name`, `dns` и `routing`. Они не содержат runtime fields приложения: `inbounds`, `outbounds`, `log`, `policy`, `stats` или `metrics`. Выбранный outbound node по-прежнему добавляется OneXray при запуске VPN как runtime `proxy` outbound.
+Шаблоны предоставляют DNS и routing уровня профиля. Узел и runtime fields записывает OneXray.

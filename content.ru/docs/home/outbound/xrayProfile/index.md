@@ -2,187 +2,91 @@
 title: Xray Profile
 weight: 1
 aliases:
-  - /ru/docs/home/outbound/xraySetting/
+  - /docs/home/outbound/xraySetting/
 ---
 
-Xray Profile — обязательный runtime profile и структурированный writer Xray-core JSON в OneXray. Он подходит, когда нужны DNS, FakeDNS, routing, inbounds, outbounds, logs или Final Outbound, управляемые через UI.
+Xray Profile — обязательная runtime-основа OneXray. Всегда выбран один профиль; встроенный Simple Profile является резервным и не удаляется.
 
-OneXray всегда держит один Xray Profile выбранным. Встроенный Simple Profile является fallback profile и не может быть удален.
+# Формирование Final Config
 
-# Final Config
+Final Config — runtime `xray.json`, записанный перед запуском Xray-core.
 
-Final Config — это runtime `xray.json`, который OneXray записывает непосредственно перед запуском Xray-core. Это не то же самое, что отдельный Xray Profile, Outbound node, Full Config или Raw Json record в UI.
-
-Выбранный Xray Profile предоставляет базовую runtime structure: `dns`, `fakeDns`, `routing`, `inbounds`, `outbounds`, `log` и optional metrics-related fields.
-
-Активный тип узла затем изменяет эту базу:
-
-| Active node | Как он изменяет Final Config |
+| Home config | Формирование |
 | --- | --- |
-| Outbound | Без Final Outbound выбранный узел становится runtime outbound `proxy`. Если Final Outbound настроен, Final Outbound записывается как `proxy`; выбранный узел записывается как `chainProxy`; `proxy.dialerProxy` устанавливается в `chainProxy`. |
-| Full Config | Full Config заменяет `outbounds`, `routing` и `dns` выбранного Xray Profile. Выбранный Xray Profile и app runtime все еще предоставляют FakeDNS, runtime inbounds, logs, metrics, env и platform fixes. |
-| Raw Json | Raw Json используется как основной JSON body, но его `inbounds` удаляются. OneXray записывает runtime inbounds из выбранного Xray Profile для текущего TUN или Proxy mode. |
+| Outbound | Узел становится `proxy`. При наличии Final Outbound он становится `proxy`, Home node — `chainProxy`, а `proxy.dialerProxy` указывает на `chainProxy`. |
+| Full Config | Заменяет `outbounds`, `routing` и `dns` профиля. FakeDNS, inbounds, logs, metrics и runtime sections остаются у выбранного профиля/приложения. |
+| Raw Json | Предоставляет основное JSON-тело, но его inbounds отбрасываются и заменяются runtime inbounds профиля. |
 
-После этой композиции app runtime все еще управляет `pingIn`, случайными ping и metrics ports, Windows/Linux TUN route fields, `env.xray.location.asset`, `env.xray.location.cert`, mobile `env.xray.tun.fd` и отключением logs в macOS System Extension.
+После этого применяется режим Home: Global удаляет DNS/routing и оставляет proxy chain, Direct оставляет только `direct`.
 
-# Разделы
+# Редактор Custom Profile
 
-| Раздел | Что записывает |
+| Раздел | Основные поля |
 | --- | --- |
-| Log | `log` |
-| DNS | `dns` |
-| FakeDNS | `fakeDns` |
-| Routing | `routing` |
-| Inbounds | `inbounds` |
-| Outbounds | `outbounds` |
+| Inbounds | `tunIn` и внутренний `pingIn`. |
+| Outbounds | Final Outbound и системные `direct`, `fragment`, `block`, `dnsOut`. |
+| Routing | Domain Strategy, системные и упорядоченные custom rules. |
+| DNS | Hosts, упорядоченные servers, cache/fallback/stale, client IP, parallel query и system hosts. |
+| FakeDNS | IPv4/IPv6 pools. |
+| Log | Log level, DNS log и mask address. |
+
+На телефонах навигация прокручивается горизонтально; на широком экране используется боковое меню. Набор полей одинаков.
 
 # DNS
 
-Страница DNS записывает объект Xray `dns`.
+Новый Xray Profile или Full Config получает первый DNS Server из `TUN Settings > IPv4 DNS`; затем адрес можно изменить.
 
-| Поле | Значение |
+Глобальный и server-level `queryStrategy` не показываются в UI и переписываются во время запуска:
+
+| TUN IPv6 | Strategy |
 | --- | --- |
-| `hosts` | Статические host mappings. |
-| `servers` | Список DNS servers. Каждый server может иметь address, port, domains, expectIPs, skipFallback, clientIP, queryStrategy и tag. |
-| `queryStrategy` | Записывается во время runtime из TUN Settings. `Enable IPv6` записывает `UseIP`; отключенный IPv6 записывает `UseIPv4`. |
-| `disableCache` | Отключает DNS cache. |
-| `disableFallback` | Отключает fallback server behavior. |
-| `disableFallbackIfMatch` | Останавливает fallback, если сработало domain rule. |
-| `useSystemHosts` | Разрешает Xray использовать system hosts. |
+| Включен | `UseIP` |
+| Выключен | `UseIPv4` |
 
-Если DNS server имеет непустой `tag`, OneXray показывает этот tag как вариант `inboundTag` для routing rules.
+DNS Server поддерживает address, port, domains, expected/unexpected IPs, tag, client IP, timeout, fallback/cache/stale и final query. Непустой tag доступен как inbound tag routing rule.
 
 # FakeDNS
 
-FakeDNS всегда присутствует в выводе Xray Profile. Страница FakeDNS только настраивает pools; переключателя enabled на ней нет.
+FakeDNS принадлежит выбранному Xray Profile, даже при запуске Full Config. Full Config не хранит и не редактирует FakeDNS.
 
-Пулы по умолчанию:
-
-| Pool | Default `ipPool` | Default `poolSize` |
+| Pool | Address | Size |
 | --- | --- | --- |
 | IPv4 | `198.18.0.0/15` | `32768` |
 | IPv6 | `fc00::/18` | `32768` |
 
-Записанные pools следуют `TUN Settings > Enable IPv6`:
-
-| TUN IPv6 | Записанные FakeDNS pools |
-| --- | --- |
-| Enabled | IPv4 и IPv6 |
-| Disabled | Только IPv4 |
-
-Чтобы FakeDNS был полезен, TUN inbound sniffing destination override должен содержать `fakedns+others`. Переключатель FakeDNS в Simple Profile добавляет это значение автоматически.
+IPv6 pool записывается только при включенном TUN IPv6.
 
 # Routing
 
-Routing записывает `routing.domainStrategy` и `routing.rules`.
+Системные правила обрабатывают DNS component, порт 53, DNS over TLS и внутренний ping. Custom rules могут использовать domain, IP, ports, network, source/local addresses, inbound tags, protocols, attrs и процессы на поддерживаемых платформах.
 
-Default rules записываются перед custom rules:
+Условия внутри одного правила объединяются.
 
-| `ruleTag` | Match | Default outbound |
-| --- | --- | --- |
-| `dnsQuery` | `inboundTag: ["dnsQuery"]` | `proxy` |
-| `dnsOut` | `inboundTag: ["tunIn"]`, `port: "53"` | `dnsOut` |
-| `dnsDoT` | `inboundTag: ["tunIn"]`, `port: "853"` | `proxy` |
-| `ping` | `inboundTag: ["pingIn"]` | `proxy` |
+# Outbounds и Final Outbound
 
-Условия в одной rule объединяются. Rule с `domain` и `ip` срабатывает только если оба условия совпали для одного соединения.
-
-Условие `process` записывается только на Windows и Linux. На macOS, iOS и Android OneXray не пишет `process` в итоговый Xray JSON.
-
-# Inbounds
-
-Страница Inbounds разделена по runtime role:
-
-| Section | Inbounds |
+| Tag | Назначение |
 | --- | --- |
-| TUN Mode | `tunIn` |
-| Proxy Mode | `socksIn`, `httpIn` |
-| Internal | `pingIn` |
+| `proxy` | Итоговый proxy exit. |
+| `chainProxy` | Home node как dialer relay при активном Final Outbound. |
+| `direct` | Freedom/direct. |
+| `fragment` | Freedom fragmentation. |
+| `block` | Blackhole. |
+| `dnsOut` | DNS outbound. |
 
-TUN mode добавляет `tunIn + pingIn` при запуске. Proxy mode добавляет `socksIn + httpIn + pingIn`. `socksIn` по умолчанию использует порт `11024`, а `httpIn` — порт `11025`; оба порта можно изменить. SOCKS и HTTP authentication необязательны и по умолчанию пустые.
+Final Outbound выбирается среди локальных Outbound. Один узел нельзя использовать одновременно как Home node и Final Outbound.
 
-`pingIn` и metrics ports всегда назначаются случайно во время runtime.
+# Simple Profile
 
-# Outbounds
+Simple Profile содержит:
 
-Системные outbound tags:
+- включение логов;
+- выбор Final Outbound;
+- direct region, Domain Strategy, Apple/local direct, IP rules, local DNS и блокировку рекламы;
+- переключатель FakeDNS;
+- read-only DNS `tcp://<TUN IPv4 DNS>`.
 
-| Tag | Protocol | Назначение |
-| --- | --- | --- |
-| `proxy` | Выбранный узел или Final Outbound в runtime | Финальный выходной outbound. |
-| `chainProxy` | Выбранный узел, когда Final Outbound настроен | Dialer relay, используемый `proxy.dialerProxy`. |
-| `direct` | `freedom` | Прямое соединение. |
-| `fragment` | `freedom` | Fragment outbound. |
-| `block` | `blackhole` | Блокировка трафика. |
-| `dnsOut` | `dns` | DNS outbound. |
+Default DNS направляется через `proxy`. Региональный local DNS применяется только к соответствующим direct domains.
 
-Runtime order:
+# Runtime Ownership
 
-1. `proxy`
-2. `chainProxy`, если настроен
-3. Other custom outbounds
-4. `direct`
-5. `fragment`
-6. `block`
-7. `dnsOut`
-
-## Final Outbound
-
-Внутренний runtime relay tag остается фиксированным:
-
-```text
-chainProxy
-```
-
-В Xray Profile страница Outbounds поддерживает import, replace и delete Final Outbound. В Simple Profile Final Outbound выбирается по outbound id из локальных outbound nodes.
-
-Если Final Outbound активен, OneXray записывает Final Outbound как runtime `proxy`. Выбранный на Home узел записывается как `chainProxy`, а `proxy.dialerProxy` устанавливается в `chainProxy`. Запуск завершается ошибкой, если выбранный на Home узел и Final Outbound указывают на один и тот же локальный outbound id.
-
-## DNS Outbound
-
-DNS outbound записывает:
-
-| Поле | Поведение |
-| --- | --- |
-| `network` | По умолчанию пусто. Записывается только при выборе `tcp` или `udp`. |
-| `address` | Необязательный upstream address. |
-| `port` | Необязательный upstream port. |
-| `rules` | Записывается, если список rules не пустой. |
-| `blockTypes` | Записывается только если `rules` пустой и block types настроены. |
-
-Default DNS outbound rules:
-
-```json
-[
-  {
-    "action": "hijack",
-    "qType": "1,28"
-  },
-  {
-    "action": "direct"
-  }
-]
-```
-
-`qType` — string field.
-
-# Runtime Inbound Notes
-
-Структурированный writer включает runtime TUN, SOCKS, HTTP и ping inbound states. TUN inbound должен оставлять sniffing включенным для routing по domain и protocol. Когда FakeDNS включен в Simple Profile, sniffing добавляет `fakedns+others`.
-
-# Logs
-
-На macOS с включенным System Extension mode OneXray принудительно отключает logs Xray Profile перед записью runtime config:
-
-```json
-{
-  "loglevel": "none",
-  "dnsLog": false
-}
-```
-
-# Sharing
-
-Xray Profile can be shared as JSON text or a `.json` file from the Xray Profile menu.
-
-Custom GeoData is not bundled into Xray Profile share output. If a profile references custom rule sets, add those GeoData entries manually first or use [Backup and Restore]({{< relref path="../../../setting/backup/index.md" lang="ru" >}}) for full migration.
+OneXray всегда переписывает runtime TUN/`pingIn`, случайные ping/metrics ports, пути GeoData, Windows/Linux route fields и поведение logs в macOS System Extension.

@@ -22,10 +22,10 @@ Backup 会把 OneXray 数据导出为 ZIP 文件，方便保存、分享和后�
 
 # 文件结构
 
-备份文件按日期命名：
+备份文件名包含创建日期和时间，因此同一天创建多个备份时不会互相覆盖：
 
 ```text
-OneXray-yyyy-MM-dd.zip
+OneXray-yyyy-MM-dd-HH-mm-ss.zip
 ```
 
 ZIP 根目录结构：

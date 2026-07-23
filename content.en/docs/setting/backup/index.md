@@ -22,10 +22,11 @@ Backup exports OneXray data to a ZIP file that can be saved, shared, and importe
 
 # File Structure
 
-Backup files are named by date:
+Backup files include the creation date and time so multiple backups created on
+the same day do not overwrite each other:
 
 ```text
-OneXray-yyyy-MM-dd.zip
+OneXray-yyyy-MM-dd-HH-mm-ss.zip
 ```
 
 ZIP root structure:

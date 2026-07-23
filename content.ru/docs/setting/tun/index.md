@@ -3,53 +3,37 @@ title: TUN Settings
 weight: 1
 ---
 
-TUN Settings управляют туннелем платформы и сетевыми интерфейсами, которые используются всеми конфигурациями.
+TUN Settings применяются ко всем Home configs и управляют системным туннелем.
 
-# TUN
+# DNS
 
-TUN device — виртуальный сетевой интерфейс. Когда VPN запускается, платформа создает или активирует tunnel и направляет трафик через Xray-core.
+TUN DNS содержит IPv4 и IPv6 адреса без портов.
 
-## DNS
+- Системный туннель использует их для DNS-трафика.
+- Simple Profile показывает IPv4 как read-only `tcp://` DNS Server.
+- Новый Xray Profile и Full Config получают первый DNS Server из этого IPv4.
+- Во время запуска `queryStrategy` становится `UseIP` при включенном IPv6 и `UseIPv4` при выключенном.
 
-TUN DNS содержит один IPv4 address и один IPv6 address. Это plain IP addresses без портов.
+# IPv6
 
-При запуске эти адреса применяются к tunnel. System DNS queries затем входят в Xray-core и обрабатываются routing и DNS outbound rules.
+Переключатель одновременно управляет TUN IPv6 route, DNS query strategy и записью IPv6 FakeDNS pool. Он заменяет старые отдельные `UseIP / UseIPv4 / UseIPv6`.
 
-Эти DNS addresses также влияют на то, как платформа резолвит domain names proxy server до того, как DNS из Xray Profile станет доступен.
+# DNS over TLS
 
-## DNS over TLS
+iOS и macOS поддерживают DoT с настроенным Server Name; правило `dnsDoT` может маршрутизировать порт 853.
 
-DNS over TLS доступен на iOS и macOS. Когда он включен, DoT traffic может обрабатываться rule `dnsDoT`.
+# Metrics
 
-DoT может уменьшить memory pressure в некоторых iOS packet tunnel сценариях.
+Metrics добавляет policy/stats/metrics и счетчики Home. При выключении эти sections удаляются из Final Config.
 
-## Priority
+# Network Interface
 
-Priority доступен только на Linux. Он управляет metric default routes для OneXray TUN device.
-
-Эквивалентное поведение:
-
-```shell
-sudo ip route add default dev OneXrayTun metric 20
-sudo ip -6 route add default dev OneXrayTun metric 20
-```
-
-## Network Interface
-
-Выбор network interface доступен на Linux и Windows.
-
-Когда interface fixing включен, OneXray может записать выбранный interface в outbound socket options и TUN inbound `autoOutboundsInterface`. Это помогает отправлять proxy traffic через ожидаемый физический адаптер.
-
-## Metrics
-
-Metrics controls whether OneXray writes Xray traffic statistics into runtime configs and reads traffic counters for the Home connection summary.
-
-When metrics are disabled, OneXray does not write `policy`, `stats`, or `metrics` into the generated runtime Xray JSON.
+Windows и Linux позволяют выбрать `auto` или конкретный outbound interface. OneXray записывает выбор в TUN route fields и не дает трафику Core вернуться в TUN.
 
 # On Demand
 
-On-demand rules доступны на iOS и macOS. Они позволяют системе решать, активировать ли VPN для выбранных network conditions.
+iOS и macOS поддерживают упорядоченные rules по interface type и Wi-Fi SSID, а также disconnect on sleep.
 
 # Per-App VPN
 
-Per-app VPN доступен на Android. Если приложения не выбраны, VPN используют все приложения. Если приложения выбраны, VPN используют только выбранные приложения.
+Android поддерживает allow-list и deny-list. Selected Apps и Installed Apps открываются из раздела Per-App VPN.

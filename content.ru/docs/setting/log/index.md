@@ -1,35 +1,18 @@
 ---
-title: Log
+title: Logs
 weight: 5
 ---
 
-Страница Log показывает diagnostic files.
+Logs теперь являются разделом страницы Core, а не отдельной корневой страницей.
 
-| Item | Значение |
+| Пункт | Поведение |
 | --- | --- |
-| App log | Application log OneXray. |
-| Xray access log | Xray-core access log, если включен. |
-| Xray error log | Xray-core error log, если включен. |
-| Xray config file | Финальный generated JSON, который читает Xray-core. |
+| Access Log | Открывает Xray access log, если он доступен. |
+| Error Log | Открывает diagnostics и runtime errors Xray. |
+| Xray Config | Открывает Final Config, фактически используемый Xray-core. |
 
-# Xray Logs
+Просмотрщик access/error сначала читает только последние 1 MiB, опрашивает файл на наличие новых данных и следует за нижней границей, пока пользователь не прокрутит вверх. Это сохраняет отзывчивость больших журналов.
 
-Xray logs управляются выбранным Xray Profile или Simple Profile.
+Config viewer показывает выделяемый моноширинный текст. Share/save для access/error остаются доступными на поддерживаемых платформах.
 
-Для структурированного Xray Profile:
-
-```text
-Xray Profile > Edit Log
-```
-
-Для Simple Profile:
-
-```text
-Simple Profile > Log > Enable Log
-```
-
-На macOS с включенным System Extension mode OneXray принудительно отключает Xray logs в runtime configs.
-
-# Generated Config
-
-Generated Xray config file — главный диагностический артефакт. Он показывает точный JSON, который Xray-core читает после runtime fixes OneXray.
+Уровень Xray logs задается Xray Profile. В macOS System Extension файловые logs отключаются, поэтому access/error пункты скрыты.

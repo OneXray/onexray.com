@@ -3,225 +3,108 @@ title: AI 参考
 weight: 8
 ---
 
-本页是 OneXray 当前行为的紧凑机器可读参考，刻意保留精确 identifier、tag、path 和 JSON key。
+本页汇总 OneXray 当前的持久化与运行时语义。
 
-# 核心概念
+# 配置类型与 Tag
 
-| Identifier | 含义 |
+| 标识 | 含义 |
 | --- | --- |
-| `CoreConfigType.outbound` | 单个本地或订阅节点。 |
-| `CoreConfigType.setting` | OneXray 保存的结构化 Xray 配置；在 Xray 配置列表中统一显示在 Local 下。 |
-| `CoreConfigType.full` | 结构化 Full Config 节点；统一显示在 Home 的 `Local` 分组下。 |
-| `CoreConfigType.raw` | 以文本保存的完整 Raw Json 配置；统一显示在 Home 的 `Local` 分组下。 |
-| `Simple` | 内置配置写出器，id 为 `-1`。 |
-| `proxy` | 最终出口的运行时 tag。 |
-| `chainProxy` | 配置最终出口时，Home 当前节点使用的固定运行时中转 tag。 |
-| `tunIn` | TUN inbound tag。 |
-| `pingIn` | HTTP ping inbound tag。 |
-| `dnsQuery` | DNS component inbound tag 和 rule tag。 |
-| `dnsOut` | DNS outbound tag 和 rule tag。 |
-| `dnsDoT` | 端口 `853` 的 routing rule tag。 |
-| `ping` | 测速流量 rule tag。 |
+| `CoreConfigType.outbound` | 本地或订阅 Outbound。 |
+| `CoreConfigType.profile` | Dart 中的 Xray 配置；持久化 wire value 仍为 `"setting"`。 |
+| `CoreConfigType.full` | Home `Local` 下的 Full Config。 |
+| `CoreConfigType.raw` | Home `Local` 下的 Raw Json。 |
+| `Simple` | 内置 Profile，id 为 `-1`。 |
+| `proxy` | 运行时最终代理出口。 |
+| `chainProxy` | 启用最终出口时 Home 节点的运行时中转 tag。 |
+| `direct` | Freedom 直连出口。 |
+| `tunIn` | 运行时 TUN inbound。 |
+| `pingIn` | 运行时 HTTP ping inbound。 |
 
-# 一级导航
+# Home 路由模式
 
-| 一级路径 | 含义 |
+| 模式 | 是否要求节点 | 转换 |
+| --- | --- | --- |
+| `rule` | 是 | 保留合成后的 DNS、routing 和 outbound 结构。 |
+| `global` | 是 | 删除 DNS/routing；保留 `proxy` 和递归依赖的 `dialerProxy` outbounds。 |
+| `direct` | 否 | 删除 DNS/routing；只保留 `direct` 并清除其 `dialerProxy`。 |
+
+连接中切换会重启 Core。
+
+# 导入分类
+
+| 输入 | 结果 |
 | --- | --- |
-| `/home` | 连接状态和节点操作。 |
-| `/subscriptions` | 订阅源列表。 |
-| `/core` | Xray-core 设置和诊断。 |
-| `/settings` | App 偏好和支持。 |
+| 去除首尾空白后以 `https://` 开头 | 每个有效 HTTPS 行成为一个订阅导入项。 |
+| 其他受支持文本 | libXray 返回 Outbound model。 |
 
-二级页面注册在所有一级路径下。例如 `/home/tun`、`/core/tun` 和 `/settings/tun` 渲染同一个 TUN 页面，但会保持各自一级入口选中态。
-
-# 导入文本分类
-
-| 前缀或内容 | 导入结果 |
-| --- | --- |
-| `https://` | 订阅 URL。 |
-| 其他 Xray 分享内容 | 通过 libXray 导入 Outbound 节点。 |
-
-UI 导入接受的文本文件：`txt`、`json`、`yaml`、`yml`。
-
-UI 导入接受的图片文件：`png`、`jpg`、`jpeg`。
-
-不支持的旧私有导入文本和旧备份/分享文本会返回无有效配置。
-
-# App 导入格式
-
-文本导入支持从 App UI 读取剪贴板文本或选择文本文件。
-
-| 格式 | 导入结果 |
-| --- | --- |
-| HTTPS 订阅 URL | 订阅行和下载后的 Outbound 节点。 |
-| Xray 分享链接 | 通过 libXray 导入 Outbound 节点；本地 outbound model 支持 `vless`、`vmess`、`shadowsocks`、`trojan`、`socks`、`hysteria`。 |
-| 多行 Xray 分享文本 | 通过 libXray 导入多个 Outbound 节点。 |
-| Clash.Meta YAML 文本 | 内置 libXray API 支持时导入 Outbound 节点。 |
-| Xray JSON 文本 | 内置 libXray API 支持时导入 Outbound 节点。 |
-
-二维码图片通过 App UI 中的相机扫描或图片文件导入。
-
-# 订阅语义
-
-订阅只支持 Outbound。即使远端文本包含完整 Xray JSON sections，订阅导入和刷新也会忽略 Xray 配置和 Raw Json 语义。
-
-| 数据 | 订阅行为 |
-| --- | --- |
-| `outbounds` | 解析并保存为订阅 Outbound 节点。 |
-| `dns`、`routing`、`inbounds`、`log`、`policy`、`stats`、`metrics` | 订阅导入会忽略。 |
-| Raw Json | 不会由订阅创建。 |
-| Xray 配置 | 不会由订阅创建。 |
+订阅 fragment 用作名称，但不会保存到 URL。支持文件扩展名：`txt`、`json`、`yaml`、`yml`、`png`、`jpg`、`jpeg`。通用导入不创建 Raw Json、Full Config、Xray 配置或 GeoData。
 
 # 简易配置默认值
 
 | 字段 | 默认值 |
 | --- | --- |
 | `routing.domainStrategy` | `IpIfNonMatch` |
-| DNS query strategy | 由 TUN 设置决定。开启 IPv6 时写为 `UseIP`；关闭 IPv6 时写为 `UseIPv4`。 |
 | `routing.directSet` | `CN` |
 | `routing.appleDirect` | `true` |
 | `routing.localDirect` | `true` |
 | `routing.enableIPRule` | `true` |
 | `routing.localDns` | `true` |
-| `dns` | 通过 `proxy` 访问 Cloudflare |
+| `routing.blockAds` | `false` |
 | `enableLog` | `false` |
 | `fakeDns` | `false` |
 | `finalOutboundId` | `null` |
+| 默认 DNS | `tcp://<TUN IPv4 DNS>`，tag 为 `defaultDns`，通过 `proxy` |
 
-# 简易配置生成规则
+地区本地 DNS 仍为：CN `223.5.5.5`、IR `5.200.200.200`、RU `9.9.9.9`、Other `8.8.8.8`。仅在启用本地 DNS 时查询匹配的直连域名集合。
 
-| `ruleTag` | 条件 | `outboundTag` |
+广告屏蔽会增加指向 `block` 的内置广告域名规则。
+
+# DNS 与 FakeDNS
+
+运行时策略由 TUN 设置派生：
+
+| IPv6 | 策略 | FakeDNS 地址池 |
 | --- | --- | --- |
-| `defaultDnsProxy` | `inboundTag: ["defaultDns"]` | `proxy` |
-| `localDnsDirect` | 启用 local DNS 时 `inboundTag: ["localDns"]` | `direct` |
-| `domainDirect` | 直连域名规则 | `direct` |
-| `ipDirect` | 直连 IP 规则 | `direct` |
+| 开启 | `UseIP` | IPv4 `198.18.0.0/15` 和 IPv6 `fc00::/18` |
+| 关闭 | `UseIPv4` | 仅 IPv4 |
 
-直连域名规则：
+新建自定义 Profile 和 Full Config 时，DNS Server 默认使用当前 TUN IPv4 DNS。Full Config 管理 `outbounds`、`routing` 和 `dns`，不管理 FakeDNS。
 
-| Direct set | Domains |
+# 运行时合成
+
+| 保存类型 | 规则模式最终配置 |
 | --- | --- |
-| `CN` | `geosite:CN` |
-| `IR` | `geosite:CATEGORY-IR` |
-| `RU` | `geosite:CATEGORY-GOV-RU`、`geosite:YANDEX`、`geosite:MAILRU`、`regexp:.ru$` |
-| `Other` | 无 |
+| Outbound | 当前 Profile 加 Home Outbound `proxy`；可通过 `chainProxy` 应用最终出口反转。 |
+| Full Config | Profile 基础加 Full Config 的 `outbounds/routing/dns`；Profile 的 FakeDNS/inbounds/log/metrics 保留。 |
+| Raw Json | Raw 主体加 App 重写的 inbounds、DNS 策略、日志、metrics、env 和路由字段。 |
 
-额外域名规则：
+Release 运行时 inbounds 为 `tunIn` 与 `pingIn`。用户 Raw Json inbounds 在校验、Real Ping、保存和启动时都会被删除。
 
-| 开关 | Domain |
-| --- | --- |
-| `appleDirect` | `geosite:APPLE` |
-| `localDirect` | `geosite:PRIVATE` |
+# 运行时所有权字段
 
-直连 IP 规则：
-
-| Direct set | IP rules |
-| --- | --- |
-| `CN` | `geoip:CN` |
-| `IR` | `geoip:IR` |
-| `RU` | `geoip:RU` |
-| `Other` | 无 |
-
-额外 IP 规则：
-
-| 开关 | IP rule |
-| --- | --- |
-| `localDirect` | `geoip:PRIVATE` |
-
-# Simple DNS Servers
-
-| 场景 | Server |
-| --- | --- |
-| 启用 FakeDNS | 第一个 server 是 `address: "fakedns"`。 |
-| 默认 DNS | `tcp://1.1.1.1` 或 `https://1.1.1.1/dns-query`，通过 `proxy`。 |
-| `CN` 本地 DNS | `tcp://223.5.5.5`，用于直连域名。 |
-| `IR` 本地 DNS | `tcp://5.200.200.200`，用于直连域名。 |
-| `RU` 本地 DNS | `tcp://9.9.9.9`，用于直连域名。 |
-| `Other` 本地 DNS | `tcp://1.1.1.1`，用于直连域名。 |
-
-简易配置启用 FakeDNS 时，TUN sniffing 会包含 `fakedns+others`。
-
-# Xray 配置 FakeDNS
-
-默认地址池：
-
-```json
-[
-  {
-    "ipPool": "198.18.0.0/15",
-    "poolSize": 32768
-  },
-  {
-    "ipPool": "fc00::/18",
-    "poolSize": 32768
-  }
-]
-```
-
-写出的 pools 跟随 `TUN 设置 > 开启 IPv6`：
-
-| TUN IPv6 | Pools |
-| --- | --- |
-| 开启 | IPv4 和 IPv6 |
-| 关闭 | IPv4 |
-
-# Xray 配置出站顺序
-
-```text
-proxy
-chainProxy
-<other custom outbounds>
-direct
-fragment
-block
-dnsOut
-```
-
-`chainProxy` 仅在已配置最终出口时存在。此时最终出口会写为 `proxy`；Home 当前节点会写为 `chainProxy`；`proxy.dialerProxy` 会设置为 `chainProxy`。
-
-# DNS Outbound
-
-| 字段 | 默认值 |
-| --- | --- |
-| `network` | 空，不写出 |
-| `address` | 空 |
-| `port` | 空 |
-| `rules` | `[{"action":"hijack","qType":"1,28"},{"action":"direct"}]` |
-| `blockTypes` | `[]` |
-
-只有 `rules` 为空时才写出 `blockTypes`。
+- 随机 `pingIn` 与 metrics 端口
+- `env.xray.location.asset` 与 `env.xray.location.cert`
+- 移动端 `env.xray.tun.fd`
+- Windows/Linux TUN gateway、DNS、路由和出站网卡
+- Access/Error 日志路径，或 macOS System Extension 日志禁用
+- 可选 policy/stats/metrics
 
 # Routing Rule 字段
 
-OneXray routing rules 可以写出：
+自定义规则支持：
 
 ```text
 domain, ip, port, sourcePort, localPort, network, sourceIP, localIP,
 inboundTag, protocol, attrs, process, outboundTag, ruleTag
 ```
 
-`process` 只在 Windows 和 Linux 写出。
+`process` 仅在 Windows 和 Linux 写出。
 
 # Raw Json 校验
 
-Raw Json 必须：
-
-1. 是合法 JSON。
-2. 有非空顶层 `name`。
-3. OneXray 重写运行时 inbounds 和 metrics 后，能通过内置 Xray-core config test。
-
-# 运行时修正
-
-| 配置类型 | 运行时修正 |
-| --- | --- |
-| Xray 配置 | Inbound 端口、ping auth、网卡绑定、macOS System Extension 日志关闭、可选 metrics。 |
-| Raw Json | 按当前模式重写运行时 inbounds、ping auth、网卡绑定、日志路径或日志关闭、可选 metrics。 |
-
-TUN metrics 关闭时，OneXray 不会把 `policy`、`stats` 或 `metrics` 写入运行时配置。macOS System Extension 模式会在运行时关闭 Xray 日志。
+Raw Json 必须是包含非空 `name` 的 JSON object。手动校验会将 inbounds 替换为 `pingIn`、移除 metrics、应用运行时 env，并调用内置 Xray 配置测试。普通 Outbound/分享导入不执行该手动保存测试。
 
 # Backup v3
-
-ZIP 根目录：
 
 ```text
 manifest.json
@@ -231,4 +114,4 @@ geo_data.json
 dat/
 ```
 
-`manifest.json` 保存 `version: 3` 和备份创建时间。`core_configs.json` 只保存本地配置。订阅节点通过刷新订阅 URL 恢复。
+Manifest 保存版本 `3` 和创建时间。本地配置与 GeoData 从归档恢复；订阅节点通过恢复的源 URL 重新下载。

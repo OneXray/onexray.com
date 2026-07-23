@@ -3,34 +3,21 @@ title: Share
 weight: 2
 ---
 
-OneXray shares data with common formats instead of a legacy private import format.
+OneXray uses standard formats rather than a private app link format.
 
 | Type | Share format |
 | --- | --- |
-| Outbound nodes | Standard Xray share link text and QR code when supported by libXray. |
-| Subscriptions | Plain HTTPS subscription URL. |
-| Raw Json | JSON text and a `.json` file. |
-| Xray Profile | JSON text and a `.json` file. |
-| GeoData | Not shared separately. Use Backup for full migration. |
+| Outbound | Standard Xray share text and QR code when supported by libXray. |
+| Subscription | HTTPS URL. |
+| Raw Json | JSON text or `.json` file. |
+| Xray Profile | JSON text or `.json` file. |
+| GeoData | Use Backup for migration. |
 
-# Import
+# Import Decision
 
-Imported text is classified by the running app:
+1. If trimmed text starts with `https://`, OneXray treats it as subscription input and accepts one HTTPS link per line.
+2. Otherwise, libXray parses the content as outbound share text.
 
-| Input | Behavior |
-| --- | --- |
-| `https://...` | Adds a subscription and refreshes it. |
-| Standard Xray share text | Imports outbound nodes through libXray. |
-| Other text | Fails with no valid config if libXray cannot read outbound nodes from it. |
+Subscription URL fragments are used as names and removed before storage. Text files support `txt`, `json`, `yaml`, and `yml`; QR images support `png`, `jpg`, and `jpeg`.
 
-QR image import supports `png`, `jpg`, and `jpeg`. Text file import supports `txt`, `json`, `yaml`, and `yml`; those files still pass through the same text import rules.
-
-# Raw Json and Xray Profile
-
-Raw Json and Xray Profile can be exported from their menus as JSON text or JSON files. They are intended for manual copy, external editing, or backup workflows.
-
-They are not imported through the generic share/import pipeline as app-native records. To create Raw Json inside OneXray, use `Home > Add > Manual Input > Raw Json`. To create Xray Profile, use the relevant Core page.
-
-# Backup
-
-Use [Backup and Restore]({{< relref path="../setting/backup/index.md" lang="en" >}}) when you need a complete migration that includes local configs, subscriptions, and custom GeoData files.
+Generic import creates only subscriptions and outbound nodes. Raw Json and Xray Profile exports are intended for manual editing or backup and must be created from their own app pages.

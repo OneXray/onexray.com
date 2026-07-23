@@ -3,34 +3,21 @@ title: Share
 weight: 2
 ---
 
-OneXray использует общие форматы обмена данными вместо legacy private import format.
+OneXray использует стандартные форматы вместо частного app-link формата.
 
-| Тип | Формат share |
+| Тип | Формат |
 | --- | --- |
-| Outbound nodes | Стандартный Xray share link text и QR code, если это поддерживает libXray. |
-| Subscriptions | Обычный HTTPS subscription URL. |
-| Raw Json | JSON text и `.json` file. |
-| Xray Profile | JSON text и `.json` file. |
-| GeoData | Не передается отдельно. Для полной миграции используйте Backup. |
+| Outbound | Стандартный Xray share text и QR, поддерживаемые libXray. |
+| Subscription | HTTPS URL. |
+| Raw Json | JSON text или `.json`. |
+| Xray Profile | JSON text или `.json`. |
+| GeoData | Используйте Backup. |
 
 # Import
 
-Imported text классифицируется запущенным приложением:
+1. Если trimmed text начинается с `https://`, каждая валидная HTTPS-строка импортируется как подписка.
+2. Иначе libXray разбирает полный текст как outbound share content.
 
-| Input | Behavior |
-| --- | --- |
-| `https://...` | Добавляет подписку и обновляет ее. |
-| Standard Xray share text | Импортирует Outbound nodes через libXray. |
-| Other text | Завершается без valid config, если libXray не может прочитать Outbound nodes. |
+Fragment URL используется как имя и удаляется перед сохранением. Текстовые файлы: `txt`, `json`, `yaml`, `yml`; QR images: `png`, `jpg`, `jpeg`.
 
-QR image import поддерживает `png`, `jpg` и `jpeg`. Text file import поддерживает `txt`, `json`, `yaml` и `yml`; такие файлы проходят через те же правила text import.
-
-# Raw Json and Xray Profile
-
-Raw Json и Xray Profile можно экспортировать из их меню как JSON text или JSON files. Это предназначено для ручного копирования, внешнего редактирования или backup workflows.
-
-Они не импортируются generic share/import pipeline как app-native records. Чтобы создать Raw Json внутри OneXray, используйте `Home > Add > Manual Input > Raw Json`. Чтобы создать Xray Profile, используйте соответствующую страницу Core.
-
-# Backup
-
-Используйте [Backup and Restore]({{< relref path="../setting/backup/index.md" lang="ru" >}}), если нужна полная миграция local configs, subscriptions и custom GeoData files.
+Обычный import создает только subscriptions и Outbound. Экспорт Raw Json/Xray Profile предназначен для ручного редактирования или backup.

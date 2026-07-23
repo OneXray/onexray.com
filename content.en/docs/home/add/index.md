@@ -3,65 +3,48 @@ title: Add and Import
 weight: 1
 ---
 
-Use the add menu on the Home page to create local nodes, add subscriptions, scan QR codes, pick files, pick images, or read text from the clipboard.
+Use the Home add menu to create local nodes, add subscription links, scan QR codes, pick images or files, and read the pasteboard.
 
 # Manual Input
 
-Manual input opens a submenu. Choose `Outbound` to create a structured local outbound node, choose `Full Config` to create a structured local node with custom outbounds and routing, or choose `Raw Json` to create a local full Xray JSON config.
+`Manual Input` contains:
 
-The outbound editor writes a single outbound node. The Full Config editor writes a structured node-level config. The Raw Json editor writes a full JSON config. All three appear under the Home `Local` group.
+| Item | Result |
+| --- | --- |
+| Outbound | Creates one structured local outbound node. |
+| Full Config | Creates a structured local node with outbounds, routing, and DNS. |
+| Raw Json | Creates an advanced local Xray JSON config. |
 
-# Subscription Link
+All three are shown in the Home `Local` group.
 
-Subscription input creates a subscription row and immediately downloads it. The subscription name is read from the URL fragment when available. Empty names become `anonymous`.
+# HTTPS Subscription Links
 
-Example:
+Text whose trimmed content starts with `https://` is treated as subscription input. Batch import accepts one HTTPS link per line.
 
 ```text
-https://example.com/sub.txt#MySubscription
+https://example.com/first#First
+https://example.com/second#Second
 ```
 
-Subscriptions only import outbound nodes.
+The URL fragment is decoded as the initial subscription name and removed before the URL is saved. An empty name becomes `anonymous`. Invalid lines are skipped. Downloads use a 60-second receive timeout.
 
-# Supported Import Text
+To import share links instead, the first non-whitespace content must not start with `https://`.
 
-OneXray classifies imported text by the first valid format it can read.
+# Other Supported Text
 
-| Input | Behavior |
+Other text is parsed by libXray and imports outbound nodes only:
+
+- Xray share links, including multi-line share text
+- Clash / Mihomo YAML supported by libXray
+- Xray JSON supported by libXray
+
+Generic import does not create Full Config, Raw Json, Xray Profile, or GeoData records. Parsed outbounds are not passed through the manual-save Xray config test.
+
+# QR, Image, File, and Pasteboard
+
+| Entry | Supported input |
 | --- | --- |
-| `https://...` | Parsed as a subscription URL. |
-| Xray share links | Parsed by libXray and imported as outbound nodes. |
-| Multi-line share text | Multiple outbound nodes can be imported at once when libXray supports the content. |
-| Clash.Meta YAML | Parsed by libXray when supported by the bundled core API. |
-| Xray JSON | Parsed by libXray when supported by the bundled core API, but only outbound nodes are imported. |
-
-The generic import pipeline does not create Full Config, Raw Json, Xray Profile, or GeoData records.
-
-## Scan QRCode
-
-The QR scan page reads camera QR codes. It is intended for short node links and HTTPS subscription URLs.
-
-Long links can reduce QR recognition reliability. For long content, use text or file import.
-
-## Pick Image
-
-Image import supports common QR image files such as `png`, `jpg`, and `jpeg`.
-
-## Pick File
-
-File import supports:
-
-| Extension | Handling |
-| --- | --- |
-| `png`, `jpg`, `jpeg` | Decode QR code from image. |
-| `txt`, `json`, `yaml`, `yml` | Read file as text and import it. |
-
-## Read Clipboard
-
-Clipboard import reads plain text and passes it through the same import pipeline.
-
-# Import Scope
-
-Import is an app UI workflow. Use clipboard, file, image, or QR scan import from the add menu.
-
-Imported subscriptions and share text only create outbound nodes. Full Config can be created from `Manual Input > Full Config`; Raw Json can be created from `Manual Input > Raw Json`; Xray Profile and GeoData are managed from their own pages.
+| Scan QR Code | Camera QR content. |
+| Pick Image | `png`, `jpg`, `jpeg`. |
+| Pick File | `txt`, `json`, `yaml`, `yml`, or the image formats above. |
+| Read Pasteboard | Plain text passed through the same import decision order. |

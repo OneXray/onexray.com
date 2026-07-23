@@ -3,44 +3,35 @@ title: Запуск и остановка
 weight: 5
 ---
 
-Используйте нижнюю кнопку на главной странице для запуска и остановки текущего runtime mode.
-
-OneXray поддерживает два runtime modes:
-
-| Mode | Behavior |
-| --- | --- |
-| TUN | Запускает platform VPN/TUN integration и направляет трафик через Xray-core. |
-| Proxy | Запускает локальный Xray и открывает SOCKS/HTTP proxy ports без изменения system proxy, routes, DNS или system VPN state. |
+Кнопка питания внизу Home запускает или останавливает VPN.
 
 # Запуск
 
-При запуске outbound-узла OneXray:
+OneXray:
 
-1. Загружает выбранный узел.
-2. Загружает выбранный Xray Profile. Если сохраненный выбор недействителен, OneXray возвращается к встроенному Simple Profile.
-3. Собирает Final Config из выбранного узла и выбранного Xray Profile.
-4. Применяет Final Outbound, если он настроен.
-5. Применяет runtime fixes: mode-specific inbounds, ping port, metrics, interface binding, env paths и macOS System Extension log handling.
-6. Записывает Final Config в runtime `xray.json`.
-7. В TUN mode запускает VPN tunnel платформы; в Proxy mode запускает локальный Xray.
-8. Проверяет latency и node IP information, если доступно.
+1. Читает режим маршрутизации Home.
+2. Загружает выбранный Xray Profile или использует Simple Profile.
+3. Загружает Outbound, Full Config или Raw Json; Direct не требует узла.
+4. Формирует Final Config и применяет Final Outbound.
+5. Применяет преобразование Rule, Global или Direct.
+6. Записывает runtime TUN/`pingIn`, случайные порты, metrics, пути GeoData, interface/route и platform fixes.
+7. Сохраняет `xray.json` и запускает системный VPN/TUN.
 
-TUN и Proxy mode меняют runtime inbounds в Final Config и способ запуска core. Они не отменяют требование, что один Xray Profile должен быть выбран.
+# Смена режима
+
+Смена Rule, Global или Direct при активном подключении выполняет restart: текущий Core останавливается, создается новый Final Config и Core запускается снова. Ошибка stop/start отображается на Home.
 
 # Остановка
 
-Остановка закрывает активный runtime и очищает running state в приложении.
+Остановка завершает VPN/Core и только затем очищает running state. Выбранный узел остается готовым к следующему запуску Rule или Global.
 
-Proxy mode не настраивает операционную систему автоматически и не отображается как system VPN connection. Используйте SOCKS или HTTP address из Xray Profiles при ручной настройке browser, terminal или system proxy.
-
-# Проверка запуска
-
-Запуск может завершиться ошибкой:
+# Ошибки запуска
 
 | Случай | Значение |
 | --- | --- |
-| Invalid outbound | Выбранный узел нельзя преобразовать в корректный Xray outbound. |
-| Missing Final Outbound | Simple Profile указывает на удаленный Final Outbound node. |
-| Invalid Final Outbound | Выбранная Final Outbound row не является outbound или не разбирается. |
-| Same Final Outbound and current node | Final Outbound id совпадает с current Home node id. |
-| Invalid Raw Json | Raw JSON не проходит проверку OneXray или тест Xray-core. |
+| Нет узла | В Rule или Global не выбран узел. |
+| Invalid outbound | Узел нельзя преобразовать в Xray outbound. |
+| Final Outbound отсутствует или некорректен | Выбранная запись удалена или не является Outbound. |
+| Одинаковые узлы | Один локальный Outbound выбран как Home node и Final Outbound. |
+| Invalid Raw Json | JSON нельзя нормализовать или использовать для runtime config. |
+| Нет зависимости | Global не находит `proxy` или зависимость `dialerProxy`. |

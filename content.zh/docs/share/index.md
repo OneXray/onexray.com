@@ -3,34 +3,21 @@ title: 分享
 weight: 2
 ---
 
-OneXray 使用通用格式分享数据，不再使用旧私有导入格式。
+OneXray 使用标准格式，不使用私有 App 链接格式。
 
 | 类型 | 分享格式 |
 | --- | --- |
-| Outbound 节点 | libXray 支持时导出标准 Xray 分享链接文本和二维码。 |
-| 订阅 | 普通 HTTPS 订阅 URL。 |
-| Raw Json | JSON 文本和 `.json` 文件。 |
-| Xray 配置 | JSON 文本和 `.json` 文件。 |
-| GeoData | 不单独分享。完整迁移请使用 Backup。 |
+| Outbound | libXray 支持的标准 Xray 分享文本与二维码。 |
+| 订阅 | HTTPS URL。 |
+| Raw Json | JSON 文本或 `.json` 文件。 |
+| Xray 配置 | JSON 文本或 `.json` 文件。 |
+| GeoData | 使用备份迁移。 |
 
-# 导入
+# 导入判定
 
-导入文本由当前运行的 App 按以下方式分类：
+1. 去除首尾空白后以 `https://` 开头时，按每行一个 HTTPS 订阅处理。
+2. 否则由 libXray 将完整内容解析为 Outbound 分享文本。
 
-| 输入 | 行为 |
-| --- | --- |
-| `https://...` | 添加订阅并刷新。 |
-| 标准 Xray 分享文本 | 通过 libXray 导入 Outbound 节点。 |
-| 其他文本 | 如果 libXray 无法读取 Outbound 节点，则显示无有效配置。 |
+订阅 URL fragment 用作名称，保存前会被删除。文本文件支持 `txt`、`json`、`yaml`、`yml`；二维码图片支持 `png`、`jpg`、`jpeg`。
 
-二维码图片导入支持 `png`、`jpg` 和 `jpeg`。文本文件导入支持 `txt`、`json`、`yaml` 和 `yml`；这些文件仍然走同一套文本导入规则。
-
-# Raw Json 和 Xray 配置
-
-Raw Json 和 Xray 配置可以从各自菜单导出为 JSON 文本或 JSON 文件。它们适合手动复制、外部编辑或备份流程。
-
-它们不会通过通用分享/导入流程重新创建为 App 内部记录。需要创建 Raw Json 时，请使用 `Home > 添加 > 手动输入 > Raw Json`；需要创建 Xray 配置时，请使用对应的 Core 页面。
-
-# Backup
-
-如果需要完整迁移本地配置、订阅和自定义 GeoData 文件，请使用 [备份与恢复]({{< relref path="../setting/backup/index.md" lang="zh" >}})。
+通用导入只创建订阅和 Outbound。Raw Json 与 Xray 配置导出内容用于手动编辑或备份，必须从各自页面创建。

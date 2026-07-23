@@ -3,25 +3,22 @@ title: Core
 weight: 4
 ---
 
-Core 包含直接影响 Xray-core、运行模式、平台隧道、规则数据和诊断信息的设置。
+Core 包含直接影响 Xray-core 的设置与诊断功能。
 
-| 页面 | 用途 |
+| 分区 | 用途 |
 | --- | --- |
-| 运行模式 | 在 TUN 模式和代理模式之间切换。 |
-| TUN | 平台隧道、DNS 地址、网卡绑定、Metrics、按需连接和分应用 VPN。 |
-| Ping | 节点测试使用的 URL、超时和行为。 |
-| Logs | App 日志、Xray 日志和生成后的 Xray 配置文件。 |
-| Xray 配置 | 结构化 Xray-core 配置，包括 简易配置和高级 UI 编辑。 |
-| GeoData | `geosite:` 和 `geoip:` 规则使用的内置和自定义规则集数据。 |
+| 网络 | TUN 设置和 Ping 行为。 |
+| 数据 | Xray 配置、GeoData 和增强路由模板。 |
+| 日志 | 实时 access/error 日志和生成的最终配置。 |
 
-TUN 模式保持当前 VPN/TUN 行为。代理模式只在 App 进程内启动 Xray，并提供本地 SOCKS 和 HTTP 代理端口。它不会修改系统代理、路由或 DNS 设置，也不会显示为系统 VPN 连接；使用代理模式时需要手动配置系统或浏览器代理。
+Release 版本固定通过平台 TUN/VPN 运行。原有面向用户的 TUN/Proxy 切换以及本地 SOCKS/HTTP 入站已删除。
 
-增强路由模板不再从 App 内部直接导入。请在 [Routing]({{< relref path="../routing/index.md" lang="zh" >}}) 页面复制当前 JSON 模板到 Xray 配置。
+Access 和 Error 日志可直接从 Core 的日志分区打开。查看器只读取大文件的尾部并持续跟随新内容，不会一次加载完整日志。生成的 Xray 配置支持选择和复制文本。
 
 相关页面：
 
 - [TUN 设置]({{< relref path="../setting/tun/index.md" lang="zh" >}})
 - [Ping]({{< relref path="../setting/ping/index.md" lang="zh" >}})
-- [Log]({{< relref path="../setting/log/index.md" lang="zh" >}})
+- [日志]({{< relref path="../setting/log/index.md" lang="zh" >}})
 - [Xray 配置]({{< relref path="../home/outbound/xrayProfile/index.md" lang="zh" >}})
 - [GeoData]({{< relref path="../setting/geoData/index.md" lang="zh" >}})

@@ -3,53 +3,37 @@ title: TUN 设置
 weight: 1
 ---
 
-TUN 设置控制所有配置共用的平台隧道和网卡行为。
+TUN 设置作用于所有 Home 配置，用于控制平台隧道。
 
-# TUN
+# DNS
 
-TUN 设备是一张虚拟网卡。VPN 启动后，平台会创建或激活隧道，并把流量导入 Xray-core。
+TUN DNS 包含一个 IPv4 和一个 IPv6 地址，不包含端口。
 
-## DNS
+- 平台隧道使用这些地址接收系统 DNS 流量。
+- 简易配置将 IPv4 值只读显示为默认 `tcp://` DNS Server。
+- 新建自定义 Xray 配置和 Full Config 时，第一个 DNS Server 默认使用该 IPv4 值。
+- 运行时，开启 IPv6 会将 DNS `queryStrategy` 统一写为 `UseIP`，关闭时写为 `UseIPv4`。
 
-TUN DNS 包含一个 IPv4 地址和一个 IPv6 地址。它们是纯 IP 地址，不包含端口。
+# IPv6
 
-启动时，这些地址会应用到隧道上。系统 DNS 查询进入 Xray-core 后，由路由和 DNS outbound 处理。
+IPv6 开关同时控制 TUN IPv6 路由、DNS 查询策略和是否写入 IPv6 FakeDNS 地址池。它取代了旧的逐项 `UseIP / UseIPv4 / UseIPv6` 选择。
 
-这些 DNS 地址也会影响平台在 Xray 配置 DNS 可用之前如何解析代理服务器域名。
+# DNS over TLS
 
-## DNS over TLS
+iOS 和 macOS 支持 DNS over TLS。启用后平台使用配置的 Server Name，Xray 配置中的 `dnsDoT` 规则可处理 853 端口流量。
 
-DNS over TLS 适用于 iOS 和 macOS。开启后，DoT 流量可由 `dnsDoT` 路由规则处理。
+# Metrics
 
-在部分 iOS packet tunnel 场景中，使用 DoT 可以降低内存压力。
+Metrics 会写入运行时 policy/stats/metrics，并在 Home 显示流量计数。关闭后这些字段会从最终配置移除。
 
-## 优先级
+# 出站网卡
 
-优先级仅适用于 Linux。它控制 OneXray TUN 设备默认路由的 metric。
+Windows 和 Linux 可选择 `auto` 或指定网卡。OneXray 会将结果写入 TUN 路由字段，并避免 Core 自身流量重新进入 TUN。
 
-等效行为示例：
+# On Demand
 
-```shell
-sudo ip route add default dev OneXrayTun metric 20
-sudo ip -6 route add default dev OneXrayTun metric 20
-```
+iOS 和 macOS 支持按网络接口类型与 Wi-Fi SSID 排序的 On Demand 规则，也可配置睡眠时断开。
 
-## 网卡
+# Per-App VPN
 
-网卡选择适用于 Linux 和 Windows。
-
-开启网卡修正后，OneXray 可以把所选网卡写入 outbound socket option 和 TUN inbound 的 `autoOutboundsInterface`，用于确保代理流量走预期物理网卡。
-
-## Metrics
-
-Metrics 控制 OneXray 是否在运行时配置中写入 Xray 流量统计，并读取 Home 连接状态区展示所需的流量计数。
-
-Metrics 关闭时，OneXray 不会把 `policy`、`stats` 或 `metrics` 写入生成后的运行时 Xray JSON。
-
-# 按需开启
-
-按需规则适用于 iOS 和 macOS。它允许系统根据网络条件决定是否激活 VPN。
-
-# 按应用开启
-
-按应用 VPN 适用于 Android。未选择 App 时，所有 App 使用 VPN；选择 App 后，仅选中的 App 使用 VPN。
+Android 支持允许列表和禁止列表。可从 Per-App VPN 分区进入“已选应用”和“已安装应用”。列表为空时按当前模式使用正常的全应用行为。

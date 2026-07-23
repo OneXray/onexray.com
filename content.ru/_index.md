@@ -5,29 +5,28 @@ type: docs
 
 OneXray — кроссплатформенный клиент Xray-core для iOS, macOS, Android, Windows и Linux.
 
-Текущая версия приложения разделена на четыре основных раздела:
+Приложение состоит из четырех основных разделов:
 
 | Раздел | Назначение |
 | --- | --- |
-| Home | Состояние подключения, текущий узел, запуск и остановка VPN, единый список узлов. |
-| Subscriptions | Управление источниками подписок и список Outbound-узлов внутри каждой подписки. |
-| Core | Настройки Xray-core: TUN, Ping, Logs, Xray Profiles и GeoData. |
-| Settings | Настройки приложения, автообновление, резервные копии, очистка данных, поддержка, Credits и Privacy. |
+| Home | Состояние подключения, режимы Rule/Global/Direct, активный Xray Profile, трафик, местоположение и список узлов. |
+| Subscriptions | Источники подписок и их outbound-узлы. |
+| Core | TUN, Ping, Xray Profiles, GeoData, журналы и итоговая конфигурация. |
+| Settings | Обновления, резервные копии, оформление, язык, поддержка, версии, лицензии и конфиденциальность. |
 
-На телефонах эти разделы отображаются в нижней навигации. На планшетах и настольных системах используется боковая навигация. Вторичные страницы открываются внутри текущего основного раздела.
+На телефонах используется нижняя навигация, на планшетах и компьютерах — боковая. Адаптивные редакторы меняют компоновку, но не набор полей.
 
-## Загрузка
+## Скачать
 
-| Платформа | Требования | Загрузка |
+| Платформа | Требования | Скачать |
 | --- | --- | --- |
-| iOS | iOS 15.0 и выше, arm64 | [App Store](https://apps.apple.com/us/app/onexray/id6745748773), [IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
-| macOS (Mac App Store) | macOS 12.0 и выше, Apple silicon или Intel | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
-| macOS (вне App Store) | macOS 12.0 и выше, Apple silicon или Intel | Homebrew: `brew install --cask onexrayse`, [Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
-| Android | Android 10.0 и выше, arm64-v8a или x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray), [Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows | Windows 10 или Windows 11, x86_64 | winget: `winget install --id YuanDevLLC.OneXray -e`, [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
+| iOS | iOS 15.0 и новее, arm64 | [App Store](https://apps.apple.com/us/app/onexray/id6745748773), [IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
+| macOS (Mac App Store) | macOS 12.0 и новее, Apple silicon или Intel | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
+| macOS (вне App Store) | macOS 12.0 и новее, Apple silicon или Intel | Homebrew: `brew install --cask onexrayse`, [Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
+| Android | Android 10.0 и новее, arm64-v8a или x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray), [Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
+| Windows x86_64 | Windows 10 или Windows 11 | winget: `winget install --id YuanDevLLC.OneXray -e`, [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
+| Windows ARM64 | Windows 11 | winget: `winget install --id YuanDevLLC.OneXray -e`, [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.exe), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) |
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-Настройка macOS вне App Store, Windows winget и Linux ZIP описана на странице [Установка]({{< relref path="docs/install/index.md" lang="ru" >}}).
-
-Для integration notes и точной runtime-семантики начните с [AI Reference]({{< relref path="docs/reference/index.md" lang="ru" >}}) и [Develop]({{< relref path="docs/develop/index.md" lang="ru" >}}).
+Инструкции для отдельных платформ приведены на странице [Установка]({{< relref path="docs/install/index.md" lang="ru" >}}).

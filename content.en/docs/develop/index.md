@@ -3,33 +3,24 @@ title: Develop
 weight: 4
 ---
 
-This page documents import behavior and runtime data semantics for advanced users and integrations.
+This page summarizes import and runtime boundaries for integrations.
 
-# Import Decision Order
+# Import Boundary
 
-When OneXray receives import text from the app UI, it uses this order:
+The UI import decision is intentionally simple:
 
-1. Text starting with `https://` is treated as a subscription URL.
-2. Other text is parsed as outbound share content by libXray.
+1. Trim the text.
+2. If it starts with `https://`, parse every valid HTTPS line as a subscription.
+3. Otherwise, pass the full text to libXray and keep valid outbound models.
 
-The import pipeline no longer handles legacy private import text, GeoData import payloads, Full Config records, Raw Json records, or Xray Profile records.
+Fragments are not persisted in subscription URLs. Generic import does not run the manual-save Xray config test and does not create Full Config, Raw Json, Xray Profile, or GeoData records.
 
-# Supported Import Text
+# Runtime Boundary
 
-| Format | Result |
-| --- | --- |
-| HTTPS subscription URL | Adds a subscription row, refreshes the URL, and imports outbound nodes. |
-| Standard Xray share link | Imports outbound nodes through libXray. |
-| Multi-line Xray share text | Imports multiple outbound nodes when libXray can parse them. |
-| Clash.Meta YAML | Imports outbound nodes when supported by the bundled libXray API. |
-| Xray JSON | Imports outbound nodes when supported by the bundled libXray API. |
+OneXray's stored node/profile data is not the Xray-core process contract. Before startup the app composes a Final Config, applies the selected Rule/Global/Direct mode, rewrites runtime-owned fields, and writes `xray.json`.
 
-Subscriptions are outbound-only. They do not create Full Config, Raw Json, Xray Profile, GeoData, DNS, routing, inbounds, policy, stats, metrics, or logs.
-
-Raw Json and Xray Profile can still be exported as JSON text or JSON files from their own pages, but they are not accepted by the generic import pipeline as app-native records.
+Release builds use the platform TUN/VPN path. The Proxy run mode is an internal Debug-only facility and must not be treated as a public user feature or stable integration API.
 
 # Desktop Integration
 
-Desktop packages are app-only. Start, stop, import, export, backup, and restore actions are exposed through the OneXray UI.
-
-OneXray does not expose a stable local machine-control interface. External tools should treat the documented JSON formats as data formats, not as a runtime control contract.
+Desktop packages expose their lifecycle through the OneXray UI. There is no stable local machine-control API for external tools.

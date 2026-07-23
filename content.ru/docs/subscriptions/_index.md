@@ -3,26 +3,32 @@ title: Subscriptions
 weight: 3
 ---
 
-Subscriptions управляет удаленными источниками Outbound-узлов.
+Subscriptions — удаленные источники outbound-узлов.
 
-# Поддерживаемый контент
+# Поддерживаемые данные
 
-Подписки импортируют только Outbound-узлы. OneXray читает поддерживаемые Xray share links, Clash.Meta YAML или Xray JSON через встроенный libXray API и сохраняет результат как `CoreConfigType.outbound`.
+OneXray через libXray разбирает поддерживаемые Xray share links, Clash / Mihomo YAML и Xray JSON и сохраняет только валидные Outbound.
 
-Подписки не импортируют Full Config, Raw Json, Xray Profile, GeoData, DNS, routing, inbounds, policy, stats, metrics или logs.
+Подписки не создают Full Config, Raw Json, Xray Profile, GeoData, DNS, routing, inbound, log, policy, stats или metrics.
 
-# Поведение списка
+# Добавление и пакетный импорт
 
-Страница Subscriptions показывает источники подписок. Для строки подписки доступны refresh, ping, share как HTTPS URL, edit, delete и clean.
+Отдельная страница добавляет один HTTPS URL. Обычный import текста/файла/буфера может добавить несколько подписок, если trimmed text начинается с `https://` и содержит одну ссылку на строку.
 
-При нажатии на подписку открывается список Outbound-узлов этой подписки. Эта страница предназначена для просмотра и управления: нажатие на узел не выбирает его как активный узел Home.
+Fragment становится именем, но удаляется из сохраненного URL:
 
-# Восстановление
+```text
+https://example.com/sub#Work
+```
 
-Backup сохраняет записи подписок и URL, но не строки узлов подписок. При restore OneXray создает записи подписок заново и обновляет URL, чтобы загрузить узлы.
+Сохраняется URL `https://example.com/sub`, имя — `Work`. Receive timeout — 60 секунд.
 
-Связанные страницы:
+# Список
 
-- [Add and Import]({{< relref path="../home/add/index.md" lang="ru" >}})
-- [Share]({{< relref path="../share/index.md" lang="ru" >}})
-- [Backup and Restore]({{< relref path="../setting/backup/index.md" lang="ru" >}})
+Подписку можно открыть, обновить, проверить, поделиться, изменить, очистить или удалить. Страница узлов использует Home list/search, но клик по карточке не меняет активный Home node.
+
+Пакетный импорт не запускает auto-ping queue, чтобы большие наборы не блокировали desktop. Один импорт и обычный refresh могут запустить ping.
+
+# Backup Restore
+
+Backup хранит источники подписок, а не скачанные узлы. После восстановления узлы загружаются снова.
