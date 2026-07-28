@@ -18,6 +18,12 @@ TUN DNS содержит IPv4 и IPv6 адреса без портов.
 
 Переключатель одновременно управляет TUN IPv6 route, DNS query strategy и записью IPv6 FakeDNS pool. Он заменяет старые отдельные `UseIP / UseIPv4 / UseIPv6`.
 
+# Route (Apple)
+
+На iOS и macOS доступна включенная по умолчанию настройка `Исключать локальные сети`. Она оставляет трафик локальной сети и multicast, включая обнаружение AirPlay и DLNA/SSDP, вне VPN.
+
+Это системная route policy туннеля Apple, независимая от routing rules в Xray Profile.
+
 # DNS over TLS
 
 iOS и macOS поддерживают DoT с настроенным Server Name; правило `dnsDoT` может маршрутизировать порт 853.

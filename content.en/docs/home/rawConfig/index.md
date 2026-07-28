@@ -21,7 +21,7 @@ Generic share/file import does not create Raw Json entries. Create one from `Hom
 
 # Final Config
 
-In Rule mode, Raw Json remains the main body, but OneXray replaces its inbounds with the selected Xray Profile's runtime `tunIn` plus a newly generated `pingIn`.
+In Rule mode, Raw Json remains the main body, but OneXray replaces its inbounds with the selected Xray Profile's runtime `tunIn`, additional inbounds, and a newly generated `pingIn`.
 
 OneXray also applies:
 

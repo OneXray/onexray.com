@@ -25,7 +25,7 @@ The editor contains six sections:
 
 | Section | Main fields |
 | --- | --- |
-| Inbounds | `tunIn` and internal `pingIn`. |
+| Inbounds | `tunIn`, additional SOCKS/HTTP/dokodemo-door inbounds, and internal `pingIn`. |
 | Outbounds | Final Outbound and system `direct`, `fragment`, `block`, `dnsOut`. |
 | Routing | Domain strategy, system rules, and ordered custom rules. |
 | DNS | Hosts, ordered servers, cache/fallback/stale options, client IP, and parallel/system-host behavior. |
@@ -33,6 +33,22 @@ The editor contains six sections:
 | Log | Log level, DNS log, and address masking. |
 
 On phones these section controls scroll horizontally; on larger layouts they become a side navigation. The fields themselves are unchanged.
+
+# Additional Inbounds
+
+A custom Xray Profile can add any number of local inbounds:
+
+| Type | Fields and behavior |
+| --- | --- |
+| SOCKS | Localhost or all interfaces, port, unique tag, optional user/password; UDP is always enabled. |
+| HTTP | Localhost or all interfaces, port, unique tag, and optional user/password. |
+| dokodemo-door | Localhost listener, port, unique tag, target address/port, and TCP, UDP, or TCP+UDP. |
+
+Listening on all interfaces requires both a user and password. Tags and listener ports must be unique and cannot conflict with app-managed or DNS inbound tags.
+
+Additional inbound tags are available to custom Routing rules. OneXray does not create forwarding rules automatically: add the required routing rules yourself. Renaming an inbound updates references in custom rules, while an inbound still referenced by a rule cannot be deleted.
+
+In release/TUN runtime, the Final Config contains `tunIn`, the selected Profile's additional inbounds, and `pingIn`. Full Config and Raw Json use those same Profile-owned inbounds; Raw Json's own inbounds remain ignored.
 
 # DNS
 
@@ -95,4 +111,4 @@ The default DNS is routed through `proxy`. Optional region-specific local DNS is
 
 # Runtime Ownership
 
-OneXray always rewrites runtime TUN and `pingIn` inbounds, ping/metrics ports, GeoData paths, Windows/Linux route fields, and macOS System Extension log behavior. Those generated values are not stable user-owned profile fields.
+OneXray always rewrites app-managed runtime `tunIn` and `pingIn`, ping/metrics ports, GeoData paths, Windows/Linux route fields, and macOS System Extension log behavior. Additional inbounds remain Profile-owned and are inserted between `tunIn` and `pingIn` in TUN mode.

@@ -18,6 +18,12 @@ TUN DNS contains one IPv4 and one IPv6 address, without ports.
 
 The IPv6 switch controls the TUN IPv6 route, DNS query strategy, and whether the IPv6 FakeDNS pool is written. It replaces the old per-DNS `UseIP / UseIPv4 / UseIPv6` controls.
 
+# Route (Apple)
+
+iOS and macOS provide `Exclude Local Networks`, enabled by default. It keeps local-network and multicast traffic, such as AirPlay and DLNA/SSDP discovery, outside the VPN.
+
+This is an Apple platform tunnel route policy. It is separate from Xray Profile routing rules.
+
 # DNS over TLS
 
 DNS over TLS is available on iOS and macOS. When enabled, the platform uses the configured server name and the profile's `dnsDoT` rule can route port 853 traffic.

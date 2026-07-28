@@ -39,6 +39,17 @@ A connected mode change restarts the Core.
 
 Subscription fragments provide names but are removed from saved URLs. File extensions: `txt`, `json`, `yaml`, `yml`, `png`, `jpg`, `jpeg`. Generic import never creates Raw Json, Full Config, Xray Profile, or GeoData.
 
+# Startup Settings
+
+| Setting | Scope | Default | Meaning |
+| --- | --- | --- | --- |
+| `connectOnAppLaunch` | All platforms | `false` | Starts the last usable configuration after app services are ready; falls back to a random node. Direct mode does not require a node. |
+| Launch at Login | macOS, Windows, Linux | Disabled | Uses the platform's per-user startup registration. |
+| `desktopStartHidden` | macOS, Windows, Linux | `false` | Keeps the main window hidden whenever OneXray starts, independently of Launch at Login. |
+| Hide icon in Dock | macOS | `false` | Applies immediately to the current app session. |
+
+Clear Data unregisters Launch at Login and removes `connectOnAppLaunch` and `desktopStartHidden`.
+
 # Simple Profile Defaults
 
 | Field | Default |
@@ -70,15 +81,25 @@ Runtime query strategy is derived from TUN Settings:
 
 New custom Profile and Full Config DNS servers default to the current TUN IPv4 DNS. Full Config owns `outbounds`, `routing`, and `dns`; it does not own FakeDNS.
 
+# Additional Profile Inbounds
+
+Custom Xray Profiles support additional SOCKS, HTTP, and dokodemo-door inbounds. SOCKS/HTTP can listen on localhost or all interfaces; all-interface listeners require complete credentials. dokodemo-door listens on localhost and accepts a target address, target port, and TCP/UDP mode.
+
+Listener tags and ports must be unique. Their tags are available to custom routing rules, but OneXray does not create forwarding rules automatically.
+
+# Ping
+
+Ping preferences persist timeout, URL, and Auto Ping New Configs. OneXray submits node tests in fixed groups of at most five; there is no persisted concurrency setting.
+
 # Runtime Composition
 
 | Stored type | Rule-mode Final Config |
 | --- | --- |
 | Outbound | Selected profile plus Home outbound as `proxy`, with optional Final Outbound reversal through `chainProxy`. |
 | Full Config | Profile base with Full Config `outbounds/routing/dns`; Profile FakeDNS/inbounds/log/metrics remain. |
-| Raw Json | Raw body with app-managed inbounds, DNS strategy, logs, metrics, env, and route fields rewritten. |
+| Raw Json | Raw body with app-managed/Profile inbounds, DNS strategy, logs, metrics, env, and route fields rewritten. |
 
-Release runtime inbounds are `tunIn` and `pingIn`. User Raw Json inbounds are removed during validation, Real Ping, save, and startup.
+Release runtime inbounds are `tunIn`, the selected Profile's additional inbounds, and `pingIn`. User Raw Json inbounds are removed during validation, Real Ping, save, and startup.
 
 # Runtime-Owned Fields
 
@@ -86,6 +107,7 @@ Release runtime inbounds are `tunIn` and `pingIn`. User Raw Json inbounds are re
 - `env.xray.location.asset` and `env.xray.location.cert`
 - Mobile `env.xray.tun.fd`
 - Windows/Linux TUN gateway, DNS, routes, and outbound interface
+- Apple `excludeLocalNetworks` tunnel route policy, enabled by default
 - Access/error log paths or macOS System Extension log disabling
 - Optional policy/stats/metrics
 

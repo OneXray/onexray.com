@@ -23,7 +23,7 @@ Final Config — runtime `xray.json`, записанный перед запус
 
 | Раздел | Основные поля |
 | --- | --- |
-| Inbounds | `tunIn` и внутренний `pingIn`. |
+| Inbounds | `tunIn`, дополнительные SOCKS/HTTP/dokodemo-door inbounds и внутренний `pingIn`. |
 | Outbounds | Final Outbound и системные `direct`, `fragment`, `block`, `dnsOut`. |
 | Routing | Domain Strategy, системные и упорядоченные custom rules. |
 | DNS | Hosts, упорядоченные servers, cache/fallback/stale, client IP, parallel query и system hosts. |
@@ -31,6 +31,22 @@ Final Config — runtime `xray.json`, записанный перед запус
 | Log | Log level, DNS log и mask address. |
 
 На телефонах навигация прокручивается горизонтально; на широком экране используется боковое меню. Набор полей одинаков.
+
+# Дополнительные Inbounds
+
+Custom Xray Profile может содержать любое количество локальных inbounds:
+
+| Тип | Поля и поведение |
+| --- | --- |
+| SOCKS | localhost или все интерфейсы, порт, уникальный tag, необязательные user/password; UDP всегда включен. |
+| HTTP | localhost или все интерфейсы, порт, уникальный tag и необязательные user/password. |
+| dokodemo-door | Только localhost, порт, уникальный tag, target address/port и TCP, UDP или TCP+UDP. |
+
+Для прослушивания всех интерфейсов необходимо указать и user, и password. Tags и порты прослушивания должны быть уникальными и не могут совпадать с app-managed или DNS inbound tags.
+
+Tags дополнительных inbounds доступны в custom Routing rules. OneXray не создает forwarding rules автоматически: необходимые routing rules добавляет пользователь. При переименовании inbound ссылки в custom rules обновляются; inbound, на который еще ссылается правило, удалить нельзя.
+
+В release/TUN Final Config содержит `tunIn`, дополнительные inbounds выбранного Profile и `pingIn`. Full Config и Raw Json используют те же Profile-owned inbounds; собственные inbounds Raw Json по-прежнему игнорируются.
 
 # DNS
 
@@ -89,4 +105,4 @@ Default DNS направляется через `proxy`. Региональны�
 
 # Runtime Ownership
 
-OneXray всегда переписывает runtime TUN/`pingIn`, случайные ping/metrics ports, пути GeoData, Windows/Linux route fields и поведение logs в macOS System Extension.
+OneXray всегда переписывает app-managed runtime `tunIn`/`pingIn`, случайные ping/metrics ports, пути GeoData, Windows/Linux route fields и поведение logs в macOS System Extension. Дополнительные inbounds остаются частью Profile и в режиме TUN вставляются между `tunIn` и `pingIn`.

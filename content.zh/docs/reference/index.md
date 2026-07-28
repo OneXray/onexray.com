@@ -39,6 +39,17 @@ weight: 8
 
 订阅 fragment 用作名称，但不会保存到 URL。支持文件扩展名：`txt`、`json`、`yaml`、`yml`、`png`、`jpg`、`jpeg`。通用导入不创建 Raw Json、Full Config、Xray 配置或 GeoData。
 
+# 启动设置
+
+| 设置 | 范围 | 默认值 | 含义 |
+| --- | --- | --- | --- |
+| `connectOnAppLaunch` | 所有平台 | `false` | App 服务准备完成后启动上次可用配置；不可用时随机选择节点。直连模式不要求节点。 |
+| 登录时启动 | macOS、Windows、Linux | 关闭 | 使用平台的用户级开机启动注册。 |
+| `desktopStartHidden` | macOS、Windows、Linux | `false` | 每次启动 OneXray 时保持主窗口隐藏，与“登录时启动”相互独立。 |
+| 在程序坞中隐藏图标 | macOS | `false` | 立即应用到当前 App 会话。 |
+
+清除数据会取消“登录时启动”，并删除 `connectOnAppLaunch` 与 `desktopStartHidden` 偏好。
+
 # 简易配置默认值
 
 | 字段 | 默认值 |
@@ -70,15 +81,25 @@ weight: 8
 
 新建自定义 Profile 和 Full Config 时，DNS Server 默认使用当前 TUN IPv4 DNS。Full Config 管理 `outbounds`、`routing` 和 `dns`，不管理 FakeDNS。
 
+# Xray 配置额外入站
+
+自定义 Xray 配置支持额外 SOCKS、HTTP 和 dokodemo-door 入站。SOCKS/HTTP 可监听本机或所有网卡；监听所有网卡时必须填写完整认证信息。dokodemo-door 仅监听本机，并支持目标地址、目标端口和 TCP/UDP 模式。
+
+监听端口与 tag 必须唯一。tag 可用于自定义 Routing Rule，但 OneXray 不会自动创建转发规则。
+
+# Ping
+
+Ping 持久化设置只包含 timeout、URL 和 Auto Ping New Configs。OneXray 固定以最多 5 个节点为一组提交测速，不再保存并发数字段。
+
 # 运行时合成
 
 | 保存类型 | 规则模式最终配置 |
 | --- | --- |
 | Outbound | 当前 Profile 加 Home Outbound `proxy`；可通过 `chainProxy` 应用最终出口反转。 |
 | Full Config | Profile 基础加 Full Config 的 `outbounds/routing/dns`；Profile 的 FakeDNS/inbounds/log/metrics 保留。 |
-| Raw Json | Raw 主体加 App 重写的 inbounds、DNS 策略、日志、metrics、env 和路由字段。 |
+| Raw Json | Raw 主体加 App/Xray 配置重写的 inbounds、DNS 策略、日志、metrics、env 和路由字段。 |
 
-Release 运行时 inbounds 为 `tunIn` 与 `pingIn`。用户 Raw Json inbounds 在校验、Real Ping、保存和启动时都会被删除。
+Release 运行时 inbounds 为 `tunIn`、当前 Xray 配置的额外入站与 `pingIn`。用户 Raw Json inbounds 在校验、Real Ping、保存和启动时都会被删除。
 
 # 运行时所有权字段
 
@@ -86,6 +107,7 @@ Release 运行时 inbounds 为 `tunIn` 与 `pingIn`。用户 Raw Json inbounds �
 - `env.xray.location.asset` 与 `env.xray.location.cert`
 - 移动端 `env.xray.tun.fd`
 - Windows/Linux TUN gateway、DNS、路由和出站网卡
+- Apple `excludeLocalNetworks` 隧道路由策略，默认开启
 - Access/Error 日志路径，或 macOS System Extension 日志禁用
 - 可选 policy/stats/metrics
 

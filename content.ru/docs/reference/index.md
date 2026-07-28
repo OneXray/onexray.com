@@ -39,6 +39,17 @@ weight: 8
 
 Fragment задает имя, но не сохраняется в URL. Extensions: `txt`, `json`, `yaml`, `yml`, `png`, `jpg`, `jpeg`. Обычный import не создает Raw Json, Full Config, Xray Profile или GeoData.
 
+# Startup Settings
+
+| Setting | Scope | Default | Значение |
+| --- | --- | --- | --- |
+| `connectOnAppLaunch` | Все платформы | `false` | После подготовки сервисов запускает последнюю доступную конфигурацию; при необходимости выбирает случайный узел. Direct не требует узла. |
+| Запускать при входе | macOS, Windows, Linux | Выключено | Использует пользовательскую регистрацию автозапуска платформы. |
+| `desktopStartHidden` | macOS, Windows, Linux | `false` | Скрывает главное окно при каждом запуске OneXray независимо от запуска при входе. |
+| Скрыть иконку в Dock | macOS | `false` | Применяется сразу к текущему сеансу приложения. |
+
+Clear Data отменяет запуск при входе и удаляет настройки `connectOnAppLaunch` и `desktopStartHidden`.
+
 # Simple Profile Defaults
 
 | Field | Default |
@@ -68,15 +79,25 @@ Block Ads добавляет встроенное правило рекламн�
 
 Первый DNS Server нового custom Profile/Full Config равен TUN IPv4 DNS. Full Config управляет `outbounds`, `routing`, `dns`, но не FakeDNS.
 
+# Дополнительные Profile Inbounds
+
+Custom Xray Profile поддерживает дополнительные SOCKS, HTTP и dokodemo-door inbounds. SOCKS/HTTP могут слушать localhost или все интерфейсы; для всех интерфейсов обязательны полные credentials. dokodemo-door слушает localhost и поддерживает target address, target port и режим TCP/UDP.
+
+Порты и tags должны быть уникальными. Tags доступны custom Routing rules, но OneXray не создает forwarding rules автоматически.
+
+# Ping
+
+Настройки Ping сохраняют только timeout, URL и Auto Ping New Configs. OneXray отправляет тесты фиксированными группами не более пяти узлов; persisted concurrency отсутствует.
+
 # Runtime Composition
 
 | Stored type | Rule-mode Final Config |
 | --- | --- |
 | Outbound | Profile + Home Outbound `proxy`, при необходимости Final Outbound через `chainProxy`. |
 | Full Config | Profile base + Full Config `outbounds/routing/dns`; Profile FakeDNS/inbounds/log/metrics сохраняются. |
-| Raw Json | Raw body с переписанными inbounds, DNS strategy, logs, metrics, env и route fields. |
+| Raw Json | Raw body с переписанными App/Profile inbounds, DNS strategy, logs, metrics, env и route fields. |
 
-Release runtime inbounds: `tunIn` и `pingIn`. Пользовательские Raw Json inbounds удаляются при validation, Real Ping, save и startup.
+Release runtime inbounds: `tunIn`, дополнительные inbounds выбранного Profile и `pingIn`. Пользовательские Raw Json inbounds удаляются при validation, Real Ping, save и startup.
 
 # Runtime-Owned Fields
 
@@ -84,6 +105,7 @@ Release runtime inbounds: `tunIn` и `pingIn`. Пользовательские 
 - `env.xray.location.asset` и `env.xray.location.cert`;
 - mobile `env.xray.tun.fd`;
 - Windows/Linux TUN gateway, DNS, routes и outbound interface;
+- Apple tunnel route policy `excludeLocalNetworks`, включенная по умолчанию;
 - access/error paths или отключение logs в macOS System Extension;
 - optional policy/stats/metrics.
 

@@ -14,7 +14,7 @@ OneXray performs the following steps:
 3. Loads the selected Outbound, Full Config, or Raw Json. Direct mode does not require a node.
 4. Composes the Final Config and applies Final Outbound when applicable.
 5. Applies Rule, Global, or Direct routing-mode transformation.
-6. Writes runtime TUN and `pingIn` inbounds, random ports, metrics, GeoData paths, interface/route fields, and platform fixes.
+6. Writes runtime `tunIn`, the selected Profile's additional inbounds, and `pingIn`, plus random ports, metrics, GeoData paths, interface/route fields, and platform fixes.
 7. Writes the runtime `xray.json` and starts the platform VPN/TUN integration.
 
 # Routing Mode Changes

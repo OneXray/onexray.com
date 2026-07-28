@@ -61,7 +61,6 @@ OneXray использует открытые runtimes, библиотеки и 
 - [json_serializable](https://pub.dev/packages/json_serializable)
 - [Pigeon](https://pub.dev/packages/pigeon)
 - [ffigen](https://pub.dev/packages/ffigen)
-- [MSIX](https://pub.dev/packages/msix)
 - [Fastforge](https://fastforge.dev/)
 
 OneXray не содержит Firebase, analytics, telemetry, advertising или crash-reporting SDK.

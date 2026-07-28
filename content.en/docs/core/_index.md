@@ -11,7 +11,7 @@ Core contains the settings and diagnostics that directly affect Xray-core.
 | Data | Xray Profiles, GeoData, and enhanced routing templates. |
 | Logs | Live access/error logs and the generated Final Config. |
 
-Release builds run through the platform TUN/VPN integration. The old user-facing TUN/Proxy selector and local SOCKS/HTTP inbounds have been removed.
+Release builds run through the platform TUN/VPN integration. The old user-facing TUN/Proxy selector has been removed. Custom Xray Profiles can add SOCKS, HTTP, and dokodemo-door inbounds from the Inbounds section.
 
 Access and error logs are opened directly from the Logs section. The viewer initially reads the latest part of a large file and follows new lines without loading the entire log into memory. The generated Xray config viewer supports text selection and copying.
 

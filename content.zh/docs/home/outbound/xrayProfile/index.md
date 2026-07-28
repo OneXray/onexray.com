@@ -25,7 +25,7 @@ Xray 配置是 OneXray 必选的运行时基础。App 始终选中一个配置�
 
 | 分区 | 主要字段 |
 | --- | --- |
-| Inbounds | `tunIn` 和内部 `pingIn`。 |
+| Inbounds | `tunIn`、额外 SOCKS/HTTP/dokodemo-door 入站和内部 `pingIn`。 |
 | Outbounds | 最终出口和系统 `direct`、`fragment`、`block`、`dnsOut`。 |
 | Routing | Domain Strategy、系统规则和可排序自定义规则。 |
 | DNS | Hosts、可排序 Server、缓存/回退/过期选项、Client IP、并行查询和系统 Hosts。 |
@@ -33,6 +33,22 @@ Xray 配置是 OneXray 必选的运行时基础。App 始终选中一个配置�
 | Log | 日志级别、DNS 日志和地址脱敏。 |
 
 手机上分区控件可横向滚动；宽屏使用侧边导航。两种布局的字段完全一致。
+
+# 额外入站
+
+自定义 Xray 配置可以增加任意数量的本地入站：
+
+| 类型 | 字段与行为 |
+| --- | --- |
+| SOCKS | 本机或所有网卡、监听端口、唯一 tag、可选用户名/密码；UDP 始终开启。 |
+| HTTP | 本机或所有网卡、监听端口、唯一 tag、可选用户名/密码。 |
+| dokodemo-door | 仅本机监听、监听端口、唯一 tag、目标地址/端口，以及 TCP、UDP 或 TCP+UDP。 |
+
+监听所有网卡时必须同时填写用户名和密码。tag 与监听端口必须唯一，且不能与 App 管理的入站 tag 或 DNS inbound tag 冲突。
+
+额外入站 tag 可用于自定义 Routing Rule。OneXray 不会自动创建转发规则，所需 routing rule 需要由用户自行添加。重命名入站时会同步修改自定义规则中的引用；仍被规则引用的入站不能删除。
+
+Release/TUN 运行时的最终配置包含 `tunIn`、当前 Xray 配置的额外入站和 `pingIn`。Full Config 与 Raw Json 使用同一组由 Xray 配置管理的入站；Raw Json 自带的 inbounds 仍会被忽略。
 
 # DNS
 
@@ -93,4 +109,4 @@ FakeDNS 始终由当前 Xray 配置管理，即使启动的是 Full Config。Ful
 
 # 运行时所有权
 
-OneXray 始终重写运行时 TUN 与 `pingIn`、ping/metrics 随机端口、GeoData 路径、Windows/Linux 路由字段和 macOS System Extension 日志行为。这些生成值不属于稳定的用户配置字段。
+OneXray 始终重写由 App 管理的运行时 `tunIn` 与 `pingIn`、ping/metrics 随机端口、GeoData 路径、Windows/Linux 路由字段和 macOS System Extension 日志行为。额外入站仍由 Xray 配置管理，并在 TUN 模式下插入 `tunIn` 与 `pingIn` 之间。

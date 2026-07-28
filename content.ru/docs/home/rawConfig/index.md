@@ -21,7 +21,7 @@ Raw Json должен быть корректным JSON с непустым п�
 
 # Final Config
 
-В режиме Rule Raw Json остается основным телом конфигурации, но его inbounds заменяются на `tunIn` из выбранного Xray Profile и новый `pingIn`.
+В режиме Rule Raw Json остается основным телом конфигурации, но его inbounds заменяются на `tunIn`, дополнительные inbounds выбранного Xray Profile и новый `pingIn`.
 
 Также применяются:
 

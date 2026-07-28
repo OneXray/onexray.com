@@ -11,7 +11,7 @@ Core 包含直接影响 Xray-core 的设置与诊断功能。
 | 数据 | Xray 配置、GeoData 和增强路由模板。 |
 | 日志 | 实时 access/error 日志和生成的最终配置。 |
 
-Release 版本固定通过平台 TUN/VPN 运行。原有面向用户的 TUN/Proxy 切换以及本地 SOCKS/HTTP 入站已删除。
+Release 版本固定通过平台 TUN/VPN 运行。原有面向用户的 TUN/Proxy 切换已删除。自定义 Xray 配置可在 Inbounds 分区中增加 SOCKS、HTTP 和 dokodemo-door 入站。
 
 Access 和 Error 日志可直接从 Core 的日志分区打开。查看器只读取大文件的尾部并持续跟随新内容，不会一次加载完整日志。生成的 Xray 配置支持选择和复制文本。
 

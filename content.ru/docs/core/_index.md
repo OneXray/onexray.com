@@ -11,7 +11,7 @@ weight: 4
 | Data | Xray Profiles, GeoData и шаблоны расширенной маршрутизации. |
 | Logs | Журналы access/error и сгенерированный Final Config. |
 
-Release-сборки работают через системную интеграцию TUN/VPN. Пользовательский переключатель TUN/Proxy и локальные SOCKS/HTTP inbounds удалены.
+Release-сборки работают через системную интеграцию TUN/VPN. Пользовательский переключатель TUN/Proxy удален. Custom Xray Profile может добавлять SOCKS, HTTP и dokodemo-door inbounds в разделе Inbounds.
 
 Журналы Access и Error открываются прямо из раздела Logs. Просмотрщик читает только конец большого файла и отслеживает новые строки. Просмотрщик итогового Xray JSON поддерживает выделение и копирование текста.
 

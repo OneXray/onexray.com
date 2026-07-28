@@ -14,7 +14,7 @@ OneXray 会依次：
 3. 加载选中的 Outbound、Full Config 或 Raw Json；直连模式不要求节点。
 4. 合成最终配置，并在需要时应用最终出口。
 5. 应用规则、全局或直连模式转换。
-6. 写入运行时 TUN 与 `pingIn`、随机端口、metrics、GeoData 路径、网卡/路由字段和平台修正。
+6. 写入运行时 `tunIn`、当前 Xray 配置的额外入站和 `pingIn`，以及随机端口、metrics、GeoData 路径、网卡/路由字段和平台修正。
 7. 写入运行时 `xray.json` 并启动平台 VPN/TUN。
 
 # 切换路由模式

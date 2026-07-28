@@ -61,7 +61,6 @@ OneXray is built with open source runtimes, libraries, and build tools.
 - [json_serializable](https://pub.dev/packages/json_serializable)
 - [Pigeon](https://pub.dev/packages/pigeon)
 - [ffigen](https://pub.dev/packages/ffigen)
-- [MSIX](https://pub.dev/packages/msix)
 - [Fastforge](https://fastforge.dev/)
 
 OneXray does not include Firebase, analytics, telemetry, advertising, or crash-reporting SDKs.

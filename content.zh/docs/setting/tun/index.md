@@ -18,6 +18,12 @@ TUN DNS 包含一个 IPv4 和一个 IPv6 地址，不包含端口。
 
 IPv6 开关同时控制 TUN IPv6 路由、DNS 查询策略和是否写入 IPv6 FakeDNS 地址池。它取代了旧的逐项 `UseIP / UseIPv4 / UseIPv6` 选择。
 
+# 路由（Apple）
+
+iOS 和 macOS 提供默认开启的“排除局域网”。它让局域网和多播流量（如 AirPlay 与 DLNA/SSDP 发现）绕过 VPN。
+
+这是 Apple 平台隧道的路由策略，与 Xray 配置中的 Routing Rule 相互独立。
+
 # DNS over TLS
 
 iOS 和 macOS 支持 DNS over TLS。启用后平台使用配置的 Server Name，Xray 配置中的 `dnsDoT` 规则可处理 853 端口流量。

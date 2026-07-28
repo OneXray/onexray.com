@@ -61,7 +61,6 @@ OneXray 基于开源运行时、库和构建工具开发。
 - [json_serializable](https://pub.dev/packages/json_serializable)
 - [Pigeon](https://pub.dev/packages/pigeon)
 - [ffigen](https://pub.dev/packages/ffigen)
-- [MSIX](https://pub.dev/packages/msix)
 - [Fastforge](https://fastforge.dev/)
 
 OneXray 不包含 Firebase、Analytics、Telemetry、广告或崩溃上报 SDK。

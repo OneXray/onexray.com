@@ -8,11 +8,25 @@ Settings contains app-level preferences, maintenance, version information, and s
 | Section | Contents |
 | --- | --- |
 | Data | Auto Update, manual app update check, and Clear Data. |
-| App | Backup, App Icon on iOS, Toolbox on macOS, Theme, and Language. |
+| App | Connect on App Launch, desktop startup behavior, Backup, App Icon on iOS, Theme, and Language. |
 | Version | Installed OneXray and Xray-core versions. |
 | Support | Documentation, review, Telegram, issues, source, credits, and privacy. |
 
 OneXray checks for a newer stable GitHub release after startup, but it no longer opens an update dialog automatically. An available update appears as an indicator on Settings in the mobile navigation or as a clickable item at the bottom of the desktop rail. The full Markdown release notes dialog opens only after a user action.
+
+# Startup
+
+`Connect on App Launch` is available on every platform and is off by default. When enabled, OneXray starts the last usable configuration after app services are ready. If that configuration no longer exists, it selects a random node. Direct mode can start without a node.
+
+Desktop platforms also provide a `Desktop` page:
+
+| Setting | Platforms | Behavior |
+| --- | --- | --- |
+| Launch at Login | macOS, Windows, Linux | Registers OneXray with the operating system's per-user startup mechanism. |
+| Start Hidden | macOS, Windows, Linux | Keeps the main window hidden whenever the app starts. This is independent of Launch at Login. |
+| Hide icon in Dock | macOS | Hides the Dock icon and applies immediately to the current session. |
+
+macOS may require approval under `System Settings > General > Login Items`. OneXray provides a link to that page when approval is required.
 
 # Clear Data
 
@@ -20,4 +34,4 @@ Clear Data first stops the VPN. If stop fails, cleanup is cancelled.
 
 Successful cleanup removes configs, subscriptions, GeoData database rows, runtime files, cache, and custom GeoData. Built-in `geosite` and `geoip` are restored, and the selected Xray Profile returns to Simple Profile.
 
-Local backup ZIP files and app preferences such as privacy acceptance, first-run state, Simple Profile, TUN Settings, theme, language, and platform-specific appearance preferences are kept.
+Cleanup also unregisters Launch at Login and resets Connect on App Launch and Start Hidden. Local backup ZIP files and other app preferences, including privacy acceptance, first-run state, Simple Profile, TUN Settings, theme, language, and platform-specific appearance preferences, are kept.

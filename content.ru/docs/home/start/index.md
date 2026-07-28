@@ -14,7 +14,7 @@ OneXray:
 3. Загружает Outbound, Full Config или Raw Json; Direct не требует узла.
 4. Формирует Final Config и применяет Final Outbound.
 5. Применяет преобразование Rule, Global или Direct.
-6. Записывает runtime TUN/`pingIn`, случайные порты, metrics, пути GeoData, interface/route и platform fixes.
+6. Записывает runtime `tunIn`, дополнительные inbounds выбранного Profile и `pingIn`, а также случайные порты, metrics, пути GeoData, interface/route и platform fixes.
 7. Сохраняет `xray.json` и запускает системный VPN/TUN.
 
 # Смена режима

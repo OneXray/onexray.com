@@ -21,7 +21,7 @@ Raw Json 必须是有效 JSON，并包含非空顶层 `name`。
 
 # 最终配置
 
-规则模式下，Raw Json 继续作为配置主体，但其 inbounds 会被当前 Xray 配置中的运行时 `tunIn` 和新生成的 `pingIn` 替换。
+规则模式下，Raw Json 继续作为配置主体，但其 inbounds 会被当前 Xray 配置中的运行时 `tunIn`、额外入站和新生成的 `pingIn` 替换。
 
 OneXray 还会应用：
 
