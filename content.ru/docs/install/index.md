@@ -18,6 +18,12 @@ weight: 1
 
 Android поддерживает только `arm64-v8a` и `x86_64`; 32-битный ARM не поддерживается.
 
+# iOS IPA
+
+Для самостоятельной установки IPA необходимо повторно подписать OneXray и расширение Packet Tunnel с помощью provisioning profile, разрешающего Network Extension capability. Apple не предоставляет эту возможность бесплатным учетным записям Personal Team, поэтому требуется платное членство в Apple Developer Program. Без него приложение может открываться и проверять задержку узлов, но VPN не запустится.
+
+См. [Apple Developer Forums](https://developer.apple.com/forums/thread/128767) и [Поддерживаемые возможности iOS](https://developer.apple.com/help/account/reference/supported-capabilities-ios/).
+
 # macOS вне App Store
 
 Homebrew и Universal ZIP содержат один пакет Developer ID `macos_se` и устанавливают `OneXraySE.app`. Сборка Mac App Store является отдельным пакетом.

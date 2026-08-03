@@ -29,4 +29,6 @@ Phones use bottom navigation. Tablets and desktops use a navigation rail. The re
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
+Self-installing the iOS IPA requires a paid Apple Developer Program account because its Packet Tunnel extension uses the Network Extension capability.
+
 See [Install]({{< relref path="docs/install/index.md" lang="en" >}}) for platform-specific setup.

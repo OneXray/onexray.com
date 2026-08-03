@@ -18,6 +18,12 @@ weight: 1
 
 Android 仅支持 `arm64-v8a` 和 `x86_64`，不支持 32 位 ARM。
 
+# iOS IPA
+
+自行安装 IPA 时，必须使用授权 Network Extension capability 的 provisioning profile，重新签名 OneXray 主 App 与 Packet Tunnel extension。Apple 不向免费的 Personal Team 账号提供该 capability，因此必须加入付费 Apple Developer Program。否则 App 可能可以打开并进行节点测速，但无法启动 VPN。
+
+参阅 [Apple Developer Forums](https://developer.apple.com/forums/thread/128767) 和 [iOS 支持的能力](https://developer.apple.com/help/account/reference/supported-capabilities-ios/)。
+
 # macOS 商店外分发
 
 Homebrew 和 Universal ZIP 包含同一份 Developer ID `macos_se` 包，安装 `OneXraySE.app`。Mac App Store 是独立商店包。

@@ -29,4 +29,6 @@ App 由四个主要区域组成：
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb)、[ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
+自行安装 iOS IPA 需要付费 Apple Developer Program 账号，因为 Packet Tunnel extension 使用了 Network Extension capability。
+
 平台相关设置请参阅[安装]({{< relref path="docs/install/index.md" lang="zh" >}})。

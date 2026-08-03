@@ -29,4 +29,6 @@ OneXray — кроссплатформенный клиент Xray-core для i
 | Linux x86_64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | GLIBC >= 2.39 | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
+Для самостоятельной установки iOS IPA требуется платная учетная запись Apple Developer Program, поскольку расширение Packet Tunnel использует Network Extension capability.
+
 Инструкции для отдельных платформ приведены на странице [Установка]({{< relref path="docs/install/index.md" lang="ru" >}}).
