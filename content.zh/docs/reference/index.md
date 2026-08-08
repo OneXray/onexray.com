@@ -34,10 +34,17 @@ weight: 8
 
 | 输入 | 结果 |
 | --- | --- |
+| 去除首尾空白后以 `onexray://` 开头 | 导入受支持的 OneXray 配置、订阅或 GeoData 链接。 |
 | 去除首尾空白后以 `https://` 开头 | 每个有效 HTTPS 行成为一个订阅导入项。 |
 | 其他受支持文本 | libXray 返回 Outbound model。 |
 
-订阅 fragment 用作名称，但不会保存到 URL。支持文件扩展名：`txt`、`json`、`yaml`、`yml`、`png`、`jpg`、`jpeg`。通用导入不创建 Raw Json、Full Config、Xray 配置或 GeoData。
+订阅 fragment 用作名称，但不会保存到 URL。支持文件扩展名：`txt`、`json`、`yaml`、`yml`、`png`、`jpg`、`jpeg`。通用 HTTPS/分享文本导入不创建 Raw Json、Full Config、Xray 配置或 GeoData；受支持的 `onexray://` 链接可以创建。
+
+Scheme 接受 `config/add` 的 `outbound/profile/full/raw`、`sub/add` 和 `dat/add`，拒绝旧版 `type=setting`、备份与其他命令。Age 订阅链接只携带 `x25519` 或 `hybrid`，不携带现有密钥对；接收端会生成自己的密钥对。
+
+# Age 加密订阅
+
+Age 加密为可选功能，并且需要供应商支持。OneXray 通过 `X-Age-Public-Key` 发送已保存的公钥，将私钥保留在本机，并在后续刷新时复用同一密钥对。可生成 X25519 与 Mihomo 兼容 Hybrid（`ML-KEM-768 + X25519`），解密后明文上限为 16 MiB。
 
 # 启动设置
 
@@ -49,6 +56,10 @@ weight: 8
 | 在程序坞中隐藏图标 | macOS | `false` | 立即应用到当前 App 会话。 |
 
 清除数据会取消“登录时启动”，并删除 `connectOnAppLaunch` 与 `desktopStartHidden` 偏好。
+
+# 下载 User-Agent
+
+默认使用系统 User-Agent。Android、iOS、macOS 读取系统浏览器标识；Windows、Linux 使用固定的兼容浏览器标识。OneXray User-Agent 包含 App 版本和构建信息。清除数据会把该偏好恢复为“系统”。
 
 # 简易配置默认值
 
@@ -107,7 +118,7 @@ Release 运行时 inbounds 为 `tunIn`、当前 Xray 配置的额外入站与 `p
 - `env.xray.location.asset` 与 `env.xray.location.cert`
 - 移动端 `env.xray.tun.fd`
 - Windows/Linux TUN gateway、DNS、路由和出站网卡
-- Apple `excludeLocalNetworks` 隧道路由策略，默认开启
+- Apple `includeAllNetworks` 以及按条件启用的 `excludeLocalNetworks`、`excludeCellularServices`、`excludeAPNs`、`excludeDeviceCommunication` 隧道策略
 - Access/Error 日志路径，或 macOS System Extension 日志禁用
 - 可选 policy/stats/metrics
 
@@ -126,7 +137,7 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 Raw Json 必须是包含非空 `name` 的 JSON object。手动校验会将 inbounds 替换为 `pingIn`、移除 metrics、应用运行时 env，并调用内置 Xray 配置测试。普通 Outbound/分享导入不执行该手动保存测试。
 
-# Backup v3
+# Backup v4
 
 ```text
 manifest.json
@@ -136,4 +147,4 @@ geo_data.json
 dat/
 ```
 
-Manifest 保存版本 `3` 和创建时间。本地配置与 GeoData 从归档恢复；订阅节点通过恢复的源 URL 重新下载。
+Manifest 保存版本 `4` 和创建时间。OneXray 可恢复结构化 v3 与 v4 归档。本地配置与 GeoData 从归档恢复；订阅节点通过恢复的源 URL 重新下载。v4 订阅记录还可包含 Age 公钥/私钥。备份 ZIP 未加密。

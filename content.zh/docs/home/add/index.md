@@ -17,6 +17,16 @@ Home 的添加菜单可用于创建本地节点、添加订阅链接、扫描二
 
 三种类型都会显示在 Home 的 `Local` 分组。
 
+# OneXray Link
+
+去除首尾空白后以 `onexray://` 开头的文本会被解析为一条或多条 OneXray Link，可导入：
+
+- Outbound、Xray 配置、Full Config 或 Raw Json
+- HTTPS 订阅，以及可选的 X25519/Hybrid Age 加密信息
+- Domain 或 IP GeoData
+
+Age 订阅链接不会传递分享方的密钥。OneXray 会在接收设备上生成新密钥对，并且只在首次下载成功后保存。分享配置引用自定义 GeoData 时，所需 GeoData 链接可能排在配置链接之前。
+
 # HTTPS 订阅链接
 
 去除首尾空白后以 `https://` 开头的文本会被视为订阅输入。批量导入要求每行一个 HTTPS 链接。
@@ -28,7 +38,7 @@ https://example.com/second#第二个
 
 URL fragment 会被解码为初始订阅名称，并在保存 URL 前移除。名称为空时使用 `anonymous`，无效行会被跳过。下载接收超时为 60 秒。
 
-若要导入分享链接，第一段非空白内容不能以 `https://` 开头。
+若要导入普通分享链接，第一段非空白内容不能以 `onexray://` 或 `https://` 开头。
 
 # 其他文本格式
 

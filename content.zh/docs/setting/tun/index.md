@@ -18,11 +18,19 @@ TUN DNS 包含一个 IPv4 和一个 IPv6 地址，不包含端口。
 
 IPv6 开关同时控制 TUN IPv6 路由、DNS 查询策略和是否写入 IPv6 FakeDNS 地址池。它取代了旧的逐项 `UseIP / UseIPv4 / UseIPv6` 选择。
 
-# 路由（Apple）
+# Apple 网络路由
 
-iOS 和 macOS 提供默认开启的“排除局域网”。它让局域网和多播流量（如 AirPlay 与 DLNA/SSDP 发现）绕过 VPN。
+以下开关用于配置 `NETunnelProviderProtocol`，与 Xray 配置中的 Routing Rule 相互独立：
 
-这是 Apple 平台隧道的路由策略，与 Xray 配置中的 Routing Rule 相互独立。
+| 设置 | 默认值 | 系统版本 | 行为 |
+| --- | --- | --- | --- |
+| `includeAllNetworks` | 关闭 | iOS 14.0+ / macOS 10.15+ | 让大部分网络流量进入 VPN。 |
+| `excludeLocalNetworks` | 开启 | iOS 14.2+ / macOS 10.15+ | 让局域网流量绕过 VPN。 |
+| `excludeCellularServices` | 开启 | iOS 16.4+ / macOS 13.3+ | 排除受支持的蜂窝服务流量。 |
+| `excludeAPNs` | 开启 | iOS 16.4+ / macOS 13.3+ | 排除 Apple Push Notification service 流量。 |
+| `excludeDeviceCommunication` | 开启 | iOS 17.4+ / macOS 14.4+ | 排除与已连接 Apple 设备之间的通信。 |
+
+四个 exclude 开关只在 `includeAllNetworks` 开启后显示。请谨慎修改：系统路由所有权会影响局域网发现、iMessage/推送和设备通信。设置不会立刻影响正在运行的 VPN；连接中保存时，OneXray 会询问是否重启。
 
 # DNS over TLS
 
@@ -38,7 +46,7 @@ Windows 和 Linux 可选择 `auto` 或指定网卡。OneXray 会将结果写入 
 
 # On Demand
 
-iOS 和 macOS 支持按网络接口类型与 Wi-Fi SSID 排序的 On Demand 规则，也可配置睡眠时断开。
+iOS 和 macOS 支持按网络接口类型与 Wi-Fi SSID 排序的 On Demand 规则。
 
 # Per-App VPN
 

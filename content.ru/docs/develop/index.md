@@ -8,10 +8,23 @@ weight: 4
 # Import Boundary
 
 1. Выполняется trim текста.
-2. Если он начинается с `https://`, каждая валидная HTTPS-строка становится subscription entry.
-3. Иначе полный текст передается libXray, а приложение сохраняет валидные Outbound models.
+2. Если он начинается с `onexray://`, разбирается каждая валидная OneXray Link.
+3. Если он начинается с `https://`, каждая валидная HTTPS-строка становится subscription entry.
+4. Иначе полный текст передается libXray, а приложение сохраняет валидные Outbound models.
 
-Fragment не сохраняется в URL. Обычный import не запускает manual-save Xray config test и не создает Full Config, Raw Json, Xray Profile или GeoData.
+Fragment не сохраняется в URL. Обычный HTTPS/share-text import не запускает manual-save Xray config test и не создает Full Config, Raw Json, Xray Profile или GeoData. OneXray Links используют отдельные typed import paths.
+
+# OneXray Link Contract
+
+Публичная scheme — `onexray://onexray.com`; поддерживаются только:
+
+```text
+/config/add?type=outbound|profile|full|raw&data=<percent-encoded-base64-json>
+/sub/add?url=<percent-encoded-https-url>[&age=x25519|hybrid]
+/dat/add?type=domain|ip&url=<percent-encoded-https-url>
+```
+
+Fragment URL является необязательным display name. Старый `type=setting`, backup import и другие команды отклоняются. Age link описывает тип ключа; получатель создает новую пару и не импортирует secret отправителя.
 
 # Runtime Boundary
 
@@ -21,4 +34,4 @@ Release работает через platform TUN/VPN. Proxy run mode — вну�
 
 # Desktop Integration
 
-Жизненный цикл desktop-пакета управляется UI OneXray. Стабильного локального control API для внешних инструментов нет.
+Жизненный цикл desktop-пакета управляется UI OneXray. Windows EXE/winget и Linux DEB регистрируют `onexray://`, ZIP-пакеты — нет. Стабильного локального control API для внешних инструментов нет.

@@ -17,6 +17,16 @@ Use the Home add menu to create local nodes, add subscription links, scan QR cod
 
 All three are shown in the Home `Local` group.
 
+# OneXray Links
+
+Text whose trimmed content starts with `onexray://` is parsed as one or more OneXray Links. Supported links can import:
+
+- Outbound, Xray Profile, Full Config, or Raw Json
+- HTTPS subscriptions, optionally with X25519 or Hybrid age encryption
+- Domain or IP GeoData
+
+An age subscription link does not transfer the sender's keys. OneXray creates a new pair on the receiving device and stores it only after the first download succeeds. A shared config may place required custom GeoData links before its config link.
+
 # HTTPS Subscription Links
 
 Text whose trimmed content starts with `https://` is treated as subscription input. Batch import accepts one HTTPS link per line.
@@ -28,7 +38,7 @@ https://example.com/second#Second
 
 The URL fragment is decoded as the initial subscription name and removed before the URL is saved. An empty name becomes `anonymous`. Invalid lines are skipped. Downloads use a 60-second receive timeout.
 
-To import share links instead, the first non-whitespace content must not start with `https://`.
+To import share links instead, the first non-whitespace content must not start with `onexray://` or `https://`.
 
 # Other Supported Text
 

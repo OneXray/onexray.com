@@ -33,6 +33,24 @@ brew install --cask onexrayse
 brew uninstall --cask onexrayse
 ```
 
+## Universal ZIP
+
+1. Скачайте и распакуйте `OneXray-macos-universal.zip`.
+2. Переместите `OneXraySE.app` в `/Applications` («Программы»). Не запускайте приложение непосредственно из папки «Загрузки» или другой папки: macOS требует, чтобы приложение с System Extension находилось в системном каталоге Applications.
+3. Откройте OneXraySE из папки «Программы» и подтвердите первый запуск в macOS.
+
+При первом подключении VPN:
+
+1. Импортируйте подписку или узел, выберите узел и нажмите кнопку запуска.
+2. Откройте **Системные настройки > Основные > Объекты входа и расширения**.
+3. В разделе **Расширения** откройте **Сетевые расширения**, включите **OneXraySE** и нажмите **Готово**.
+4. Если в разделе **Конфиденциальность и безопасность** также отображается запрос, нажмите **Разрешить** и перезапустите Mac, если это потребуется.
+5. Вернитесь в OneXraySE и снова нажмите кнопку запуска.
+
+Для обновления ZIP-версии закройте OneXraySE, замените приложение в `/Applications` на новый распакованный `OneXraySE.app` и снова откройте его. Если macOS запросит подтверждение обновления System Extension, разрешите его.
+
+См. [Installing System Extensions and Drivers](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers) и [Change Login Items & Extensions settings](https://support.apple.com/guide/mac-help/change-login-items-extension-settings-mtusr003/mac).
+
 # Windows
 
 Winget автоматически выбирает установщик x86_64 или ARM64:

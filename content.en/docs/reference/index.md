@@ -34,10 +34,17 @@ A connected mode change restarts the Core.
 
 | Input | Result |
 | --- | --- |
+| Trimmed text beginning with `onexray://` | Imports supported OneXray config, subscription, or GeoData links. |
 | Trimmed text beginning with `https://` | Every valid HTTPS line becomes a subscription import entry. |
 | Other supported text | libXray returns outbound models. |
 
-Subscription fragments provide names but are removed from saved URLs. File extensions: `txt`, `json`, `yaml`, `yml`, `png`, `jpg`, `jpeg`. Generic import never creates Raw Json, Full Config, Xray Profile, or GeoData.
+Subscription fragments provide names but are removed from saved URLs. File extensions: `txt`, `json`, `yaml`, `yml`, `png`, `jpg`, `jpeg`. Generic HTTPS/share-text import never creates Raw Json, Full Config, Xray Profile, or GeoData; supported `onexray://` links can.
+
+The scheme accepts `config/add` types `outbound/profile/full/raw`, `sub/add`, and `dat/add`. It rejects legacy `type=setting`, backups, and other commands. Age subscription links carry `x25519` or `hybrid`, not an existing key pair; the receiving app generates its own pair.
+
+# Age-Encrypted Subscriptions
+
+Age encryption is optional and requires provider support. OneXray sends the saved public recipient as `X-Age-Public-Key`, keeps the secret key local, and reuses the pair for later refreshes. Supported generated key types are X25519 and Mihomo-compatible Hybrid (`ML-KEM-768 + X25519`). Decrypted plaintext is limited to 16 MiB.
 
 # Startup Settings
 
@@ -49,6 +56,10 @@ Subscription fragments provide names but are removed from saved URLs. File exten
 | Hide icon in Dock | macOS | `false` | Applies immediately to the current app session. |
 
 Clear Data unregisters Launch at Login and removes `connectOnAppLaunch` and `desktopStartHidden`.
+
+# Download User-Agent
+
+System User-Agent is the default. Android, iOS, and macOS read the system browser identity; Windows and Linux use a fixed compatible browser identity. OneXray User-Agent includes app version/build information. Clear Data resets this preference to System.
 
 # Simple Profile Defaults
 
@@ -107,7 +118,7 @@ Release runtime inbounds are `tunIn`, the selected Profile's additional inbounds
 - `env.xray.location.asset` and `env.xray.location.cert`
 - Mobile `env.xray.tun.fd`
 - Windows/Linux TUN gateway, DNS, routes, and outbound interface
-- Apple `excludeLocalNetworks` tunnel route policy, enabled by default
+- Apple `includeAllNetworks` and conditional `excludeLocalNetworks`, `excludeCellularServices`, `excludeAPNs`, and `excludeDeviceCommunication` tunnel policies
 - Access/error log paths or macOS System Extension log disabling
 - Optional policy/stats/metrics
 
@@ -126,7 +137,7 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 Raw Json must be a JSON object with a non-empty `name`. Manual validation replaces inbounds with `pingIn`, removes metrics, applies runtime env, and invokes the bundled Xray config test. Importing ordinary outbound/share content does not run this manual-save test.
 
-# Backup v3
+# Backup v4
 
 ```text
 manifest.json
@@ -136,4 +147,4 @@ geo_data.json
 dat/
 ```
 
-The manifest stores version `3` and creation time. Local configs and GeoData are restored from the archive; subscription nodes are downloaded again from restored source URLs.
+The manifest stores version `4` and creation time. OneXray restores structured v3 and v4 archives. Local configs and GeoData are restored from the archive; subscription nodes are downloaded again from restored source URLs. v4 subscription records can also contain age public/secret keys. Backup ZIP files are not encrypted.

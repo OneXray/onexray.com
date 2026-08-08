@@ -35,9 +35,11 @@ GeoData auto update is configured on [Auto Update]({{< relref path="../subUpdate
 
 # Sharing and Backup
 
-GeoData is no longer shared as a standalone app link. For full migration, use [Backup and Restore]({{< relref path="../backup/index.md" lang="ru" >}}), which includes custom GeoData database rows, `.dat` files, and generated `.json` summaries.
+Custom GeoData можно передать как `onexray://` link с типом и HTTPS URL. Приложение получателя скачивает и проверяет `.dat`; сам файл в ссылку не встраивается.
 
-Routing templates can still reference custom GeoData with `ext:<Name>.dat:<Code>`. Add the required custom GeoData manually before importing those templates into Xray Profiles.
+Если shared Outbound, Xray Profile, Full Config или Raw Json использует `ext:<Name>.dat:<Code>`, OneXray помещает соответствующие GeoData links перед config link.
+
+Для полного offline migration используйте [Backup and Restore]({{< relref path="../backup/index.md" lang="ru" >}}), который включает записи custom GeoData, `.dat` и generated `.json` summaries.
 
 # iOS and iPadOS
 

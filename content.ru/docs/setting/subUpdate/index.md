@@ -15,6 +15,8 @@ Auto Update обновляет subscriptions и GeoData после инициа�
 
 Refresh транзакционно заменяет узлы и обновляет timestamp/count. Запущенный VPN сохраняет текущий Final Config до restart.
 
+Age-подписка повторно использует сохраненную пару при auto refresh. В `X-Age-Public-Key` отправляется только public recipient, а расшифровка выполняется локально.
+
 # GeoData
 
 Системные `geosite`/`geoip` и custom GeoData используют те же интервалы. Custom entries обновляются отдельно.

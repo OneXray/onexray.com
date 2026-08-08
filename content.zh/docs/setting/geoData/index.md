@@ -35,9 +35,11 @@ GeoData 自动更新在 [Auto Update]({{< relref path="../subUpdate/index.md" la
 
 # 分享与备份
 
-GeoData 不再作为单独 App 链接分享。完整迁移请使用 [备份与恢复]({{< relref path="../backup/index.md" lang="zh" >}})，它会包含自定义 GeoData 数据库记录、`.dat` 文件和生成的 `.json` 摘要。
+自定义 GeoData 可以分享为包含类型和 HTTPS 下载 URL 的 `onexray://` 链接。接收端会下载并校验 `.dat` 文件，链接本身不嵌入文件内容。
 
-Routing 模板仍然可以通过 `ext:<Name>.dat:<Code>` 引用自定义 GeoData。把这些模板导入 Xray 配置之前，请先手动添加所需自定义 GeoData。
+分享的 Outbound、Xray 配置、Full Config 或 Raw Json 通过 `ext:<Name>.dat:<Code>` 引用自定义 GeoData 时，OneXray 会把匹配的 GeoData 链接排在配置链接之前。
+
+完整离线迁移请使用[备份与恢复]({{< relref path="../backup/index.md" lang="zh" >}})，它会包含自定义 GeoData 数据库记录、`.dat` 文件和生成的 `.json` 摘要。
 
 # iOS 和 iPadOS
 

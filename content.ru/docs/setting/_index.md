@@ -8,11 +8,22 @@ Settings содержит настройки приложения, обслуж�
 | Раздел | Содержимое |
 | --- | --- |
 | Data | Auto Update, ручная проверка обновления приложения и Clear Data. |
-| App | Подключение при запуске, поведение desktop-приложения, Backup, App Icon на iOS, Theme и Language. |
+| App | Общие network/startup настройки, desktop startup, Backup, App Icon на iOS, Theme и Language. |
 | Version | Установленные версии OneXray и Xray-core. |
 | Support | Документация, review, Telegram, issues, source, credits и privacy. |
 
 После запуска OneXray проверяет новый стабильный GitHub Release, но не открывает диалог автоматически. При наличии обновления индикатор появляется на Settings в мобильной навигации или как кликабельный пункт внизу desktop rail. Полный диалог с Markdown открывается только по действию пользователя.
+
+# General
+
+Страница General содержит `Connect on App Launch` и выбор download `User-Agent`:
+
+| Режим | Поведение |
+| --- | --- |
+| System User-Agent | Android, iOS и macOS используют реальный идентификатор системного браузера. Windows и Linux используют фиксированный совместимый browser UA. Если значение получить нельзя, используется OneXray UA. |
+| OneXray User-Agent | Отправляет идентификатор OneXray с версией приложения, package, build и платформой. |
+
+Выбранный идентификатор используется для загрузки subscriptions и GeoData. По умолчанию выбран System User-Agent.
 
 # Запуск
 
@@ -34,4 +45,4 @@ Settings содержит настройки приложения, обслуж�
 
 Успешная очистка удаляет configs, subscriptions, записи GeoData, runtime files, cache и custom GeoData, восстанавливает встроенные `geosite`/`geoip` и выбирает Simple Profile.
 
-Очистка также отменяет запуск при входе и сбрасывает подключение при запуске и скрытый запуск. Локальные backup ZIP и остальные настройки, включая privacy, First Run, Simple Profile, TUN, theme, language и platform appearance, сохраняются.
+Очистка также отменяет запуск при входе, сбрасывает подключение при запуске и скрытый запуск, а download User-Agent возвращает в режим System. Локальные backup ZIP и остальные настройки, включая privacy, First Run, Simple Profile, TUN, theme, language и platform appearance, сохраняются.

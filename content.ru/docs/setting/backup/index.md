@@ -11,8 +11,9 @@ Backup экспортирует данные OneXray в ZIP file, который
 | --- | --- |
 | Local Xray Profiles | Yes |
 | Local outbound nodes | Yes |
+| Full Configs | Yes |
 | Raw Json configs | Yes |
-| Subscriptions | Yes, as subscription records and URLs |
+| Subscriptions | Yes, включая URL и необязательные пары age-ключей |
 | Subscription node rows | No; they are downloaded again from subscription URLs during restore. |
 | Custom GeoData rows | Yes |
 | Custom GeoData `.dat` and generated `.json` files | Yes |
@@ -39,11 +40,11 @@ geo_data.json
 dat/
 ```
 
-`manifest.json` identifies the current structured v3 backup format and stores the backup creation timestamp. Backups without a v3 manifest are not restored by current OneXray versions.
+`manifest.json` обозначает текущий structured v4 format и хранит время создания. OneXray восстанавливает structured v3 и v4 backups; архив без поддерживаемого manifest отклоняется.
 
 `core_configs.json` contains local configs only. It does not contain subscription nodes.
 
-`subscriptions.json` contains subscription name, URL, timestamp, and expanded state. During restore, OneXray recreates subscriptions and refreshes their URLs to download nodes again.
+`subscriptions.json` содержит имя, URL, необязательные public/secret age keys, timestamp и expanded state. При восстановлении OneXray заново создает subscriptions и загружает узлы по URL.
 
 `geo_data.json` contains custom GeoData metadata. The `dat/` directory contains matching custom `.dat` files and generated `.json` summaries.
 
@@ -51,4 +52,4 @@ dat/
 
 Restore clears OneXray business data and the GeoData runtime directory, restores bundled `geosite` and `geoip`, copies custom GeoData files from backup, restores local configs, restores subscriptions, and refreshes subscription URLs.
 
-Keep a separate copy of important backup ZIP files. System-level cloud backups may not include user-managed backup archives.
+Backup ZIP не зашифрован и может содержать credentials узлов, URL подписок и секретные ключи age. Храните его как конфиденциальный файл и при необходимости делайте отдельную копию. System-level cloud backup может не включать такие архивы.

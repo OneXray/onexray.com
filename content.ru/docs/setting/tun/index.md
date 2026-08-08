@@ -18,11 +18,19 @@ TUN DNS содержит IPv4 и IPv6 адреса без портов.
 
 Переключатель одновременно управляет TUN IPv6 route, DNS query strategy и записью IPv6 FakeDNS pool. Он заменяет старые отдельные `UseIP / UseIPv4 / UseIPv6`.
 
-# Route (Apple)
+# Apple Network Routing
 
-На iOS и macOS доступна включенная по умолчанию настройка `Исключать локальные сети`. Она оставляет трафик локальной сети и multicast, включая обнаружение AirPlay и DLNA/SSDP, вне VPN.
+Эти параметры настраивают `NETunnelProviderProtocol` и не относятся к routing rules Xray Profile:
 
-Это системная route policy туннеля Apple, независимая от routing rules в Xray Profile.
+| Setting | Default | Availability | Behavior |
+| --- | --- | --- | --- |
+| `includeAllNetworks` | Off | iOS 14.0+ / macOS 10.15+ | Направляет большую часть сетевого трафика через VPN. |
+| `excludeLocalNetworks` | On | iOS 14.2+ / macOS 10.15+ | Оставляет локальный трафик вне VPN. |
+| `excludeCellularServices` | On | iOS 16.4+ / macOS 13.3+ | Исключает поддерживаемый cellular-service traffic. |
+| `excludeAPNs` | On | iOS 16.4+ / macOS 13.3+ | Исключает трафик Apple Push Notification service. |
+| `excludeDeviceCommunication` | On | iOS 17.4+ / macOS 14.4+ | Исключает связь с подключенными устройствами Apple. |
+
+Четыре exclude-параметра видны только при включенном `includeAllNetworks`. Используйте их осторожно: изменение системной маршрутизации может повлиять на local discovery, iMessage/push и связь устройств. Работающий VPN применит изменения только после перезапуска; OneXray предлагает restart после сохранения во время подключения.
 
 # DNS over TLS
 
@@ -38,7 +46,7 @@ Windows и Linux позволяют выбрать `auto` или конкрет�
 
 # On Demand
 
-iOS и macOS поддерживают упорядоченные rules по interface type и Wi-Fi SSID, а также disconnect on sleep.
+iOS и macOS поддерживают упорядоченные rules по interface type и Wi-Fi SSID.
 
 # Per-App VPN
 

@@ -33,6 +33,24 @@ brew install --cask onexrayse
 brew uninstall --cask onexrayse
 ```
 
+## Universal ZIP
+
+1. 下载并解压 `OneXray-macos-universal.zip`。
+2. 将 `OneXraySE.app` 移动到 `/Applications`（“应用程序”）目录。不要直接从“下载”目录或其他目录运行；macOS 要求包含 System Extension 的 App 安装在系统的“应用程序”目录中。
+3. 从“应用程序”目录打开 OneXraySE，并确认 macOS 的首次打开提示。
+
+首次连接 VPN：
+
+1. 导入订阅或节点，选中节点，然后点击启动。
+2. 打开“系统设置 > 通用 > 登录项与扩展”。
+3. 在“扩展”区域打开“网络扩展”，启用 OneXraySE，然后点击“完成”。
+4. 如果“隐私与安全性”页面也显示批准请求，请点击“允许”；系统要求重启时请重启 Mac。
+5. 返回 OneXraySE，再次点击启动。
+
+更新 ZIP 版本时，请先退出 OneXraySE，再用新解压的 `OneXraySE.app` 替换 `/Applications` 中的旧版本并重新打开。如果 macOS 要求批准 System Extension 更新，请按提示操作。
+
+参阅 [Installing System Extensions and Drivers](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers) 和 [更改“登录项与扩展”设置](https://support.apple.com/guide/mac-help/change-login-items-extension-settings-mtusr003/mac)。
+
 # Windows
 
 Winget 会自动选择 x86_64 或 ARM64 安装程序：

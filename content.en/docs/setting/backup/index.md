@@ -11,8 +11,9 @@ Backup exports OneXray data to a ZIP file that can be saved, shared, and importe
 | --- | --- |
 | Local Xray Profiles | Yes |
 | Local outbound nodes | Yes |
+| Full Configs | Yes |
 | Raw Json configs | Yes |
-| Subscriptions | Yes, as subscription records and URLs |
+| Subscriptions | Yes, including URLs and optional age key pairs |
 | Subscription node rows | No; they are downloaded again from subscription URLs during restore. |
 | Custom GeoData rows | Yes |
 | Custom GeoData `.dat` and generated `.json` files | Yes |
@@ -39,11 +40,11 @@ geo_data.json
 dat/
 ```
 
-`manifest.json` identifies the backup as the current structured v3 format and stores the backup creation timestamp. Backups without a v3 manifest are not restored by current OneXray versions.
+`manifest.json` identifies the current structured v4 format and stores the backup creation timestamp. OneXray can restore structured v3 and v4 backups; archives without a supported manifest are rejected.
 
 `core_configs.json` contains local configs only. It does not contain subscription nodes.
 
-`subscriptions.json` contains subscription name, URL, timestamp, and expanded state. During restore, OneXray recreates the subscriptions and refreshes their URLs to download nodes again.
+`subscriptions.json` contains subscription name, URL, optional age public/secret keys, timestamp, and expanded state. During restore, OneXray recreates the subscriptions and refreshes their URLs to download nodes again.
 
 `geo_data.json` contains custom GeoData metadata. The `dat/` directory contains matching custom `.dat` files and generated `.json` summaries.
 
@@ -51,4 +52,4 @@ dat/
 
 Restore clears OneXray business data and the GeoData runtime directory, restores bundled `geosite` and `geoip`, copies custom GeoData files from the backup, restores local configs, restores subscriptions, and refreshes subscription URLs.
 
-Keep a separate copy of important backup ZIP files. System-level cloud backups may not include user-managed backup archives.
+Backup ZIP files are not encrypted and may contain node credentials, subscription URLs, and age secret keys. Store them as sensitive files and keep a separate copy when needed. System-level cloud backups may not include user-managed backup archives.

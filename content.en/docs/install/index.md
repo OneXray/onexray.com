@@ -33,6 +33,24 @@ brew install --cask onexrayse
 brew uninstall --cask onexrayse
 ```
 
+## Universal ZIP
+
+1. Download and extract `OneXray-macos-universal.zip`.
+2. Move `OneXraySE.app` to `/Applications`. Do not run it directly from Downloads or another folder; macOS requires an app containing a System Extension to be installed in a system Applications directory.
+3. Open OneXraySE from Applications and accept the macOS launch confirmation.
+
+For the first VPN connection:
+
+1. Import a subscription or node, select a node, and click Start.
+2. Open **System Settings > General > Login Items & Extensions**.
+3. Under **Extensions**, open **Network Extensions**, enable **OneXraySE**, and click **Done**.
+4. If **Privacy & Security** also shows an approval request, click **Allow** and restart the Mac if requested.
+5. Return to OneXraySE and click Start again.
+
+To update the ZIP build, quit OneXraySE, replace the existing app in `/Applications` with the newly extracted `OneXraySE.app`, and reopen it. Approve the System Extension update if macOS asks.
+
+See [Installing System Extensions and Drivers](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers) and [Change Login Items & Extensions settings](https://support.apple.com/guide/mac-help/change-login-items-extension-settings-mtusr003/mac).
+
 # Windows
 
 Winget selects the installer matching x86_64 or ARM64:

@@ -15,6 +15,8 @@ weight: 4
 
 刷新会在事务中替换订阅节点并更新 timestamp/count。正在运行的 VPN 继续使用已有最终配置，直到下一次重启。
 
+Age 加密订阅在自动刷新时复用已保存的密钥对，只通过 `X-Age-Public-Key` 发送公钥，解密始终在本地完成。
+
 # GeoData
 
 系统 `geosite`/`geoip` 和自定义 GeoData 使用相同的间隔选项；自定义条目按过期时间逐项刷新。

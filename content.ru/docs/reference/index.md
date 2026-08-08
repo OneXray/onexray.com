@@ -34,10 +34,17 @@ weight: 8
 
 | Input | Result |
 | --- | --- |
+| Trimmed text начинается с `onexray://` | Импортирует поддерживаемую OneXray config, subscription или GeoData link. |
 | Trimmed text начинается с `https://` | Каждая валидная HTTPS-строка становится subscription entry. |
 | Другой поддерживаемый текст | libXray возвращает Outbound models. |
 
-Fragment задает имя, но не сохраняется в URL. Extensions: `txt`, `json`, `yaml`, `yml`, `png`, `jpg`, `jpeg`. Обычный import не создает Raw Json, Full Config, Xray Profile или GeoData.
+Fragment задает имя, но не сохраняется в URL. Extensions: `txt`, `json`, `yaml`, `yml`, `png`, `jpg`, `jpeg`. Обычный HTTPS/share-text import не создает Raw Json, Full Config, Xray Profile или GeoData, но поддерживаемые `onexray://` links могут их создать.
+
+Scheme принимает `config/add` types `outbound/profile/full/raw`, `sub/add` и `dat/add`. Старый `type=setting`, backups и другие команды отклоняются. Age subscription link передает `x25519` или `hybrid`, но не существующую пару ключей; приложение получателя создает собственную пару.
+
+# Age-Encrypted Subscriptions
+
+Age является необязательным и требует поддержки провайдера. OneXray отправляет сохраненный public recipient как `X-Age-Public-Key`, держит secret key локально и повторно использует пару при refresh. Поддерживаются X25519 и совместимый с Mihomo Hybrid (`ML-KEM-768 + X25519`). Plaintext после расшифровки ограничен 16 MiB.
 
 # Startup Settings
 
@@ -49,6 +56,10 @@ Fragment задает имя, но не сохраняется в URL. Extension
 | Скрыть иконку в Dock | macOS | `false` | Применяется сразу к текущему сеансу приложения. |
 
 Clear Data отменяет запуск при входе и удаляет настройки `connectOnAppLaunch` и `desktopStartHidden`.
+
+# Download User-Agent
+
+По умолчанию используется System User-Agent. Android, iOS и macOS читают идентификатор системного браузера; Windows и Linux используют фиксированный совместимый browser UA. OneXray User-Agent содержит version/build приложения. Clear Data возвращает режим System.
 
 # Simple Profile Defaults
 
@@ -105,7 +116,7 @@ Release runtime inbounds: `tunIn`, дополнительные inbounds выб�
 - `env.xray.location.asset` и `env.xray.location.cert`;
 - mobile `env.xray.tun.fd`;
 - Windows/Linux TUN gateway, DNS, routes и outbound interface;
-- Apple tunnel route policy `excludeLocalNetworks`, включенная по умолчанию;
+- Apple tunnel policies `includeAllNetworks` и условные `excludeLocalNetworks`, `excludeCellularServices`, `excludeAPNs`, `excludeDeviceCommunication`;
 - access/error paths или отключение logs в macOS System Extension;
 - optional policy/stats/metrics.
 
@@ -122,7 +133,7 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 Raw Json должен быть JSON object с непустым `name`. Manual validation заменяет inbounds на `pingIn`, удаляет metrics, применяет runtime env и вызывает Xray config test. Обычный import Outbound/share content этот test не запускает.
 
-# Backup v3
+# Backup v4
 
 ```text
 manifest.json
@@ -132,4 +143,4 @@ geo_data.json
 dat/
 ```
 
-Manifest содержит version `3` и creation time. Local configs/GeoData восстанавливаются из архива, subscription nodes загружаются снова по восстановленным URL.
+Manifest содержит version `4` и creation time. OneXray восстанавливает structured v3 и v4 archives. Local configs/GeoData восстанавливаются из архива, subscription nodes загружаются снова по URL. В v4 subscription records могут содержать public/secret age keys. Backup ZIP не зашифрован.

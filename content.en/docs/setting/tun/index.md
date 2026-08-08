@@ -18,11 +18,19 @@ TUN DNS contains one IPv4 and one IPv6 address, without ports.
 
 The IPv6 switch controls the TUN IPv6 route, DNS query strategy, and whether the IPv6 FakeDNS pool is written. It replaces the old per-DNS `UseIP / UseIPv4 / UseIPv6` controls.
 
-# Route (Apple)
+# Apple Network Routing
 
-iOS and macOS provide `Exclude Local Networks`, enabled by default. It keeps local-network and multicast traffic, such as AirPlay and DLNA/SSDP discovery, outside the VPN.
+These switches configure `NETunnelProviderProtocol` and are separate from Xray Profile routing rules:
 
-This is an Apple platform tunnel route policy. It is separate from Xray Profile routing rules.
+| Setting | Default | Availability | Behavior |
+| --- | --- | --- | --- |
+| `includeAllNetworks` | Off | iOS 14.0+ / macOS 10.15+ | Routes most network traffic through the VPN. |
+| `excludeLocalNetworks` | On | iOS 14.2+ / macOS 10.15+ | Keeps local-network traffic outside the VPN. |
+| `excludeCellularServices` | On | iOS 16.4+ / macOS 13.3+ | Excludes supported cellular-service traffic. |
+| `excludeAPNs` | On | iOS 16.4+ / macOS 13.3+ | Excludes Apple Push Notification service traffic. |
+| `excludeDeviceCommunication` | On | iOS 17.4+ / macOS 14.4+ | Excludes communication with connected Apple devices. |
+
+The four exclude switches are shown only when `includeAllNetworks` is enabled. Use them carefully: changing system-route ownership can affect local discovery, iMessage/push delivery, and device communication. Changes do not affect an already running VPN until it is restarted; OneXray offers to restart after saving while connected.
 
 # DNS over TLS
 
@@ -38,7 +46,7 @@ Windows and Linux can select `auto` or a specific outbound network interface. On
 
 # On Demand
 
-iOS and macOS support ordered on-demand rules based on network interface type and Wi-Fi SSID. The platform can also disconnect on sleep.
+iOS and macOS support ordered on-demand rules based on network interface type and Wi-Fi SSID.
 
 # Per-App VPN
 
