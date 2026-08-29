@@ -17,7 +17,7 @@ OneXray содержит два built-in GeoData files:
 | `geosite` | `domain` | `v2fly/domain-list-community` latest `dlc.dat` |
 | `geoip` | `ip` | `v2fly/geoip` latest `geoip.dat` |
 
-# Custom GeoData
+## Custom GeoData
 
 Custom rule sets require:
 
@@ -29,11 +29,11 @@ Custom rule sets require:
 
 When a custom rule set is added or updated, OneXray downloads the `.dat` file, asks the host core API to count categories and rules, saves the `.dat` file, and saves a generated JSON summary.
 
-# Auto Update
+## Auto Update
 
 GeoData auto update is configured on [Auto Update]({{< relref path="../subUpdate/index.md" lang="ru" >}}). System GeoData and custom GeoData are checked separately from subscription refresh but run from the same update service.
 
-# Sharing and Backup
+## Sharing and Backup
 
 Custom GeoData можно передать как `onexray://` link с типом и HTTPS URL. Приложение получателя скачивает и проверяет `.dat`; сам файл в ссылку не встраивается.
 
@@ -41,6 +41,6 @@ Custom GeoData можно передать как `onexray://` link с типо�
 
 Для полного offline migration используйте [Backup and Restore]({{< relref path="../backup/index.md" lang="ru" >}}), который включает записи custom GeoData, `.dat` и generated `.json` summaries.
 
-# iOS and iPadOS
+## iOS and iPadOS
 
 Very large rule-set files can increase memory usage. If the VPN fails to start on iOS or iPadOS, use smaller GeoData files or fewer routing rules.

@@ -5,7 +5,7 @@ weight: 8
 
 Краткий справочник текущей persisted и runtime семантики OneXray.
 
-# Config Types и Tags
+## Config Types и Tags
 
 | Identifier | Значение |
 | --- | --- |
@@ -20,7 +20,7 @@ weight: 8
 | `tunIn` | Runtime TUN inbound. |
 | `pingIn` | Runtime HTTP ping inbound. |
 
-# Home Routing Modes
+## Home Routing Modes
 
 | Mode | Нужен узел | Transformation |
 | --- | --- | --- |
@@ -30,7 +30,7 @@ weight: 8
 
 Смена при активном соединении перезапускает Core.
 
-# Import Classification
+## Import Classification
 
 | Input | Result |
 | --- | --- |
@@ -42,11 +42,11 @@ Fragment задает имя, но не сохраняется в URL. Extension
 
 Scheme принимает `config/add` types `outbound/profile/full/raw`, `sub/add` и `dat/add`. Старый `type=setting`, backups и другие команды отклоняются. Age subscription link передает `x25519` или `hybrid`, но не существующую пару ключей; приложение получателя создает собственную пару.
 
-# Age-Encrypted Subscriptions
+## Age-Encrypted Subscriptions
 
 Age является необязательным и требует поддержки провайдера. OneXray отправляет сохраненный public recipient как `X-Age-Public-Key`, держит secret key локально и повторно использует пару при refresh. Поддерживаются X25519 и совместимый с Mihomo Hybrid (`ML-KEM-768 + X25519`). Plaintext после расшифровки ограничен 16 MiB.
 
-# Startup Settings
+## Startup Settings
 
 | Setting | Scope | Default | Значение |
 | --- | --- | --- | --- |
@@ -57,11 +57,11 @@ Age является необязательным и требует поддер
 
 Clear Data отменяет запуск при входе и удаляет настройки `connectOnAppLaunch` и `desktopStartHidden`.
 
-# Download User-Agent
+## Download User-Agent
 
 По умолчанию используется System User-Agent. Android, iOS и macOS читают идентификатор системного браузера; Windows и Linux используют фиксированный совместимый browser UA. OneXray User-Agent содержит version/build приложения. Clear Data возвращает режим System.
 
-# Simple Profile Defaults
+## Simple Profile Defaults
 
 | Field | Default |
 | --- | --- |
@@ -81,7 +81,7 @@ Clear Data отменяет запуск при входе и удаляет н�
 
 Block Ads добавляет встроенное правило рекламных доменов в `block`.
 
-# DNS и FakeDNS
+## DNS и FakeDNS
 
 | IPv6 | Strategy | FakeDNS pools |
 | --- | --- | --- |
@@ -90,17 +90,17 @@ Block Ads добавляет встроенное правило рекламн�
 
 Первый DNS Server нового custom Profile/Full Config равен TUN IPv4 DNS. Full Config управляет `outbounds`, `routing`, `dns`, но не FakeDNS.
 
-# Дополнительные Profile Inbounds
+## Дополнительные Profile Inbounds
 
 Custom Xray Profile поддерживает дополнительные SOCKS, HTTP и dokodemo-door inbounds. SOCKS/HTTP могут слушать localhost или все интерфейсы; для всех интерфейсов обязательны полные credentials. dokodemo-door слушает localhost и поддерживает target address, target port и режим TCP/UDP.
 
 Порты и tags должны быть уникальными. Tags доступны custom Routing rules, но OneXray не создает forwarding rules автоматически.
 
-# Ping
+## Ping
 
 Настройки Ping сохраняют только timeout, URL и Auto Ping New Configs. OneXray отправляет тесты фиксированными группами не более пяти узлов; persisted concurrency отсутствует.
 
-# Runtime Composition
+## Runtime Composition
 
 | Stored type | Rule-mode Final Config |
 | --- | --- |
@@ -110,7 +110,7 @@ Custom Xray Profile поддерживает дополнительные SOCKS,
 
 Release runtime inbounds: `tunIn`, дополнительные inbounds выбранного Profile и `pingIn`. Пользовательские Raw Json inbounds удаляются при validation, Real Ping, save и startup.
 
-# Runtime-Owned Fields
+## Runtime-Owned Fields
 
 - случайные `pingIn` и metrics ports;
 - `env.xray.location.asset` и `env.xray.location.cert`;
@@ -120,7 +120,7 @@ Release runtime inbounds: `tunIn`, дополнительные inbounds выб�
 - access/error paths или отключение logs в macOS System Extension;
 - optional policy/stats/metrics.
 
-# Routing Rule Fields
+## Routing Rule Fields
 
 ```text
 domain, ip, port, sourcePort, localPort, network, sourceIP, localIP,
@@ -129,11 +129,11 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 `process` записывается только на Windows и Linux.
 
-# Raw Json Validation
+## Raw Json Validation
 
 Raw Json должен быть JSON object с непустым `name`. Manual validation заменяет inbounds на `pingIn`, удаляет metrics, применяет runtime env и вызывает Xray config test. Обычный import Outbound/share content этот test не запускает.
 
-# Backup v4
+## Backup v4
 
 ```text
 manifest.json

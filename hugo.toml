@@ -1,51 +1,111 @@
-baseURL = '/'
+baseURL = 'https://onexray.com/'
 title = 'OneXray'
-theme = 'github.com/alex-shpak/hugo-book'
+defaultContentLanguage = 'en'
 
 disablePathToLower = true
 enableGitInfo = true
 enableRobotsTXT = true
+hasCJKLanguage = true
+disableKinds = ['taxonomy', 'term']
 
 [markup]
-[markup.goldmark]
-[markup.goldmark.renderer]
-unsafe = true
-[markup.tableOfContents]
-startLevel = 1
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
 
 [languages]
-[languages.en]
-label = 'English'
-contentDir = 'content.en'
-weight = 1
-[languages.zh]
-label = '中文'
-contentDir = 'content.zh'
-weight = 2
-[languages.ru]
-label = 'Русский'
-contentDir = 'content.ru'
-weight = 3
+  [languages.en]
+    label = 'English'
+    locale = 'en-US'
+    contentDir = 'content.en'
+    weight = 1
+    [languages.en.params]
+      description = 'OneXray is a private, cross-platform Xray-core client for your own nodes, subscriptions, and configurations.'
+  [languages.zh]
+    label = '中文'
+    locale = 'zh-CN'
+    contentDir = 'content.zh'
+    weight = 2
+    [languages.zh.params]
+      description = 'OneXray 是一款注重隐私的跨平台 Xray-core 客户端，用于管理您自己的节点、订阅和配置。'
+  [languages.ru]
+    label = 'Русский'
+    locale = 'ru-RU'
+    contentDir = 'content.ru'
+    weight = 3
+    [languages.ru.params]
+      description = 'OneXray — приватный кроссплатформенный клиент Xray-core для ваших узлов, подписок и конфигураций.'
 
 [params]
-BookTheme = 'auto'
+  title = 'OneXray'
+  description = 'OneXray is a private, cross-platform Xray-core client for your own nodes, subscriptions, and configurations.'
+  images = ['/images/screenshots/desktop-windows.png']
+  externalLinkDecoration = true
+  displayUpdatedDate = true
+  dateFormat = 'January 2, 2006'
 
-BookLogo = 'logo.png'
+  [params.navbar]
+    displayTitle = true
+    displayLogo = true
+    width = 'wide'
+    [params.navbar.logo]
+      path = 'logo.png'
+      width = 32
+      height = 32
 
-BookFavicon = 'favicon.png'
+  [params.theme]
+    default = 'system'
+    displayToggle = true
 
-images = ['logo.png']
+  [params.footer]
+    enable = true
+    displayCopyright = true
+    displayPoweredBy = false
+    width = 'wide'
 
-BookToC = true
+  [params.search]
+    enable = true
+    type = 'flexsearch'
+    [params.search.flexsearch]
+      index = 'content'
+      tokenize = 'forward'
 
-BookSection = 'docs'
+  [params.page]
+    displayPagination = true
 
-BookRepo = 'https://github.com/OneXray/onexray.com'
-
-BookDateFormat = 'January 2, 2006'
-
-BookComments = false
+  [params.highlight.copy]
+    enable = true
+    display = 'hover'
 
 [module]
-[[module.imports]]
-path = 'github.com/alex-shpak/hugo-book'
+  [module.hugoVersion]
+    extended = true
+    min = '0.146.0'
+  [[module.imports]]
+    path = 'github.com/imfing/hextra'
+
+[[menu.main]]
+  identifier = 'documentation'
+  name = 'Documentation'
+  pageRef = '/docs'
+  weight = 1
+
+[[menu.main]]
+  identifier = 'search'
+  name = 'Search'
+  weight = 2
+  [menu.main.params]
+    type = 'search'
+
+[[menu.main]]
+  identifier = 'github'
+  name = 'GitHub'
+  url = 'https://github.com/OneXray/OneXray'
+  weight = 3
+  [menu.main.params]
+    icon = 'github'

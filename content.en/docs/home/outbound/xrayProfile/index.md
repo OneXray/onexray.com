@@ -7,7 +7,7 @@ aliases:
 
 An Xray Profile is OneXray's required runtime base. Exactly one profile is selected at all times; the built-in Simple Profile is the fallback and cannot be deleted.
 
-# Final Config Composition
+## Final Config Composition
 
 The Final Config is the runtime `xray.json` written immediately before Xray-core starts.
 
@@ -19,7 +19,7 @@ The Final Config is the runtime `xray.json` written immediately before Xray-core
 
 The selected Home routing mode is applied after composition. Global removes DNS/routing and keeps the proxy dependency chain; Direct keeps only `direct`.
 
-# Custom Profile Editor
+## Custom Profile Editor
 
 The editor contains six sections:
 
@@ -34,7 +34,7 @@ The editor contains six sections:
 
 On phones these section controls scroll horizontally; on larger layouts they become a side navigation. The fields themselves are unchanged.
 
-# Additional Inbounds
+## Additional Inbounds
 
 A custom Xray Profile can add any number of local inbounds:
 
@@ -50,7 +50,7 @@ Additional inbound tags are available to custom Routing rules. OneXray does not 
 
 In release/TUN runtime, the Final Config contains `tunIn`, the selected Profile's additional inbounds, and `pingIn`. Full Config and Raw Json use those same Profile-owned inbounds; Raw Json's own inbounds remain ignored.
 
-# DNS
+## DNS
 
 New Xray Profiles and Full Configs initialize their first DNS server from `TUN Settings > IPv4 DNS`. The DNS address remains editable in the structured editor.
 
@@ -63,7 +63,7 @@ The global and per-server `queryStrategy` fields are not shown in the UI. At run
 
 DNS servers support address, port, domains, expected/unexpected IPs, tag, client IP, timeout, fallback/cache/stale controls, and final-query behavior. A non-empty DNS-server tag can be selected as a routing-rule inbound tag.
 
-# FakeDNS
+## FakeDNS
 
 FakeDNS is owned by the selected Xray Profile, including when a Full Config is active. Full Config does not store or edit FakeDNS.
 
@@ -76,13 +76,13 @@ Default pools are:
 
 The IPv6 pool is written only when TUN IPv6 is enabled.
 
-# Routing
+## Routing
 
 System rules manage DNS component traffic, port 53, DNS over TLS, and internal ping. Custom rules can match domain, IP, ports, network, source/local addresses, inbound tags, protocols, attributes, and supported-platform processes.
 
 Conditions inside one rule are combined. For example, a rule containing both domain and IP conditions requires both to match the same connection.
 
-# Outbounds and Final Outbound
+## Outbounds and Final Outbound
 
 Reserved system tags:
 
@@ -97,7 +97,7 @@ Reserved system tags:
 
 Final Outbound can be selected from local outbound nodes. The same node cannot be both the Home node and Final Outbound.
 
-# Simple Profile
+## Simple Profile
 
 Simple Profile provides:
 
@@ -109,6 +109,6 @@ Simple Profile provides:
 
 The default DNS is routed through `proxy`. Optional region-specific local DNS is used only for the matching direct-domain set.
 
-# Runtime Ownership
+## Runtime Ownership
 
 OneXray always rewrites app-managed runtime `tunIn` and `pingIn`, ping/metrics ports, GeoData paths, Windows/Linux route fields, and macOS System Extension log behavior. Additional inbounds remain Profile-owned and are inserted between `tunIn` and `pingIn` in TUN mode.

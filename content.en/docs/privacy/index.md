@@ -3,7 +3,7 @@ title: Privacy
 weight: 7
 ---
 
-# Privacy Policy
+## Privacy Policy
 
 **Effective Date: May 1, 2025**
 
@@ -13,7 +13,7 @@ OneXray is designed to work without collecting your data. This Privacy Policy ex
 
 ---
 
-## 1. We Do Not Collect Any App Data
+### 1. We Do Not Collect Any App Data
 
 OneXray does not collect, upload, transmit to us, sell, share, or retain any personal or usage data from the App.
 
@@ -31,7 +31,7 @@ The App does not require an account and does not include advertising, analytics,
 
 ---
 
-## 2. Data Processed and Stored Locally
+### 2. Data Processed and Stored Locally
 
 To provide its features, OneXray processes certain information only on your device. This may include:
 
@@ -45,7 +45,7 @@ This local data is not automatically uploaded or made available to us. You can m
 
 ---
 
-## 3. Network Connections You Choose
+### 3. Network Connections You Choose
 
 OneXray is a network client. When you start a connection, your traffic is sent to the proxy, VPN, DNS, or other server specified by your configuration. Subscription updates, update checks, GeoData downloads, and external links connect to the source you request.
 
@@ -53,7 +53,7 @@ These connections are necessary to perform the action you selected. They do not 
 
 ---
 
-## 4. Exporting and Sharing
+### 4. Exporting and Sharing
 
 OneXray does not automatically share your local data. Data leaves the App only when required by a connection you initiate or when you explicitly export, copy, save, or share it.
 
@@ -61,7 +61,7 @@ Configuration files, subscription links, and logs may contain sensitive informat
 
 ---
 
-## 5. Data Retention and Deletion
+### 5. Data Retention and Deletion
 
 Because we do not collect App data, we have no App data about you to retain, access, sell, disclose, or delete from our servers.
 
@@ -69,19 +69,19 @@ If you voluntarily contact us by email or through a third-party platform, that s
 
 ---
 
-## 6. Children
+### 6. Children
 
 OneXray does not knowingly collect personal information from anyone, including children. The App is not directed at children under the minimum age required by applicable law.
 
 ---
 
-## 7. Changes to This Policy
+### 7. Changes to This Policy
 
 We may update this Privacy Policy if the App's behavior or legal requirements change. The current policy will be included with the App, and its last-updated date will be shown above.
 
 ---
 
-## 8. Contact
+### 8. Contact
 
 For questions about this Privacy Policy, contact:
 

@@ -14,7 +14,7 @@ Settings contains app-level preferences, maintenance, version information, and s
 
 OneXray checks for a newer stable GitHub release after startup, but it no longer opens an update dialog automatically. An available update appears as an indicator on Settings in the mobile navigation or as a clickable item at the bottom of the desktop rail. The full Markdown release notes dialog opens only after a user action.
 
-# General
+## General
 
 The General page contains `Connect on App Launch` and the download `User-Agent` mode:
 
@@ -25,7 +25,7 @@ The General page contains `Connect on App Launch` and the download `User-Agent` 
 
 The selected identity is used by the download client for subscriptions and GeoData. System User-Agent is the default.
 
-# Startup
+## Startup
 
 `Connect on App Launch` is available on every platform and is off by default. When enabled, OneXray starts the last usable configuration after app services are ready. If that configuration no longer exists, it selects a random node. Direct mode can start without a node.
 
@@ -39,7 +39,7 @@ Desktop platforms also provide a `Desktop` page:
 
 macOS may require approval under `System Settings > General > Login Items`. OneXray provides a link to that page when approval is required.
 
-# Clear Data
+## Clear Data
 
 Clear Data first stops the VPN. If stop fails, cleanup is cancelled.
 

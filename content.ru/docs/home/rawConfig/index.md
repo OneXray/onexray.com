@@ -11,7 +11,7 @@ Raw Json — расширенный локальный тип конфигура
 Core > Logs > Xray Config
 ```
 
-# Хранение и проверка
+## Хранение и проверка
 
 Raw Json должен быть корректным JSON с непустым полем `name`.
 
@@ -19,7 +19,7 @@ Raw Json должен быть корректным JSON с непустым п�
 
 Обычный import не создает Raw Json. Используйте `Home > Add > Manual Input > Raw Json`.
 
-# Final Config
+## Final Config
 
 В режиме Rule Raw Json остается основным телом конфигурации, но его inbounds заменяются на `tunIn`, дополнительные inbounds выбранного Xray Profile и новый `pingIn`.
 
@@ -37,10 +37,10 @@ Global удаляет `dns` и `routing`, оставляя `proxy` и полну
 
 Direct не использует тело Raw Json: direct-only Final Config создается из выбранного Xray Profile.
 
-# Ping
+## Ping
 
 Не управляйте `pingIn` вручную. OneXray переписывает inbound и routing rule с текущим случайным портом и authentication.
 
-# Sharing
+## Sharing
 
 Raw Json можно экспортировать как текст или `.json`. Обычный импорт не создает из такого файла запись Raw Json.

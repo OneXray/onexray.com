@@ -5,7 +5,7 @@ weight: 6
 
 Backup экспортирует данные OneXray в ZIP file, который можно сохранить, передать и позже импортировать.
 
-# Included Data
+## Included Data
 
 | Data | Included |
 | --- | --- |
@@ -21,7 +21,7 @@ Backup экспортирует данные OneXray в ZIP file, который
 | Simple Profile preferences | No; kept outside backup data. |
 | Other app preferences | No |
 
-# File Structure
+## File Structure
 
 Имя backup-файла содержит дату и время создания, поэтому несколько backup,
 созданных в один день, не перезаписывают друг друга:
@@ -48,7 +48,7 @@ dat/
 
 `geo_data.json` contains custom GeoData metadata. The `dat/` directory contains matching custom `.dat` files and generated `.json` summaries.
 
-# Restore
+## Restore
 
 Restore clears OneXray business data and the GeoData runtime directory, restores bundled `geosite` and `geoip`, copies custom GeoData files from backup, restores local configs, restores subscriptions, and refreshes subscription URLs.
 

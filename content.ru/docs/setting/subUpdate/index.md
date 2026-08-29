@@ -5,7 +5,7 @@ weight: 4
 
 Auto Update обновляет subscriptions и GeoData после инициализации приложения и не относится к ручной проверке версии OneXray.
 
-# Subscriptions
+## Subscriptions
 
 | Опция | Значение |
 | --- | --- |
@@ -17,7 +17,7 @@ Refresh транзакционно заменяет узлы и обновляе
 
 Age-подписка повторно использует сохраненную пару при auto refresh. В `X-Age-Public-Key` отправляется только public recipient, а расшифровка выполняется локально.
 
-# GeoData
+## GeoData
 
 Системные `geosite`/`geoip` и custom GeoData используют те же интервалы. Custom entries обновляются отдельно.
 

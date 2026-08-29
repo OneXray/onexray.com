@@ -5,7 +5,7 @@ weight: 1
 
 TUN 设置作用于所有 Home 配置，用于控制平台隧道。
 
-# DNS
+## DNS
 
 TUN DNS 包含一个 IPv4 和一个 IPv6 地址，不包含端口。
 
@@ -14,11 +14,11 @@ TUN DNS 包含一个 IPv4 和一个 IPv6 地址，不包含端口。
 - 新建自定义 Xray 配置和 Full Config 时，第一个 DNS Server 默认使用该 IPv4 值。
 - 运行时，开启 IPv6 会将 DNS `queryStrategy` 统一写为 `UseIP`，关闭时写为 `UseIPv4`。
 
-# IPv6
+## IPv6
 
 IPv6 开关同时控制 TUN IPv6 路由、DNS 查询策略和是否写入 IPv6 FakeDNS 地址池。它取代了旧的逐项 `UseIP / UseIPv4 / UseIPv6` 选择。
 
-# Apple 网络路由
+## Apple 网络路由
 
 以下开关用于配置 `NETunnelProviderProtocol`，与 Xray 配置中的 Routing Rule 相互独立：
 
@@ -32,22 +32,22 @@ IPv6 开关同时控制 TUN IPv6 路由、DNS 查询策略和是否写入 IPv6 F
 
 四个 exclude 开关只在 `includeAllNetworks` 开启后显示。请谨慎修改：系统路由所有权会影响局域网发现、iMessage/推送和设备通信。设置不会立刻影响正在运行的 VPN；连接中保存时，OneXray 会询问是否重启。
 
-# DNS over TLS
+## DNS over TLS
 
 iOS 和 macOS 支持 DNS over TLS。启用后平台使用配置的 Server Name，Xray 配置中的 `dnsDoT` 规则可处理 853 端口流量。
 
-# Metrics
+## Metrics
 
 Metrics 会写入运行时 policy/stats/metrics，并在 Home 显示流量计数。关闭后这些字段会从最终配置移除。
 
-# 出站网卡
+## 出站网卡
 
 Windows 和 Linux 可选择 `auto` 或指定网卡。OneXray 会将结果写入 TUN 路由字段，并避免 Core 自身流量重新进入 TUN。
 
-# On Demand
+## On Demand
 
 iOS 和 macOS 支持按网络接口类型与 Wi-Fi SSID 排序的 On Demand 规则。
 
-# Per-App VPN
+## Per-App VPN
 
 Android 支持允许列表和禁止列表。可从 Per-App VPN 分区进入“已选应用”和“已安装应用”。列表为空时按当前模式使用正常的全应用行为。

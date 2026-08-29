@@ -11,7 +11,7 @@ The safest starting point is the generated file at:
 Core > Logs > Xray Config
 ```
 
-# Storage and Validation
+## Storage and Validation
 
 Raw Json requires valid JSON and a non-empty top-level `name`.
 
@@ -19,7 +19,7 @@ Before validation, Real Ping, and save, OneXray removes all supplied `inbounds` 
 
 Generic share/file import does not create Raw Json entries. Create one from `Home > Add > Manual Input > Raw Json`.
 
-# Final Config
+## Final Config
 
 In Rule mode, Raw Json remains the main body, but OneXray replaces its inbounds with the selected Xray Profile's runtime `tunIn`, additional inbounds, and a newly generated `pingIn`.
 
@@ -37,10 +37,10 @@ Global mode removes `dns` and `routing`, then retains `proxy` and the complete o
 
 Direct mode does not use the Raw Json body. OneXray builds a direct-only Final Config from the selected Xray Profile so no proxy outbound is required.
 
-# Ping Rule
+## Ping Rule
 
 Do not manage `pingIn` manually. OneXray rewrites both the inbound and its routing rule with the current random port and authentication.
 
-# Sharing
+## Sharing
 
 Raw Json can be exported as JSON text or a `.json` file. Exported text is intended for manual editing or backup; generic import does not recreate it as a Raw Json record.

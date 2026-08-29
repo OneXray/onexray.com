@@ -5,7 +5,7 @@ weight: 8
 
 本页汇总 OneXray 当前的持久化与运行时语义。
 
-# 配置类型与 Tag
+## 配置类型与 Tag
 
 | 标识 | 含义 |
 | --- | --- |
@@ -20,7 +20,7 @@ weight: 8
 | `tunIn` | 运行时 TUN inbound。 |
 | `pingIn` | 运行时 HTTP ping inbound。 |
 
-# Home 路由模式
+## Home 路由模式
 
 | 模式 | 是否要求节点 | 转换 |
 | --- | --- | --- |
@@ -30,7 +30,7 @@ weight: 8
 
 连接中切换会重启 Core。
 
-# 导入分类
+## 导入分类
 
 | 输入 | 结果 |
 | --- | --- |
@@ -42,11 +42,11 @@ weight: 8
 
 Scheme 接受 `config/add` 的 `outbound/profile/full/raw`、`sub/add` 和 `dat/add`，拒绝旧版 `type=setting`、备份与其他命令。Age 订阅链接只携带 `x25519` 或 `hybrid`，不携带现有密钥对；接收端会生成自己的密钥对。
 
-# Age 加密订阅
+## Age 加密订阅
 
 Age 加密为可选功能，并且需要供应商支持。OneXray 通过 `X-Age-Public-Key` 发送已保存的公钥，将私钥保留在本机，并在后续刷新时复用同一密钥对。可生成 X25519 与 Mihomo 兼容 Hybrid（`ML-KEM-768 + X25519`），解密后明文上限为 16 MiB。
 
-# 启动设置
+## 启动设置
 
 | 设置 | 范围 | 默认值 | 含义 |
 | --- | --- | --- | --- |
@@ -57,11 +57,11 @@ Age 加密为可选功能，并且需要供应商支持。OneXray 通过 `X-Age-
 
 清除数据会取消“登录时启动”，并删除 `connectOnAppLaunch` 与 `desktopStartHidden` 偏好。
 
-# 下载 User-Agent
+## 下载 User-Agent
 
 默认使用系统 User-Agent。Android、iOS、macOS 读取系统浏览器标识；Windows、Linux 使用固定的兼容浏览器标识。OneXray User-Agent 包含 App 版本和构建信息。清除数据会把该偏好恢复为“系统”。
 
-# 简易配置默认值
+## 简易配置默认值
 
 | 字段 | 默认值 |
 | --- | --- |
@@ -81,7 +81,7 @@ Age 加密为可选功能，并且需要供应商支持。OneXray 通过 `X-Age-
 
 广告屏蔽会增加指向 `block` 的内置广告域名规则。
 
-# DNS 与 FakeDNS
+## DNS 与 FakeDNS
 
 运行时策略由 TUN 设置派生：
 
@@ -92,17 +92,17 @@ Age 加密为可选功能，并且需要供应商支持。OneXray 通过 `X-Age-
 
 新建自定义 Profile 和 Full Config 时，DNS Server 默认使用当前 TUN IPv4 DNS。Full Config 管理 `outbounds`、`routing` 和 `dns`，不管理 FakeDNS。
 
-# Xray 配置额外入站
+## Xray 配置额外入站
 
 自定义 Xray 配置支持额外 SOCKS、HTTP 和 dokodemo-door 入站。SOCKS/HTTP 可监听本机或所有网卡；监听所有网卡时必须填写完整认证信息。dokodemo-door 仅监听本机，并支持目标地址、目标端口和 TCP/UDP 模式。
 
 监听端口与 tag 必须唯一。tag 可用于自定义 Routing Rule，但 OneXray 不会自动创建转发规则。
 
-# Ping
+## Ping
 
 Ping 持久化设置只包含 timeout、URL 和 Auto Ping New Configs。OneXray 固定以最多 5 个节点为一组提交测速，不再保存并发数字段。
 
-# 运行时合成
+## 运行时合成
 
 | 保存类型 | 规则模式最终配置 |
 | --- | --- |
@@ -112,7 +112,7 @@ Ping 持久化设置只包含 timeout、URL 和 Auto Ping New Configs。OneXray 
 
 Release 运行时 inbounds 为 `tunIn`、当前 Xray 配置的额外入站与 `pingIn`。用户 Raw Json inbounds 在校验、Real Ping、保存和启动时都会被删除。
 
-# 运行时所有权字段
+## 运行时所有权字段
 
 - 随机 `pingIn` 与 metrics 端口
 - `env.xray.location.asset` 与 `env.xray.location.cert`
@@ -122,7 +122,7 @@ Release 运行时 inbounds 为 `tunIn`、当前 Xray 配置的额外入站与 `p
 - Access/Error 日志路径，或 macOS System Extension 日志禁用
 - 可选 policy/stats/metrics
 
-# Routing Rule 字段
+## Routing Rule 字段
 
 自定义规则支持：
 
@@ -133,11 +133,11 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 `process` 仅在 Windows 和 Linux 写出。
 
-# Raw Json 校验
+## Raw Json 校验
 
 Raw Json 必须是包含非空 `name` 的 JSON object。手动校验会将 inbounds 替换为 `pingIn`、移除 metrics、应用运行时 env，并调用内置 Xray 配置测试。普通 Outbound/分享导入不执行该手动保存测试。
 
-# Backup v4
+## Backup v4
 
 ```text
 manifest.json

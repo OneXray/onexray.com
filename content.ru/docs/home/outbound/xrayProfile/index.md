@@ -7,7 +7,7 @@ aliases:
 
 Xray Profile — обязательная runtime-основа OneXray. Всегда выбран один профиль; встроенный Simple Profile является резервным и не удаляется.
 
-# Формирование Final Config
+## Формирование Final Config
 
 Final Config — runtime `xray.json`, записанный перед запуском Xray-core.
 
@@ -19,7 +19,7 @@ Final Config — runtime `xray.json`, записанный перед запус
 
 После этого применяется режим Home: Global удаляет DNS/routing и оставляет proxy chain, Direct оставляет только `direct`.
 
-# Редактор Custom Profile
+## Редактор Custom Profile
 
 | Раздел | Основные поля |
 | --- | --- |
@@ -32,7 +32,7 @@ Final Config — runtime `xray.json`, записанный перед запус
 
 На телефонах навигация прокручивается горизонтально; на широком экране используется боковое меню. Набор полей одинаков.
 
-# Дополнительные Inbounds
+## Дополнительные Inbounds
 
 Custom Xray Profile может содержать любое количество локальных inbounds:
 
@@ -48,7 +48,7 @@ Tags дополнительных inbounds доступны в custom Routing ru
 
 В release/TUN Final Config содержит `tunIn`, дополнительные inbounds выбранного Profile и `pingIn`. Full Config и Raw Json используют те же Profile-owned inbounds; собственные inbounds Raw Json по-прежнему игнорируются.
 
-# DNS
+## DNS
 
 Новый Xray Profile или Full Config получает первый DNS Server из `TUN Settings > IPv4 DNS`; затем адрес можно изменить.
 
@@ -61,7 +61,7 @@ Tags дополнительных inbounds доступны в custom Routing ru
 
 DNS Server поддерживает address, port, domains, expected/unexpected IPs, tag, client IP, timeout, fallback/cache/stale и final query. Непустой tag доступен как inbound tag routing rule.
 
-# FakeDNS
+## FakeDNS
 
 FakeDNS принадлежит выбранному Xray Profile, даже при запуске Full Config. Full Config не хранит и не редактирует FakeDNS.
 
@@ -72,13 +72,13 @@ FakeDNS принадлежит выбранному Xray Profile, даже пр�
 
 IPv6 pool записывается только при включенном TUN IPv6.
 
-# Routing
+## Routing
 
 Системные правила обрабатывают DNS component, порт 53, DNS over TLS и внутренний ping. Custom rules могут использовать domain, IP, ports, network, source/local addresses, inbound tags, protocols, attrs и процессы на поддерживаемых платформах.
 
 Условия внутри одного правила объединяются.
 
-# Outbounds и Final Outbound
+## Outbounds и Final Outbound
 
 | Tag | Назначение |
 | --- | --- |
@@ -91,7 +91,7 @@ IPv6 pool записывается только при включенном TUN 
 
 Final Outbound выбирается среди локальных Outbound. Один узел нельзя использовать одновременно как Home node и Final Outbound.
 
-# Simple Profile
+## Simple Profile
 
 Simple Profile содержит:
 
@@ -103,6 +103,6 @@ Simple Profile содержит:
 
 Default DNS направляется через `proxy`. Региональный local DNS применяется только к соответствующим direct domains.
 
-# Runtime Ownership
+## Runtime Ownership
 
 OneXray всегда переписывает app-managed runtime `tunIn`/`pingIn`, случайные ping/metrics ports, пути GeoData, Windows/Linux route fields и поведение logs в macOS System Extension. Дополнительные inbounds остаются частью Profile и в режиме TUN вставляются между `tunIn` и `pingIn`.

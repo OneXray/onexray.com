@@ -7,7 +7,7 @@ Home is the main operating surface for connection state and node operation.
 
 The connection summary shows the node that is actually running; while disconnected it shows the currently selected node. The Xray Profile, traffic, and location entries are separate interactive areas so each can be opened reliably.
 
-# Routing Modes
+## Routing Modes
 
 | Mode | Final Config behavior |
 | --- | --- |
@@ -17,7 +17,7 @@ The connection summary shows the node that is actually running; while disconnect
 
 Changing the routing mode while connected stops and restarts the Core so the new Final Config takes effect.
 
-# Configuration Types
+## Configuration Types
 
 | Type | Purpose | Location |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ Changing the routing mode while connected stops and restarts the Core so the new
 | Xray Profile | The required runtime base for inbounds, DNS, routing, system outbounds, logs, metrics, and FakeDNS. | Core > Xray Profiles. |
 | Simple Profile | The built-in fallback Xray Profile. | Core > Xray Profiles. |
 
-# Node List
+## Node List
 
 Local Outbound, Full Config, and Raw Json entries share the `Local` group. Subscription groups contain only outbound nodes. Search filters the unified list; card actions still provide edit, share, copy, ping, and delete where applicable.
 

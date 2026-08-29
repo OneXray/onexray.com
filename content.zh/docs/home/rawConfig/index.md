@@ -11,7 +11,7 @@ Raw Json 是用于编辑结构化页面未暴露字段的高级本地配置类�
 Core > 日志 > Xray 配置
 ```
 
-# 存储与校验
+## 存储与校验
 
 Raw Json 必须是有效 JSON，并包含非空顶层 `name`。
 
@@ -19,7 +19,7 @@ Raw Json 必须是有效 JSON，并包含非空顶层 `name`。
 
 通用分享/文件导入不会创建 Raw Json；请使用 `Home > 添加 > 手动输入 > Raw Json`。
 
-# 最终配置
+## 最终配置
 
 规则模式下，Raw Json 继续作为配置主体，但其 inbounds 会被当前 Xray 配置中的运行时 `tunIn`、额外入站和新生成的 `pingIn` 替换。
 
@@ -37,10 +37,10 @@ OneXray 还会应用：
 
 直连模式不会使用 Raw Json 主体。OneXray 会从当前 Xray 配置生成只包含 direct 的最终配置，因此不需要代理节点。
 
-# Ping 规则
+## Ping 规则
 
 不要手动维护 `pingIn`。OneXray 会使用当前随机端口和认证信息重写入站及其 routing rule。
 
-# 分享
+## 分享
 
 Raw Json 可导出为 JSON 文本或 `.json` 文件。导出内容用于手动编辑或备份，通用导入不会将其重新创建为 Raw Json 记录。

@@ -5,7 +5,7 @@ weight: 4
 
 Auto Update refreshes subscriptions and GeoData after app initialization. It is separate from the manual app-version check.
 
-# Subscriptions
+## Subscriptions
 
 | Option | Meaning |
 | --- | --- |
@@ -17,7 +17,7 @@ Refreshing replaces a subscription's node rows transactionally and updates its t
 
 Age-encrypted subscriptions reuse their saved key pair during automatic refresh. Only the public recipient is sent in `X-Age-Public-Key`; decryption stays local.
 
-# GeoData
+## GeoData
 
 System `geosite`/`geoip` and custom GeoData use the same interval choices. Custom entries are refreshed individually when outdated.
 

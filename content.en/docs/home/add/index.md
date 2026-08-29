@@ -5,7 +5,7 @@ weight: 1
 
 Use the Home add menu to create local nodes, add subscription links, scan QR codes, pick images or files, and read the pasteboard.
 
-# Manual Input
+## Manual Input
 
 `Manual Input` contains:
 
@@ -17,7 +17,7 @@ Use the Home add menu to create local nodes, add subscription links, scan QR cod
 
 All three are shown in the Home `Local` group.
 
-# OneXray Links
+## OneXray Links
 
 Text whose trimmed content starts with `onexray://` is parsed as one or more OneXray Links. Supported links can import:
 
@@ -27,7 +27,7 @@ Text whose trimmed content starts with `onexray://` is parsed as one or more One
 
 An age subscription link does not transfer the sender's keys. OneXray creates a new pair on the receiving device and stores it only after the first download succeeds. A shared config may place required custom GeoData links before its config link.
 
-# HTTPS Subscription Links
+## HTTPS Subscription Links
 
 Text whose trimmed content starts with `https://` is treated as subscription input. Batch import accepts one HTTPS link per line.
 
@@ -40,7 +40,7 @@ The URL fragment is decoded as the initial subscription name and removed before 
 
 To import share links instead, the first non-whitespace content must not start with `onexray://` or `https://`.
 
-# Other Supported Text
+## Other Supported Text
 
 Other text is parsed by libXray and imports outbound nodes only:
 
@@ -50,7 +50,7 @@ Other text is parsed by libXray and imports outbound nodes only:
 
 Generic import does not create Full Config, Raw Json, Xray Profile, or GeoData records. Parsed outbounds are not passed through the manual-save Xray config test.
 
-# QR, Image, File, and Pasteboard
+## QR, Image, File, and Pasteboard
 
 | Entry | Supported input |
 | --- | --- |

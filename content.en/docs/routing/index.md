@@ -3,7 +3,7 @@ title: Routing
 weight: 6
 ---
 
-# Home Routing Modes
+## Home Routing Modes
 
 The Home selector controls the final traffic policy:
 
@@ -15,7 +15,7 @@ The Home selector controls the final traffic policy:
 
 Changing the mode while connected restarts the Core.
 
-# Enhanced Routing Templates
+## Enhanced Routing Templates
 
 Advanced templates are maintained in [OneXray/Routing](https://github.com/OneXray/Routing).
 

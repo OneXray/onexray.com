@@ -14,7 +14,7 @@ OneXray 同时支持通用格式和专有的 `onexray://` URL Scheme。
 | Xray 配置 | OneXray Link 或 JSON 文本/文件。 |
 | GeoData | OneXray Link 或备份。 |
 
-# OneXray URL Scheme
+## OneXray URL Scheme
 
 OneXray Link 用于保留标准 Xray 链接无法表达的 OneXray 配置类型：
 
@@ -30,13 +30,13 @@ Age 加密订阅链接只携带密钥类型，不会传递分享方的密钥对�
 
 分享的配置引用 OneXray 中已有的自定义 GeoData 时，匹配的 GeoData 链接会排在配置链接之前，以便先完成导入。
 
-# 平台注册
+## 平台注册
 
 Android、iOS 和已安装的 macOS App 会直接注册 `onexray://`。Windows EXE/winget 与 Linux DEB 包也会注册；Windows/Linux ZIP 包不会注册。
 
 Mac App Store 版本与 OneXraySE 注册相同 Scheme。如果同时安装，macOS 可能选择其中任意一个打开链接。
 
-# 导入判定
+## 导入判定
 
 1. 去除首尾空白后以 `onexray://` 开头时，逐行解析有效的 OneXray Link。
 2. 以 `https://` 开头时，按每行一个 HTTPS 订阅处理。

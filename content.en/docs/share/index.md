@@ -14,7 +14,7 @@ OneXray supports interoperable formats and its proprietary `onexray://` URL sche
 | Xray Profile | OneXray Link or JSON text/file. |
 | GeoData | OneXray Link or Backup. |
 
-# OneXray URL Scheme
+## OneXray URL Scheme
 
 OneXray Links preserve OneXray-specific config types that standard Xray links cannot represent:
 
@@ -30,13 +30,13 @@ An age-encrypted subscription link carries only the key type, never the sender's
 
 When a shared config references custom GeoData available in OneXray, matching GeoData links are placed before the config link so they are imported first.
 
-# Platform Registration
+## Platform Registration
 
 Android, iOS, and installed macOS apps register `onexray://` directly. Windows EXE/winget and Linux DEB packages also register it; Windows/Linux ZIP packages do not.
 
 The Mac App Store build and OneXraySE register the same scheme. If both are installed, macOS may open either app.
 
-# Import Decision
+## Import Decision
 
 1. If trimmed text starts with `onexray://`, OneXray parses each valid OneXray Link.
 2. If it starts with `https://`, OneXray treats it as subscription input and accepts one HTTPS link per line.

@@ -5,7 +5,7 @@ weight: 5
 
 OneXray использует открытые runtimes, библиотеки и build tools.
 
-# Core и Platform
+## Core и Platform
 
 - [Xray-core](https://github.com/XTLS/Xray-core)
 - [libXray](https://github.com/XTLS/libXray)
@@ -14,7 +14,7 @@ OneXray использует открытые runtimes, библиотеки и 
 - [Dart](https://github.com/dart-lang/sdk)
 - [Go](https://go.dev/)
 
-# UI и архитектура
+## UI и архитектура
 
 - [shadcn_ui](https://pub.dev/packages/shadcn_ui)
 - [lucide_icons_flutter](https://pub.dev/packages/lucide_icons_flutter)
@@ -24,7 +24,7 @@ OneXray использует открытые runtimes, библиотеки и 
 - [re_editor](https://pub.dev/packages/re_editor)
 - [re_highlight](https://pub.dev/packages/re_highlight)
 
-# Data, Network и Native
+## Data, Network и Native
 
 - [drift](https://pub.dev/packages/drift), [drift_flutter](https://pub.dev/packages/drift_flutter), [sqlite3](https://pub.dev/packages/sqlite3)
 - [dio](https://pub.dev/packages/dio)
@@ -35,7 +35,7 @@ OneXray использует открытые runtimes, библиотеки и 
 - [isolate_manager](https://pub.dev/packages/isolate_manager)
 - [tray_manager](https://pub.dev/packages/tray_manager), [window_manager](https://pub.dev/packages/window_manager)
 
-# Import, Export и Media
+## Import, Export и Media
 
 - [file_picker](https://pub.dev/packages/file_picker)
 - [image_picker](https://pub.dev/packages/image_picker)
@@ -46,7 +46,7 @@ OneXray использует открытые runtimes, библиотеки и 
 - [share_plus](https://pub.dev/packages/share_plus)
 - [url_launcher](https://pub.dev/packages/url_launcher)
 
-# Android
+## Android
 
 - [AndroidX](https://developer.android.com/jetpack/androidx)
 - [Kotlin](https://kotlinlang.org/)
@@ -55,7 +55,7 @@ OneXray использует открытые runtimes, библиотеки и 
 - [XXPermissions](https://github.com/getActivity/XXPermissions)
 - [XLog](https://github.com/elvishew/xLog)
 
-# Build и Code Generation
+## Build и Code Generation
 
 - [build_runner](https://pub.dev/packages/build_runner)
 - [json_serializable](https://pub.dev/packages/json_serializable)

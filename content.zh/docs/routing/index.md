@@ -3,7 +3,7 @@ title: 路由
 weight: 6
 ---
 
-# Home 路由模式
+## Home 路由模式
 
 Home 选择器决定最终流量策略：
 
@@ -15,7 +15,7 @@ Home 选择器决定最终流量策略：
 
 连接中切换模式会重启 Core。
 
-# 增强路由模板
+## 增强路由模板
 
 高级模板维护在 [OneXray/Routing](https://github.com/OneXray/Routing)。
 

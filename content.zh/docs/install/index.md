@@ -3,7 +3,7 @@ title: 安装
 weight: 1
 ---
 
-# 平台支持
+## 平台支持
 
 | 平台 | 最低系统 | 分发方式 | 下载 |
 | --- | --- | --- | --- |
@@ -18,13 +18,13 @@ weight: 1
 
 Android 仅支持 `arm64-v8a` 和 `x86_64`，不支持 32 位 ARM。
 
-# iOS IPA
+## iOS IPA
 
 自行安装 IPA 时，必须使用授权 Network Extension capability 的 provisioning profile，重新签名 OneXray 主 App 与 Packet Tunnel extension。Apple 不向免费的 Personal Team 账号提供该 capability，因此必须加入付费 Apple Developer Program。否则 App 可能可以打开并进行节点测速，但无法启动 VPN。
 
 参阅 [Apple Developer Forums](https://developer.apple.com/forums/thread/128767) 和 [iOS 支持的能力](https://developer.apple.com/help/account/reference/supported-capabilities-ios/)。
 
-# macOS 商店外分发
+## macOS 商店外分发
 
 Homebrew 和 Universal ZIP 包含同一份 Developer ID `macos_se` 包，安装 `OneXraySE.app`。Mac App Store 是独立商店包。
 
@@ -33,7 +33,7 @@ brew install --cask onexrayse
 brew uninstall --cask onexrayse
 ```
 
-## Universal ZIP
+### Universal ZIP
 
 1. 下载并解压 `OneXray-macos-universal.zip`。
 2. 将 `OneXraySE.app` 移动到 `/Applications`（“应用程序”）目录。不要直接从“下载”目录或其他目录运行；macOS 要求包含 System Extension 的 App 安装在系统的“应用程序”目录中。
@@ -51,7 +51,7 @@ brew uninstall --cask onexrayse
 
 参阅 [Installing System Extensions and Drivers](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers) 和 [更改“登录项与扩展”设置](https://support.apple.com/guide/mac-help/change-login-items-extension-settings-mtusr003/mac)。
 
-# Windows
+## Windows
 
 Winget 会自动选择 x86_64 或 ARM64 安装程序：
 
@@ -60,7 +60,7 @@ winget install --id YuanDevLLC.OneXray -e
 winget uninstall --id YuanDevLLC.OneXray -e
 ```
 
-# Linux DEB
+## Linux DEB
 
 DEB 安装到 `/opt/OneXray`，并在安装过程中为内置 Core 设置所需网络 capability。
 
@@ -71,7 +71,7 @@ sudo apt remove onexray
 
 arm64 请使用 `OneXray-linux-aarch64.deb`。
 
-# Linux ZIP
+## Linux ZIP
 
 安装依赖后，为解压目录中的 Core 授权：
 

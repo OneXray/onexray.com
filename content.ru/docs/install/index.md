@@ -3,7 +3,7 @@ title: Установка
 weight: 1
 ---
 
-# Поддержка платформ
+## Поддержка платформ
 
 | Платформа | Минимальная система | Дистрибуция | Скачать |
 | --- | --- | --- | --- |
@@ -18,13 +18,13 @@ weight: 1
 
 Android поддерживает только `arm64-v8a` и `x86_64`; 32-битный ARM не поддерживается.
 
-# iOS IPA
+## iOS IPA
 
 Для самостоятельной установки IPA необходимо повторно подписать OneXray и расширение Packet Tunnel с помощью provisioning profile, разрешающего Network Extension capability. Apple не предоставляет эту возможность бесплатным учетным записям Personal Team, поэтому требуется платное членство в Apple Developer Program. Без него приложение может открываться и проверять задержку узлов, но VPN не запустится.
 
 См. [Apple Developer Forums](https://developer.apple.com/forums/thread/128767) и [Поддерживаемые возможности iOS](https://developer.apple.com/help/account/reference/supported-capabilities-ios/).
 
-# macOS вне App Store
+## macOS вне App Store
 
 Homebrew и Universal ZIP содержат один пакет Developer ID `macos_se` и устанавливают `OneXraySE.app`. Сборка Mac App Store является отдельным пакетом.
 
@@ -33,7 +33,7 @@ brew install --cask onexrayse
 brew uninstall --cask onexrayse
 ```
 
-## Universal ZIP
+### Universal ZIP
 
 1. Скачайте и распакуйте `OneXray-macos-universal.zip`.
 2. Переместите `OneXraySE.app` в `/Applications` («Программы»). Не запускайте приложение непосредственно из папки «Загрузки» или другой папки: macOS требует, чтобы приложение с System Extension находилось в системном каталоге Applications.
@@ -51,7 +51,7 @@ brew uninstall --cask onexrayse
 
 См. [Installing System Extensions and Drivers](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers) и [Change Login Items & Extensions settings](https://support.apple.com/guide/mac-help/change-login-items-extension-settings-mtusr003/mac).
 
-# Windows
+## Windows
 
 Winget автоматически выбирает установщик x86_64 или ARM64:
 
@@ -60,7 +60,7 @@ winget install --id YuanDevLLC.OneXray -e
 winget uninstall --id YuanDevLLC.OneXray -e
 ```
 
-# Linux DEB
+## Linux DEB
 
 DEB устанавливается в `/opt/OneXray` и во время установки выдает Core необходимые network capabilities.
 
@@ -71,7 +71,7 @@ sudo apt remove onexray
 
 Для arm64 используйте `OneXray-linux-aarch64.deb`.
 
-# Linux ZIP
+## Linux ZIP
 
 Установите зависимости и выдайте capabilities файлу Core в распакованном каталоге:
 

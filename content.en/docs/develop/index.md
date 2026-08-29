@@ -5,7 +5,7 @@ weight: 4
 
 This page summarizes import and runtime boundaries for integrations.
 
-# Import Boundary
+## Import Boundary
 
 The UI import decision is intentionally simple:
 
@@ -16,7 +16,7 @@ The UI import decision is intentionally simple:
 
 Fragments are not persisted in subscription URLs. Generic HTTPS/share-text import does not run the manual-save Xray config test and does not create Full Config, Raw Json, Xray Profile, or GeoData records. OneXray Links use their typed import paths instead.
 
-# OneXray Link Contract
+## OneXray Link Contract
 
 The public scheme is `onexray://onexray.com` and accepts only:
 
@@ -28,12 +28,12 @@ The public scheme is `onexray://onexray.com` and accepts only:
 
 The URL fragment is an optional display name. Legacy `type=setting`, backup import, and unlisted commands are intentionally rejected. Age links describe the key type; the receiver generates a new pair rather than importing the sender's secret.
 
-# Runtime Boundary
+## Runtime Boundary
 
 OneXray's stored node/profile data is not the Xray-core process contract. Before startup the app composes a Final Config, applies the selected Rule/Global/Direct mode, rewrites runtime-owned fields, and writes `xray.json`.
 
 Release builds use the platform TUN/VPN path. The Proxy run mode is an internal Debug-only facility and must not be treated as a public user feature or stable integration API.
 
-# Desktop Integration
+## Desktop Integration
 
 Desktop packages expose their lifecycle through the OneXray UI. EXE/winget on Windows and DEB on Linux register `onexray://`; ZIP packages do not. There is no stable local machine-control API for external tools.

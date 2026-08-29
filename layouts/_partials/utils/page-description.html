@@ -1,0 +1,9 @@
+{{- $description := .Description -}}
+{{- if not $description -}}
+  {{- if .IsHome -}}
+    {{- $description = .Site.Params.description -}}
+  {{- else -}}
+    {{- $description = .Summary -}}
+  {{- end -}}
+{{- end -}}
+{{- $description | plainify | htmlUnescape | replaceRE `\s+` ` ` | strings.TrimSpace | truncate 155 -}}

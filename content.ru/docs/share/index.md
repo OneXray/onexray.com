@@ -14,7 +14,7 @@ OneXray поддерживает совместимые форматы и соб
 | Xray Profile | OneXray Link или JSON text/file. |
 | GeoData | OneXray Link или Backup. |
 
-# OneXray URL Scheme
+## OneXray URL Scheme
 
 OneXray Links сохраняют типы конфигурации, которые нельзя выразить стандартными Xray links:
 
@@ -30,13 +30,13 @@ onexray://onexray.com/dat/add?type=domain|ip&url=<percent-encoded-https-url>#Nam
 
 Если shared config ссылается на custom GeoData в OneXray, соответствующие GeoData links помещаются перед config link и импортируются первыми.
 
-# Регистрация на платформах
+## Регистрация на платформах
 
 Android, iOS и установленные macOS apps регистрируют `onexray://` напрямую. В Windows схему регистрируют EXE/winget, в Linux — DEB. ZIP-пакеты Windows/Linux ее не регистрируют.
 
 Mac App Store build и OneXraySE используют одну схему, поэтому при одновременной установке macOS может открыть любое из приложений.
 
-# Import
+## Import
 
 1. Если trimmed text начинается с `onexray://`, OneXray разбирает каждую валидную OneXray Link.
 2. Если он начинается с `https://`, каждая валидная HTTPS-строка импортируется как подписка.

@@ -1,0 +1,12 @@
+{{- $description := partial "utils/page-description.html" . -}}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ .Title }}" />
+<meta name="twitter:description" content="{{ $description }}" />
+{{- $images := .Params.images | default .Site.Params.images -}}
+{{- range first 1 $images }}
+  {{- $image := . -}}
+  {{- if hasPrefix $image "/" -}}
+    {{- $image = absURL (strings.TrimPrefix "/" $image) -}}
+  {{- end }}
+  <meta name="twitter:image" content="{{ $image }}" />
+{{- end }}

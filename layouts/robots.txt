@@ -1,2 +1,4 @@
-User-agent: Google-adstxt
+User-agent: *
 Disallow:
+
+Sitemap: https://onexray.com/sitemap.xml

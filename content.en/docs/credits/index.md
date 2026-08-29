@@ -5,7 +5,7 @@ weight: 5
 
 OneXray is built with open source runtimes, libraries, and build tools.
 
-# Core and Platform
+## Core and Platform
 
 - [Xray-core](https://github.com/XTLS/Xray-core)
 - [libXray](https://github.com/XTLS/libXray)
@@ -14,7 +14,7 @@ OneXray is built with open source runtimes, libraries, and build tools.
 - [Dart](https://github.com/dart-lang/sdk)
 - [Go](https://go.dev/)
 
-# UI and App Architecture
+## UI and App Architecture
 
 - [shadcn_ui](https://pub.dev/packages/shadcn_ui)
 - [lucide_icons_flutter](https://pub.dev/packages/lucide_icons_flutter)
@@ -24,7 +24,7 @@ OneXray is built with open source runtimes, libraries, and build tools.
 - [re_editor](https://pub.dev/packages/re_editor)
 - [re_highlight](https://pub.dev/packages/re_highlight)
 
-# Data, Network, and Native Integration
+## Data, Network, and Native Integration
 
 - [drift](https://pub.dev/packages/drift), [drift_flutter](https://pub.dev/packages/drift_flutter), [sqlite3](https://pub.dev/packages/sqlite3)
 - [dio](https://pub.dev/packages/dio)
@@ -35,7 +35,7 @@ OneXray is built with open source runtimes, libraries, and build tools.
 - [isolate_manager](https://pub.dev/packages/isolate_manager)
 - [tray_manager](https://pub.dev/packages/tray_manager), [window_manager](https://pub.dev/packages/window_manager)
 
-# Import, Export, and Media
+## Import, Export, and Media
 
 - [file_picker](https://pub.dev/packages/file_picker)
 - [image_picker](https://pub.dev/packages/image_picker)
@@ -46,7 +46,7 @@ OneXray is built with open source runtimes, libraries, and build tools.
 - [share_plus](https://pub.dev/packages/share_plus)
 - [url_launcher](https://pub.dev/packages/url_launcher)
 
-# Android
+## Android
 
 - [AndroidX](https://developer.android.com/jetpack/androidx)
 - [Kotlin](https://kotlinlang.org/)
@@ -55,7 +55,7 @@ OneXray is built with open source runtimes, libraries, and build tools.
 - [XXPermissions](https://github.com/getActivity/XXPermissions)
 - [XLog](https://github.com/elvishew/xLog)
 
-# Build and Code Generation
+## Build and Code Generation
 
 - [build_runner](https://pub.dev/packages/build_runner)
 - [json_serializable](https://pub.dev/packages/json_serializable)

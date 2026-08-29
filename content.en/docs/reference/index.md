@@ -5,7 +5,7 @@ weight: 8
 
 This page is a compact reference for OneXray's current persisted and runtime semantics.
 
-# Config Types and Tags
+## Config Types and Tags
 
 | Identifier | Meaning |
 | --- | --- |
@@ -20,7 +20,7 @@ This page is a compact reference for OneXray's current persisted and runtime sem
 | `tunIn` | Runtime TUN inbound. |
 | `pingIn` | Runtime HTTP ping inbound. |
 
-# Home Routing Modes
+## Home Routing Modes
 
 | Mode | Required node | Transformation |
 | --- | --- | --- |
@@ -30,7 +30,7 @@ This page is a compact reference for OneXray's current persisted and runtime sem
 
 A connected mode change restarts the Core.
 
-# Import Classification
+## Import Classification
 
 | Input | Result |
 | --- | --- |
@@ -42,11 +42,11 @@ Subscription fragments provide names but are removed from saved URLs. File exten
 
 The scheme accepts `config/add` types `outbound/profile/full/raw`, `sub/add`, and `dat/add`. It rejects legacy `type=setting`, backups, and other commands. Age subscription links carry `x25519` or `hybrid`, not an existing key pair; the receiving app generates its own pair.
 
-# Age-Encrypted Subscriptions
+## Age-Encrypted Subscriptions
 
 Age encryption is optional and requires provider support. OneXray sends the saved public recipient as `X-Age-Public-Key`, keeps the secret key local, and reuses the pair for later refreshes. Supported generated key types are X25519 and Mihomo-compatible Hybrid (`ML-KEM-768 + X25519`). Decrypted plaintext is limited to 16 MiB.
 
-# Startup Settings
+## Startup Settings
 
 | Setting | Scope | Default | Meaning |
 | --- | --- | --- | --- |
@@ -57,11 +57,11 @@ Age encryption is optional and requires provider support. OneXray sends the save
 
 Clear Data unregisters Launch at Login and removes `connectOnAppLaunch` and `desktopStartHidden`.
 
-# Download User-Agent
+## Download User-Agent
 
 System User-Agent is the default. Android, iOS, and macOS read the system browser identity; Windows and Linux use a fixed compatible browser identity. OneXray User-Agent includes app version/build information. Clear Data resets this preference to System.
 
-# Simple Profile Defaults
+## Simple Profile Defaults
 
 | Field | Default |
 | --- | --- |
@@ -81,7 +81,7 @@ Region-specific local DNS remains `223.5.5.5` for CN, `5.200.200.200` for IR, `9
 
 Ad blocking adds the built-in ad-domain rule to `block`.
 
-# DNS and FakeDNS
+## DNS and FakeDNS
 
 Runtime query strategy is derived from TUN Settings:
 
@@ -92,17 +92,17 @@ Runtime query strategy is derived from TUN Settings:
 
 New custom Profile and Full Config DNS servers default to the current TUN IPv4 DNS. Full Config owns `outbounds`, `routing`, and `dns`; it does not own FakeDNS.
 
-# Additional Profile Inbounds
+## Additional Profile Inbounds
 
 Custom Xray Profiles support additional SOCKS, HTTP, and dokodemo-door inbounds. SOCKS/HTTP can listen on localhost or all interfaces; all-interface listeners require complete credentials. dokodemo-door listens on localhost and accepts a target address, target port, and TCP/UDP mode.
 
 Listener tags and ports must be unique. Their tags are available to custom routing rules, but OneXray does not create forwarding rules automatically.
 
-# Ping
+## Ping
 
 Ping preferences persist timeout, URL, and Auto Ping New Configs. OneXray submits node tests in fixed groups of at most five; there is no persisted concurrency setting.
 
-# Runtime Composition
+## Runtime Composition
 
 | Stored type | Rule-mode Final Config |
 | --- | --- |
@@ -112,7 +112,7 @@ Ping preferences persist timeout, URL, and Auto Ping New Configs. OneXray submit
 
 Release runtime inbounds are `tunIn`, the selected Profile's additional inbounds, and `pingIn`. User Raw Json inbounds are removed during validation, Real Ping, save, and startup.
 
-# Runtime-Owned Fields
+## Runtime-Owned Fields
 
 - Random `pingIn` and metrics ports
 - `env.xray.location.asset` and `env.xray.location.cert`
@@ -122,7 +122,7 @@ Release runtime inbounds are `tunIn`, the selected Profile's additional inbounds
 - Access/error log paths or macOS System Extension log disabling
 - Optional policy/stats/metrics
 
-# Routing Rule Fields
+## Routing Rule Fields
 
 Custom rules support:
 
@@ -133,11 +133,11 @@ inboundTag, protocol, attrs, process, outboundTag, ruleTag
 
 `process` is emitted only on Windows and Linux.
 
-# Raw Json Validation
+## Raw Json Validation
 
 Raw Json must be a JSON object with a non-empty `name`. Manual validation replaces inbounds with `pingIn`, removes metrics, applies runtime env, and invokes the bundled Xray config test. Importing ordinary outbound/share content does not run this manual-save test.
 
-# Backup v4
+## Backup v4
 
 ```text
 manifest.json

@@ -7,7 +7,7 @@ aliases:
 
 Xray 配置是 OneXray 必选的运行时基础。App 始终选中一个配置；内置简易配置是不可删除的兜底项。
 
-# 最终配置合成
+## 最终配置合成
 
 最终配置（Final Config）是启动 Xray-core 前写出的运行时 `xray.json`。
 
@@ -19,7 +19,7 @@ Xray 配置是 OneXray 必选的运行时基础。App 始终选中一个配置�
 
 合成后再应用 Home 路由模式。全局模式删除 DNS/routing 并保留代理依赖链；直连模式只保留 `direct`。
 
-# 自定义配置编辑器
+## 自定义配置编辑器
 
 编辑器包含六个分区：
 
@@ -34,7 +34,7 @@ Xray 配置是 OneXray 必选的运行时基础。App 始终选中一个配置�
 
 手机上分区控件可横向滚动；宽屏使用侧边导航。两种布局的字段完全一致。
 
-# 额外入站
+## 额外入站
 
 自定义 Xray 配置可以增加任意数量的本地入站：
 
@@ -50,7 +50,7 @@ Xray 配置是 OneXray 必选的运行时基础。App 始终选中一个配置�
 
 Release/TUN 运行时的最终配置包含 `tunIn`、当前 Xray 配置的额外入站和 `pingIn`。Full Config 与 Raw Json 使用同一组由 Xray 配置管理的入站；Raw Json 自带的 inbounds 仍会被忽略。
 
-# DNS
+## DNS
 
 新建 Xray 配置或 Full Config 时，第一个 DNS Server 默认使用 `TUN 设置 > IPv4 DNS`，之后可在编辑器中修改。
 
@@ -63,7 +63,7 @@ UI 不再显示全局或单个 Server 的 `queryStrategy`。运行时由 `TUN �
 
 DNS Server 支持 address、port、domains、预期/非预期 IP、tag、client IP、timeout、fallback/cache/stale 和 final query 等字段。非空 DNS Server tag 可作为 Routing Rule 的 inbound tag。
 
-# FakeDNS
+## FakeDNS
 
 FakeDNS 始终由当前 Xray 配置管理，即使启动的是 Full Config。Full Config 不保存或编辑 FakeDNS。
 
@@ -76,13 +76,13 @@ FakeDNS 始终由当前 Xray 配置管理，即使启动的是 Full Config。Ful
 
 仅在 TUN IPv6 开启时写入 IPv6 地址池。
 
-# Routing
+## Routing
 
 系统规则负责 DNS 组件流量、53 端口、DNS over TLS 和内部 ping。自定义规则可匹配 domain、IP、端口、网络、源/本地地址、inbound tag、协议、attrs，以及受支持平台的进程。
 
 同一规则中的条件会组合匹配。例如同时包含 domain 和 IP 时，连接必须同时满足两者。
 
-# Outbounds 与最终出口
+## Outbounds 与最终出口
 
 | 保留 tag | 用途 |
 | --- | --- |
@@ -95,7 +95,7 @@ FakeDNS 始终由当前 Xray 配置管理，即使启动的是 Full Config。Ful
 
 最终出口从本地 Outbound 节点中选择。同一节点不能同时作为 Home 节点和最终出口。
 
-# 简易配置
+## 简易配置
 
 简易配置提供：
 
@@ -107,6 +107,6 @@ FakeDNS 始终由当前 Xray 配置管理，即使启动的是 Full Config。Ful
 
 默认 DNS 通过 `proxy` 查询。可选的地区本地 DNS 只查询对应直连域名集合。
 
-# 运行时所有权
+## 运行时所有权
 
 OneXray 始终重写由 App 管理的运行时 `tunIn` 与 `pingIn`、ping/metrics 随机端口、GeoData 路径、Windows/Linux 路由字段和 macOS System Extension 日志行为。额外入站仍由 Xray 配置管理，并在 TUN 模式下插入 `tunIn` 与 `pingIn` 之间。

@@ -3,7 +3,7 @@ title: Install
 weight: 1
 ---
 
-# Platform Support
+## Platform Support
 
 | Platform | Minimum system | Distribution | Download |
 | --- | --- | --- | --- |
@@ -18,13 +18,13 @@ weight: 1
 
 Android supports only `arm64-v8a` and `x86_64`. 32-bit ARM is not supported.
 
-# iOS IPA
+## iOS IPA
 
 Self-installing the IPA requires re-signing both OneXray and its Packet Tunnel extension with a provisioning profile that authorizes the Network Extension capability. Apple does not support this capability for free Personal Team accounts, so a paid Apple Developer Program membership is required. Without it, the app may open and ping nodes, but the VPN cannot start.
 
 See [Apple Developer Forums](https://developer.apple.com/forums/thread/128767) and [Supported capabilities (iOS)](https://developer.apple.com/help/account/reference/supported-capabilities-ios/).
 
-# macOS Outside App Store
+## macOS Outside App Store
 
 Homebrew and the Universal ZIP contain the same Developer ID `macos_se` package and install `OneXraySE.app`. The Mac App Store build is a separate package.
 
@@ -33,7 +33,7 @@ brew install --cask onexrayse
 brew uninstall --cask onexrayse
 ```
 
-## Universal ZIP
+### Universal ZIP
 
 1. Download and extract `OneXray-macos-universal.zip`.
 2. Move `OneXraySE.app` to `/Applications`. Do not run it directly from Downloads or another folder; macOS requires an app containing a System Extension to be installed in a system Applications directory.
@@ -51,7 +51,7 @@ To update the ZIP build, quit OneXraySE, replace the existing app in `/Applicati
 
 See [Installing System Extensions and Drivers](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers) and [Change Login Items & Extensions settings](https://support.apple.com/guide/mac-help/change-login-items-extension-settings-mtusr003/mac).
 
-# Windows
+## Windows
 
 Winget selects the installer matching x86_64 or ARM64:
 
@@ -60,7 +60,7 @@ winget install --id YuanDevLLC.OneXray -e
 winget uninstall --id YuanDevLLC.OneXray -e
 ```
 
-# Linux DEB
+## Linux DEB
 
 The DEB installs under `/opt/OneXray` and grants the bundled Core its required network capabilities during installation.
 
@@ -71,7 +71,7 @@ sudo apt remove onexray
 
 Use `OneXray-linux-aarch64.deb` on arm64.
 
-# Linux ZIP
+## Linux ZIP
 
 Install dependencies, then grant capabilities to the Core inside the extracted directory:
 

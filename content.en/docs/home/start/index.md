@@ -5,7 +5,7 @@ weight: 5
 
 Use the Home power button to start or stop the VPN.
 
-# Start
+## Start
 
 OneXray performs the following steps:
 
@@ -17,15 +17,15 @@ OneXray performs the following steps:
 6. Writes runtime `tunIn`, the selected Profile's additional inbounds, and `pingIn`, plus random ports, metrics, GeoData paths, interface/route fields, and platform fixes.
 7. Writes the runtime `xray.json` and starts the platform VPN/TUN integration.
 
-# Routing Mode Changes
+## Routing Mode Changes
 
 Changing Rule, Global, or Direct while connected is a restart operation. OneXray first stops the current Core, builds a new Final Config, and starts it again. If stopping or starting fails, the Home status reports the failure instead of pretending the new mode is connected.
 
-# Stop
+## Stop
 
 Stopping tears down the active VPN/Core and then clears the running state. The Home summary keeps the selected node ready for the next Rule or Global start.
 
-# Startup Validation
+## Startup Validation
 
 Startup can fail when:
 

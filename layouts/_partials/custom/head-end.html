@@ -1,0 +1,36 @@
+<meta name="application-name" content="OneXray" />
+<meta name="apple-mobile-web-app-title" content="OneXray" />
+
+{{- range .AllTranslations }}
+  {{- $locale := partial "utils/hugo-compat/language-locale.html" .Language }}
+  <link rel="alternate" hreflang="{{ $locale }}" href="{{ .Permalink }}" />
+{{- end }}
+{{- range where .AllTranslations "Language.Lang" "en" }}
+  <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+{{- end }}
+
+{{- $locale := partial "utils/hugo-compat/language-locale.html" .Language }}
+<meta property="og:locale" content="{{ replace $locale `-` `_` }}" />
+{{- range .Translations }}
+  {{- $alternateLocale := partial "utils/hugo-compat/language-locale.html" .Language }}
+  <meta property="og:locale:alternate" content="{{ replace $alternateLocale `-` `_` }}" />
+{{- end }}
+
+{{- if .IsHome }}
+  {{- $application := dict
+    "@context" "https://schema.org"
+    "@type" "SoftwareApplication"
+    "name" "OneXray"
+    "description" .Description
+    "url" .Permalink
+    "downloadUrl" (absLangURL "docs/install/")
+    "applicationCategory" "UtilitiesApplication"
+    "operatingSystem" (slice "iOS" "macOS" "Android" "Windows" "Linux")
+    "isAccessibleForFree" true
+    "license" "https://github.com/OneXray/OneXray/blob/main/LICENSE"
+    "sameAs" "https://github.com/OneXray/OneXray"
+    "author" (dict "@type" "Organization" "name" "Yuan Dev LLC")
+    "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "USD")
+  }}
+  <script type="application/ld+json">{{ $application | jsonify | safeJS }}</script>
+{{- end }}

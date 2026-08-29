@@ -5,7 +5,7 @@ weight: 4
 
 自动更新在 App 初始化完成后刷新订阅和 GeoData，与手动检查 App 版本相互独立。
 
-# 订阅
+## 订阅
 
 | 选项 | 含义 |
 | --- | --- |
@@ -17,7 +17,7 @@ weight: 4
 
 Age 加密订阅在自动刷新时复用已保存的密钥对，只通过 `X-Age-Public-Key` 发送公钥，解密始终在本地完成。
 
-# GeoData
+## GeoData
 
 系统 `geosite`/`geoip` 和自定义 GeoData 使用相同的间隔选项；自定义条目按过期时间逐项刷新。
 
