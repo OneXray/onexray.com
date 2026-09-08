@@ -9,10 +9,18 @@ OneXray 基于开源运行时、库和构建工具开发。
 
 - [Xray-core](https://github.com/XTLS/Xray-core)
 - [libXray](https://github.com/XTLS/libXray)
-- [Wintun](https://github.com/WireGuard/wintun)
+- [Wintun](https://www.wintun.net/)
 - [Flutter](https://github.com/flutter/flutter)
 - [Dart](https://github.com/dart-lang/sdk)
 - [Go](https://go.dev/)
+
+## Windows 原生 TUN：Wintun
+
+Windows EXE / ZIP 模式通过 Wintun 创建原生 TUN 接口，使用官方发布、按架构选择的未修改 `wintun.dll`。MSIX 模式使用系统 VPN Provider。
+
+[项目与源码](https://git.zx2c4.com/wintun/) · [上游分发说明](https://git.zx2c4.com/wintun/about/) · [官方预编译发行包](https://www.wintun.net/builds/wintun-0.14.1.zip)
+
+预编译 DLL 的分发条款以官方发行包中的 `LICENSE.txt` 为准；本页提供来源和许可说明入口。
 
 ## UI 与 App 架构
 

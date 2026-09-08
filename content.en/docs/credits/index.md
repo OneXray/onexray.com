@@ -9,10 +9,18 @@ OneXray is built with open source runtimes, libraries, and build tools.
 
 - [Xray-core](https://github.com/XTLS/Xray-core)
 - [libXray](https://github.com/XTLS/libXray)
-- [Wintun](https://github.com/WireGuard/wintun)
+- [Wintun](https://www.wintun.net/)
 - [Flutter](https://github.com/flutter/flutter)
 - [Dart](https://github.com/dart-lang/sdk)
 - [Go](https://go.dev/)
+
+## Windows Native TUN: Wintun
+
+Windows EXE / ZIP mode uses Wintun for its native TUN interface and bundles the unmodified official `wintun.dll` for the target architecture. MSIX mode uses the system VPN Provider.
+
+[Project and source](https://git.zx2c4.com/wintun/) · [Upstream distribution notes](https://git.zx2c4.com/wintun/about/) · [Official prebuilt release](https://www.wintun.net/builds/wintun-0.14.1.zip)
+
+The distribution terms for the prebuilt DLL are provided in `LICENSE.txt` inside the official release. This page links to its source and licensing information.
 
 ## UI and App Architecture
 
