@@ -28,3 +28,9 @@
 .product-section-anchor {
   scroll-margin-top: 5rem;
 }
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}

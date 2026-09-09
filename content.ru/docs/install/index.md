@@ -1,85 +1,68 @@
 ---
-title: Установка
-weight: 1
+title: "Установка OneXray"
+description: "Загрузите OneXray для iOS, macOS, Android, Windows и Linux; узнайте различия EXE/ZIP, MSIX и OneXraySE."
+weight: 10
+lastmod: 2026-09-09
 ---
 
-## Поддержка платформ
+## Выберите платформу
 
-| Платформа | Минимальная система | Дистрибуция | Скачать |
-| --- | --- | --- | --- |
-| iOS | iOS 15 | App Store, IPA | [App Store](https://apps.apple.com/us/app/onexray/id6745748773), [IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
-| macOS (Mac App Store) | macOS 13 | Mac App Store | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
-| macOS (вне App Store) | macOS 13 | Homebrew, ZIP | `brew install --cask onexrayse`<br>[Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
-| Android | Android 10, arm64-v8a или x86_64 | Google Play, APK | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray), [Universal APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows x86_64 | Windows 10 | winget, EXE, ZIP | [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.exe), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) |
-| Windows ARM64 | Windows 11 | winget, EXE, ZIP | [EXE](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.exe), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) |
-| Linux x86_64 | glibc 2.39 | DEB, ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
-| Linux arm64 | glibc 2.39 | DEB, ZIP | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb), [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
+| Платформа | Требования | Загрузка |
+| --- | --- | --- |
+| iPhone / iPad | iOS / iPadOS 15+ | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) · [IPA](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-ios.ipa) |
+| Mac App Store | macOS 13+, Apple silicon или Intel | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
+| Mac — OneXraySE | macOS 13+, Apple silicon или Intel | [Homebrew](https://formulae.brew.sh/cask/onexrayse) · [Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
+| Android, телефоны и планшеты | Android 10+, arm64-v8a или x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray) · [APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
+| Windows x64 | Windows 10 20H2+ | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) · Microsoft Store |
+| Windows ARM64 | Windows 11 | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) · Microsoft Store |
+| Linux x86_64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
+| Linux arm64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
-Android поддерживает только `arm64-v8a` и `x86_64`; 32-битный ARM не поддерживается.
-
-## iOS IPA
-
-Для самостоятельной установки IPA необходимо повторно подписать OneXray и расширение Packet Tunnel с помощью provisioning profile, разрешающего Network Extension capability. Apple не предоставляет эту возможность бесплатным учетным записям Personal Team, поэтому требуется платное членство в Apple Developer Program. Без него приложение может открываться и проверять задержку узлов, но VPN не запустится.
-
-См. [Apple Developer Forums](https://developer.apple.com/forums/thread/128767) и [Поддерживаемые возможности iOS](https://developer.apple.com/help/account/reference/supported-capabilities-ios/).
-
-## macOS вне App Store
-
-Homebrew и Universal ZIP содержат один пакет Developer ID `macos_se` и устанавливают `OneXraySE.app`. Сборка Mac App Store является отдельным пакетом.
-
-```shell
-brew install --cask onexrayse
-brew uninstall --cask onexrayse
-```
-
-### Universal ZIP
-
-1. Скачайте и распакуйте `OneXray-macos-universal.zip`.
-2. Переместите `OneXraySE.app` в `/Applications` («Программы»). Не запускайте приложение непосредственно из папки «Загрузки» или другой папки: macOS требует, чтобы приложение с System Extension находилось в системном каталоге Applications.
-3. Откройте OneXraySE из папки «Программы» и подтвердите первый запуск в macOS.
-
-При первом подключении VPN:
-
-1. Импортируйте подписку или узел, выберите узел и нажмите кнопку запуска.
-2. Откройте **Системные настройки > Основные > Объекты входа и расширения**.
-3. В разделе **Расширения** откройте **Сетевые расширения**, включите **OneXraySE** и нажмите **Готово**.
-4. Если в разделе **Конфиденциальность и безопасность** также отображается запрос, нажмите **Разрешить** и перезапустите Mac, если это потребуется.
-5. Вернитесь в OneXraySE и снова нажмите кнопку запуска.
-
-Для обновления ZIP-версии закройте OneXraySE, замените приложение в `/Applications` на новый распакованный `OneXraySE.app` и снова откройте его. Если macOS запросит подтверждение обновления System Extension, разрешите его.
-
-См. [Installing System Extensions and Drivers](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers) и [Change Login Items & Extensions settings](https://support.apple.com/guide/mac-help/change-login-items-extension-settings-mtusr003/mac).
+Полный список файлов и изменений — в [Releases](https://github.com/OneXray/OneXray/releases). 32-битный ARM на Android не поддерживается.
 
 ## Windows
 
-Winget автоматически выбирает установщик x86_64 или ARM64:
+Установите самостоятельную EXE-версию через winget:
 
 ```powershell
 winget install --id YuanDevLLC.OneXray -e
-winget uninstall --id YuanDevLLC.OneXray -e
 ```
 
-## Linux DEB
+EXE и ZIP используют нативный TUN. При запуске VPN требуется подтверждение UAC для Core; само приложение работает без прав администратора. ZIP нужно **распаковать целиком**. Он не регистрирует ссылки и не создаёт ярлыки автоматически.
 
-DEB устанавливается в `/opt/OneXray` и во время установки выдает Core необходимые network capabilities.
+Версия Microsoft Store использует MSIX и системный VPN Windows, без UAC для Core. EXE/ZIP и MSIX хранят данные раздельно; смена канала не переносит их автоматически. Обе версии требуют выбора исходящего интерфейса Xray. [Подробнее о Windows]({{< relref "/docs/advanced/windows" >}}).
+
+## macOS
+
+Версия Mac App Store использует Packet Tunnel. OneXraySE использует System Extension:
+
+```shell
+brew install --cask onexrayse
+```
+
+Для ZIP сначала перенесите OneXraySE.app в /Applications. При настройке разрешите VPN и сетевое расширение. macOS может открыть раздел расширений/объектов входа или конфиденциальности и безопасности; выполните запрос на перезагрузку, если он появится.
+
+Для обновления ZIP закройте приложение, замените его в /Applications и подтвердите обновление расширения, если потребуется. См. [руководство Apple](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers).
+
+## iOS IPA
+
+Проще всего установить приложение из App Store. Для самостоятельной установки IPA нужно переподписать приложение и Packet Tunnel с профилями, разрешающими Network Extension. Бесплатная Personal Team этой возможности не предоставляет. См. [возможности Apple Developer](https://developer.apple.com/help/account/reference/supported-capabilities-ios/).
+
+## Linux
+
+На Debian/Ubuntu DEB устанавливает зависимости и выдаёт Core сетевые capabilities:
 
 ```shell
 sudo apt install ./OneXray-linux-x86_64.deb
-sudo apt remove onexray
 ```
 
-Для arm64 используйте `OneXray-linux-aarch64.deb`.
-
-## Linux ZIP
-
-Установите зависимости и выдайте capabilities файлу Core в распакованном каталоге:
+Для arm64 используйте OneXray-linux-aarch64.deb. Для ZIP выполните из каталога, содержащего распакованную папку OneXray:
 
 ```shell
 sudo apt install -y procps libcap2-bin libayatana-appindicator3-1
-sudo setcap cap_net_admin,cap_net_raw+eip OneXray/bin/OneXrayCore
+sudo setcap cap_net_admin,cap_net_raw+eip OneXray/OneXrayCore
 ```
 
-Запустите команду из каталога, содержащего папку `OneXray`, либо укажите абсолютный путь. Для GNOME может потребоваться [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/).
+После замены Core при обновлении выдайте capabilities заново. ZIP не регистрирует onexray://. Для трея GNOME может понадобиться [AppIndicator](https://github.com/ubuntu/gnome-shell-extension-appindicator).
 
-Linux arm64 в настоящее время использует английский язык для CJK locale.
+Далее: [первое подключение]({{< relref "/docs/getting-started" >}}).

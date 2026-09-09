@@ -1,88 +1,60 @@
 ---
-title: Privacy
-weight: 7
+title: "Privacy policy"
+description: "How OneXray processes local configurations, optional logs, installed-app lists, and network requests without an analytics backend."
+weight: 80
+lastmod: 2026-09-09
 ---
 
-## Privacy Policy
+**Effective date: May 1, 2025**
 
-**Effective Date: May 1, 2025**
+**Last updated: September 9, 2026**
 
-**Last Updated: July 15, 2026**
+OneXray is a client for servers and configurations chosen by you. This policy explains local processing and the difference between app telemetry and the network requests needed for the client to work.
 
-OneXray is designed to work without collecting your data. This Privacy Policy explains what the App processes locally and makes clear what is never sent to us.
+## 1. No app-data collection by the developer
 
----
+OneXray requires no account and includes no advertising, analytics, tracking, telemetry, or crash-reporting service. We do not operate an app-data collection backend or collect your VPN traffic, browsing history, configurations, subscriptions, credentials, installed-app list, or connection logs through the app.
 
-### 1. We Do Not Collect Any App Data
+## 2. Data processed on your device
 
-OneXray does not collect, upload, transmit to us, sell, share, or retain any personal or usage data from the App.
+The app stores configuration, subscription URLs, optional age keys, routing data, and preferences locally. It also processes VPN status, current-connection traffic counters, and the generated runtime configuration. Historical/device-wide traffic totals are not stored.
 
-In particular, we do not collect:
+Optional Xray access/error logs remain local. Logs may contain network addresses and other sensitive information. The macOS System Extension edition does not expose file-log recording/viewing.
 
-* Your IP address or approximate or precise location.
-* Browsing history, visited domains, DNS queries, or network traffic contents.
-* Connection timestamps, session duration, or transferred data volume.
-* Device identifiers, advertising identifiers, or account information.
-* App usage, feature interactions, diagnostics, or crash reports.
-* VPN configurations, server addresses, credentials, subscription links, or routing rules.
-* Photos, camera content, installed-app lists, or network-interface information.
+Android reads installed-app names, package names, and icons for per-app VPN selection. Selected apps are stored locally. Windows/Linux read adapter information for outbound-interface selection. QR scanning processes the camera image to read the code; the scan is not uploaded to us.
 
-The App does not require an account and does not include advertising, analytics, tracking, telemetry, or crash-reporting services. We do not operate a data-collection backend for the App.
+## 3. Necessary network requests
 
----
+The absence of analytics does not mean the app makes no network requests.
 
-### 2. Data Processed and Stored Locally
+- VPN and DNS traffic goes to the servers and resolvers selected by the active configuration. Managed normal-mode DNS uses Google DNS.
+- Subscription and routing-data updates connect to configured sources, including default GeoData release hosts.
+- Latency tests contact the selected test URL. Region/exit detection uses a network-based lookup service, currently Cloudflare; it does not require GPS permission.
+- App update checks contact GitHub. Opening documentation, stores, community links, or support pages contacts those services.
+- Automatic updates and node tests may run after import or while the app is running, according to the relevant settings and workflow.
 
-To provide its features, OneXray processes certain information only on your device. This may include:
+Those services necessarily receive connection information such as the source IP and request details, and apply their own privacy policies. We cannot control third-party handling. A subscription server receives the configured age public key when used; the private key is kept local. The download User-Agent can identify OneXray and its version/platform.
 
-* VPN and proxy configurations, subscriptions, and preferences.
-* Local traffic counters and connection state.
-* Xray access logs, error logs, and generated runtime configuration.
-* Installed-app selections used for per-app routing on supported platforms.
-* Network-interface information used to select an outbound interface.
+## 4. Sharing and external copies
 
-This local data is not automatically uploaded or made available to us. You can manage it from the App, clear the App's data, or remove it by uninstalling the App, subject to your operating system's behavior.
+The app does not automatically upload configurations or logs to us. If you export, copy, or share them, the selected destination may receive credentials, server addresses, or access tokens. Review content before sharing. age subscription links omit existing keys.
 
----
+The app does not provide backup/restore. The operating system and any external copies you create are outside that app feature boundary.
 
-### 3. Network Connections You Choose
+## 5. Retention, deletion, and support
 
-OneXray is a network client. When you start a connection, your traffic is sent to the proxy, VPN, DNS, or other server specified by your configuration. Subscription updates, update checks, GeoData downloads, and external links connect to the source you request.
+You can manage individual items or clear app data in Settings. Clearing first stops VPN and removes managed user data; exported files outside the app are not deleted by that operation. OS uninstall and backup behavior is controlled by the platform.
 
-These connections are necessary to perform the action you selected. They do not send App analytics or personal data to us. Servers and services selected by you are operated by third parties and are governed by their own privacy policies. We do not control how those third parties handle data.
+Because we do not collect app usage data, we have no app-telemetry record to retrieve or delete for you. If you contact us by email or a third-party platform, we use the information you voluntarily provide to respond to your request; the service also processes it under its policies.
 
----
+## 6. Children
 
-### 4. Exporting and Sharing
+OneXray does not knowingly collect personal information from anyone, including children. It is not directed at children below the applicable minimum age.
 
-OneXray does not automatically share your local data. Data leaves the App only when required by a connection you initiate or when you explicitly export, copy, save, or share it.
+## 7. Changes
 
-Configuration files, subscription links, and logs may contain sensitive information. Review them and remove credentials, server addresses, tokens, and other private details before sharing them with anyone.
+We may update this policy when app behavior or requirements change. The current policy is hosted on this HTTPS page and linked from the app; the revision date appears above.
 
----
+## 8. Contact
 
-### 5. Data Retention and Deletion
-
-Because we do not collect App data, we have no App data about you to retain, access, sell, disclose, or delete from our servers.
-
-If you voluntarily contact us by email or through a third-party platform, that service may process the information you choose to provide. We use such information only to respond to your request and do not combine it with App usage data.
-
----
-
-### 6. Children
-
-OneXray does not knowingly collect personal information from anyone, including children. The App is not directed at children under the minimum age required by applicable law.
-
----
-
-### 7. Changes to This Policy
-
-We may update this Privacy Policy if the App's behavior or legal requirements change. The current policy will be included with the App, and its last-updated date will be shown above.
-
----
-
-### 8. Contact
-
-For questions about this Privacy Policy, contact:
-
-**Email:** [yuan@yuandev.net](mailto:yuan@yuandev.net)
+[yuan@yuandev.net](mailto:yuan@yuandev.net)

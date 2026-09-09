@@ -25,26 +25,26 @@ disableKinds = ['taxonomy', 'term']
     contentDir = 'content.en'
     weight = 1
     [languages.en.params]
-      description = 'OneXray is a private, cross-platform Xray-core client for your own nodes, subscriptions, and configurations.'
+      description = 'An open-source Xray-core client with Smart Routing, custom rules, and Raw JSON for phones, tablets, and desktops.'
   [languages.zh]
     label = '中文'
     locale = 'zh-CN'
     contentDir = 'content.zh'
     weight = 2
     [languages.zh.params]
-      description = 'OneXray 是一款注重隐私的跨平台 Xray-core 客户端，用于管理您自己的节点、订阅和配置。'
+      description = 'OneXray 是开源 Xray-core 客户端，提供智能路由、自定义规则和 Raw JSON，适配手机、平板与桌面。'
   [languages.ru]
     label = 'Русский'
     locale = 'ru-RU'
     contentDir = 'content.ru'
     weight = 3
     [languages.ru.params]
-      description = 'OneXray — приватный кроссплатформенный клиент Xray-core для ваших узлов, подписок и конфигураций.'
+      description = 'Открытый клиент Xray-core: умная маршрутизация, собственные правила и Raw JSON на телефонах, планшетах и компьютерах.'
 
 [params]
   title = 'OneXray'
-  description = 'OneXray is a private, cross-platform Xray-core client for your own nodes, subscriptions, and configurations.'
-  images = ['/images/screenshots/desktop-windows.png']
+  description = 'An open-source Xray-core client with Smart Routing, custom rules, and Raw JSON for phones, tablets, and desktops.'
+  images = ['/images/screenshots/connect-macos.png']
   externalLinkDecoration = true
   displayUpdatedDate = true
   dateFormat = 'January 2, 2006'

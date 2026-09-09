@@ -1,74 +1,33 @@
 ---
-title: Credits
-weight: 5
+title: "Credits and licenses"
+description: "Open-source foundations of OneXray, including Xray-core, libXray, VCore, Flutter, routing data, and Wintun distribution references."
+weight: 90
+lastmod: 2026-09-09
 ---
 
-OneXray is built with open source runtimes, libraries, and build tools.
+OneXray builds on open-source software. Its source is licensed under [GPL-3.0](https://github.com/OneXray/OneXray/blob/main/LICENSE); dependencies retain their own licenses.
 
-## Core and Platform
+## Core and platform
 
-- [Xray-core](https://github.com/XTLS/Xray-core)
-- [libXray](https://github.com/XTLS/libXray)
-- [Wintun](https://www.wintun.net/)
-- [Flutter](https://github.com/flutter/flutter)
-- [Dart](https://github.com/dart-lang/sdk)
-- [Go](https://go.dev/)
+- [Xray-core](https://github.com/XTLS/Xray-core), [libXray](https://github.com/XTLS/libXray), and [VCore](https://github.com/OneXray/VCore)
+- [Flutter](https://github.com/flutter/flutter), [Dart](https://github.com/dart-lang/sdk), and [Go](https://go.dev/)
+- [age](https://github.com/FiloSottile/age)
+- [GeoSite / domain-list-community](https://github.com/v2fly/domain-list-community) and [GeoIP](https://github.com/v2fly/geoip)
 
-## Windows Native TUN: Wintun
+## Wintun on Windows
 
-Windows EXE / ZIP mode uses Wintun for its native TUN interface and bundles the unmodified official `wintun.dll` for the target architecture. MSIX mode uses the system VPN Provider.
+EXE/ZIP uses the official, unmodified, architecture-matched wintun.dll for native TUN. MSIX uses the Windows VPN provider.
 
-[Project and source](https://git.zx2c4.com/wintun/) · [Upstream distribution notes](https://git.zx2c4.com/wintun/about/) · [Official prebuilt release](https://www.wintun.net/builds/wintun-0.14.1.zip)
+[Project and source](https://git.zx2c4.com/wintun/) · [Upstream distribution information](https://git.zx2c4.com/wintun/about/) · [Official prebuilt archive](https://www.wintun.net/builds/wintun-0.14.1.zip)
 
-The distribution terms for the prebuilt DLL are provided in `LICENSE.txt` inside the official release. This page links to its source and licensing information.
+The prebuilt DLL's distribution terms are in LICENSE.txt in the official archive. This documentation page supplies the source and licensing references.
 
-## UI and App Architecture
+## Interface and application
 
-- [shadcn_ui](https://pub.dev/packages/shadcn_ui)
-- [lucide_icons_flutter](https://pub.dev/packages/lucide_icons_flutter)
-- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
-- [go_router](https://pub.dev/packages/go_router)
-- [flutter_markdown_plus](https://pub.dev/packages/flutter_markdown_plus)
-- [re_editor](https://pub.dev/packages/re_editor)
-- [re_highlight](https://pub.dev/packages/re_highlight)
+[material_ui](https://pub.dev/packages/material_ui), [shadcn_ui](https://pub.dev/packages/shadcn_ui), [Lucide icons](https://pub.dev/packages/lucide_icons_flutter), [flutter_bloc](https://pub.dev/packages/flutter_bloc), [go_router](https://pub.dev/packages/go_router), [re_editor](https://pub.dev/packages/re_editor), and [re_highlight](https://pub.dev/packages/re_highlight).
 
-## Data, Network, and Native Integration
+## Storage, networking, and tools
 
-- [drift](https://pub.dev/packages/drift), [drift_flutter](https://pub.dev/packages/drift_flutter), [sqlite3](https://pub.dev/packages/sqlite3)
-- [dio](https://pub.dev/packages/dio)
-- [ffi](https://pub.dev/packages/ffi), [win32](https://pub.dev/packages/win32)
-- [shared_preferences](https://pub.dev/packages/shared_preferences)
-- [path_provider](https://pub.dev/packages/path_provider)
-- [permission_handler](https://pub.dev/packages/permission_handler)
-- [isolate_manager](https://pub.dev/packages/isolate_manager)
-- [tray_manager](https://pub.dev/packages/tray_manager), [window_manager](https://pub.dev/packages/window_manager)
+[Drift](https://pub.dev/packages/drift), [SQLite](https://pub.dev/packages/sqlite3), [Dio](https://pub.dev/packages/dio), [Pigeon](https://pub.dev/packages/pigeon), [FFI generation](https://pub.dev/packages/ffigen), [Fastforge](https://fastforge.dev/), AndroidX, Kotlin, and the platform-integration plugins listed in the App's [dependency manifest](https://github.com/OneXray/OneXray/blob/main/pubspec.yaml).
 
-## Import, Export, and Media
-
-- [file_picker](https://pub.dev/packages/file_picker)
-- [image_picker](https://pub.dev/packages/image_picker)
-- [mobile_scanner](https://pub.dev/packages/mobile_scanner)
-- [image](https://pub.dev/packages/image)
-- [zxing2](https://pub.dev/packages/zxing2)
-- [archive](https://pub.dev/packages/archive)
-- [share_plus](https://pub.dev/packages/share_plus)
-- [url_launcher](https://pub.dev/packages/url_launcher)
-
-## Android
-
-- [AndroidX](https://developer.android.com/jetpack/androidx)
-- [Kotlin](https://kotlinlang.org/)
-- [Kotlinx Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
-- [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
-- [XXPermissions](https://github.com/getActivity/XXPermissions)
-- [XLog](https://github.com/elvishew/xLog)
-
-## Build and Code Generation
-
-- [build_runner](https://pub.dev/packages/build_runner)
-- [json_serializable](https://pub.dev/packages/json_serializable)
-- [Pigeon](https://pub.dev/packages/pigeon)
-- [ffigen](https://pub.dev/packages/ffigen)
-- [Fastforge](https://fastforge.dev/)
-
-OneXray does not include Firebase, analytics, telemetry, advertising, or crash-reporting SDKs.
+This static website uses [Hugo](https://gohugo.io/) and [Hextra](https://github.com/imfing/hextra). Website-specific notices are maintained in the [site repository](https://github.com/OneXray/onexray.com/blob/main/THIRD_PARTY_NOTICES.md).

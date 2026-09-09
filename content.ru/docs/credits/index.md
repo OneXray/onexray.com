@@ -1,74 +1,33 @@
 ---
-title: Credits
-weight: 5
+title: "Благодарности и лицензии"
+description: "Открытые компоненты OneXray: Xray-core, libXray, VCore, Flutter, GeoData и ссылки на условия распространения Wintun."
+weight: 90
+lastmod: 2026-09-09
 ---
 
-OneXray использует открытые runtimes, библиотеки и build tools.
+OneXray основан на открытом ПО. Исходный код приложения распространяется по [GPL-3.0](https://github.com/OneXray/OneXray/blob/main/LICENSE), зависимости сохраняют свои лицензии.
 
-## Core и Platform
+## Ядро и платформы
 
-- [Xray-core](https://github.com/XTLS/Xray-core)
-- [libXray](https://github.com/XTLS/libXray)
-- [Wintun](https://www.wintun.net/)
-- [Flutter](https://github.com/flutter/flutter)
-- [Dart](https://github.com/dart-lang/sdk)
-- [Go](https://go.dev/)
+- [Xray-core](https://github.com/XTLS/Xray-core), [libXray](https://github.com/XTLS/libXray), [VCore](https://github.com/OneXray/VCore)
+- [Flutter](https://github.com/flutter/flutter), [Dart](https://github.com/dart-lang/sdk), [Go](https://go.dev/)
+- [age](https://github.com/FiloSottile/age)
+- [GeoSite / domain-list-community](https://github.com/v2fly/domain-list-community), [GeoIP](https://github.com/v2fly/geoip)
 
-## Нативный TUN в Windows: Wintun
+## Wintun в Windows
 
-В режиме Windows EXE / ZIP нативный интерфейс TUN создаётся через Wintun. В комплект входит неизменённая официальная `wintun.dll` для целевой архитектуры. Режим MSIX использует системный VPN Provider.
+EXE/ZIP использует официальный неизменённый wintun.dll нужной архитектуры для нативного TUN. MSIX использует системный VPN Provider.
 
-[Проект и исходный код](https://git.zx2c4.com/wintun/) · [Условия распространения](https://git.zx2c4.com/wintun/about/) · [Официальный готовый выпуск](https://www.wintun.net/builds/wintun-0.14.1.zip)
+[Проект и исходники](https://git.zx2c4.com/wintun/) · [Информация о распространении](https://git.zx2c4.com/wintun/about/) · [Официальный архив](https://www.wintun.net/builds/wintun-0.14.1.zip)
 
-Условия распространения готовой DLL приведены в `LICENSE.txt` внутри официального выпуска. На этой странице размещены ссылки на источник и сведения о лицензировании.
+Условия распространения готовой DLL находятся в LICENSE.txt официального архива. Эта страница предоставляет ссылки на источник и лицензию.
 
-## UI и архитектура
+## Интерфейс
 
-- [shadcn_ui](https://pub.dev/packages/shadcn_ui)
-- [lucide_icons_flutter](https://pub.dev/packages/lucide_icons_flutter)
-- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
-- [go_router](https://pub.dev/packages/go_router)
-- [flutter_markdown_plus](https://pub.dev/packages/flutter_markdown_plus)
-- [re_editor](https://pub.dev/packages/re_editor)
-- [re_highlight](https://pub.dev/packages/re_highlight)
+[material_ui](https://pub.dev/packages/material_ui), [shadcn_ui](https://pub.dev/packages/shadcn_ui), [Lucide](https://pub.dev/packages/lucide_icons_flutter), [flutter_bloc](https://pub.dev/packages/flutter_bloc), [go_router](https://pub.dev/packages/go_router), [re_editor](https://pub.dev/packages/re_editor), [re_highlight](https://pub.dev/packages/re_highlight).
 
-## Data, Network и Native
+## Данные, сеть и инструменты
 
-- [drift](https://pub.dev/packages/drift), [drift_flutter](https://pub.dev/packages/drift_flutter), [sqlite3](https://pub.dev/packages/sqlite3)
-- [dio](https://pub.dev/packages/dio)
-- [ffi](https://pub.dev/packages/ffi), [win32](https://pub.dev/packages/win32)
-- [shared_preferences](https://pub.dev/packages/shared_preferences)
-- [path_provider](https://pub.dev/packages/path_provider)
-- [permission_handler](https://pub.dev/packages/permission_handler)
-- [isolate_manager](https://pub.dev/packages/isolate_manager)
-- [tray_manager](https://pub.dev/packages/tray_manager), [window_manager](https://pub.dev/packages/window_manager)
+[Drift](https://pub.dev/packages/drift), [SQLite](https://pub.dev/packages/sqlite3), [Dio](https://pub.dev/packages/dio), [Pigeon](https://pub.dev/packages/pigeon), [FFI](https://pub.dev/packages/ffigen), [Fastforge](https://fastforge.dev/), AndroidX, Kotlin и интеграционные плагины из [манифеста зависимостей](https://github.com/OneXray/OneXray/blob/main/pubspec.yaml).
 
-## Import, Export и Media
-
-- [file_picker](https://pub.dev/packages/file_picker)
-- [image_picker](https://pub.dev/packages/image_picker)
-- [mobile_scanner](https://pub.dev/packages/mobile_scanner)
-- [image](https://pub.dev/packages/image)
-- [zxing2](https://pub.dev/packages/zxing2)
-- [archive](https://pub.dev/packages/archive)
-- [share_plus](https://pub.dev/packages/share_plus)
-- [url_launcher](https://pub.dev/packages/url_launcher)
-
-## Android
-
-- [AndroidX](https://developer.android.com/jetpack/androidx)
-- [Kotlin](https://kotlinlang.org/)
-- [Kotlinx Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
-- [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
-- [XXPermissions](https://github.com/getActivity/XXPermissions)
-- [XLog](https://github.com/elvishew/xLog)
-
-## Build и Code Generation
-
-- [build_runner](https://pub.dev/packages/build_runner)
-- [json_serializable](https://pub.dev/packages/json_serializable)
-- [Pigeon](https://pub.dev/packages/pigeon)
-- [ffigen](https://pub.dev/packages/ffigen)
-- [Fastforge](https://fastforge.dev/)
-
-OneXray не содержит Firebase, analytics, telemetry, advertising или crash-reporting SDK.
+Статический сайт использует [Hugo](https://gohugo.io/) и [Hextra](https://github.com/imfing/hextra). Уведомления сайта находятся в [его репозитории](https://github.com/OneXray/onexray.com/blob/main/THIRD_PARTY_NOTICES.md).

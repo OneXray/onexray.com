@@ -1,37 +1,31 @@
 ---
-title: Develop
-weight: 4
+title: "Разработка"
+description: "Актуальная настройка OneXray, архитектурные контракты, сценарии сборки и участие в проекте."
+weight: 100
+lastmod: 2026-09-09
 ---
 
-Эта страница описывает границы import и runtime.
+OneXray — Flutter-приложение с Xray-core через libXray и платформенными VPN-интеграциями. Сайт — отдельный статический проект Hugo/Hextra.
 
-## Import Boundary
+## Начните с репозитория
 
-1. Выполняется trim текста.
-2. Если он начинается с `onexray://`, разбирается каждая валидная OneXray Link.
-3. Если он начинается с `https://`, каждая валидная HTTPS-строка становится subscription entry.
-4. Иначе полный текст передается libXray, а приложение сохраняет валидные Outbound models.
+- [Локальная разработка](https://github.com/OneXray/OneXray/blob/main/readme/FIRST_RUN.ru.md): инструменты, нативные библиотеки, данные, генерация и Debug.
+- [Контракты приложения](https://github.com/OneXray/OneXray/blob/main/docs/README.md): навигация, запуск, данные, маршруты и обмен.
+- [Сборка](https://github.com/OneXray/OneXray/blob/main/build_scripts/README.md): пакеты и публикация.
+- [Windows](https://github.com/OneXray/OneXray/blob/main/docs/windows-build.md): EXE/ZIP и MSIX.
 
-Fragment не сохраняется в URL. Обычный HTTPS/share-text import не запускает manual-save Xray config test и не создает Full Config, Raw Json, Xray Profile или GeoData. OneXray Links используют отдельные typed import paths.
+Ревизии зависимостей должны соответствовать App checkout. После замены нативных библиотек полностью перезапустите приложение; hot reload их не обновляет.
 
-## OneXray Link Contract
+## Границы выполнения
 
-Публичная scheme — `onexray://onexray.com`; поддерживаются только:
+Обычный режим объединяет выбор серверов, умные/собственные правила и настройки платформы. Raw JSON компилируется отдельно. Корректность конфигурации определяет libXray; успешная сборка не доказывает доступность сети.
 
-```text
-/config/add?type=outbound|profile|full|raw&data=<percent-encoded-base64-json>
-/sub/add?url=<percent-encoded-https-url>[&age=x25519|hybrid]
-/dat/add?type=domain|ip&url=<percent-encoded-https-url>
-```
+iOS Simulator использует внутреннюю адаптацию SOCKS в Swift. Это не реальный VPN-тест и не публичный режим прокси.
 
-Fragment URL является необязательным display name. Старый `type=setting`, backup import и другие команды отклоняются. Age link описывает тип ключа; получатель создает новую пару и не импортирует secret отправителя.
+Команды Flutter/Dart выполняйте последовательно. Экспериментальные данные храните в references; не используйте настоящую базу разработчика для разрушительных тестов.
 
-## Runtime Boundary
+## Участие
 
-Хранимые node/profile data не являются прямым контрактом процесса Xray-core. Перед запуском OneXray формирует Final Config, применяет Rule/Global/Direct, переписывает runtime-owned fields и сохраняет `xray.json`.
+В [Issue](https://github.com/OneXray/OneXray/issues) укажите платформу, издание, версии App/Xray-core и шаги воспроизведения. Не публикуйте приватные учётные данные.
 
-Release работает через platform TUN/VPN. Proxy run mode — внутренний Debug-only инструмент, а не публичная функция или стабильный API.
-
-## Desktop Integration
-
-Жизненный цикл desktop-пакета управляется UI OneXray. Windows EXE/winget и Linux DEB регистрируют `onexray://`, ZIP-пакеты — нет. Стабильного локального control API для внешних инструментов нет.
+[Исходники приложения](https://github.com/OneXray/OneXray) · [Исходники сайта](https://github.com/OneXray/onexray.com) · [Telegram](https://t.me/OneXrayApp)
