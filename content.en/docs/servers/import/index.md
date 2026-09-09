@@ -1,6 +1,6 @@
 ---
 title: "Add servers"
-description: "Import links, subscriptions, node JSON, YAML, files, and QR codes into OneXray without a second node confirmation."
+description: "Import links, subscriptions, node JSON, files, and QR codes into OneXray without a second node confirmation."
 weight: 10
 lastmod: 2026-09-09
 ---
@@ -15,7 +15,7 @@ Open Servers > Add servers, or choose an import action during initial setup.
 | Manual add | Open a JSON editor, not protocol-specific form fields |
 | Scan QR code | Open the scanner on iOS/Android only |
 
-Supported input includes compatible protocol share links, Xray JSON nodes, and supported Clash/Mihomo YAML nodes. Text files and QR images can use the file-import path.
+Supported input includes compatible protocol share links and Xray JSON nodes. Text files and QR images can use the file-import path.
 
 ## Import scope
 

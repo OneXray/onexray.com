@@ -1,6 +1,6 @@
 ---
 title: "添加服务器"
-description: "通过链接、订阅、节点 JSON、YAML、文件和二维码导入 OneXray，普通节点不再二次确认。"
+description: "通过链接、订阅、节点 JSON、文件和二维码导入 OneXray，普通节点不再二次确认。"
 weight: 10
 lastmod: 2026-09-09
 ---
@@ -15,7 +15,7 @@ lastmod: 2026-09-09
 | 手动添加 | 打开 JSON 编辑器，不使用协议字段表单 |
 | 扫描二维码 | 仅 iOS / Android 打开扫码页面 |
 
-支持兼容的协议分享链接、Xray JSON 节点和 libXray 支持的 Clash/Mihomo YAML 节点。文本文件与二维码图片可以通过文件入口导入。
+支持兼容的协议分享链接和 Xray JSON 节点。文本文件与二维码图片可以通过文件入口导入。
 
 ## 导入范围
 
