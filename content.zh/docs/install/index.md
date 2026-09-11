@@ -2,7 +2,7 @@
 title: "安装 OneXray"
 description: "下载 iOS、macOS、Android、Windows 和 Linux 版本，了解 EXE/ZIP、MSIX 以及 Mac App Store 与 OneXraySE 的区别。"
 weight: 10
-lastmod: 2026-09-09
+lastmod: 2026-09-11
 ---
 
 ## 选择平台
@@ -13,8 +13,8 @@ lastmod: 2026-09-09
 | Mac App Store | macOS 13+，Apple 芯片或 Intel | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
 | Mac — OneXraySE | macOS 13+，Apple 芯片或 Intel | [Homebrew](https://formulae.brew.sh/cask/onexrayse) · [Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
 | Android 手机 / 平板 | Android 10+，arm64-v8a 或 x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray) · [APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows x64 | Windows 10 20H2+ | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) · Microsoft Store |
-| Windows ARM64 | Windows 11 | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) · Microsoft Store |
+| Windows x64 | Windows 10 20H2+ | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
+| Windows ARM64 | Windows 11 | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
 | Linux x86_64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
@@ -30,7 +30,7 @@ winget install --id YuanDevLLC.OneXray -e
 
 EXE 与 ZIP 使用原生 TUN。启动 VPN 时为 Core 请求管理员批准，主 App 不需要以管理员身份运行。ZIP 必须**完整解压**后打开；它不会自动注册链接或创建快捷方式。
 
-Microsoft Store 版本使用 MSIX 和 Windows 系统 VPN，Core 不请求 UAC。EXE/ZIP 与 MSIX 使用不同数据目录，切换渠道不等于原地迁移。两者都要求明确选择 Xray 出口网卡。参阅 [Windows 行为]({{< relref "/docs/advanced/windows" >}})。
+[Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) 版本使用 MSIX 和 Windows 系统 VPN，Core 不请求 UAC。EXE/ZIP 与 MSIX 使用不同数据目录，切换渠道不等于原地迁移。两者都要求明确选择 Xray 出口网卡。参阅 [Windows 行为]({{< relref "/docs/advanced/windows" >}})。
 
 ## macOS
 

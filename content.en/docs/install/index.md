@@ -2,7 +2,7 @@
 title: "Install OneXray"
 description: "Download OneXray for iOS, macOS, Android, Windows, and Linux. Compare Windows EXE/ZIP and MSIX, and Mac App Store and OneXraySE."
 weight: 10
-lastmod: 2026-09-09
+lastmod: 2026-09-11
 ---
 
 ## Choose your platform
@@ -13,8 +13,8 @@ lastmod: 2026-09-09
 | Mac App Store | macOS 13+, Apple silicon or Intel | [App Store](https://apps.apple.com/us/app/onexray/id6745748773) |
 | Mac — OneXraySE | macOS 13+, Apple silicon or Intel | [Homebrew](https://formulae.brew.sh/cask/onexrayse) · [Universal ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-macos-universal.zip) |
 | Android phones / tablets | Android 10+, arm64-v8a or x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray) · [APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
-| Windows x64 | Windows 10 20H2+ | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) · Microsoft Store |
-| Windows ARM64 | Windows 11 | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) · Microsoft Store |
+| Windows x64 | Windows 10 20H2+ | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
+| Windows ARM64 | Windows 11 | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
 | Linux x86_64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
 | Linux arm64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
@@ -30,7 +30,7 @@ winget install --id YuanDevLLC.OneXray -e
 
 EXE and ZIP use a native TUN. Starting VPN requests administrator approval for Core, not for the main app. Extract the **entire ZIP** before opening OneXray; it does not register links or create shortcuts automatically.
 
-The Microsoft Store edition uses MSIX and Windows system VPN without UAC for Core. EXE/ZIP and MSIX have separate data locations; switching channels is not an in-place data migration. Both require an explicit Xray outbound-interface selection. [Windows behavior]({{< relref "/docs/advanced/windows" >}}).
+The [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) edition uses MSIX and Windows system VPN without UAC for Core. EXE/ZIP and MSIX have separate data locations; switching channels is not an in-place data migration. Both require an explicit Xray outbound-interface selection. [Windows behavior]({{< relref "/docs/advanced/windows" >}}).
 
 ## macOS
 

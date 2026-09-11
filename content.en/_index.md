@@ -4,7 +4,7 @@ layout: hextra-home
 description: "OneXray is an open-source Xray-core client for iOS, macOS, Android, Windows, and Linux. Bring your servers, use Smart Routing, or build your own rules."
 images:
   - /images/screenshots/connect-macos.png
-lastmod: 2026-09-09
+lastmod: 2026-09-11
 ---
 
 {{< hextra/hero-container
@@ -75,7 +75,7 @@ style="align-items: center; padding: 4rem 0 2rem;"
 {{< cards cols="2" >}}
 {{< card link="https://apps.apple.com/us/app/onexray/id6745748773" title="iPhone, iPad, and Mac" subtitle="App Store. Standalone Apple installation details are in the guide." icon="download" >}}
 {{< card link="https://play.google.com/store/apps/details?id=net.yuandev.onexray" title="Android" subtitle="Google Play for phones and tablets." icon="download" >}}
-{{< card link="docs/install/" title="Windows" subtitle="Install with winget, use ZIP, or choose the Microsoft Store edition." icon="download" >}}
+{{< card link="https://apps.microsoft.com/detail/9NJ0MVHW215D" title="Windows" subtitle="Microsoft Store. See the installation guide for winget and ZIP." icon="download" >}}
 {{< card link="docs/install/" title="Linux and standalone packages" subtitle="DEB, ZIP, APK, IPA, and OneXraySE installation instructions." icon="download" >}}
 {{< /cards >}}
 

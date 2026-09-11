@@ -4,7 +4,7 @@ layout: hextra-home
 description: "OneXray 是支持 iOS、macOS、Android、Windows 和 Linux 的开源 Xray-core 客户端。导入自己的服务器，使用智能路由、自定义规则或完整 Raw JSON。"
 images:
   - /images/screenshots/connect-macos.png
-lastmod: 2026-09-09
+lastmod: 2026-09-11
 ---
 
 {{< hextra/hero-container
@@ -75,7 +75,7 @@ style="align-items: center; padding: 4rem 0 2rem;"
 {{< cards cols="2" >}}
 {{< card link="https://apps.apple.com/us/app/onexray/id6745748773" title="iPhone、iPad 和 Mac" subtitle="从 App Store 下载，独立安装方式见文档。" icon="download" >}}
 {{< card link="https://play.google.com/store/apps/details?id=net.yuandev.onexray" title="Android" subtitle="通过 Google Play 安装到手机和平板。" icon="download" >}}
-{{< card link="docs/install/" title="Windows" subtitle="使用 winget、ZIP 或 Microsoft Store 版本。" icon="download" >}}
+{{< card link="https://apps.microsoft.com/detail/9NJ0MVHW215D" title="Windows" subtitle="Microsoft Store。winget 和 ZIP 安装方式请参阅指南。" icon="download" >}}
 {{< card link="docs/install/" title="Linux 与独立安装包" subtitle="查看 DEB、ZIP、APK、IPA 和 OneXraySE 安装说明。" icon="download" >}}
 {{< /cards >}}
 
