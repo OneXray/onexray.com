@@ -17,6 +17,8 @@ lastmod: 2026-09-12
 
 Standard protocol links cannot represent every Xray outbound field. Use complete node JSON or the OneXray format when preserving those fields matters.
 
+VMess and VLESS links follow the [VMessAEAD / VLESS share-link standard](https://github.com/XTLS/Xray-core/discussions/716). Legacy VMessQrCode links (`vmess://Base64(JSON)`) are not supported. SS, SOCKS, Trojan, and Base64 / age subscription wrappers remain supported.
+
 Server import extracts nodes only. Complete configuration import belongs in Custom Routing or Raw JSON. There is no App backup archive workflow.
 
 ## OneXray links

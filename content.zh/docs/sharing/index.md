@@ -17,6 +17,8 @@ lastmod: 2026-09-12
 
 协议分享链接无法表达全部 Xray 出站字段。需要保留这些字段时，使用完整节点 JSON 或 OneXray 格式。
 
+VMess 和 VLESS 使用 [VMessAEAD / VLESS 分享链接标准](https://github.com/XTLS/Xray-core/discussions/716)，不支持旧版 VMessQrCode 链接（`vmess://Base64(JSON)`）。SS、SOCKS、Trojan 以及 Base64 / age 订阅封装继续保留。
+
 普通服务器导入只提取节点；完整配置使用自定义路由或 Raw JSON 流程。不提供 App 备份归档导入。
 
 ## OneXray 链接

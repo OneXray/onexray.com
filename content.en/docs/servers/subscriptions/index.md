@@ -13,7 +13,7 @@ Enter a name and HTTPS URL. Initial import and Check for updates use the same lo
 
 If the request fails or returns no valid nodes, existing data is retained. Success reports the number imported, not “new”, “changed”, or “failed” node counts.
 
-Editing changes the name, URL, HWID sending preference, and age settings without refreshing nodes or replacing an existing HWID. Use Check for updates to fetch the edited source. Subscription content must use compatible VLESS / v2rayN share formats, not another client's complete configuration.
+Editing changes the name, URL, HWID sending preference, and age settings without refreshing nodes or replacing an existing HWID. Use Check for updates to fetch the edited source. Subscription content must use VMessAEAD / VLESS share links, not another client's complete configuration.
 
 Nodes protected by the current connection, fixed selection, final-exit selection, or favorites are retained during replacement. They are not counted as newly imported. Background updates do not switch an active VPN to newly downloaded nodes.
 
