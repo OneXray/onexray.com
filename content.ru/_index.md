@@ -4,7 +4,7 @@ layout: hextra-home
 description: "OneXray — открытый клиент Xray-core для iOS, macOS, Android, Windows и Linux. Ваши серверы, умная маршрутизация, собственные правила и Raw JSON."
 images:
   - /images/screenshots/connect-macos.png
-lastmod: 2026-09-11
+lastmod: 2026-09-12
 ---
 
 {{< hextra/hero-container
@@ -35,6 +35,8 @@ style="align-items: center; padding: 4rem 0 2rem;"
 </div>
 {{< /hextra/hero-container >}}
 
+[Новое в 26.9.2: локальный DNS, HWID подписки и системные быстрые действия →](docs/upgrading/)
+
 <div class="product-section-gap"></div>
 
 {{< hextra/hero-section heading="h2" >}}Просто начать. Можно настроить глубже.{{< /hextra/hero-section >}}
@@ -43,11 +45,11 @@ style="align-items: center; padding: 4rem 0 2rem;"
 </div>
 
 {{< hextra/feature-grid cols="3" >}}
-{{< hextra/feature-card title="Умная маршрутизация" subtitle="Прямые регионы, локальные сети и сервисы. Необязательная блокировка рекламы, 1–3 входных узла и конечный выход для цепочек." icon="globe" link="docs/connect/smart-routing/" >}}
+{{< hextra/feature-card title="Умная маршрутизация" subtitle="Прямые регионы и сервисы со своим локальным DNS. Необязательная блокировка рекламы, 1–3 входных узла и конечный выход для цепочек." icon="globe" link="docs/connect/smart-routing/" >}}
 {{< hextra/feature-card title="Собственные правила" subtitle="Домены, IP, порты и сеть с подсказками GeoData. Обменивайтесь маршрутами без привязки к конкретным серверам." icon="adjustments" link="docs/connect/custom-routing/" >}}
 {{< hextra/feature-card title="Полный Raw JSON" subtitle="Экспертный режим с редактором полной конфигурации. Платформенный туннель и связанные параметры управляются OneXray." icon="code" link="docs/connect/raw-json/" >}}
-{{< hextra/feature-card title="Порядок в серверах" subtitle="Группы по подписке и местоположению, задержка и протоколы, редактирование и обмен. HTTPS-подписки поддерживают age." icon="collection" link="docs/servers/" >}}
-{{< hextra/feature-card title="Возможности платформ" subtitle="Wi-Fi-правила Apple, выбор приложений Android и интерфейсы Windows/Linux. Общая логика навигации на разных экранах." icon="desktop-computer" link="docs/advanced/" >}}
+{{< hextra/feature-card title="Порядок в серверах" subtitle="Группы по подписке и местоположению, задержка и протоколы. HTTPS-подписки поддерживают необязательное шифрование age и отдельный HWID." icon="collection" link="docs/servers/" >}}
+{{< hextra/feature-card title="Возможности платформ" subtitle="Исключения сетей Apple, приложения Android и интерфейсы Windows/Linux. Запуск и переключение через мобильные действия или трей." icon="desktop-computer" link="docs/shortcuts/" >}}
 {{< hextra/feature-card title="Локальные инструменты" subtitle="Трафик текущего подключения, тесты узлов, обновления GeoData, фактическая конфигурация и доступные локальные журналы." icon="document-search" link="docs/advanced/" >}}
 {{< /hextra/feature-grid >}}
 

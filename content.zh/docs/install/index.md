@@ -2,7 +2,7 @@
 title: "安装 OneXray"
 description: "下载 iOS、macOS、Android、Windows 和 Linux 版本，了解 EXE/ZIP、MSIX 以及 Mac App Store 与 OneXraySE 的区别。"
 weight: 10
-lastmod: 2026-09-11
+lastmod: 2026-09-12
 ---
 
 ## 选择平台
@@ -15,8 +15,8 @@ lastmod: 2026-09-11
 | Android 手机 / 平板 | Android 10+，arm64-v8a 或 x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray) · [APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
 | Windows x64 | Windows 10 20H2+ | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
 | Windows ARM64 | Windows 11 | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
-| Linux x86_64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
-| Linux arm64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
+| Linux x86_64 | glibc 2.39+，内核 5.3+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
+| Linux arm64 | glibc 2.39+，内核 5.3+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
 完整更新说明和安装包见 [Releases](https://github.com/OneXray/OneXray/releases)。Android 不支持 32 位 ARM。
 
@@ -32,6 +32,8 @@ EXE 与 ZIP 使用原生 TUN。启动 VPN 时为 Core 请求管理员批准，�
 
 [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) 版本使用 MSIX 和 Windows 系统 VPN，Core 不请求 UAC。EXE/ZIP 与 MSIX 使用不同数据目录，切换渠道不等于原地迁移。两者都要求明确选择 Xray 出口网卡。参阅 [Windows 行为]({{< relref "/docs/advanced/windows" >}})。
 
+26.9.2 的各类 Windows 安装包均附带对应架构的 Microsoft Visual C++ 运行库，图形界面无需单独安装运行库。
+
 ## macOS
 
 Mac App Store 版本使用 Packet Tunnel。OneXraySE 使用 System Extension：
@@ -40,7 +42,7 @@ Mac App Store 版本使用 Packet Tunnel。OneXraySE 使用 System Extension：
 brew install --cask onexrayse
 ```
 
-使用 ZIP 时，将 OneXraySE.app 移入 /Applications 后再打开。完成初始化并批准 VPN 和网络扩展请求。macOS 可能引导您前往“登录项与扩展”或“隐私与安全性”；如要求重启，请按提示操作。更新 ZIP 版本时先退出 App，再替换应用程序目录中的旧版本，并批准可能出现的扩展更新。
+使用 ZIP 时，将 OneXraySE.app 移入 /Applications 后再打开。完成首次设置、进入主界面后，批准 VPN 和网络扩展请求。macOS 可能引导您前往“登录项与扩展”或“隐私与安全性”；如要求重启，请按提示操作。更新 ZIP 版本时先退出 App，再替换应用程序目录中的旧版本，并批准可能出现的扩展更新。
 
 参阅 [Apple 系统扩展安装说明](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers)。
 
@@ -49,6 +51,8 @@ brew install --cask onexrayse
 建议优先使用 App Store。自行安装 IPA 需要为主 App 与 Packet Tunnel 扩展重新签名，并使用允许 Network Extension 的描述文件；免费 Personal Team 不提供该能力。参阅 [Apple 支持的能力](https://developer.apple.com/help/account/reference/supported-capabilities-ios/)。
 
 ## Linux
+
+Core 进程监测要求 Linux 内核 5.3 及以上，并支持 pidfd。Linux ARM64 当前将中文／日文／韩文语言选择显示为英语，但保留原偏好，详见[语言设置]({{< relref "/docs/settings" >}})。
 
 Debian/Ubuntu 的 DEB 安装会安装依赖并为 Core 授予网络 capability：
 

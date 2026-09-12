@@ -2,16 +2,16 @@
 title: "Advanced"
 description: "Manage platform VPN settings, routing data, update schedules, latency tests, logs, and the generated Xray configuration."
 weight: 50
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 Advanced is the third main tab, with two sub-tabs: **VPN Tunnel** and **Xray**.
 
 ## VPN Tunnel
 
-[Shared tunnel settings]({{< relref "/docs/advanced/vpn-tunnel" >}}) show managed addresses and DNS, IPv6 behavior, and platform-specific entry points:
+[Shared tunnel settings]({{< relref "/docs/advanced/vpn-tunnel" >}}) show read-only TUN addresses, editable DNS settings, IPv6 behavior, and platform-specific entry points:
 
-- [Apple system VPN]({{< relref "/docs/advanced/apple" >}}): Wi-Fi rules, always-on behavior, and traffic capture.
+- [Apple system VPN]({{< relref "/docs/advanced/apple" >}}): Wi-Fi rules, always-on behavior, traffic capture, and excluded networks.
 - [Android system VPN]({{< relref "/docs/advanced/android" >}}): independent include/exclude application lists.
 - [Windows]({{< relref "/docs/advanced/windows" >}}): outbound interface and MSIX system VPN policy.
 - Windows/Linux: an explicit Xray outbound-interface selection.

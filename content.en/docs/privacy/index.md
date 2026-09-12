@@ -2,12 +2,12 @@
 title: "Privacy policy"
 description: "How OneXray processes local configurations, optional logs, installed-app lists, and network requests without an analytics backend."
 weight: 80
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 **Effective date: May 1, 2025**
 
-**Last updated: September 9, 2026**
+**Last updated: September 12, 2026**
 
 OneXray is a client for servers and configurations chosen by you. This policy explains local processing and the difference between app telemetry and the network requests needed for the client to work.
 
@@ -17,7 +17,7 @@ OneXray requires no account and includes no advertising, analytics, tracking, te
 
 ## 2. Data processed on your device
 
-The app stores configuration, subscription URLs, optional age keys, routing data, and preferences locally. It also processes VPN status, current-connection traffic counters, and the generated runtime configuration. Historical/device-wide traffic totals are not stored.
+The app stores configuration, subscription URLs, optional age keys, per-subscription random identifiers when enabled, routing data, and preferences locally. It also processes VPN status, current-connection traffic counters, and the generated runtime configuration. Historical/device-wide traffic totals are not stored.
 
 Optional Xray access/error logs remain local. Logs may contain network addresses and other sensitive information. The macOS System Extension edition does not expose file-log recording/viewing.
 
@@ -27,7 +27,7 @@ Android reads installed-app names, package names, and icons for per-app VPN sele
 
 The absence of analytics does not mean the app makes no network requests.
 
-- VPN and DNS traffic goes to the servers and resolvers selected by the active configuration. Managed normal-mode DNS uses Google DNS.
+- VPN and DNS traffic goes to the servers and resolvers selected by the active configuration. Normal-mode proxy DNS is fixed at 8.8.8.8; direct DNS defaults to the same address and can be changed in Smart/Custom Routing. Tunnel DNS is separately configurable. Raw JSON can specify its own DNS servers.
 - Subscription and routing-data updates connect to configured sources, including default GeoData release hosts.
 - Latency tests contact the selected test URL. Region/exit detection uses a network-based lookup service, currently Cloudflare; it does not require GPS permission.
 - App update checks contact GitHub. Opening documentation, stores, community links, or support pages contacts those services.
@@ -35,9 +35,15 @@ The absence of analytics does not mean the app makes no network requests.
 
 Those services necessarily receive connection information such as the source IP and request details, and apply their own privacy policies. We cannot control third-party handling. A subscription server receives the configured age public key when used; the private key is kept local. The download User-Agent can identify OneXray and its version/platform.
 
+### Optional subscription HWID
+
+Send device identifier (HWID) is off by default for each subscription. If you explicitly enable it, OneXray generates a random identifier for that subscription, stores it locally, and sends it in the `x-hwid` header to the configured subscription source. It is not a hardware, advertising, or operating-system identifier. It is not sent to the developer as telemetry.
+
+The identifier stays the same when you edit the subscription or turn the switch off and on. Changing the URL's scheme, host, or port turns sending off until you opt in again, without changing the identifier. Redirects to another origin do not carry the header. The provider may use it to register a device or enforce a device limit under its own policy. Disabling the switch stops sending it; deleting the subscription or clearing app data removes the local identifier, not the provider's existing record.
+
 ## 4. Sharing and external copies
 
-The app does not automatically upload configurations or logs to us. If you export, copy, or share them, the selected destination may receive credentials, server addresses, or access tokens. Review content before sharing. age subscription links omit existing keys.
+The app does not automatically upload configurations or logs to us. If you export, copy, or share them, the selected destination may receive credentials, server addresses, or access tokens. Review content before sharing. age subscription links omit existing keys. Subscription exports omit HWID and its enabled flag.
 
 The app does not provide backup/restore. The operating system and any external copies you create are outside that app feature boundary.
 

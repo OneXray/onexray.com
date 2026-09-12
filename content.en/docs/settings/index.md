@@ -2,7 +2,7 @@
 title: "Settings"
 description: "Manage system-following theme and language, icons, desktop startup, download identity, updates, and local data."
 weight: 60
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 Settings contains app preferences rather than VPN tunnel or Xray runtime settings.
@@ -18,6 +18,8 @@ Theme and language follow the system on first installation. You can choose light
 - Persian, with right-to-left layout
 
 Unsupported system languages fall back to English. JSON, URLs, IPs, and logs keep left-to-right layout. Apple editions expose app-icon choices where supported.
+
+On Linux ARM64, Chinese, Japanese, and Korean language selections currently render the interface in English to avoid a font/rendering issue. The saved language preference is retained. This fallback does not apply to Linux x86_64 or other platforms.
 
 ## Startup
 
@@ -35,8 +37,10 @@ About shows the App version, update information, and support links. The About se
 
 Subscription and GeoData schedules are under [Advanced > Xray > Data updates]({{< relref "/docs/advanced/data-updates" >}}).
 
+See [shortcuts and system menus]({{< relref "/docs/shortcuts" >}}) for mobile quick actions and desktop tray controls.
+
 ## Clear data
 
 Clear data stops VPN before deleting application configuration, subscriptions, custom routing data, and preferences, then recreates default routing data. A failed stop prevents deletion. Privacy/setup completion is not reset.
 
-This is destructive. Export individual items you need beforehand. **App backup and backup import/restore are not available.** Sharing individual nodes, subscriptions, custom routes, and Raw JSON remains supported.
+This is destructive. Export individual items you need beforehand. **App backup and backup import/restore are not available.** Sharing individual nodes, subscriptions, custom routes, and Raw JSON remains supported. Clearing data also removes local subscription HWIDs; it does not remove a provider's device records. See [subscription HWID]({{< relref "/docs/servers/subscriptions" >}}) before recreating a device-limited subscription.

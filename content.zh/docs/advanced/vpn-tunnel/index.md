@@ -1,23 +1,27 @@
 ---
 title: "VPN 隧道"
-description: "了解只读 TUN 地址、Google DNS、IPv6 开关和 Windows/Linux 的显式出口网卡选择。"
+description: "配置隧道 IPv4/IPv6 DNS 和 Apple DoT 域名，区分本地 DNS，并选择 Windows/Linux 出口网卡。"
 weight: 10
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 入口：高级 → VPN 隧道。
 
 ## 托管地址与 DNS
 
-TUN 地址和隧道 DNS 只展示，不允许修改。DNS 同时展示 IPv4、IPv6 和域名：
+TUN 地址仍只读。隧道 DNS 的三个字段可以编辑，默认值如下：
 
-| 字段 | 值 |
+| 字段 | 默认值 |
 | --- | --- |
 | IPv4 DNS | 8.8.8.8 |
 | IPv6 DNS | 2001:4860:4860::8888 |
-| 域名 | dns.google |
+| DNS 服务器域名 | dns.google |
 
-这里是托管隧道参数，不是通用 DNS 编辑器。Xray DNS 的路径由[智能路由]({{< relref "/docs/connect/smart-routing" >}})或“所有流量经过 VPN”等模式决定。
+IPv4/IPv6 DNS 必须填写对应地址族的 IP 地址。服务器域名仅用于 Apple DNS over TLS，不是搜索域；开启 DoT 时，地址和域名必须属于同一服务，并与 TLS 证书匹配。
+
+这些是平台隧道参数，不会替代[智能路由]({{< relref "/docs/connect/smart-routing" >}})或[自定义路由]({{< relref "/docs/connect/custom-routing" >}})的本地 DNS，也不修改 Raw JSON 自己的 DNS 地址。内网域名不能解析时，通常需要修改路由中的本地 DNS，而非只改本页。
+
+保存后生效；有效配置影响当前 VPN 时需要重新连接。未启用的 IPv6 或 Apple DoT 字段只保留，不因修改它们重连。恢复默认只修改草稿，仍需保存。
 
 ## IPv6
 

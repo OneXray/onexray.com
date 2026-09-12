@@ -2,7 +2,7 @@
 title: "Apple 系统 VPN"
 description: "配置始终开启、Wi-Fi 按需连接与断开、蜂窝或 Ethernet 动作，以及接管全部流量的排除选项。"
 weight: 20
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 入口：高级 → VPN 隧道 → Apple 系统 VPN。选项依据系统版本和 App 版本的能力显示。
@@ -33,9 +33,17 @@ iOS 另外设置蜂窝网络动作，macOS 另外设置 Ethernet 动作，分别
 
 这些是系统层例外，与 Xray 路由规则不同。不当组合可能导致网络不可用，或影响本地服务。不了解影响时，请保留默认值。
 
+## 绕过 VPN 的网段
+
+关闭“接管全部流量”后，可在独立网段页面添加 IPv4/IPv6 CIDR，例如 `192.168.50.0/24`。默认列表为空，不自动排除全部私网。填写的网络由系统绕过 VPN，不再进入 Xray 路由。
+
+重新开启“接管全部流量”会保留列表但停用它；关闭 IPv6 时也保留 IPv6 条目，但不应用。修改有效列表后保存，当前 VPN 需要重新连接。
+
+排除网段不会自动修改 DNS，也不提供自动企业 Split DNS。需要解析内网域名时，还应配置[路由本地 DNS]({{< relref "/docs/connect/smart-routing" >}})。
+
 ## 隧道 DNS over TLS
 
-Apple 隧道设置还提供 DNS over TLS，使用托管的 dns.google 服务器名称。这是平台 DNS 选项，与 Xray 的直连／代理规则选择不同。
+Apple 隧道设置提供 DNS over TLS。DNS 地址和服务器域名在[VPN 隧道]({{< relref "/docs/advanced/vpn-tunnel" >}})中修改，默认域名为 `dns.google`；地址、域名和服务的 TLS 证书必须匹配。这是平台 DNS 选项，不替代 Xray 的本地／代理 DNS。
 
 ## macOS 版本与退出
 

@@ -4,7 +4,7 @@ layout: hextra-home
 description: "OneXray 是支持 iOS、macOS、Android、Windows 和 Linux 的开源 Xray-core 客户端。导入自己的服务器，使用智能路由、自定义规则或完整 Raw JSON。"
 images:
   - /images/screenshots/connect-macos.png
-lastmod: 2026-09-11
+lastmod: 2026-09-12
 ---
 
 {{< hextra/hero-container
@@ -35,6 +35,8 @@ style="align-items: center; padding: 4rem 0 2rem;"
 </div>
 {{< /hextra/hero-container >}}
 
+[26.9.2 新增本地 DNS、订阅 HWID 与系统快捷操作 →](docs/upgrading/)
+
 <div class="product-section-gap"></div>
 
 {{< hextra/hero-section heading="h2" >}}轻松开始，也能深入配置。{{< /hextra/hero-section >}}
@@ -43,11 +45,11 @@ style="align-items: center; padding: 4rem 0 2rem;"
 </div>
 
 {{< hextra/feature-grid cols="3" >}}
-{{< hextra/feature-card title="智能路由" subtitle="局域网、直连地区和常用服务按需直连；可选广告拦截，支持 1–3 个接入节点和链式连接的最终出口。" icon="globe" link="docs/connect/smart-routing/" >}}
+{{< hextra/feature-card title="智能路由" subtitle="直连地区和常用服务搭配自定义本地 DNS；可选广告拦截，支持 1–3 个接入节点和链式连接的最终出口。" icon="globe" link="docs/connect/smart-routing/" >}}
 {{< hextra/feature-card title="自定义规则" subtitle="通过域名、IP、端口、网络编写规则，使用 GeoData 补全，分享不绑定具体节点的路由。" icon="adjustments" link="docs/connect/custom-routing/" >}}
 {{< hextra/feature-card title="完整 Raw JSON" subtitle="专家模式提供完整配置编辑器，平台隧道和相关运行设置仍由 OneXray 统一管理。" icon="code" link="docs/connect/raw-json/" >}}
-{{< hextra/feature-card title="清晰的服务器管理" subtitle="按订阅或位置浏览，比较延迟与协议，编辑、分享和删除；HTTPS 订阅支持可选 age 加密。" icon="collection" link="docs/servers/" >}}
-{{< hextra/feature-card title="适合当前平台" subtitle="Apple Wi-Fi 规则、Android 按应用分流、Windows/Linux 网卡选择，手机与桌面共享清晰导航。" icon="desktop-computer" link="docs/advanced/" >}}
+{{< hextra/feature-card title="清晰的服务器管理" subtitle="按订阅或位置浏览，比较延迟与协议；HTTPS 订阅支持可选 age 加密和独立的 HWID。" icon="collection" link="docs/servers/" >}}
+{{< hextra/feature-card title="适合当前平台" subtitle="Apple 网段排除、Android 按应用分流、Windows/Linux 网卡选择；使用手机快捷操作或桌面托盘启动和切换。" icon="desktop-computer" link="docs/shortcuts/" >}}
 {{< hextra/feature-card title="实用的本地工具" subtitle="查看本次连接流量、检测节点、更新路由数据、检查实际生成的配置及受支持版本的本地日志。" icon="document-search" link="docs/advanced/" >}}
 {{< /hextra/feature-grid >}}
 

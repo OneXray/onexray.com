@@ -1,23 +1,27 @@
 ---
 title: "VPN Tunnel"
-description: "Understand managed TUN addresses, Google DNS, IPv6 behavior, and explicit outbound-interface selection."
+description: "Edit tunnel IPv4/IPv6 DNS and the Apple DoT server name, distinguish local DNS, and select an outbound interface."
 weight: 10
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 Open Advanced > VPN Tunnel.
 
 ## Managed addresses and DNS
 
-TUN addresses and tunnel DNS are read-only. The DNS section shows IPv4, IPv6, and domain:
+TUN addresses remain read-only. All three tunnel DNS fields are editable, with these defaults:
 
-| Field | Value |
+| Field | Default |
 | --- | --- |
 | IPv4 DNS | 8.8.8.8 |
 | IPv6 DNS | 2001:4860:4860::8888 |
-| Domain | dns.google |
+| DNS server name | dns.google |
 
-These are managed tunnel values, not a general DNS-server editor. [Smart Routing]({{< relref "/docs/connect/smart-routing" >}}) and All via VPN determine how managed Xray DNS requests are routed.
+IPv4/IPv6 DNS must be IP addresses of the corresponding family. The server name is only for Apple DNS over TLS, not a search domain. When DoT is enabled, the addresses and name must belong to the same service and match its TLS certificate.
+
+These platform tunnel values do not replace the local DNS in [Smart Routing]({{< relref "/docs/connect/smart-routing" >}}) or [Custom Routing]({{< relref "/docs/connect/custom-routing" >}}), or change a Raw JSON configuration's own DNS addresses. Internal-name resolution usually requires changing the route's local DNS, not just this page.
+
+Save to apply changes; effective settings affecting an active VPN require reconnecting. Inactive IPv6 or Apple DoT fields are retained without causing a reconnect. Restore defaults changes the draft only and still requires saving.
 
 ## IPv6
 

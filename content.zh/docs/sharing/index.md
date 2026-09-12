@@ -2,7 +2,7 @@
 title: "导入与分享格式"
 description: "区分标准分享链接、OneXray URL、完整 JSON 与 GeoData 依赖，避免误导入或分享 age 私钥。"
 weight: 70
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 ## 选择格式
@@ -29,7 +29,7 @@ onexray://onexray.com/dat/add?type=domain|ip&url=<percent-encoded-https-url>#Nam
 
 有多个备选值时只选其中一个；明文订阅省略 age。fragment 用作显示名称。不支持退休的 profile/full/setting 配置类型。
 
-age 链接只描述算法，接收设备生成新密钥，不共享现有公钥或私钥。
+age 链接只描述算法，接收设备生成新密钥，不共享现有公钥或私钥。订阅导出也不包含 HWID 及其开关。导入链接不能开启 HWID，接收方必须主动为该订阅开启。
 
 ## 路由依赖
 
@@ -48,6 +48,12 @@ age 链接只描述算法，接收设备生成新密钥，不共享现有公钥�
 这里只是依赖片段，不是可直接运行的完整配置；使用时替换为真实来源。
 
 省略默认 geoip.dat、geosite.dat。自定义路由只导出空接入槽，不导出 direct/block 出站定义。导入会校验依赖、拒绝重名，并在存储前删除只供导入的 geodata 字段。
+
+自定义路由使用标准 `dns.servers` 中固定标记为 `app-dns-direct` 的条目保存并导出本地 DNS 地址；运行时的直连域名匹配由 App 生成。见[自定义路由 JSON 示例]({{< relref "/docs/connect/custom-routing" >}})。
+
+## 从 App 分享
+
+iOS、Android、macOS 和 Windows 打开系统分享界面；Linux 提供明确的复制操作。关闭或取消分享面板后保留当前页面，不把关闭面板视为成功送达。分享失败时展示可用的具体原因。
 
 ## 打开链接
 

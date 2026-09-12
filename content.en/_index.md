@@ -4,7 +4,7 @@ layout: hextra-home
 description: "OneXray is an open-source Xray-core client for iOS, macOS, Android, Windows, and Linux. Bring your servers, use Smart Routing, or build your own rules."
 images:
   - /images/screenshots/connect-macos.png
-lastmod: 2026-09-11
+lastmod: 2026-09-12
 ---
 
 {{< hextra/hero-container
@@ -35,6 +35,8 @@ style="align-items: center; padding: 4rem 0 2rem;"
 </div>
 {{< /hextra/hero-container >}}
 
+[What's new in 26.9.2: local DNS, subscription HWID, and system shortcuts →](docs/upgrading/)
+
 <div class="product-section-gap"></div>
 
 {{< hextra/hero-section heading="h2" >}}Simple to start. Room to go deeper.{{< /hextra/hero-section >}}
@@ -43,11 +45,11 @@ style="align-items: center; padding: 4rem 0 2rem;"
 </div>
 
 {{< hextra/feature-grid cols="3" >}}
-{{< hextra/feature-card title="Smart Routing" subtitle="Keep local networks, a direct region, and selected services direct. Optional ad blocking, 1–3 entry servers, and a final exit for chained connections." icon="globe" link="docs/connect/smart-routing/" >}}
+{{< hextra/feature-card title="Smart Routing" subtitle="Direct regions and services with your own local DNS. Optional ad blocking, 1–3 entry servers, and a final exit for chained connections." icon="globe" link="docs/connect/smart-routing/" >}}
 {{< hextra/feature-card title="Your own rules" subtitle="Build domain, IP, port, and network rules with GeoData suggestions. Share a route without tying it to particular servers." icon="adjustments" link="docs/connect/custom-routing/" >}}
 {{< hextra/feature-card title="Complete Raw JSON" subtitle="Switch to expert mode for a full configuration editor. OneXray keeps control of the platform tunnel and related runtime settings." icon="code" link="docs/connect/raw-json/" >}}
-{{< hextra/feature-card title="Servers, organized" subtitle="Browse by subscription or location, compare delay and protocols, and edit, share, or delete. HTTPS subscriptions can use age encryption." icon="collection" link="docs/servers/" >}}
-{{< hextra/feature-card title="Fits your platform" subtitle="Apple Wi-Fi rules, Android per-app VPN, and Windows/Linux interface selection, with shared mobile and desktop navigation." icon="desktop-computer" link="docs/advanced/" >}}
+{{< hextra/feature-card title="Servers, organized" subtitle="Browse by subscription or location and compare delay and protocols. HTTPS subscriptions support optional age encryption and per-subscription HWID." icon="collection" link="docs/servers/" >}}
+{{< hextra/feature-card title="Fits your platform" subtitle="Apple route exclusions, Android per-app VPN, and Windows/Linux interfaces. Start and switch with mobile shortcuts or desktop tray menus." icon="desktop-computer" link="docs/shortcuts/" >}}
 {{< hextra/feature-card title="Useful local tools" subtitle="See current-connection traffic, test nodes, update routing data, and inspect the generated configuration and supported local logs." icon="document-search" link="docs/advanced/" >}}
 {{< /hextra/feature-grid >}}
 

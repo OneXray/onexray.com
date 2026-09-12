@@ -2,7 +2,7 @@
 title: "Установка OneXray"
 description: "Загрузите OneXray для iOS, macOS, Android, Windows и Linux; узнайте различия EXE/ZIP, MSIX и OneXraySE."
 weight: 10
-lastmod: 2026-09-11
+lastmod: 2026-09-12
 ---
 
 ## Выберите платформу
@@ -15,8 +15,8 @@ lastmod: 2026-09-11
 | Android, телефоны и планшеты | Android 10+, arm64-v8a или x86_64 | [Google Play](https://play.google.com/store/apps/details?id=net.yuandev.onexray) · [APK](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-android-universal.apk) |
 | Windows x64 | Windows 10 20H2+ | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-amd64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
 | Windows ARM64 | Windows 11 | winget · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-windows-arm64.zip) · [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) |
-| Linux x86_64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
-| Linux arm64 | glibc 2.39+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
+| Linux x86_64 | glibc 2.39+, ядро 5.3+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-x86_64.zip) |
+| Linux arm64 | glibc 2.39+, ядро 5.3+ | [DEB](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.deb) · [ZIP](https://github.com/OneXray/OneXray/releases/latest/download/OneXray-linux-aarch64.zip) |
 
 Полный список файлов и изменений — в [Releases](https://github.com/OneXray/OneXray/releases). 32-битный ARM на Android не поддерживается.
 
@@ -32,6 +32,8 @@ EXE и ZIP используют нативный TUN. При запуске VPN 
 
 Версия [Microsoft Store](https://apps.microsoft.com/detail/9NJ0MVHW215D) использует MSIX и системный VPN Windows, без UAC для Core. EXE/ZIP и MSIX хранят данные раздельно; смена канала не переносит их автоматически. Обе версии требуют выбора исходящего интерфейса Xray. [Подробнее о Windows]({{< relref "/docs/advanced/windows" >}}).
 
+Все пакеты Windows 26.9.2 включают Microsoft Visual C++ Runtime нужной архитектуры. Для интерфейса приложения не нужна отдельная установка среды выполнения.
+
 ## macOS
 
 Версия Mac App Store использует Packet Tunnel. OneXraySE использует System Extension:
@@ -40,7 +42,7 @@ EXE и ZIP используют нативный TUN. При запуске VPN 
 brew install --cask onexrayse
 ```
 
-Для ZIP сначала перенесите OneXraySE.app в /Applications. При настройке разрешите VPN и сетевое расширение. macOS может открыть раздел расширений/объектов входа или конфиденциальности и безопасности; выполните запрос на перезагрузку, если он появится.
+Для ZIP сначала перенесите OneXraySE.app в /Applications. После Setup войдите в основной интерфейс и разрешите VPN и сетевое расширение. macOS может открыть раздел расширений/объектов входа или конфиденциальности и безопасности; выполните запрос на перезагрузку, если он появится.
 
 Для обновления ZIP закройте приложение, замените его в /Applications и подтвердите обновление расширения, если потребуется. См. [руководство Apple](https://developer.apple.com/documentation/systemextensions/installing-system-extensions-and-drivers).
 
@@ -49,6 +51,8 @@ brew install --cask onexrayse
 Проще всего установить приложение из App Store. Для самостоятельной установки IPA нужно переподписать приложение и Packet Tunnel с профилями, разрешающими Network Extension. Бесплатная Personal Team этой возможности не предоставляет. См. [возможности Apple Developer](https://developer.apple.com/help/account/reference/supported-capabilities-ios/).
 
 ## Linux
+
+Для наблюдения за процессом Core требуется ядро Linux 5.3+ с поддержкой pidfd. На Linux ARM64 китайский, японский и корейский сейчас отображаются на английском без изменения сохранённого предпочтения; см. [языковые настройки]({{< relref "/docs/settings" >}}).
 
 На Debian/Ubuntu DEB устанавливает зависимости и выдаёт Core сетевые capabilities:
 

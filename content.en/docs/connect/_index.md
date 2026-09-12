@@ -2,7 +2,7 @@
 title: "Connect"
 description: "Choose servers and a traffic method, or use expert-mode Raw JSON. Understand live traffic and reconnect behavior."
 weight: 30
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 Connect answers two questions: **which servers to use**, and **which traffic should use them**.
@@ -34,8 +34,8 @@ Expert mode replaces the server-selection section with [Raw JSON]({{< relref "/d
 
 ## Traffic and reconnecting
 
-The page displays upload/download speed and counters for the **current connection**, not a historical total. Live sampling runs while Connect is visible in the foreground. The traffic display has no detail dialog.
+The page displays upload/download speed and counters for the **current connection**, not a historical total. Live sampling runs while Connect is visible, including when a desktop window loses focus. Hiding the window or leaving Connect stops sampling. The traffic display has no detail dialog.
 
 There is no single “connection IP” that represents a multi-node connection. Node locations belong to individual test results.
 
-Changes that affect the running connection require reconnecting. OneXray stops the old VPN before preparing and validating the new configuration. If a transition fails, it remains in a failure state instead of restarting the old connection automatically.
+Changes that affect the running connection require reconnecting. OneXray stops the old VPN before preparing and starting the new configuration. Startup uses the local routing-data files; it does not download missing files or wait for geodata updates. A failed start reports its cause and remains in a failure state instead of restarting the old connection automatically.

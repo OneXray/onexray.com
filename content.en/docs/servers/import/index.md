@@ -2,15 +2,15 @@
 title: "Add servers"
 description: "Import links, subscriptions, node JSON, files, and QR codes into OneXray without a second node confirmation."
 weight: 10
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
-Open Servers > Add servers, or choose an import action during initial setup.
+After entering the main interface, open Servers > Add servers. Import is not part of the first-run setup.
 
 | Action | Behavior |
 | --- | --- |
-| Read clipboard | Open the pasted text for submission |
-| Add subscription | Enter a name, HTTPS URL, and optional age settings |
+| Paste link | Open the pasted text for submission |
+| Add subscription | Enter a name, HTTPS URL, and optional age/HWID settings |
 | Import file | Open the system file picker directly |
 | Manual add | Open a JSON editor, not protocol-specific form fields |
 | Scan QR code | Open the scanner on iOS/Android only |
@@ -34,6 +34,6 @@ The fragment supplies the initial display name and is not part of the saved requ
 
 Ordinary nodes are parsed and saved after submission, file selection, or scanning. There is no extra node-preview confirmation. The app reports the number imported; if no valid nodes are found, it saves nothing and reports an error.
 
-New nodes enter the shared test queue after import. Tests do not block finishing import or entering Connect from setup. Complete Raw/Custom configurations and routing-data dependencies keep their own preview/confirmation step.
+New nodes enter the shared test queue after import. Tests do not block finishing import or opening Connect. Complete Raw/Custom configurations and routing-data dependencies keep their own preview/confirmation step.
 
 Node validity follows libXray. Imported protocol support does not imply that every setting from another client's full configuration is supported.

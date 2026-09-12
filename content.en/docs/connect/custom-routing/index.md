@@ -2,7 +2,7 @@
 title: "Custom Routing"
 description: "Build up to three named custom routes with ordered rules, GeoData completion, and independent import and sharing."
 weight: 20
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 Custom Routing controls traffic rules without binding them to particular servers. Server selection stays on Connect.
@@ -24,6 +24,12 @@ Prefer one condition type per rule. If you fill several types, **every type must
 
 Rules are evaluated in order. Delete rules from their list rows. There is no enable/disable switch or “more conditions” panel.
 
+## Local DNS
+
+Each custom route saves its own Local DNS address, defaulting to `8.8.8.8`. Domains from direct rules use this resolver; proxy DNS stays at `8.8.8.8`. Domain matching is generated from direct rules, not from their IP, port, or network conditions. An IP-only direct rule is not enough to configure internal-name resolution.
+
+Sharing uses standard `dns.servers` with the fixed `tag: app-dns-direct` to identify this server and saves only its `address`. Array position is irrelevant. Generated domain lists, fallback, and query strategy are not exported. Older routes without DNS keep the default address; arbitrary DNS structures belong in Raw JSON.
+
 ## Save and share
 
 The fixed bottom action bar saves the route. Editing a rule changes the draft; save the whole route to apply it. Changes to the active route require reconnecting.
@@ -34,6 +40,9 @@ Routes can be shared and imported through the same complete-configuration flow a
 {
   "name": "Local network direct",
   "outbounds": [{}, {}],
+  "dns": {
+    "servers": [{"tag": "app-dns-direct", "address": "8.8.8.8"}]
+  },
   "routing": {
     "domainStrategy": "IPIfNonMatch",
     "rules": [

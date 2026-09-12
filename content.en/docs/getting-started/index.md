@@ -1,41 +1,42 @@
 ---
 title: "First connection"
-description: "Complete OneXray setup, grant VPN permission, select a direct region, import servers, and make your first connection."
+description: "Choose a direct region and the required outbound interface together, authorize on entering Home, then add servers and connect."
 weight: 20
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
-## 1. Prepare the system
+## 1. Complete the two-step setup
 
-Read the privacy notice and choose Agree and continue. System setup prepares local configuration and built-in routing data, then guides you through the required VPN permissions.
+Read the privacy notice and select Agree and continue. On Get ready to connect, wait for local configuration and bundled routing data to be prepared:
 
-Windows and Linux require you to choose the Xray outbound network interface. The adapter marked as currently used for internet access is a reference, not an automatic selection. Apple devices require VPN authorization during setup; Android may also require local-network permission.
+- The country/region sets Smart Routing's direct rules, not the VPN server location. Choose one region, clear the selection, or leave it unchanged to keep the existing setting. A new installation's original default is Mainland China.
+- Windows and Linux require an explicit Xray outbound interface on this same page. The current internet adapter is marked for reference, never automatically selected. Apple and Android do not show this option.
 
-Setup does **not** start VPN. Complete each step with Continue; it does not advance automatically.
+Select Go to Home to save. Setup does not advance automatically, request VPN authorization, import servers, or start VPN. Change the region later in [Smart Routing]({{< relref "/docs/connect/smart-routing" >}}).
 
-## 2. Choose a direct region — optional
+## 2. Authorize on entering the main interface
 
-The country/region is used by Smart Routing, not to select a VPN server location. Detection suggests a region from the current network without GPS permission. You may choose one manually, clear it, or skip.
+Main-interface initialization reads the current VPN state and requests missing necessary authorization once, even without servers. Apple asks to add a VPN configuration; OneXraySE may also require System Extension approval. Android 17 and later additionally check local-network permission.
 
-Skipping keeps existing settings; a new installation defaults to Mainland China. To use no direct region, clear the selection, finish the picker, and continue. You can change it later in [Smart Routing]({{< relref "/docs/connect/smart-routing" >}}).
+Declining or cancelling still allows browsing the app, but the required permissions must be granted before connecting. After adding servers, use the connection button to retry and approve authorization. Returning to the foreground alone does not repeatedly prompt. The initial authorization request on entering the main interface does not itself start VPN.
 
-## 3. Add servers — optional
+## 3. Add servers
 
-Import a subscription, paste a share link, choose a file, or enter node JSON. iOS and Android also support QR scanning. File import opens the system picker directly.
+Open [Servers > Add servers]({{< relref "/docs/servers/import" >}}). Add a subscription, paste share links, choose a file, or enter node JSON. iOS/Android also support QR scanning; file import opens the system picker directly.
 
-After nodes are saved, select Go to Home. You do not need to wait for latency or location tests. You may choose to add servers later; setup still shows this step when servers already exist.
+Ordinary nodes save without a second preview confirmation or waiting for subsequent tests. Setup does not depend on server counts or latency results.
 
 ## 4. Select and connect
 
-On Connect, select a server source and traffic method. Automatic selection with Smart Routing is a starting point. For a single-server test, select a server and All via VPN.
+On Connect, choose a server source and traffic method. Start with Automatic selection and Smart Routing, or choose one server and All via VPN for a single-node test. Automatic selection needs eligible, usable test results.
 
-Start VPN and wait for Connected. The page shows live speeds and traffic for this connection while it is visible. Stop the VPN from the same page.
+Select Connect and wait for Connected. The button shows progress during permission checks, queued work, and connection changes. Traffic refreshes while the page and window are visible; an unfocused desktop window keeps updating.
 
 ## If something is missing
 
-- No servers: use [Servers > Add servers]({{< relref "/docs/servers/import" >}}).
-- Authorization missing: use the permission action on Connect and approve the system request.
-- Network interface missing or changed: select it again under Advanced > VPN Tunnel.
-- Connection fails: check the supplied configuration, routing data, and [local logs]({{< relref "/docs/advanced/logs" >}}).
+- No usable servers or too few entries: add servers, complete tests, or adjust the selection scope/entry count.
+- Permission not ready: follow Connect's authorization action, use system settings if needed, and retry.
+- Interface missing: select it under Advanced > VPN Tunnel. Each start checks it; no continuous interface monitoring is added.
+- Configuration or routing-data error: read the specific cause and inspect [logs/the generated configuration]({{< relref "/docs/advanced/logs" >}}). Missing required data is reported; starting VPN does not download GeoData as a fallback.
 
-Normal app startup checks its prerequisites again; finishing setup does not permanently waive permission or resource checks.
+Normal startup checks prerequisites again. Switching an active configuration stops the old VPN first; a failed new connection does not automatically restore it.

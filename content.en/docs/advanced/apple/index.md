@@ -2,7 +2,7 @@
 title: "Apple system VPN"
 description: "Configure always-on and Wi-Fi on-demand VPN, separate cellular or Ethernet actions, and traffic-capture exclusions."
 weight: 20
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 Open Advanced > VPN Tunnel > Apple system VPN. Availability follows the installed Apple OS and app edition.
@@ -33,9 +33,17 @@ Off by default. Turning it on reveals four exclusion options, each on by default
 
 These are system-level exceptions, separate from Xray routing rules. An unsuitable combination can make the network unavailable or disrupt local services. Keep the defaults unless you understand the intended change.
 
+## Networks that bypass VPN
+
+With Capture all traffic off, open the network-list page and add IPv4/IPv6 CIDRs, such as `192.168.50.0/24`. The default list is empty; private networks are not automatically added. The system routes listed networks outside VPN, before Xray rules apply.
+
+Turning full capture back on preserves the list but disables it. Turning IPv6 off similarly retains IPv6 entries without applying them. Save changes to the effective list and reconnect an active VPN.
+
+Excluded networks do not change DNS automatically or provide automatic enterprise split DNS. For internal names, also configure the [route's local DNS]({{< relref "/docs/connect/smart-routing" >}}).
+
 ## Tunnel DNS over TLS
 
-Apple tunnel settings also provide DNS over TLS using the managed dns.google server name. This is a platform DNS option, separate from choosing direct or proxy rules in Xray.
+Apple tunnel settings provide DNS over TLS. Edit DNS addresses and the server name under [VPN Tunnel]({{< relref "/docs/advanced/vpn-tunnel" >}}); the default name is `dns.google`. Addresses, name, and the service's TLS certificate must match. This platform setting does not replace Xray's local/proxy DNS.
 
 ## macOS editions and quitting
 

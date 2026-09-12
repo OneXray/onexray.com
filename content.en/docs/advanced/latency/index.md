@@ -2,7 +2,7 @@
 title: "Latency tests"
 description: "Set a test URL and timeout; understand queued tests, cancellation, and server-location detection."
 weight: 70
-lastmod: 2026-09-09
+lastmod: 2026-09-12
 ---
 
 Open Advanced > Xray > latency-test settings.
@@ -17,7 +17,7 @@ Automatic imports, subscription/location tests, and individual-node requests sha
 
 The batch button on a subscription or location switches to Cancel. Cancellation skips pending work and stops after the current batch finishes; it does not interrupt unrelated requests.
 
-New nodes are tested after import. During initial setup, testing starts only after normal services are ready and does not block reaching Connect.
+New nodes are queued for testing after import. Finishing import does not wait for test results. Initial setup has no server-import or latency-test step.
 
 No concurrent-count setting or automatic-test switch is exposed. A fast result means low delay to the chosen test URL, not guaranteed bandwidth or access to every website.
 
