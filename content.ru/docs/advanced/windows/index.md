@@ -2,6 +2,7 @@
 title: "Режимы VPN в Windows"
 description: "Сравнение EXE/ZIP с нативным TUN и MSIX с системным VPN: UAC, данные, интерфейс, автозапуск и выход."
 weight: 40
+ai_order: 150
 lastmod: 2026-09-12
 ---
 

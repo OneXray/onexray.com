@@ -2,6 +2,7 @@
 title: "Android 系统 VPN"
 description: "通过应用图标和搜索选择哪些 Android App 经过 VPN，包含和排除列表分别保存。"
 weight: 30
+ai_order: 140
 lastmod: 2026-09-12
 ---
 

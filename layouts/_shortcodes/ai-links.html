@@ -1,0 +1,4 @@
+{{- $lang := .Page.Language.Lang -}}
+{{- $labels := dict "en" (slice "Read / download the full guide" "AI reading index" "Markdown for this page") "zh" (slice "阅读或下载完整指南" "AI 阅读索引" "本页 Markdown") "ru" (slice "Полное руководство" "Указатель для ИИ" "Эта страница в Markdown") -}}
+{{- $text := index $labels $lang -}}
+{{- printf "[%s](%s) · [%s](%s) · [%s](%s)\n" (index $text 0) (partial "ai/public-url.html" (relLangURL "llms-full.txt")) (index $text 1) (partial "ai/public-url.html" (relLangURL "llms.txt")) (index $text 2) (partial "ai/public-url.html" (.Page.OutputFormats.Get "Markdown").RelPermalink) | safeHTML -}}

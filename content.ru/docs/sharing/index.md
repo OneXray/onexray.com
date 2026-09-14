@@ -2,6 +2,7 @@
 title: "Импорт и обмен"
 description: "Стандартные ссылки, OneXray URL, полный JSON и зависимости GeoData без передачи существующих age-ключей."
 weight: 70
+ai_order: 160
 lastmod: 2026-09-12
 ---
 

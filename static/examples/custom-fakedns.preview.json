@@ -1,0 +1,30 @@
+{
+  "name": "FakeDNS preview",
+  "outbounds": [
+    {}
+  ],
+  "dns": {
+    "servers": [
+      {
+        "tag": "app-dns-direct",
+        "address": "8.8.8.8"
+      },
+      {
+        "tag": "app-dns-fake",
+        "address": "fakedns"
+      }
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ruleTag": "Private networks",
+        "ip": [
+          "geoip:PRIVATE"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

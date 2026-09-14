@@ -22,3 +22,5 @@ New nodes are queued for testing after import. Finishing import does not wait fo
 No concurrent-count setting or automatic-test switch is exposed. A fast result means low delay to the chosen test URL, not guaranteed bandwidth or access to every website.
 
 [Latency labels]({{< relref "/docs/servers" >}})
+
+When VPN is connected, a probe can traverse the current VPN path and not represent the node's independent latency. To measure the actual node path, disconnect VPN before testing. OneXray does not currently guarantee probe bypass while connected.

@@ -1,0 +1,30 @@
+{
+  "name": "Block QUIC on mobile",
+  "outbounds": [
+    {}
+  ],
+  "dns": {
+    "servers": [
+      {
+        "tag": "app-dns-direct",
+        "address": "8.8.8.8"
+      }
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ruleTag": "Mobile QUIC",
+        "protocol": [
+          "quic"
+        ],
+        "localOS": [
+          "ios",
+          "android"
+        ],
+        "outboundTag": "block"
+      }
+    ]
+  }
+}

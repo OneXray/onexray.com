@@ -1,0 +1,197 @@
+{
+  "name": "Two paths to one final exit",
+  "dns": {
+    "tag": "user-dns-query",
+    "servers": [
+      "8.8.8.8"
+    ]
+  },
+  "outbounds": [
+    {
+      "tag": "exit-a",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "exit.example.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "00000000-0000-4000-8000-000000000003",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "raw",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "exit.example.com"
+        },
+        "sockopt": {
+          "dialerProxy": "entry-a"
+        }
+      }
+    },
+    {
+      "tag": "exit-b",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "exit.example.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "00000000-0000-4000-8000-000000000003",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "raw",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "exit.example.com"
+        },
+        "sockopt": {
+          "dialerProxy": "entry-b"
+        }
+      }
+    },
+    {
+      "tag": "entry-a",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "entry-a.example.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "00000000-0000-4000-8000-000000000001",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "raw",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "entry-a.example.com"
+        }
+      }
+    },
+    {
+      "tag": "entry-b",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "entry-b.example.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "00000000-0000-4000-8000-000000000002",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "raw",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "entry-b.example.com"
+        }
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole"
+    },
+    {
+      "tag": "user-dns",
+      "protocol": "dns",
+      "settings": {
+        "rules": [
+          {
+            "action": "hijack",
+            "qType": "1,28"
+          },
+          {
+            "action": "direct"
+          }
+        ]
+      },
+      "streamSettings": {
+        "sockopt": {
+          "dialerProxy": "exit-a"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ruleTag": "Resolve tunnel DNS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": "53",
+        "outboundTag": "user-dns"
+      },
+      {
+        "ruleTag": "DNS through VPN",
+        "inboundTag": [
+          "user-dns-query"
+        ],
+        "balancerTag": "user-pool"
+      },
+      {
+        "ruleTag": "Local network",
+        "ip": [
+          "192.168.0.0/16",
+          "10.0.0.0/8",
+          "172.16.0.0/12"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "ruleTag": "Explicit balanced destinations",
+        "domain": [
+          "domain:example.net"
+        ],
+        "balancerTag": "user-pool"
+      }
+    ],
+    "balancers": [
+      {
+        "tag": "user-pool",
+        "selector": [
+          "exit-a",
+          "exit-b"
+        ],
+        "strategy": {
+          "type": "roundRobin"
+        },
+        "fallbackTag": "direct"
+      }
+    ]
+  },
+  "observatory": {
+    "subjectSelector": []
+  }
+}

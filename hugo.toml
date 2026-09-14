@@ -8,6 +8,29 @@ enableRobotsTXT = true
 hasCJKLanguage = true
 disableKinds = ['taxonomy', 'term']
 
+[outputFormats.Markdown]
+  mediaType = 'text/markdown'
+  baseName = 'index'
+  isPlainText = true
+  rel = 'alternate'
+
+[outputFormats.LLMS]
+  mediaType = 'text/plain'
+  baseName = 'llms'
+  isPlainText = true
+  notAlternative = true
+
+[outputFormats.LLMSFull]
+  mediaType = 'text/plain'
+  baseName = 'llms-full'
+  isPlainText = true
+  notAlternative = true
+
+[outputs]
+  home = ['HTML', 'RSS', 'LLMS', 'LLMSFull']
+  page = ['HTML', 'Markdown']
+  section = ['HTML', 'RSS', 'Markdown']
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
@@ -88,6 +111,12 @@ disableKinds = ['taxonomy', 'term']
     min = '0.146.0'
   [[module.imports]]
     path = 'github.com/imfing/hextra'
+
+[[menu.main]]
+  identifier = 'ai-guide'
+  name = 'Configure with AI'
+  pageRef = '/docs/ai'
+  weight = 0
 
 [[menu.main]]
   identifier = 'documentation'

@@ -2,6 +2,7 @@
 title: "导入与分享格式"
 description: "区分标准分享链接、OneXray URL、完整 JSON 与 GeoData 依赖，避免误导入或分享 age 私钥。"
 weight: 70
+ai_order: 160
 lastmod: 2026-09-12
 ---
 

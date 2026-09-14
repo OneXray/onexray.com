@@ -1,0 +1,29 @@
+{
+  "outbounds": [
+    {
+      "tag": "My VLESS server",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "server.example.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "00000000-0000-4000-8000-000000000001",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "raw",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "server.example.com"
+        }
+      }
+    }
+  ]
+}

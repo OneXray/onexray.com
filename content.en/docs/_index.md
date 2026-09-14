@@ -1,25 +1,29 @@
 ---
 title: "Documentation"
-description: "Get started with OneXray: connect your servers, manage subscriptions, choose routing, and configure platform VPN settings."
+description: "Generate importable OneXray JSON with AI, understand configuration contracts, and configure your platform VPN."
 weight: 0
-lastmod: 2026-09-12
+lastmod: 2026-09-14
 cascade:
   type: docs
 ---
 
-Learn OneXray 26.9.2, from your first connection to custom routing and platform settings. See [updates and upgrading]({{< relref "/docs/upgrading" >}}) for changes since 26.9.1 and guidance for older versions.
+Use Smart Routing to get started, or describe your requirements to an AI assistant and import its configuration. OneXray is a client: bring your own servers.
 
-OneXray is a client, not a VPN service. You need your own compatible servers or subscription.
+## From a requirement to a configuration
 
-{{< cards cols="2" >}}
-{{< card link="install/" title="Install" subtitle="Choose the right package for your device." icon="download" >}}
-{{< card link="getting-started/" title="First connection" subtitle="Prepare the system, add servers, and connect." icon="play" >}}
-{{< card link="connect/" title="Connect" subtitle="Server selection, Smart Routing, custom rules, and Raw JSON." icon="globe" >}}
-{{< card link="servers/" title="Servers" subtitle="Import, organize, test, and share servers and subscriptions." icon="collection" >}}
-{{< card link="advanced/" title="Advanced" subtitle="Platform VPN, routing data, updates, and local logs." icon="adjustments" >}}
-{{< card link="settings/" title="Settings" subtitle="Appearance, language, startup, and application data." icon="cog" >}}
-{{< card link="shortcuts/" title="Shortcuts and system menus" subtitle="Four mobile quick actions and desktop tray controls." icon="cursor-click" >}}
-{{< card link="upgrading/" title="Updates and upgrading" subtitle="What is new in 26.9.2 and which data is retained." icon="refresh" >}}
-{{< /cards >}}
+- [Configure with AI]({{< relref "/docs/ai" >}})：Copy a prompt or read the complete guide.
+- [Configuration contracts]({{< relref "/docs/configuration" >}})：Outbound, Custom Routing and Raw JSON: choose the right file and entry.
+- [Recipes]({{< relref "/docs/recipes" >}})：Regional routing, corporate DNS and proxy chains.
+- [VPN Tunnel by requirement]({{< relref "/docs/tunnel-guide" >}})：Platform-specific instructions, separate from JSON.
+- [Validate and troubleshoot]({{< relref "/docs/troubleshooting" >}})：Import errors, missing data, DNS and startup.
+- [Versions and compatibility]({{< relref "/docs/configuration/compatibility" >}})：Released behavior versus explicitly marked development features.
 
-[Privacy policy]({{< relref "/docs/privacy" >}}) · [Sharing formats]({{< relref "/docs/sharing" >}}) · [Development]({{< relref "/docs/develop" >}})
+## Use the App
+
+- [Install and first connection]({{< relref "/docs/install" >}}) · [First connection]({{< relref "/docs/getting-started" >}})
+- [Connect and Smart Routing]({{< relref "/docs/connect" >}})
+- [Servers and subscriptions]({{< relref "/docs/servers" >}})
+- [Advanced settings]({{< relref "/docs/advanced" >}})
+- [Settings]({{< relref "/docs/settings" >}}) · [Shortcuts]({{< relref "/docs/shortcuts" >}})
+- [Import and sharing]({{< relref "/docs/sharing" >}}) · [Updates]({{< relref "/docs/upgrading" >}})
+- [Privacy]({{< relref "/docs/privacy" >}}) · [Credits and licenses]({{< relref "/docs/credits" >}})

@@ -2,6 +2,7 @@
 title: "Android system VPN"
 description: "Select which Android apps use the VPN, with app icons and separately saved inclusion and exclusion lists."
 weight: 30
+ai_order: 140
 lastmod: 2026-09-12
 ---
 

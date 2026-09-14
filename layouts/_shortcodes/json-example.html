@@ -1,0 +1,4 @@
+{{- $file := .Get 0 -}}
+{{- $path := printf "static/examples/%s" $file -}}
+{{- if not (fileExists $path) -}}{{ errorf "Missing JSON example: %s" $path }}{{- end -}}
+{{- printf "[JSON: %s](%s)\n\n```json\n%s\n```\n" $file (relURL (printf "examples/%s" $file)) (strings.TrimSpace (readFile $path)) | safeHTML -}}

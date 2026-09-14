@@ -1,0 +1,93 @@
+{
+  "name": "VLESS with explicit DNS",
+  "dns": {
+    "tag": "user-dns-query",
+    "servers": [
+      "8.8.8.8"
+    ]
+  },
+  "outbounds": [
+    {
+      "tag": "user-proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "server.example.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "00000000-0000-4000-8000-000000000001",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "raw",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "server.example.com"
+        }
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole"
+    },
+    {
+      "tag": "user-dns",
+      "protocol": "dns",
+      "settings": {
+        "rules": [
+          {
+            "action": "hijack",
+            "qType": "1,28"
+          },
+          {
+            "action": "direct"
+          }
+        ]
+      },
+      "streamSettings": {
+        "sockopt": {
+          "dialerProxy": "user-proxy"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ruleTag": "Resolve tunnel DNS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": "53",
+        "outboundTag": "user-dns"
+      },
+      {
+        "ruleTag": "DNS through VPN",
+        "inboundTag": [
+          "user-dns-query"
+        ],
+        "outboundTag": "user-proxy"
+      },
+      {
+        "ruleTag": "Local network",
+        "ip": [
+          "192.168.0.0/16",
+          "10.0.0.0/8",
+          "172.16.0.0/12"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

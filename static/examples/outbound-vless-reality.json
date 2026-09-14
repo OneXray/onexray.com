@@ -1,0 +1,32 @@
+{
+  "outbounds": [
+    {
+      "tag": "My REALITY server",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "server.example.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "00000000-0000-4000-8000-000000000001",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "raw",
+        "security": "reality",
+        "realitySettings": {
+          "serverName": "cover.example.com",
+          "fingerprint": "chrome",
+          "password": "REPLACE_WITH_REALITY_PUBLIC_KEY",
+          "shortId": "0123456789abcdef"
+        }
+      }
+    }
+  ]
+}

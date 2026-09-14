@@ -4,7 +4,7 @@ layout: hextra-home
 description: "OneXray is an open-source Xray-core client for iOS, macOS, Android, Windows, and Linux. Bring your servers, use Smart Routing, or build your own rules."
 images:
   - /images/screenshots/connect-macos.png
-lastmod: 2026-09-12
+lastmod: 2026-09-14
 ---
 
 {{< hextra/hero-container
@@ -31,9 +31,18 @@ style="align-items: center; padding: 4rem 0 2rem;"
 
 <div class="product-actions">
 {{< hextra/hero-button text="Download OneXray" link="#download" >}}
-{{< hextra/hero-button text="First connection" link="docs/getting-started/" >}}
+{{< hextra/hero-button text="Configure with AI" link="docs/ai/" >}}
 </div>
 {{< /hextra/hero-container >}}
+
+## Describe your goal. Import the result.
+
+Keep everyday connections simple with Smart Routing. For a custom setup, give your chosen AI assistant the complete OneXray guide: it can prepare server JSON, reusable routing or a full Raw configuration, and explain the remaining VPN Tunnel settings.
+
+[Start with an AI prompt](docs/ai/) · [Read the complete guide](llms-full.txt) · [Browse configuration recipes](docs/recipes/)
+
+Your assistant runs outside OneXray. The website does not receive your configurations; share server credentials only with a service you trust.
+
 
 [What's new in 26.9.2: local DNS, subscription HWID, and system shortcuts →](docs/upgrading/)
 

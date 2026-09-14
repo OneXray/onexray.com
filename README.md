@@ -1,50 +1,67 @@
-# OneXray 文档站
+# OneXray documentation
 
-基于 Hugo Extended 与 Hextra 的静态产品首页和使用文档。包含英语、简体中文、俄语，不需要应用后端。
+AI-first configuration documentation and a product website built with Hugo Extended and Hextra. English, Simplified Chinese and Russian share the same page structure. The site is entirely static: no AI backend, configuration upload service or additional npm build is required.
 
-## 内容结构
+## Content and generated interfaces
 
-- `content.en/`、`content.zh/`、`content.ru/`：三种语言保持相同页面路径。
-- 各语言 `_index.md`：独立产品首页，介绍连接、智能路由、自定义路由、Raw JSON、平台能力和下载。
-- `docs/`：安装、首次连接、版本更新与升级，以及连接／服务器／高级／设置四个产品入口。
-- `docs/shortcuts/`：移动端四个应用图标快捷操作与独立的桌面托盘菜单。
-- `docs/privacy/`：App 使用的 HTTPS 隐私政策；此入口保持有效。
-- `static/images/screenshots/`：沿用 26.9.1 实际运行图，来自 App README 与 appStore v3 成品；本次未重新截取图片。
-- `hugo.toml`、`i18n/`、`layouts/`：主题、多语言、搜索与 SEO；`assets/css/custom.css` 只保留少量首页样式。
+- `content.en/`, `content.zh/`, `content.ru/`: translated product and documentation pages.
+- `docs/ai/`: choose an import type, gather prerequisites and copy a language-specific assistant prompt.
+- `docs/configuration/`: version boundaries and the authoritative outbound, Custom Routing, Raw JSON, DNS and Geodata contracts.
+- `docs/recipes/`: complete goal-oriented examples, not isolated configuration fragments.
+- `docs/tunnel-guide/`: platform decisions and UI steps, separate from importable JSON.
+- `docs/troubleshooting/`: validation layers, failure diagnosis and a documentation acceptance rubric.
+- Existing installation, connection, server, platform, settings and sharing guides remain available. Keep the App's HTTPS privacy-policy endpoint valid.
+- `static/examples/`: downloadable JSON files, compatibility manifest and a snapshot of the App's region mapping. They contain no working server credentials.
+- `assets/ai/`: localized copyable prompts.
 
-当前内容以 App 的 `v26.9.2` tag（`4bc391330f200c95fceff2aab64012ce98849c43`）为准，核对 `v26.9.1..v26.9.2` 的五个主线提交及最终代码。26.9.1 的界面重构与更早版本的迁移说明单独保留在升级页，不与 26.9.2 的原位升级混用。不把中间或已删除的功能写成当前能力，不保留旧链接或重定向。
+Each language publishes an AI index (`/llms.txt`), a complete configuration guide (`/llms-full.txt`) and Markdown alternatives (`/docs/.../index.md`). Chinese and Russian add `/zh/` and `/ru/` respectively. HTML heads advertise the Markdown alternative and AI index.
 
-## 内容依据
+Copyable prompts and machine-readable documentation always use `https://onexray.com`, including during local previews. Their public URLs are centralized in `layouts/_partials/ai/public-url.html`; ordinary preview navigation can remain local.
 
-- App 的 `README.md`、`readme/FIRST_RUN.*.md` 与 `docs/` 中当前有效的功能定义。
-- App 页面、ARB 文案、系统权限、配置编译和平台实现。
-- `appStore/store/` 的当前商店文案；审核专用测试链接不发布到文档站。
+The full guide collects chapters with a positive `ai_order`, in that order. HTML, page Markdown and the full guide render the same source chapters. The `json-example` shortcode reads the actual downloadable JSON, so examples are not maintained in multiple places. Use the `%` shortcode form so it expands before Markdown rendering. Do not edit generated files.
 
-重点保持这些边界一致：普通导入只提取节点；完整配置走 Raw/Custom；流量仅显示本次连接；不再提供备份恢复、旧 Profile/Full Config；MSIX 与 EXE/ZIP 的权限、数据目录和退出行为不同。
+## Sources and compatibility
 
-26.9.2 的内容核对点：首次设置只有隐私和连接准备两步，主界面补齐授权；路由本地 DNS 与 TUN DNS 独立；HWID 为每个订阅主动开启的稳定随机标识，不是硬件信息，也不参与分享；Geodata 自动更新仅在已连接时执行；移动端图标快捷操作不等同于 Siri Shortcuts。隐私政策必须同步实际请求和存储行为。
+The published baseline is App `v26.9.2` (`4bc391330f200c95fceff2aab64012ce98849c43`). Newer routing conditions and FakeDNS are explicitly marked as development-only; source code or a local build is not evidence of store availability. `static/examples/manifest.json` records reviewed commits and per-example prerequisites. Update it and all three compatibility pages when adopting another release.
 
-Wintun 的来源和分发许可入口保留在三种语言的致谢页。不要把“无分析服务”描述成“没有任何网络请求”，或把平台排除设置误写为所有流量都必然经过 VPN。
+Authority order: App import/compiler/platform implementation, bundled libXray/Xray-core, then the current upstream documentation. Essential OneXray-specific contracts must remain on this site; readers should not need to inspect the App source to generate supported configurations.
 
-## 本地预览
+Keep these boundaries explicit:
 
-需要 Hugo Extended（最低版本见 `hugo.toml`）与 Go。Hextra 版本由 `go.mod` / `go.sum` 固定，不需要 npm 构建步骤。
+- Server import extracts outbounds; Custom and Raw use separate import entries.
+- Custom stores empty entry slots and a limited routing/DNS model. Runtime-only system outbounds are not exported.
+- Custom `geodata.assets` declares import dependencies. Raw JSON does not use that field to download files; install its data beforehand or use separate Geodata links included by App sharing.
+- Raw does not override App-managed Tunnel, logging, metrics, DNS query policy or applicable interface settings.
+- TUN DNS, route Local DNS and proxy DNS have distinct responsibilities.
+- Region mappings are an App snapshot, not a guarantee that arbitrary or future DAT files contain the same categories.
+- A syntactically valid/importable template is not a tested connection. Required credentials must come from the user's provider.
+
+Preserve actual platform differences, the absence of analytics/backup features, and Wintun attribution in the credits pages. Do not publish store-review credentials, subscription tokens, runtime files or local preview addresses.
+
+## Preview
+
+Install Hugo Extended (minimum in `hugo.toml`) and Go. Hextra is pinned in `go.mod` / `go.sum`.
 
 ```shell
 hugo server --bind 127.0.0.1 --port 1313 --disableFastRender --renderToMemory
 ```
 
-英语 `/`，中文 `/zh/`，俄语 `/ru/`。不要将开发服务器暴露到公网。
+English `/`, Chinese `/zh/`, Russian `/ru/`. Bind only to loopback for local development.
 
-## 构建与核对
+## Build and checks
+
+The documentation checker requires Node.js and only its built-in modules.
 
 ```shell
-hugo --gc --minify --cleanDestinationDir
+hugo --gc --minify --destination references/ai-first-production --panicOnWarning
+node tools/check-docs.mjs references/ai-first-production
 git diff --check
 ```
 
-`public/` 是生成产物，不手工编辑。发布时替换整个输出目录，避免部署端残留已删除的旧页面。无需保留旧 URL。
+The checker verifies JSON syntax, documented example shapes, matching language paths, generated Markdown/full guides, embedded/downloaded example parity and local links. It is not a replacement for App/libXray validation and does not test external services.
 
-修改内容后核对：三语路径一致、站内链接和图片存在、首页与目录可用、搜索可以找到新文档，以及 canonical、hreflang、描述、Open Graph、sitemap 正确。不要提交本地预览地址、审核凭据或验证产物。
+For configuration changes, also pass examples through the actual App import/save projection and bundled libXray `TestXray`. Replace credential placeholders only in isolated test fixtures. Keep demonstration harnesses, dependencies and evidence under ignored `references/`, not in production App code. Respect the App repository's serial Flutter/Dart execution rule. `TestXray` constructs an instance but does not start a VPN or prove server availability; report those checks separately.
 
-验证脚本、下载资料与临时证据放在已忽略的 `references/`，不作为网站页面。
+Inspect the actual site for navigation, language switching, search, prompt/code copying, download links and mobile layout. The troubleshooting page lists assistant-only acceptance scenarios; the list is not proof that a model evaluation ran.
+
+For deployment, run `hugo --gc --minify` and publish the complete `public/` directory. Do not leave deleted pages in the deployment output. No old-URL redirects are required. The existing static hosting workflow is unchanged.

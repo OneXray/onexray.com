@@ -37,3 +37,5 @@ fragment 用作初始名称，不包含在保存的请求 URL 中。这些是格
 导入后会进入统一测速队列，但不等待测速才能完成导入或打开连接页。完整 Raw/自定义路由及路由数据依赖仍有自己的预览确认流程。
 
 节点有效性以 libXray 为准。能导入某类节点，不代表另一客户端完整配置的全部字段都受支持。
+
+需要 AI 生成节点文件时，阅读 [outbound 规范]({{< relref "/docs/configuration/outbound" >}})。完整路由或 Raw 必须使用[对应的独立入口]({{< relref "/docs/configuration" >}})。

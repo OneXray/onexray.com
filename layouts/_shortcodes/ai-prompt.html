@@ -1,0 +1,2 @@
+{{- $path := printf "assets/ai/prompt.%s.txt" .Page.Language.Lang -}}
+{{- printf "```text\n%s\n```\n" (strings.TrimSpace (replace (readFile $path) "FULL_GUIDE_URL" (partial "ai/public-url.html" (relLangURL "llms-full.txt")))) | safeHTML -}}

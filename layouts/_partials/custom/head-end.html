@@ -1,5 +1,9 @@
 <meta name="application-name" content="OneXray" />
 <meta name="apple-mobile-web-app-title" content="OneXray" />
+{{ with .OutputFormats.Get "Markdown" }}
+  <link rel="alternate" type="text/markdown" href="{{ partial "ai/public-url.html" .RelPermalink }}" />
+{{ end }}
+<link rel="describedby" type="text/plain" href="{{ partial "ai/public-url.html" (relLangURL "llms.txt") }}" />
 
 {{- range .AllTranslations }}
   {{- $locale := partial "utils/hugo-compat/language-locale.html" .Language }}

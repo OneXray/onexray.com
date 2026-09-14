@@ -37,3 +37,5 @@ Ordinary nodes are parsed and saved after submission, file selection, or scannin
 New nodes enter the shared test queue after import. Tests do not block finishing import or opening Connect. Complete Raw/Custom configurations and routing-data dependencies keep their own preview/confirmation step.
 
 Node validity follows libXray. Imported protocol support does not imply that every setting from another client's full configuration is supported.
+
+To generate a JSON file with AI, read the [outbound contract]({{< relref "/docs/configuration/outbound" >}}). For a full route or Raw configuration, use its [separate import entry]({{< relref "/docs/configuration" >}}).

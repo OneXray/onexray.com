@@ -4,7 +4,7 @@ layout: hextra-home
 description: "OneXray 是支持 iOS、macOS、Android、Windows 和 Linux 的开源 Xray-core 客户端。导入自己的服务器，使用智能路由、自定义规则或完整 Raw JSON。"
 images:
   - /images/screenshots/connect-macos.png
-lastmod: 2026-09-12
+lastmod: 2026-09-14
 ---
 
 {{< hextra/hero-container
@@ -31,9 +31,18 @@ style="align-items: center; padding: 4rem 0 2rem;"
 
 <div class="product-actions">
 {{< hextra/hero-button text="下载 OneXray" link="#download" >}}
-{{< hextra/hero-button text="首次连接" link="docs/getting-started/" >}}
+{{< hextra/hero-button text="使用 AI 配置" link="docs/ai/" >}}
 </div>
 {{< /hextra/hero-container >}}
+
+## 说清需求，导入配置。
+
+日常连接使用智能路由。需要定制时，把完整指南交给你选择的 AI，让它生成节点 JSON、可复用的自定义路由或完整 Raw 配置，并说明仍需修改的 VPN 隧道设置。
+
+[复制 AI 提示词](docs/ai/) · [阅读完整指南](llms-full.txt) · [查看场景方案](docs/recipes/)
+
+AI 由你自行选择，不在 OneXray 内运行。网站不接收配置；仅向可信服务提供必要凭据。
+
 
 [26.9.2 新增本地 DNS、订阅 HWID 与系统快捷操作 →](docs/upgrading/)
 

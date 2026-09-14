@@ -1,0 +1,14 @@
+# OneXray — complete configuration guide
+
+This file is generated from the same chapters and JSON files as the website. Read the compatibility chapter before selecting features. This is not a list of servers and does not contain working credentials. Source: {{ partial "ai/public-url.html" .RelPermalink }}
+
+## Contents
+{{ range sort (where .Site.Pages "Params.ai_order" "gt" 0) "Params.ai_order" }}
+- {{ .Title }} — {{ partial "ai/public-url.html" .RelPermalink }}
+{{ end }}
+{{ range sort (where .Site.Pages "Params.ai_order" "gt" 0) "Params.ai_order" }}
+
+---
+
+{{ partial "ai/page.md" . }}
+{{ end }}

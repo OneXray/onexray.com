@@ -2,6 +2,7 @@
 title: "Apple system VPN"
 description: "Configure always-on and Wi-Fi on-demand VPN, separate cellular or Ethernet actions, and traffic-capture exclusions."
 weight: 20
+ai_order: 130
 lastmod: 2026-09-12
 ---
 

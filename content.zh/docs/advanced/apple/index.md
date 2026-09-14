@@ -2,6 +2,7 @@
 title: "Apple 系统 VPN"
 description: "配置始终开启、Wi-Fi 按需连接与断开、蜂窝或 Ethernet 动作，以及接管全部流量的排除选项。"
 weight: 20
+ai_order: 130
 lastmod: 2026-09-12
 ---
 

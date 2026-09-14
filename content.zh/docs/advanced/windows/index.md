@@ -2,6 +2,7 @@
 title: "Windows VPN 模式"
 description: "对比 EXE/ZIP 原生 TUN 与 Microsoft Store MSIX 系统 VPN 的权限、网卡、数据、启动和退出行为。"
 weight: 40
+ai_order: 150
 lastmod: 2026-09-12
 ---
 

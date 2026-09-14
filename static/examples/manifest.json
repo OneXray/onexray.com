@@ -1,0 +1,88 @@
+{
+  "reviewedOn": "2026-09-14",
+  "releasedApp": "26.9.2",
+  "releasedCommit": "4bc391330f200c95fceff2aab64012ce98849c43",
+  "developmentAppCommit": "92f34ad7ad2f11e0bb997aa3f92e0eed31336689",
+  "developmentNote": "FakeDNS was reviewed in the uncommitted development implementation. Preview examples are not a release claim.",
+  "libXrayCommit": "c145d94071088cebd445d7b0f4b1bea35732011e",
+  "xrayCore": "v1.260327.1-0.20260908222543-52a412d9e2f5",
+  "examples": [
+    {
+      "file": "outbound-vless-tls.json",
+      "type": "outbound",
+      "compatibility": "26.9.2",
+      "requiresReplacement": true,
+      "geodata": [],
+      "notes": "Template only. Replace all example hosts, IDs, keys and transport details with the provider's actual values. No working credentials are supplied."
+    },
+    {
+      "file": "outbound-vless-reality.json",
+      "type": "outbound",
+      "compatibility": "26.9.2",
+      "requiresReplacement": true,
+      "geodata": [],
+      "notes": "Template only. Replace all example hosts, IDs, keys and transport details with the provider's actual values. No working credentials are supplied."
+    },
+    {
+      "file": "outbound-vmess-ws.json",
+      "type": "outbound",
+      "compatibility": "26.9.2",
+      "requiresReplacement": true,
+      "geodata": [],
+      "notes": "Template only. Replace all example hosts, IDs, keys and transport details with the provider's actual values. No working credentials are supplied."
+    },
+    {
+      "file": "custom-cn.json",
+      "type": "custom",
+      "compatibility": "26.9.2",
+      "requiresReplacement": false,
+      "geodata": [
+        "geosite.dat",
+        "geoip.dat"
+      ],
+      "notes": "Requires existing App nodes and sufficient free Custom Routing capacity; no server credentials are included."
+    },
+    {
+      "file": "custom-office.json",
+      "type": "custom",
+      "compatibility": "26.9.2",
+      "requiresReplacement": true,
+      "geodata": [],
+      "notes": "Scenario template. Replace the office domain, subnet and resolver. The resolver must be directly reachable."
+    },
+    {
+      "file": "custom-protocol.preview.json",
+      "type": "custom",
+      "compatibility": "development-only",
+      "requiresReplacement": false,
+      "geodata": [],
+      "notes": "Requires existing App nodes and sufficient free Custom Routing capacity; no server credentials are included."
+    },
+    {
+      "file": "custom-fakedns.preview.json",
+      "type": "custom",
+      "compatibility": "development-only",
+      "requiresReplacement": false,
+      "geodata": [
+        "geoip.dat"
+      ],
+      "notes": "Requires existing App nodes and sufficient free Custom Routing capacity; no server credentials are included."
+    },
+    {
+      "file": "raw-vless-tls.json",
+      "type": "raw",
+      "compatibility": "26.9.2",
+      "requiresReplacement": true,
+      "geodata": [],
+      "notes": "Template only. Replace all example hosts, IDs, keys and transport details with the provider's actual values. No working credentials are supplied."
+    },
+    {
+      "file": "raw-chain.json",
+      "type": "raw",
+      "compatibility": "26.9.2",
+      "requiresReplacement": true,
+      "geodata": [],
+      "notes": "Template only. Replace all example hosts, IDs, keys and transport details with the provider's actual values. No working credentials are supplied."
+    }
+  ]
+}

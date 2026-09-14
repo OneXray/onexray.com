@@ -2,6 +2,7 @@
 title: "VPN 隧道"
 description: "配置隧道 IPv4/IPv6 DNS 和 Apple DoT 域名，区分本地 DNS，并选择 Windows/Linux 出口网卡。"
 weight: 10
+ai_order: 120
 lastmod: 2026-09-12
 ---
 

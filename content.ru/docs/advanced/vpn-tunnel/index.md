@@ -2,6 +2,7 @@
 title: "VPN-туннель"
 description: "Настройте DNS туннеля IPv4/IPv6, имя сервера Apple DoT и исходящий интерфейс; отличайте их от локального DNS."
 weight: 10
+ai_order: 120
 lastmod: 2026-09-12
 ---
 

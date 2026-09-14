@@ -2,7 +2,8 @@
 title: "Smart Routing"
 description: "Configure a direct region, a custom local DNS address, service bypass, entry-node count, and an optional final exit."
 weight: 10
-lastmod: 2026-09-12
+ai_order: 95
+lastmod: 2026-09-14
 ---
 
 Open Connect > traffic method > Smart Routing > Edit.
@@ -24,7 +25,7 @@ Microsoft bypass is available on every platform. It uses the actual microsoft an
 
 ## Entry servers and final exit
 
-Choose 1, 2, or 3 entry servers for automatic/group selection. OneXray uses the fastest eligible measured nodes and balances proxy traffic across the selected entries. A fixed single-server selection remains one entry.
+Choose 1, 2, or 3 entry servers for automatic/group selection. OneXray chooses the fastest eligible measured nodes. Explicit proxy-balancer rules use the pool; unmatched traffic follows Xray's first-outbound default and is not automatically balanced. A fixed single-server selection remains one entry.
 
 An optional VPN final exit creates chains:
 
@@ -47,3 +48,7 @@ Proxy DNS remains `8.8.8.8`. Domain conditions from direct rules select the loca
 This is separate from [tunnel DNS]({{< relref "/docs/advanced/vpn-tunnel" >}}). For internal-name resolution problems, check the route's local DNS first; changing tunnel DNS does not replace it. All via VPN ignores this address and creates no direct DNS server.
 
 Save applies the draft; saving changes to an active Smart connection requests a reconnect.
+
+## Development behavior
+
+The reviewed development implementation adds a GitHub proxy rule before the Microsoft/region direct rules when Microsoft bypass is enabled; ad blocking still comes first. FakeDNS is another development-only option, off by default. Do not assume these additions are present in 26.9.2. See [compatibility]({{< relref "/docs/configuration/compatibility" >}}). For the GitHub priority on the baseline release, use the explicit [Custom recipe]({{< relref "/docs/configuration/custom-routing" >}}).

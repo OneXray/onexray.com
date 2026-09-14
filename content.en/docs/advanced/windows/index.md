@@ -2,6 +2,7 @@
 title: "Windows VPN modes"
 description: "Compare Windows EXE/ZIP native TUN and Microsoft Store MSIX system VPN, including UAC, interfaces, startup, and quitting."
 weight: 40
+ai_order: 150
 lastmod: 2026-09-12
 ---
 

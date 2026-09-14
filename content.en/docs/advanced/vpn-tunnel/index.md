@@ -2,6 +2,7 @@
 title: "VPN Tunnel"
 description: "Edit tunnel IPv4/IPv6 DNS and the Apple DoT server name, distinguish local DNS, and select an outbound interface."
 weight: 10
+ai_order: 120
 lastmod: 2026-09-12
 ---
 
