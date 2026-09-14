@@ -38,15 +38,15 @@ scheme 以 +local 结尾的 DNS URL 绕过 Xray 路由，不受所需出口网�
 
 App 关闭 IPv6 时调整托管隧道参数，DNS 使用 UseIPv4；打开时使用 UseIP。Windows MSIX 保持自身隧道处理。不会添加 IPv6 阻断规则，也不删除全部用户 IPv6 路径。Raw 的根部和对象形式 server 的查询策略由 App 管理，但 DNS 地址仍由用户配置。
 
-## FakeDNS：仅开发构建
+## FakeDNS
 
-先核对[版本兼容]({{< relref "/docs/configuration/compatibility" >}})，本节不属于 26.9.2 基线。
+智能路由、自定义路由和 Raw 的 App 托管入站支持 FakeDNS，导入规范见[版本兼容]({{< relref "/docs/configuration/compatibility" >}})。
 
 智能/自定义的 FakeDNS 默认关闭。自定义通过额外的 `{"tag":"app-dns-fake","address":"fakedns"}` 启用，同时保留 app-dns-direct。不能写根部 fakeDns: true 或根部 fakedns。
 
 App 生成 198.19.0.0/16 和 fc00:1::/64 两个池，每池 32768 项，并为托管入站增加 FakeDNS 还原。直连域名仍优先使用真实直连 DNS，其他符合条件的 A/AAAA 查询可返回虚拟 IP；连接路由仍可能直连、代理或阻断。IPIfNonMatch 所需的真实 DNS 路径仍保留。
 
-开发中的 Raw 实现检测 fakedns server 或根部池，为 tunIn 开启还原，保留用户自己的 DNS 和池。不应期待旧版本具备这项集成。
+Raw 配置包含 fakedns server 或根部池时，App 为 tunIn 开启还原，保留用户自己的 DNS 和池。
 
 虚拟 IP 必须被系统送入隧道，不能被排除路由绕开。映射只在当前 Core 存活；重启后浏览器/系统缓存的虚拟 IP 可能失效，需重新查询 DNS。App 不承诺无缝恢复缓存，也不保证拦截应用自带的全部 DoH/DoT。
 

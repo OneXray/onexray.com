@@ -19,6 +19,6 @@ lastmod: 2026-09-14
 
 [自定义路由规范]({{< relref "/docs/configuration/custom-routing" >}})统一说明字段、空槽、固定动作、本地 DNS 和完整下载示例。导入/分享走完整配置流程，不是普通服务器导入。
 
-文件不放真实节点或 direct/block 出站，不支持字段直接拒绝。[版本表]({{< relref "/docs/configuration/compatibility" >}})区分四种基线条件和开发中的协议/系统条件、FakeDNS。
+文件不放真实节点或 direct/block 出站，不支持字段直接拒绝。除了域名、IP、端口、网络，编辑器的“更多匹配条件”支持协议和操作系统；每份路由均有独立的 FakeDNS 开关，默认关闭。详见[版本与兼容性]({{< relref "/docs/configuration/compatibility" >}})。
 
 本地 DNS 独立于隧道 DNS，只有纯域名直连规则贡献 DNS 域名，详见 [DNS 说明]({{< relref "/docs/configuration/dns" >}})。自定义 Geodata 需要真实文件、分类，不能有文件名冲突。

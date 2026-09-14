@@ -1,5 +1,5 @@
 {
-  "name": "FakeDNS preview",
+  "name": "FakeDNS routing",
   "outbounds": [
     {}
   ],

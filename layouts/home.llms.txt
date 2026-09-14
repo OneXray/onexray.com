@@ -2,12 +2,12 @@
 
 > Configuration and VPN Tunnel guide for people and AI assistants. OneXray is a client; it supplies no servers or credentials.
 
-Read the complete guide before producing configuration. Default to the released baseline in the compatibility page; development features require explicit confirmation. Choose outbound, Custom Routing, or Raw JSON before generating a document. VPN Tunnel settings are separate UI operations, not importable JSON fields. Never invent credentials or claim an untested template is a working VPN.
+Read the complete guide before producing configuration. Follow the documented field and platform constraints without silently dropping conditions. Choose outbound, Custom Routing, or Raw JSON before generating a document. VPN Tunnel settings are separate UI operations, not importable JSON fields. Never invent credentials or claim an untested template is a working VPN.
 
 ## Complete guide
 
 - [Complete configuration and platform guide]({{ partial "ai/public-url.html" (relLangURL "llms-full.txt") }}): all essential chapters in reading order, including full JSON examples. Language: {{ .Language.Lang }}.
-- [Example manifest]({{ partial "ai/public-url.html" (relURL "examples/manifest.json") }}): import type, compatibility, dependencies, and required replacements for each downloadable JSON.
+- [Example manifest]({{ partial "ai/public-url.html" (relURL "examples/manifest.json") }}): import type, dependencies, and required replacements for each downloadable JSON.
 
 ## Chapters
 {{ range sort (where .Site.Pages "Params.ai_order" "gt" 0) "Params.ai_order" }}

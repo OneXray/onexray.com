@@ -16,14 +16,14 @@ Import through Connect → traffic method → Custom Routing, not ordinary Serve
 | `outbounds` | Required: 1–3 empty objects; their count is the entry-node count |
 | `routing.domainStrategy` | Write `IPIfNonMatch`; the App normalizes this value |
 | `routing.rules` | Ordered list of rules below; an empty list uses the default outbound behavior |
-| `dns` | Optional; the tagged Local DNS form below, not arbitrary Xray DNS |
+| `dns` | Optional; the tagged Local DNS form below with an optional FakeDNS server, not arbitrary Xray DNS |
 | `geodata.assets` | Optional import-only custom file dependencies, each with `file` and HTTPS `url` |
 
 No other root fields belong to Custom. Do not define real nodes, `direct`, `block`, `dnsOut`, balancers, inbounds, logs, metrics, observatory, root FakeDNS pools or UI flags in this file.
 
 ## Rule fields and actions
 
-Baseline conditions: `domain` (string array), `ip` (string array), `port` (for example `"443"`, `"8000-8080"`, `"80,443"`), and `network` (`"tcp"`, `"udp"` or `"tcp,udp"`). `ruleTag` names the rule.
+Supported conditions: `domain` (string array), `ip` (string array), `port` (for example `"443"`, `"8000-8080"`, `"80,443"`), `network` (`"tcp"`, `"udp"` or `"tcp,udp"`), `protocol` (string array) and `localOS` (string array). `ruleTag` names the rule. The editor groups protocol and OS under “More matching conditions”.
 
 Select **exactly one** action:
 
@@ -51,26 +51,26 @@ Normal mode supplies the real nodes and system outbounds. Their tags are impleme
 
 ## Local DNS
 
-If present, write exactly one `{"tag":"app-dns-direct","address":"8.8.8.8"}` server. Change the address, not the tag. Do not add `domains`, `queryStrategy`, `skipFallback`, a port property or arbitrary DNS fields. A nondefault port belongs in a Core-supported address string, such as `tcp://192.168.50.53:5353`.
+If present, include exactly one `{"tag":"app-dns-direct","address":"8.8.8.8"}` server. Change its address, not its tag. To enable FakeDNS, also include the `app-dns-fake` server described below. Do not add `domains`, `queryStrategy`, `skipFallback`, a port property or arbitrary DNS fields. A nondefault port belongs in a Core-supported address string, such as `tcp://192.168.50.53:5353`.
 
 Only pure direct-domain rules contribute domains to this resolver. Combining a domain with IP, port, network, protocol or OS conditions prevents that rule from contributing DNS domains. IP-only direct rules do not resolve internal names. Proxy DNS remains `8.8.8.8`. See [DNS behavior]({{< relref "/docs/configuration/dns" >}}).
 
-## Complete baseline example
+## Complete example
 
 This recipe includes ad blocking, GitHub through VPN, and combined Apple/Microsoft/Bing/China/private direct rules. It needs both default DAT files and two eligible entry nodes. It has no credentials or unresolved placeholders.
 
 {{% json-example "custom-cn.json" %}}
 
-## Development-only fields
+## Protocol and operating-system conditions
 
-Do not generate this section's fields for 26.9.2 or an unknown build.
+Use `protocol` (`http`, `tls`, `quic`, `bittorrent`) and `localOS` (`ios`, `android`, `darwin`, `windows`, `linux`), both arrays. Protocol means sniffed application traffic, **not** VLESS/VMess. OS means the OS running Xray, not a remote server or an individual Android app.
 
-The reviewed development editor adds `protocol` (`http`, `tls`, `quic`, `bittorrent`) and `localOS` (`ios`, `android`, `darwin`, `windows`, `linux`), both arrays. Protocol means sniffed application traffic, **not** VLESS/VMess. OS means the OS running Xray, not a remote server or an individual Android app.
+{{% json-example "custom-protocol.json" %}}
 
-{{% json-example "custom-protocol.preview.json" %}}
+## FakeDNS
 
-FakeDNS is represented by an additional tagged DNS server, not a boolean root field. Include the direct server too; do not export generated pools or sniffing.
+FakeDNS is off by default and is represented by an additional tagged DNS server, not a boolean root field. Include the direct server too; do not export generated pools or sniffing.
 
-{{% json-example "custom-fakedns.preview.json" %}}
+{{% json-example "custom-fakedns.json" %}}
 
 [Compatibility]({{< relref "/docs/configuration/compatibility" >}}) · [FakeDNS limitations]({{< relref "/docs/configuration/dns" >}}) · [import dependencies]({{< relref "/docs/configuration/geodata" >}})

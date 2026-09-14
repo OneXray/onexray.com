@@ -20,16 +20,13 @@ for (const example of manifest.examples) {
   const config = json(example.file);
   assert.ok(config && !Array.isArray(config) && typeof config === 'object');
   assert.ok(Array.isArray(config.outbounds) && config.outbounds.length);
-  assert.equal(example.compatibility === 'development-only', example.file.includes('.preview.'));
+  assert.ok(!example.file.includes('.preview.'), 'Examples must use stable filenames');
   if (example.type === 'custom') {
     assert.ok([...config.name].length > 0 && [...config.name].length <= 32);
     assert.ok(config.outbounds.length <= 3);
     assert.ok(config.outbounds.every(o => Object.keys(o).length === 0), 'Custom only stores empty slots');
     assert.equal(config.routing.domainStrategy, 'IPIfNonMatch');
-    const allowed = new Set(['ruleTag', 'domain', 'ip', 'port', 'network', 'outboundTag', 'balancerTag']);
-    if (example.compatibility === 'development-only') {
-      allowed.add('protocol'); allowed.add('localOS');
-    }
+    const allowed = new Set(['ruleTag', 'domain', 'ip', 'port', 'network', 'protocol', 'localOS', 'outboundTag', 'balancerTag']);
     for (const rule of config.routing.rules || []) {
       assert.ok(Object.keys(rule).every(k => allowed.has(k)), example.file + ': unsupported rule field');
       assert.ok((rule.balancerTag === 'proxy' && !rule.outboundTag) ||
@@ -39,7 +36,6 @@ for (const example of manifest.examples) {
     for (const server of config.dns.servers) {
       assert.deepEqual(Object.keys(server).sort(), ['address', 'tag']);
       if (server.tag !== 'app-dns-direct') {
-        assert.equal(example.compatibility, 'development-only');
         assert.equal(server.tag, 'app-dns-fake');
         assert.equal(server.address, 'fakedns');
       }
@@ -107,7 +103,9 @@ for (const lang of ['en', 'zh', 'ru']) {
   assert.ok(!/\{\{[%<]|HAHAHUGOSHORTCODE|<div\b|<script\b/.test(full), lang + ': unresolved/HTML machine content');
   assert.match(full, /app-dns-direct/);
   assert.match(full, /IPIfNonMatch/);
-  assert.match(full, /26\.9\.2/);
+  assert.match(full, /app-dns-fake/);
+  assert.match(full, /localOS/);
+  assert.ok(!/development-only|\.preview\.json/.test(full), lang + ': obsolete feature status');
   assert.match(full, /outbound-vless-tls\.json/);
   const titles = [...full.matchAll(/^Source: (.+)$/gm)].map(m => m[1]);
   assert.equal(titles.length, 17, 'Missing essential chapters in ' + lang);

@@ -38,15 +38,15 @@ DNS URLs whose scheme ends in `+local` bypass Xray routing and do not receive th
 
 Turning the App's IPv6 option off changes managed tunnel parameters and sets DNS querying to `UseIPv4`; on, `UseIP`. Windows MSIX retains its platform-specific tunnel behavior. It does not inject IPv6-blocking rules or remove every user-defined IPv6 path. In Raw, the App manages the root and object-server query strategies, not the user's DNS addresses.
 
-## FakeDNS — development only
+## FakeDNS
 
-Confirm support using [compatibility]({{< relref "/docs/configuration/compatibility" >}}). This is not part of the 26.9.2 baseline documented here.
+FakeDNS is supported in Smart Routing, Custom Routing and the App-managed Raw inbound. See [compatibility]({{< relref "/docs/configuration/compatibility" >}}) for the current import contract.
 
 Smart/Custom's FakeDNS is off by default. Custom enables it through a second server `{"tag":"app-dns-fake","address":"fakedns"}`; keep `app-dns-direct` as well. Do not add root `fakeDns: true` or Custom root `fakedns`.
 
 The App creates pools `198.19.0.0/16` and `fc00:1::/64`, 32768 entries each, and enables FakeDNS recovery on its managed inbound. Direct-domain DNS still uses the real direct resolver. Other eligible A/AAAA queries can return fake IPs; routing can still choose direct, proxy or block. The real DNS path remains for `IPIfNonMatch` resolution.
 
-For Raw, the reviewed implementation detects a `fakedns` DNS server or root pools and enables recovery on `tunIn`; the user's DNS servers and pools remain user-owned. Do not expect older builds to provide this integration.
+For Raw, the App detects a `fakedns` DNS server or root pools and enables recovery on `tunIn`; the user's DNS servers and pools remain user-owned.
 
 Fake IPs must reach the tunnel, not a system bypass route. Mappings last only for the current Core instance. After restart, cached fake IPs in browsers or the OS may stop working until DNS is queried again. OneXray does not promise seamless cache recovery or intercept every application-owned DoH/DoT request.
 

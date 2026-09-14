@@ -24,7 +24,7 @@ lastmod: 2026-09-14
 | JSON 立即拒绝 | 完整错误、严格 JSON、根类型、正确入口 |
 | 自定义不支持字段 | 不需要才移除；否则选支持的模式/版本，不能丢掉需求 |
 | outbounds 错误 | 自定义为 1–3 空对象，节点/Raw 为真实出站 |
-| 自定义 DNS 错误 | 固定 tag/address 结构；FakeDNS 需确认版本 |
+| 自定义 DNS 错误 | 固定 tag/address 结构；一条 app-dns-direct，启用 FakeDNS 时另加一条 address 为 fakedns 的 app-dns-fake |
 | 内网域名失败 | 纯域名直连规则、本地 DNS、直连可达性；只改 TUN DNS 通常不够 |
 | DAT/分类不存在 | 查看已安装分类，修正规则或显式导入真实依赖 |
 | 默认 Geodata 更新失败 | 保留旧文件；单凭这条日志不能判断 VPN 启动原因 |
@@ -42,6 +42,6 @@ lastmod: 2026-09-14
 
 ## 文档验收场景
 
-仅向助手提供完整指南和需求，核对：VLESS 导入、公司 DNS、中国大陆直连/GitHub 代理、不支持 Custom 字段、不可用开发功能、双接入链路、缺少凭据、Android 应用、Apple Wi-Fi、Windows 网卡、DAT 分类缺失、保存成功但启动失败。
+仅向助手提供完整指南和需求，核对：VLESS 导入、公司 DNS、中国大陆直连/GitHub 代理、不支持 Custom 字段、协议/系统匹配、FakeDNS、旧版兼容、双接入链路、缺少凭据、Android 应用、Apple Wi-Fi、Windows 网卡、DAT 分类缺失、保存成功但启动失败。
 
 结果应选对模式或 UI 操作，需要时给完整配置，缺资料时询问，并诚实说明验证范围。这是评估标准，不表示已经完成独立模型盲测。

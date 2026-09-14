@@ -19,6 +19,6 @@ Prefer one condition type per rule. Several types are AND; multiple ordinary val
 
 Read the [Custom Routing contract]({{< relref "/docs/configuration/custom-routing" >}}) for accepted fields, empty entry slots, fixed actions, Local DNS and complete downloads. Import and sharing use the complete-configuration workflow, not ordinary Servers import.
 
-Do not define actual nodes or system direct/block outbounds in a Custom file. Unknown fields are rejected. The [compatibility table]({{< relref "/docs/configuration/compatibility" >}}) distinguishes the four baseline conditions from development-only protocol/OS conditions and FakeDNS.
+Do not define actual nodes or system direct/block outbounds in a Custom file. Unknown fields are rejected. In addition to domain, IP, port and network, the editor supports protocol/OS conditions under “More matching conditions”. Each route has its own FakeDNS switch, off by default. See [compatibility]({{< relref "/docs/configuration/compatibility" >}}).
 
 Local DNS is independent of Tunnel DNS. Only pure direct-domain rules contribute to its domain list; see [DNS behavior]({{< relref "/docs/configuration/dns" >}}). Custom Geodata imports need real files and categories, with no filename conflicts.

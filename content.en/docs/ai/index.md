@@ -35,7 +35,6 @@ If the assistant cannot fetch a long file, download the [full guide](/llms-full.
 - Desired destinations and actions, in priority order. Explain whether “local” means a country, a private network or a DNS resolver.
 - Whether servers are already imported. For an outbound or Raw configuration, provide the server's actual protocol, address, port, credentials, transport and TLS/REALITY parameters.
 - Required local DNS address, domains and reachable subnets; custom Geodata filename, category and HTTPS download URL when applicable.
-- Whether the installed build explicitly supports a development-only feature.
 
 Provide only necessary secrets to an assistant you trust. Redacted credentials are enough for discussion but cannot produce a working server connection. Neither examples nor OneXray supply a VPN service.
 

@@ -11,7 +11,7 @@ AI-first configuration documentation and a product website built with Hugo Exten
 - `docs/tunnel-guide/`: platform decisions and UI steps, separate from importable JSON.
 - `docs/troubleshooting/`: validation layers, failure diagnosis and a documentation acceptance rubric.
 - Existing installation, connection, server, platform, settings and sharing guides remain available. Keep the App's HTTPS privacy-policy endpoint valid.
-- `static/examples/`: downloadable JSON files, compatibility manifest and a snapshot of the App's region mapping. They contain no working server credentials.
+- `static/examples/`: downloadable JSON files, example manifest and a snapshot of the App's region mapping. They contain no working server credentials.
 - `assets/ai/`: localized copyable prompts.
 
 Each language publishes an AI index (`/llms.txt`), a complete configuration guide (`/llms-full.txt`) and Markdown alternatives (`/docs/.../index.md`). Chinese and Russian add `/zh/` and `/ru/` respectively. HTML heads advertise the Markdown alternative and AI index.
@@ -22,7 +22,7 @@ The full guide collects chapters with a positive `ai_order`, in that order. HTML
 
 ## Sources and compatibility
 
-The published baseline is App `v26.9.2` (`4bc391330f200c95fceff2aab64012ce98849c43`). Newer routing conditions and FakeDNS are explicitly marked as development-only; source code or a local build is not evidence of store availability. `static/examples/manifest.json` records reviewed commits and per-example prerequisites. Update it and all three compatibility pages when adopting another release.
+Describe OneXray's features directly, without release-stage labels or comparisons between preview and production builds. `static/examples/manifest.json` records the reviewed source commit and per-example prerequisites. Keep it and all three compatibility pages aligned when the supported contract changes.
 
 Authority order: App import/compiler/platform implementation, bundled libXray/Xray-core, then the current upstream documentation. Essential OneXray-specific contracts must remain on this site; readers should not need to inspect the App source to generate supported configurations.
 

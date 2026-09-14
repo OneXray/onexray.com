@@ -16,7 +16,7 @@ cascade:
 - [Рецепты]({{< relref "/docs/recipes" >}})：Регионы, корпоративный DNS и цепочки.
 - [VPN Tunnel по задаче]({{< relref "/docs/tunnel-guide" >}})：Платформенные действия отдельно от JSON.
 - [Проверка и диагностика]({{< relref "/docs/troubleshooting" >}})：Импорт, зависимости, DNS и запуск.
-- [Совместимость]({{< relref "/docs/configuration/compatibility" >}})：Выпущенная база и явно отмеченные preview-функции.
+- [Совместимость]({{< relref "/docs/configuration/compatibility" >}})：Поддерживаемые функции и требования импорта.
 
 ## Использование приложения
 

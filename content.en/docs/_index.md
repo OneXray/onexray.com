@@ -16,7 +16,7 @@ Use Smart Routing to get started, or describe your requirements to an AI assista
 - [Recipes]({{< relref "/docs/recipes" >}})：Regional routing, corporate DNS and proxy chains.
 - [VPN Tunnel by requirement]({{< relref "/docs/tunnel-guide" >}})：Platform-specific instructions, separate from JSON.
 - [Validate and troubleshoot]({{< relref "/docs/troubleshooting" >}})：Import errors, missing data, DNS and startup.
-- [Versions and compatibility]({{< relref "/docs/configuration/compatibility" >}})：Released behavior versus explicitly marked development features.
+- [Versions and compatibility]({{< relref "/docs/configuration/compatibility" >}})：Supported features and import requirements.
 
 ## Use the App
 

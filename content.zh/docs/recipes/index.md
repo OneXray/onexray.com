@@ -1,12 +1,12 @@
 ---
 title: "场景配置方案"
-description: "完整示例覆盖地区分流、公司 DNS、多条代理路径和有明确版本要求的开发功能。"
+description: "完整示例覆盖地区分流、公司 DNS、多条代理路径、协议匹配和 FakeDNS。"
 weight: -30
 ai_order: 90
 lastmod: 2026-09-14
 ---
 
-按目标选择方案，不按 JSON 长度选择。网页代码块和下载链接使用同一份文件。[清单](/examples/manifest.json)标明替换要求、依赖和开发版本限制。
+按目标选择方案，不按 JSON 长度选择。网页代码块和下载链接使用同一份文件。[清单](/examples/manifest.json)标明导入类型、替换要求和依赖。
 
 ## 中国大陆与服务直连，GitHub 经过 VPN
 
@@ -36,13 +36,13 @@ lastmod: 2026-09-14
 
 这些不是可用订阅，必须替换凭据。生成最终配置前确认是否接受直连 fallback 和未命中流量的默认行为。
 
-## 移动端阻断 QUIC：开发版本
+## 移动端阻断 QUIC
 
-仅用于确认支持 protocol/localOS 的构建，使用[扩展示例]({{< relref "/docs/configuration/custom-routing" >}})。两个条件为 AND：嗅探到 QUIC，且 Xray 运行在 iOS/Android；不表示某个应用。嗅探不保证识别全部流量，阻断 QUIC 也不保证所有应用自动回退 TCP。
+使用自定义路由的 protocol/localOS 条件，参见[完整示例]({{< relref "/docs/configuration/custom-routing" >}})。两个条件为 AND：嗅探到 QUIC，且 Xray 运行在 iOS/Android；不表示某个应用。嗅探不保证识别全部流量，阻断 QUIC 也不保证所有应用自动回退 TCP。
 
-## FakeDNS：开发版本
+## FakeDNS
 
-仅用于包含已说明 FakeDNS 集成的构建。使用[自定义示例]({{< relref "/docs/configuration/custom-routing" >}})，保留真实 DNS，并阅读[缓存和系统路由限制]({{< relref "/docs/configuration/dns" >}})。内核接受根部 fakedns 不代表 App 已具备完整集成。
+在智能路由中开启 FakeDNS，或导入[自定义示例]({{< relref "/docs/configuration/custom-routing" >}})。App 生成地址池和入站还原配置，同时保留真实的代理/直连 DNS。请阅读[缓存和系统路由限制]({{< relref "/docs/configuration/dns" >}})；自定义文件不应包含根部 fakedns。
 
 ## 仅需 UI 的场景
 

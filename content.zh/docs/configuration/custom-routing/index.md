@@ -16,14 +16,14 @@ lastmod: 2026-09-14
 | `outbounds` | 必填，1–3 个空对象，数量表示接入节点数 |
 | `routing.domainStrategy` | 填写 `IPIfNonMatch`，App 会规范化此值 |
 | `routing.rules` | 有序规则；空列表使用默认出站行为 |
-| `dns` | 可选，仅允许下述带固定 tag 的本地 DNS 结构 |
+| `dns` | 可选，仅允许下述带固定 tag 的本地 DNS 及可选 FakeDNS server |
 | `geodata.assets` | 可选，导入专用依赖，每项仅有 file 和 HTTPS url |
 
 不允许其他根字段。不定义真实节点、direct/block/dnsOut 出站、balancers、inbounds、日志、统计、observatory、根部 FakeDNS 池或 UI 标记。
 
 ## 条件与动作
 
-基线条件为 domain 字符串数组、ip 字符串数组、port（如 `"443"`、`"8000-8080"`、`"80,443"`）和 network（`"tcp"`、`"udp"`、`"tcp,udp"`）。规则名称写入 ruleTag。
+支持的条件为 domain 字符串数组、ip 字符串数组、port（如 `"443"`、`"8000-8080"`、`"80,443"`）、network（`"tcp"`、`"udp"`、`"tcp,udp"`），以及 protocol、localOS 字符串数组。规则名称写入 ruleTag；编辑器中的协议和系统条件位于“更多匹配条件”。
 
 每条规则恰好选择一个动作：
 
@@ -51,26 +51,26 @@ App 始终生成 proxy round-robin balancer，单节点也一样，fallback 为 
 
 ## 本地 DNS
 
-包含 dns 时，填写唯一的 `{"tag":"app-dns-direct","address":"8.8.8.8"}`。只改 address，不改 tag。不额外添加 domains、queryStrategy、skipFallback、port 等字段；非默认端口写在内核支持的地址字符串中，例如 tcp://192.168.50.53:5353。
+包含 dns 时，必须有且仅有一条 `{"tag":"app-dns-direct","address":"8.8.8.8"}`。只改其 address，不改 tag；启用 FakeDNS 时另加下述 app-dns-fake server。不额外添加 domains、queryStrategy、skipFallback、port 等字段；非默认端口写在内核支持的地址字符串中，例如 tcp://192.168.50.53:5353。
 
 只有纯域名直连规则参与本地 DNS 域名列表。域名同时带 IP、端口、网络、协议或系统条件时，该规则不贡献 DNS 域名。IP 直连规则本身不能解决内网域名解析。代理 DNS 固定为 8.8.8.8。
 
-## 完整基线示例
+## 完整示例
 
 包含广告阻断、GitHub 代理，以及合并后的 Apple/Microsoft/Bing/中国大陆/私有域名和 IP 直连。需要两份默认 DAT 和两个可用接入节点，没有待填凭据。
 
 {{% json-example "custom-cn.json" %}}
 
-## 仅开发构建支持的扩展
-
-不要向 26.9.2 或未知构建生成这些字段。
+## 协议与操作系统条件
 
 protocol 支持 http、tls、quic、bittorrent；localOS 支持 ios、android、darwin、windows、linux，均为数组。protocol 是嗅探的应用流量协议，不是 VLESS/VMess；localOS 是运行 Xray 的系统，不是远端系统或 Android 应用名。
 
-{{% json-example "custom-protocol.preview.json" %}}
+{{% json-example "custom-protocol.json" %}}
 
-FakeDNS 通过额外的带 tag 的 DNS server 保存，不能写根部布尔开关。必须同时保留 direct server，不导出生成的池和嗅探设置。
+## FakeDNS
 
-{{% json-example "custom-fakedns.preview.json" %}}
+FakeDNS 默认关闭，通过额外的带 tag 的 DNS server 保存，不能写根部布尔开关。必须同时保留 direct server，不导出生成的池和嗅探设置。
+
+{{% json-example "custom-fakedns.json" %}}
 
 [版本条件]({{< relref "/docs/configuration/compatibility" >}}) · [DNS 与 FakeDNS 限制]({{< relref "/docs/configuration/dns" >}}) · [依赖导入]({{< relref "/docs/configuration/geodata" >}})

@@ -51,4 +51,4 @@ Saving checks a separate projection through libXray instance construction and cl
 
 For custom DAT dependencies, install the files first through Routing data or use the App's Raw sharing flow with separate Geodata App Links. Root `geodata.assets` is a Custom import contract, not a downloader for plain Raw files. See [dependencies]({{< relref "/docs/configuration/geodata" >}}). Do not embed local filesystem paths or rely on automatic downloads at VPN startup. Account explicitly for other required files/modules.
 
-For advanced Core fields not covered here, consult the [version-matched Xray reference](https://xtls.github.io/config/). It does not override the App ownership table. FakeDNS recovery on the managed inbound has a separate [development boundary]({{< relref "/docs/configuration/dns" >}}).
+For advanced Core fields not covered here, consult the [version-matched Xray reference](https://xtls.github.io/config/). It does not override the App ownership table. When Raw declares a FakeDNS server or pool, the App enables recovery on its managed inbound; see [FakeDNS behavior and limitations]({{< relref "/docs/configuration/dns" >}}).

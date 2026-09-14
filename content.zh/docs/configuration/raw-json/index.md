@@ -51,4 +51,4 @@ balancer 的 selector 填完整出口 tag。这里显式匹配的 example.net �
 
 自定义 DAT 先通过“路由数据”安装，或使用 App 的 Raw 分享流程携带独立 Geodata App Link。根部 geodata.assets 是 Custom 导入规范，不负责普通 Raw 文件的依赖下载。参见[依赖说明]({{< relref "/docs/configuration/geodata" >}})。不嵌入本机绝对路径，不依赖 VPN 启动时下载；其他文件和模块依赖也需明确提供。
 
-长尾字段参考[对应版本的 Xray 文档](https://xtls.github.io/config/)，但不能覆盖 App 的字段归属。托管入站的 FakeDNS 还原另有[开发版本边界]({{< relref "/docs/configuration/dns" >}})。
+长尾字段参考[对应版本的 Xray 文档](https://xtls.github.io/config/)，但不能覆盖 App 的字段归属。Raw 声明 FakeDNS server 或池时，App 为托管入站启用还原，详见 [FakeDNS 行为与限制]({{< relref "/docs/configuration/dns" >}})。

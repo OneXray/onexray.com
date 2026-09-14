@@ -1,30 +1,31 @@
 ---
 title: "版本与兼容性"
-description: "区分已发布导入规范与开发中的扩展路由条件、FakeDNS。"
+description: "OneXray 的导入格式、路由条件、FakeDNS 与配置要求。"
 weight: 1
 ai_order: 20
 lastmod: 2026-09-14
 ---
 
-核对日期：2026-09-14。用户未确认其他构建时，默认使用已发布的 **26.9.2** 规范。开发示例不表示各商店已提供对应功能。
+OneXray 支持节点、自定义路由和 Raw JSON 导入。三种类型各有字段与使用要求，应根据需求选择对应入口。
 
-| 能力 | 26.9.2 基线 | 已核对的开发实现 |
-| --- | --- | --- |
-| 节点、自定义路由、Raw 导入 | 支持 | 支持 |
-| 自定义域名、目标 IP、端口、网络条件 | 支持 | 支持 |
-| 使用 `app-dns-direct` 保存本地 DNS | 支持 | 支持 |
-| 自定义 `protocol`、`localOS` | 不支持 | 支持，需确认构建 |
-| 智能/自定义 FakeDNS 与 `app-dns-fake` | 不支持 | 支持，需确认构建 |
-| Raw 的 App 托管入站自动还原 FakeDNS | 本指南不承诺 | 已核对的 FakeDNS 实现支持 |
+| 能力 | 说明 |
+| --- | --- |
+| 节点、自定义路由、Raw 导入 | 支持 |
+| 自定义域名、目标 IP、端口、网络条件 | 支持 |
+| 使用 `app-dns-direct` 保存本地 DNS | 支持 |
+| 自定义 `protocol`、`localOS` | 支持 |
+| 智能/自定义 FakeDNS 与 `app-dns-fake` | 支持，默认关闭 |
+| Raw 的 App 托管入站自动还原 FakeDNS | Raw 声明 FakeDNS server 或池时启用 |
+| Microsoft 直连开启时优先代理 GitHub | 支持，排在直连规则之前 |
 
-版本未知时使用基线字段，或先询问。不能通过悄悄删除条件“兼容”用户需求。不支持的功能应说明限制；Raw 也不能自动补齐缺失的原生集成。
+旧版本可能不支持本文的全部字段。选项缺失或拒绝受支持字段时，先更新 App；不能通过悄悄删除条件“兼容”用户需求。必须使用旧版本时，应说明限制并确认替代方案；Raw 也不能自动补齐缺失的原生集成。
 
 ## 内容依据
 
-- 已发布 App：[v26.9.2](https://github.com/OneXray/OneXray/tree/v26.9.2)，提交 `4bc391330f200c95fceff2aab64012ce98849c43`。
-- 开发中的扩展规则：提交 `92f34ad7ad2f11e0bb997aa3f92e0eed31336689`；FakeDNS 核对的是随后工作区实现，未将其标为已发布版本。
+- 本文核对的 App 实现：[提交 `eed1da1`](https://github.com/OneXray/OneXray/tree/eed1da12c7ef1d4cbae759110f708317152bd62b)。
+- App 的获取方式见[安装指南]({{< relref "/docs/install" >}})。
 - 本次文档示例校验使用 libXray `c145d94071088cebd445d7b0f4b1bea35732011e`、Xray-core `v1.260327.1-0.20260908222543-52a412d9e2f5`。
-- [示例清单](/examples/manifest.json)记录每份文件的类型、版本、依赖和替换要求。
+- [示例清单](/examples/manifest.json)记录每份文件的导入类型、依赖和替换要求。
 
 上游当前文档可能比已安装内核更新。App 导入以 OneXray 的结构和托管边界为准，协议字段由配套 libXray 判定。不要混用其他客户端或旧 VMessQrCode 的格式。
 

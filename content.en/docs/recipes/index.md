@@ -1,12 +1,12 @@
 ---
 title: "Configuration recipes"
-description: "Complete examples for regional routing, corporate DNS, multiple proxy paths and supported preview features."
+description: "Complete examples for regional routing, corporate DNS, multiple proxy paths, protocol matching and FakeDNS."
 weight: -30
 ai_order: 90
 lastmod: 2026-09-14
 ---
 
-Choose a recipe by its goal, not by its size. All JSON downloads and website code blocks use the same files. The [manifest](/examples/manifest.json) identifies templates, required replacements, dependencies and preview features.
+Choose a recipe by its goal, not by its size. All JSON downloads and website code blocks use the same files. The [manifest](/examples/manifest.json) identifies import types, templates, required replacements and dependencies.
 
 ## China direct, selected services direct, GitHub through VPN
 
@@ -36,13 +36,13 @@ Use [Raw JSON examples]({{< relref "/docs/configuration/raw-json" >}}). The basi
 
 These are credential templates, not working subscriptions. Confirm the intended direct fallback and unmatched-traffic behavior before generating a final configuration.
 
-## Block QUIC on mobile — preview
+## Block QUIC on mobile
 
-Only for a confirmed development build with Custom `protocol` and `localOS`. Use the [preview example]({{< relref "/docs/configuration/custom-routing" >}}). The two conditions are AND: sniffed QUIC **and** Xray running on iOS/Android. It does not identify a specific app. Protocol sniffing is not guaranteed for all traffic; blocking QUIC does not guarantee every app will fall back to TCP.
+Use Custom `protocol` and `localOS` with the [complete example]({{< relref "/docs/configuration/custom-routing" >}}). The two conditions are AND: sniffed QUIC **and** Xray running on iOS/Android. It does not identify a specific app. Protocol sniffing is not guaranteed for all traffic; blocking QUIC does not guarantee every app will fall back to TCP.
 
-## FakeDNS — preview
+## FakeDNS
 
-Only for a build with the reviewed FakeDNS integration. Start from the [Custom FakeDNS example]({{< relref "/docs/configuration/custom-routing" >}}), keep real proxy/direct DNS support, and read [cache and system-route limitations]({{< relref "/docs/configuration/dns" >}}). Do not promise it works simply because Core accepts a root `fakedns` field.
+Enable FakeDNS in Smart Routing, or import the [Custom FakeDNS example]({{< relref "/docs/configuration/custom-routing" >}}). The App generates the pools and inbound recovery while retaining real proxy/direct DNS support. Read the [cache and system-route limitations]({{< relref "/docs/configuration/dns" >}}); Custom files must not include a root `fakedns` field.
 
 ## A UI-only solution
 

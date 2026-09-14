@@ -24,7 +24,7 @@ Do not run a Custom file containing empty slots directly as a standalone Xray co
 | JSON rejected immediately | Get the complete error, verify strict JSON, root type and the selected import entry |
 | Unsupported Custom field | Remove it only if it is unnecessary; otherwise choose a supported mode/version without dropping the user's requirement |
 | Empty or invalid outbounds | Custom needs 1–3 empty objects; node/Raw needs actual proxy objects |
-| DNS rejected in Custom | Use exactly the fixed tagged address form; preview FakeDNS requires a supporting build |
+| DNS rejected in Custom | Use the fixed tag/address form: one app-dns-direct server and, for FakeDNS, one app-dns-fake server with address fakedns |
 | Internal names fail | Pure direct-domain rule, route Local DNS address and direct reachability; changing TUN DNS alone is usually insufficient |
 | Missing Geodata/category | Inspect installed files/autocomplete; correct the category or explicitly import/download the real dependency |
 | Default Geodata update fails | Old files are retained; do not treat this message alone as the VPN startup error |
@@ -42,6 +42,6 @@ Never report “verified working” after only reading source or running a synta
 
 ## Documentation acceptance cases
 
-When updating this site, test an assistant using only the full guide and a request. Useful cases: VLESS import, corporate DNS, China direct/GitHub proxy, wrong Custom fields, unavailable preview features, two-entry chain, missing credentials, Android selected apps, Apple Wi-Fi disconnect, Windows interface choice, missing DAT category, and save-success/start-failure diagnosis.
+When updating this site, test an assistant using only the full guide and a request. Useful cases: VLESS import, corporate DNS, China direct/GitHub proxy, wrong Custom fields, protocol/OS matching, FakeDNS, older-version compatibility, two-entry chain, missing credentials, Android selected apps, Apple Wi-Fi disconnect, Windows interface choice, missing DAT category, and save-success/start-failure diagnosis.
 
 The expected result must include the import type or UI-only decision, complete configuration when possible, missing-information questions when needed, and honest validation limits. This list is an evaluation rubric, not a claim that an independent model evaluation has already run.

@@ -16,7 +16,7 @@ cascade:
 - [场景方案]({{< relref "/docs/recipes" >}})：地区分流、公司 DNS 和代理链。
 - [按需求配置 VPN 隧道]({{< relref "/docs/tunnel-guide" >}})：平台 UI 操作，独立于 JSON。
 - [验证与排错]({{< relref "/docs/troubleshooting" >}})：导入、数据缺失、DNS 和启动问题。
-- [版本与兼容性]({{< relref "/docs/configuration/compatibility" >}})：已发布规范与明确标记的开发功能。
+- [版本与兼容性]({{< relref "/docs/configuration/compatibility" >}})：支持的功能与导入要求。
 
 ## 使用 App
 
