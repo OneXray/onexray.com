@@ -3,7 +3,7 @@ title: "配置生成规范"
 description: "先确定 JSON 文件类型、导入入口以及 App 和用户各自负责的字段。"
 weight: -40
 ai_order: 30
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 这里规定 OneXray 的导入格式，不是给通用 Xray 配置换几个名称。必要规则均在站内，不要求使用者再阅读 App 源码。
@@ -14,7 +14,8 @@ lastmod: 2026-09-14
 | --- | --- | --- | --- |
 | [Outbound]({{< relref "/docs/configuration/outbound" >}}) | `outbounds` 中放真实节点；单节点编辑只允许一个 | 服务器 → 添加 → 手动 JSON；文件/文本可提取多个 | 节点选择、路由与隧道 |
 | [自定义路由]({{< relref "/docs/configuration/custom-routing" >}}) | `name`、空 `outbounds` 槽、`routing`，可选 DNS 和导入依赖 | 连接 → 流量方式 → 自定义路由 → 导入 | 实际节点、代理 balancer、隧道 |
-| [Raw JSON]({{< relref "/docs/configuration/raw-json" >}}) | `name` 和完整的用户 Xray 配置 | 连接 → 专家模式 → Raw JSON → 导入或编辑 | 托管隧道、日志、统计、DNS 查询策略和适用平台的网卡 |
+| [高级自定义]({{< relref "/docs/configuration/advanced-routing" >}}) | `name`、开头 1–3 个空槽、可选辅助出站、用户 DNS/规则/入站 | 自定义路由 → 高级 JSON → 导入或编辑 | 实际节点、固定 proxy 组、direct/block、平台设置 |
+| [Raw JSON]({{< relref "/docs/configuration/raw-json" >}}) | `name` 和完整的用户 Xray 配置 | 连接 → 专家模式 → Raw JSON → 导入或编辑 | 托管隧道参数、日志、统计、DNS 查询策略和适用平台的网卡 |
 | [VPN Tunnel]({{< relref "/docs/tunnel-guide" >}}) | 没有对应导入文件 | 高级 → VPN 隧道 | 通过 UI 保存平台设置 |
 
 普通服务器导入只提取 outbounds，不安装根部 DNS 和 routing。不能把完整 Raw 文件当作普通节点导入。

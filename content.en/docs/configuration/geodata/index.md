@@ -3,7 +3,7 @@ title: "Geodata dependencies"
 description: "Use real DAT categories and explicit custom asset dependencies instead of guessing region or service names."
 weight: 50
 ai_order: 80
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 Geosite matches domains; GeoIP matches IP ranges. They are not interchangeable country databases.
@@ -50,7 +50,7 @@ An imported Custom Routing document can carry this **fragment** in addition to i
 
 The URL is a placeholder, not a usable dependency. Ask for the actual HTTPS file and category. Each entry has only `file` and `url`. Omit default `geosite.dat` and `geoip.dat`; do not redefine them as custom assets.
 
-Custom import downloads the declared dependencies. Every declared asset must be referenced by a rule. Filename conflicts are rejected, not silently overwritten. Custom stores routing JSON without import-only `geodata`; sharing reconstructs dependencies from the installed custom files.
+Custom import downloads the declared dependencies. Every declared asset must be referenced in a supported semantic field. Besides routing rules, Advanced Custom scans DNS hosts keys, server domains/expected or unexpected IPs, inbound sniffing exclusions and DNS-outbound rule domains. Arbitrary strings such as passwords are not dependencies. Filename conflicts are rejected, not silently overwritten. Custom stores routing JSON without import-only `geodata`; sharing reconstructs dependencies from the installed custom files.
 
 Raw is different: a plain Raw JSON file does not use root `geodata.assets` to download dependencies. Install its custom files first through Routing data, or use OneXray's Raw sharing flow, which supplies separate `/dat/add` App Links alongside the Raw configuration link. Raw export retains the source text, and runtime removes root `geodata`. Do not promise a self-contained Raw dependency download by adding that field. See [sharing formats]({{< relref "/docs/sharing" >}}).
 

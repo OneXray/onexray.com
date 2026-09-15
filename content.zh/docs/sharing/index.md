@@ -3,7 +3,7 @@ title: "导入与分享格式"
 description: "区分标准分享链接、OneXray URL、完整 JSON 与 GeoData 依赖，避免误导入或分享 age 私钥。"
 weight: 70
 ai_order: 160
-lastmod: 2026-09-12
+lastmod: 2026-09-15
 ---
 
 ## 选择格式
@@ -25,7 +25,7 @@ VMess 和 VLESS 使用 [VMessAEAD / VLESS 分享链接标准](https://github.com
 ## OneXray 链接
 
 ```text
-onexray://onexray.com/config/add?type=outbound|raw|custom&data=<percent-encoded-base64-json>#Name
+onexray://onexray.com/config/add?type=outbound|raw|custom|custom-advanced&data=<percent-encoded-base64-json>#Name
 onexray://onexray.com/sub/add?url=<percent-encoded-https-url>&age=x25519|hybrid#Name
 onexray://onexray.com/dat/add?type=domain|ip&url=<percent-encoded-https-url>#Name
 ```
@@ -50,9 +50,9 @@ age 链接只描述算法，接收设备生成新密钥，不共享现有公钥�
 
 这里只是依赖片段，不是可直接运行的完整配置；使用时替换为真实来源。
 
-省略默认 geoip.dat、geosite.dat。自定义路由只导出空接入槽，不导出 direct/block 出站定义。导入会校验依赖、拒绝重名，并在存储前删除只供导入的 geodata 字段。
+省略默认 geoip.dat、geosite.dat。常规自定义仅导出空接入槽，高级自定义还保留用户的辅助出站。两者均不导出生成的代理节点、balancer 或 App 的 direct/block 定义。导入会校验依赖、拒绝重名，并在存储前删除只供导入的 geodata 字段。
 
-自定义路由使用标准 `dns.servers` 中固定标记为 `app-dns-direct` 的条目保存并导出本地 DNS 地址；运行时的直连域名匹配由 App 生成。见[自定义路由 JSON 示例]({{< relref "/docs/connect/custom-routing" >}})。
+常规自定义路由使用标准 `dns.servers` 中固定标记为 `app-dns-direct` 的条目保存并导出本地 DNS 地址；运行时的直连域名匹配由 App 生成。见[自定义路由 JSON 示例]({{< relref "/docs/connect/custom-routing" >}})。
 
 ## 从 App 分享
 
@@ -63,3 +63,5 @@ iOS、Android、macOS 和 Windows 打开系统分享界面；Linux 提供明确�
 已安装的移动端和 macOS App、Windows EXE/MSIX、Linux DEB 注册 onexray://。Windows/Linux ZIP 不自动注册，可改用剪贴板或文件导入。Mac 同时安装多个版本时由系统选择处理程序。
 
 分享可能暴露凭据和 URL 令牌，请先检查。完整配置与依赖保留确认流程，普通节点导入则没有第二次预览。
+
+常规自定义链接使用 `custom`，高级 JSON 使用 `custom-advanced`，完整 Raw 使用 `raw`。裸 JSON 的类型由当前编辑器确定，不根据 DNS 字段猜测类型，也不把高级模板交给常规表单。

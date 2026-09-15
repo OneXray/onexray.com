@@ -3,7 +3,7 @@ title: "Configure with AI"
 description: "Turn a requirement into an importable OneXray configuration and the necessary platform settings."
 weight: -50
 ai_order: 10
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 Describe the result you want. An AI assistant can use this guide to choose a configuration type, ask for missing information, and produce a JSON file you can import. OneXray has no built-in AI service: you choose the assistant, and the website does not receive your configuration.
@@ -15,8 +15,9 @@ Describe the result you want. An AI assistant can use this guide to choose a con
 | Goal | Recommended result |
 | --- | --- |
 | Connect an existing server | An outbound document; keep Smart Routing |
-| Change which traffic is direct, blocked or proxied | Custom Routing; reuse servers already in the App |
-| Own DNS, multiple proxy paths or features outside the ordinary editor | Raw JSON |
+| Change which traffic is direct, blocked or proxied | Ordinary Custom Routing; reuse servers already in the App |
+| Own DNS, sniffing or additional local inbounds while reusing App servers | [Advanced Custom JSON]({{< relref "/docs/configuration/advanced-routing" >}}) |
+| Own actual nodes, multiple proxy chains or fields outside the Advanced template | Full Raw JSON |
 | Select Android apps, Apple Wi-Fi behavior, excluded networks or an interface | VPN Tunnel instructions, possibly alongside routing JSON |
 
 Do not generate a full Raw configuration when a Smart Routing option is sufficient. Do not put Tunnel settings in a made-up JSON section.

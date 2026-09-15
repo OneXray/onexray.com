@@ -1,0 +1,91 @@
+{
+  "outbounds": [
+    {},
+    {},
+    {
+      "tag": "dnsOut",
+      "protocol": "dns",
+      "settings": {
+        "rules": [
+          {
+            "action": "hijack",
+            "qType": "1,28"
+          },
+          {
+            "action": "drop"
+          }
+        ]
+      }
+    }
+  ],
+  "inbounds": [
+    {
+      "tag": "tunIn",
+      "sniffing": {
+        "enabled": true,
+        "routeOnly": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic",
+          "fakedns"
+        ]
+      }
+    }
+  ],
+  "dns": {
+    "servers": [
+      "fakedns",
+      {
+        "tag": "dns-proxy",
+        "address": "8.8.8.8"
+      }
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ruleTag": "Proxy DNS",
+        "inboundTag": [
+          "dns-proxy"
+        ],
+        "balancerTag": "proxy"
+      },
+      {
+        "ruleTag": "Tunnel DNS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": 53,
+        "outboundTag": "dnsOut"
+      },
+      {
+        "ruleTag": "DNS over TLS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": 853,
+        "balancerTag": "proxy"
+      },
+      {
+        "ruleTag": "Private networks",
+        "ip": [
+          "geoip:PRIVATE"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  },
+  "name": "Explicit FakeDNS",
+  "fakedns": [
+    {
+      "ipPool": "198.19.0.0/16",
+      "poolSize": 32768
+    },
+    {
+      "ipPool": "fc00:1::/64",
+      "poolSize": 32768
+    }
+  ]
+}

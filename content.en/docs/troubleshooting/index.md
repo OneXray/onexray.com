@@ -3,7 +3,7 @@ title: "Validate and troubleshoot"
 description: "Separate JSON syntax, import compatibility, Core construction, platform startup and real connectivity."
 weight: -10
 ai_order: 110
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 ## Verification ladder
@@ -23,9 +23,9 @@ Do not run a Custom file containing empty slots directly as a standalone Xray co
 | --- | --- |
 | JSON rejected immediately | Get the complete error, verify strict JSON, root type and the selected import entry |
 | Unsupported Custom field | Remove it only if it is unnecessary; otherwise choose a supported mode/version without dropping the user's requirement |
-| Empty or invalid outbounds | Custom needs 1–3 empty objects; node/Raw needs actual proxy objects |
-| DNS rejected in Custom | Use the fixed tag/address form: one app-dns-direct server and, for FakeDNS, one app-dns-fake server with address fakedns |
-| Internal names fail | Pure direct-domain rule, route Local DNS address and direct reachability; changing TUN DNS alone is usually insufficient |
+| Empty or invalid outbounds | Custom starts with 1–3 empty objects; Advanced may append auxiliaries; node/Raw needs actual proxy objects |
+| DNS rejected in ordinary Custom | Use the fixed tag/address form: one app-dns-direct server and, for FakeDNS, one app-dns-fake server with address fakedns |
+| Internal names fail | Smart/ordinary Custom: pure direct-domain rule, Local DNS and direct reachability. Advanced/Raw: inspect the user DNS and query-routing chain; TUN DNS alone is usually insufficient |
 | Missing Geodata/category | Inspect installed files/autocomplete; correct the category or explicitly import/download the real dependency |
 | Default Geodata update fails | Old files are retained; do not treat this message alone as the VPN startup error |
 | Saves but does not connect | Capture actual startup error; inspect credentials, ports, permission, selected interface and platform constraints |

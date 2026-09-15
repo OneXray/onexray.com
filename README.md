@@ -28,10 +28,11 @@ Authority order: App import/compiler/platform implementation, bundled libXray/Xr
 
 Keep these boundaries explicit:
 
-- Server import extracts outbounds; Custom and Raw use separate import entries.
-- Custom stores empty entry slots and a limited routing/DNS model. Runtime-only system outbounds are not exported.
+- Server import extracts outbounds; ordinary Custom, Advanced Custom and Raw use explicit separate import entries. App Links use custom, custom-advanced and raw respectively.
+- Example validation provenance is in `static/examples/manifest.json`. A base commit plus `includesAppWorkingTreeChanges` describes local verification without claiming that uncommitted changes are already in that commit.
+- Ordinary Custom stores empty entry slots and a limited routing/DNS model. Advanced Custom uses an independent JSON template with leading empty slots, auxiliary outbounds and user-owned DNS/rules/inbounds. The two types share the three-profile limit and do not convert during editing. Generated nodes, balancers and direct/block are not exported.
 - Custom `geodata.assets` declares import dependencies. Raw JSON does not use that field to download files; install its data beforehand or use separate Geodata links included by App sharing.
-- Raw does not override App-managed Tunnel, logging, metrics, DNS query policy or applicable interface settings.
+- Raw preserves an existing tunIn and its sniffing; only the six documented platform-owned TUN settings are merged (with explicit SOCKS adaptation where needed). Logging, metrics, DNS query policy and applicable interface settings remain App-owned.
 - TUN DNS, route Local DNS and proxy DNS have distinct responsibilities.
 - Region mappings are an App snapshot, not a guarantee that arbitrary or future DAT files contain the same categories.
 - A syntactically valid/importable template is not a tested connection. Required credentials must come from the user's provider.

@@ -3,7 +3,7 @@ title: "Configuration recipes"
 description: "Complete examples for regional routing, corporate DNS, multiple proxy paths, protocol matching and FakeDNS."
 weight: -30
 ai_order: 90
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 Choose a recipe by its goal, not by its size. All JSON downloads and website code blocks use the same files. The [manifest](/examples/manifest.json) identifies import types, templates, required replacements and dependencies.
@@ -30,7 +30,11 @@ Usually no Tunnel DNS change is needed. If an Apple system route must bypass VPN
 
 Use the [outbound templates]({{< relref "/docs/configuration/outbound" >}}) after receiving real server parameters. Import into Servers, then retain Smart Routing. Do not export the App's generated TUN/metrics into a server file.
 
-## Full DNS control or chain composition
+## Own DNS with existing App servers
+
+Use [Advanced Custom JSON]({{< relref "/docs/configuration/advanced-routing" >}}) for independent DNS, sniffing or additional local inbounds. Its examples reuse the selected App nodes and do not require copying proxy credentials. Rules and DNS paths remain entirely in the template.
+
+## Full node and chain composition
 
 Use [Raw JSON examples]({{< relref "/docs/configuration/raw-json" >}}). The basic example has its own DNS interception and proxy resolver path. The two-entry example demonstrates two copies of a final exit and a balancer.
 
@@ -42,7 +46,7 @@ Use Custom `protocol` and `localOS` with the [complete example]({{< relref "/doc
 
 ## FakeDNS
 
-Enable FakeDNS in Smart Routing, or import the [Custom FakeDNS example]({{< relref "/docs/configuration/custom-routing" >}}). The App generates the pools and inbound recovery while retaining real proxy/direct DNS support. Read the [cache and system-route limitations]({{< relref "/docs/configuration/dns" >}}); Custom files must not include a root `fakedns` field.
+Enable FakeDNS in Smart Routing, or import the [Custom FakeDNS example]({{< relref "/docs/configuration/custom-routing" >}}). The App generates the pools and inbound recovery while retaining real proxy/direct DNS support. Read the [cache and system-route limitations]({{< relref "/docs/configuration/dns" >}}); ordinary Custom files must not include a root `fakedns` field. Advanced Custom instead owns its explicit pools, DNS and sniffing.
 
 ## A UI-only solution
 

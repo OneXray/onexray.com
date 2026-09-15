@@ -3,7 +3,7 @@ title: "场景配置方案"
 description: "完整示例覆盖地区分流、公司 DNS、多条代理路径、协议匹配和 FakeDNS。"
 weight: -30
 ai_order: 90
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 按目标选择方案，不按 JSON 长度选择。网页代码块和下载链接使用同一份文件。[清单](/examples/manifest.json)标明导入类型、替换要求和依赖。
@@ -30,7 +30,11 @@ lastmod: 2026-09-14
 
 取得真实参数后使用[节点模板]({{< relref "/docs/configuration/outbound" >}})，在服务器中导入，保留智能路由。节点文件不加入 App 生成的 TUN 或 metrics。
 
-## 完整 DNS 或多接入链式代理
+## 使用已有节点，自主配置 DNS
+
+独立 DNS、嗅探和额外本地入站使用[高级自定义 JSON]({{< relref "/docs/configuration/advanced-routing" >}})，复用 App 当前节点，不复制代理凭据。规则和解析路径完全写在模板中。
+
+## 自带节点与多接入链式代理
 
 使用 [Raw 示例]({{< relref "/docs/configuration/raw-json" >}})。基础模板包含 DNS 拦截和代理解析路径，多接入模板展示最终出口副本和 balancer。
 
@@ -42,7 +46,7 @@ lastmod: 2026-09-14
 
 ## FakeDNS
 
-在智能路由中开启 FakeDNS，或导入[自定义示例]({{< relref "/docs/configuration/custom-routing" >}})。App 生成地址池和入站还原配置，同时保留真实的代理/直连 DNS。请阅读[缓存和系统路由限制]({{< relref "/docs/configuration/dns" >}})；自定义文件不应包含根部 fakedns。
+在智能路由中开启 FakeDNS，或导入[自定义示例]({{< relref "/docs/configuration/custom-routing" >}})。App 生成地址池和入站还原配置，同时保留真实的代理/直连 DNS。请阅读[缓存和系统路由限制]({{< relref "/docs/configuration/dns" >}})；常规自定义文件不应包含根部 fakedns；高级自定义则自行提供池、DNS 和 sniffing。
 
 ## 仅需 UI 的场景
 

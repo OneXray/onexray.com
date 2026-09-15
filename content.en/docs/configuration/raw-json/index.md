@@ -3,7 +3,7 @@ title: "Raw JSON"
 description: "Generate a complete user configuration without conflicting with the runtime settings owned by OneXray."
 weight: 30
 ai_order: 60
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 Use Connect → expert mode → Raw JSON → import or editor. Include a root `name` and all actual proxy outbounds needed by the configuration. Normal-mode server selection, Smart Routing and Custom Routing do not merge into Raw.
@@ -16,7 +16,7 @@ A Raw file is complete **for OneXray**, not necessarily a standalone CLI configu
 | --- | --- |
 | Actual proxy outbounds, order and dependencies | User; no empty entry slots |
 | Routing, balancers, DNS servers and user FakeDNS pools | User; do not assume Smart Routing supplies them |
-| `inbounds[tag=tunIn]` | App replaces/supplies it; omit it from generated user files |
+| `inbounds[tag=tunIn]` | App supplies a missing inbound; for an existing one, only platform-owned settings are merged |
 | Other inbounds | User, subject to platform and resource restrictions; do not add another TUN |
 | `log`, `metrics`, traffic counters | App; omit generated paths/listeners and statistics policy |
 | DNS query strategy | App's IPv6 choice; do not promise a conflicting user value takes effect |
@@ -24,6 +24,12 @@ A Raw file is complete **for OneXray**, not necessarily a standalone CLI configu
 | Xray outbound interface on Windows/Linux | App's selected interface; cannot be bypassed through Raw JSON |
 
 Saved source and runtime copy are different. Extra user fields are preserved outside the managed areas. A runtime dump can contain local ports, paths and generated settings: do not distribute it unchanged as a portable example.
+
+### Existing `tunIn` is preserved
+
+An existing `tunIn` keeps its array position, other inbound fields and user `sniffing`, including disabled or absent sniffing. For a TUN inbound, OneXray owns only these `settings` keys: `name`, `mtu`, `gateway`, `dns`, `autoSystemRoutingTable`, `autoOutboundsInterface`. Platform values overwrite them; Apple/Android remove the latter four when inapplicable. Other user settings remain intact. A non-SOCKS-adapter runtime expects `protocol: "tun"`.
+
+Windows MSIX and the iOS simulator explicitly adapt this inbound to SOCKS, replacing protocol/listener/SOCKS settings as required while preserving unrelated fields. This is a platform adaptation, not permission to replace every inbound. Only when the entire `tunIn` is missing does the App generate one with default sniffing. Raw has no Advanced Custom template field whitelist.
 
 ## Complete VLESS and DNS example
 
@@ -51,4 +57,4 @@ Saving checks a separate projection through libXray instance construction and cl
 
 For custom DAT dependencies, install the files first through Routing data or use the App's Raw sharing flow with separate Geodata App Links. Root `geodata.assets` is a Custom import contract, not a downloader for plain Raw files. See [dependencies]({{< relref "/docs/configuration/geodata" >}}). Do not embed local filesystem paths or rely on automatic downloads at VPN startup. Account explicitly for other required files/modules.
 
-For advanced Core fields not covered here, consult the [version-matched Xray reference](https://xtls.github.io/config/). It does not override the App ownership table. When Raw declares a FakeDNS server or pool, the App enables recovery on its managed inbound; see [FakeDNS behavior and limitations]({{< relref "/docs/configuration/dns" >}}).
+For advanced Core fields not covered here, consult the [version-matched Xray reference](https://xtls.github.io/config/). It does not override the App ownership table. A newly generated `tunIn` gets FakeDNS recovery when Raw declares a FakeDNS server or pool. An existing inbound keeps the user's sniffing unchanged: configure recovery yourself when required. See [FakeDNS behavior and limitations]({{< relref "/docs/configuration/dns" >}}).

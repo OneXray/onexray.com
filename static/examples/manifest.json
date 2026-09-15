@@ -1,9 +1,31 @@
 {
-  "reviewedOn": "2026-09-14",
-  "reviewedAppCommit": "eed1da12c7ef1d4cbae759110f708317152bd62b",
+  "reviewedOn": "2026-09-15",
+  "reviewedAppBaseCommit": "fb988b89c04e8411c0558ae0d2ee2b7c1ec3ba1f",
+  "includesAppWorkingTreeChanges": true,
   "libXrayCommit": "c145d94071088cebd445d7b0f4b1bea35732011e",
   "xrayCore": "v1.260327.1-0.20260908222543-52a412d9e2f5",
   "examples": [
+    {
+      "file": "advanced-socks.json",
+      "type": "custom-advanced",
+      "requiresReplacement": true,
+      "geodata": [],
+      "notes": "Uses existing App nodes; change the additional loopback SOCKS account password. Ordinary unmatched traffic uses the first entry."
+    },
+    {
+      "file": "advanced-split-dns.json",
+      "type": "custom-advanced",
+      "requiresReplacement": false,
+      "geodata": ["geosite.dat", "geoip.dat"],
+      "notes": "Uses existing App nodes and bundled CN categories. 1.1.1.1 must be directly reachable; edit it if needed. No implicit catch-all."
+    },
+    {
+      "file": "advanced-fakedns.json",
+      "type": "custom-advanced",
+      "requiresReplacement": false,
+      "geodata": ["geoip.dat"],
+      "notes": "Explicit pools, DNS and sniffing; the system must route the fake pools into the tunnel. Existing App nodes required."
+    },
     {
       "file": "outbound-vless-tls.json",
       "type": "outbound",

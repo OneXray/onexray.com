@@ -1,0 +1,101 @@
+{
+  "outbounds": [
+    {},
+    {},
+    {
+      "tag": "dnsOut",
+      "protocol": "dns",
+      "settings": {
+        "rules": [
+          {
+            "action": "hijack",
+            "qType": "1,28"
+          },
+          {
+            "action": "drop"
+          }
+        ]
+      }
+    }
+  ],
+  "inbounds": [
+    {
+      "tag": "tunIn",
+      "sniffing": {
+        "enabled": true,
+        "routeOnly": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    }
+  ],
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-proxy",
+        "address": "8.8.8.8"
+      },
+      {
+        "tag": "dns-direct",
+        "address": "1.1.1.1",
+        "domains": [
+          "geosite:CN"
+        ],
+        "skipFallback": true
+      }
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ruleTag": "Proxy DNS",
+        "inboundTag": [
+          "dns-proxy"
+        ],
+        "balancerTag": "proxy"
+      },
+      {
+        "ruleTag": "Direct DNS",
+        "inboundTag": [
+          "dns-direct"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "ruleTag": "Tunnel DNS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": 53,
+        "outboundTag": "dnsOut"
+      },
+      {
+        "ruleTag": "DNS over TLS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": 853,
+        "balancerTag": "proxy"
+      },
+      {
+        "ruleTag": "China websites",
+        "domain": [
+          "geosite:CN"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "ruleTag": "China IPs",
+        "ip": [
+          "geoip:CN"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  },
+  "name": "China Direct and Split DNS"
+}

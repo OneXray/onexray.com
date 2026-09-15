@@ -3,7 +3,7 @@ title: "Geodata 依赖"
 description: "使用真实 DAT 分类和明确的文件依赖，不凭地区或服务名称猜测规则。"
 weight: 50
 ai_order: 80
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 Geosite 匹配域名，GeoIP 匹配 IP 网段，两者不是可互换的国家数据库。
@@ -50,7 +50,7 @@ geosite.dat 来自 [domain-list-community](https://github.com/v2fly/domain-list-
 
 该 URL 是占位符，必须取得真实 HTTPS 文件和分类。每项仅有 file、url。省略默认 geosite.dat、geoip.dat，不把它们重新声明成自定义文件。
 
-自定义路由导入会下载声明的依赖，每个声明都必须被规则引用。文件名冲突时拒绝导入，不覆盖现有文件。存储前移除导入专用 geodata，分享时依据已安装的自定义数据重建依赖。
+自定义路由导入会下载声明的依赖，每个声明都必须在受支持的语义字段中被引用。除路由规则外，高级自定义还扫描 DNS hosts 的键、服务器的域名和预期/非预期 IP、入站 sniffing 排除项及 DNS 出站规则的域名。密码等普通字符串不作为依赖。文件名冲突时拒绝导入，不覆盖现有文件。存储前移除导入专用 geodata，分享时依据已安装的自定义数据重建依赖。
 
 Raw 不同：普通 Raw JSON 文件不会根据根部 geodata.assets 下载依赖。需先在“路由数据”安装自定义文件，或使用 App 的 Raw 分享流程，将独立 /dat/add App Link 与 Raw 配置链接一同导入。Raw 导出保留原文，运行时删除根部 geodata。不能通过添加这个字段承诺自动下载 Raw 依赖。参见[分享格式]({{< relref "/docs/sharing" >}})。
 

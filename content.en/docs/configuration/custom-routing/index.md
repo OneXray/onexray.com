@@ -1,12 +1,12 @@
 ---
-title: "Custom Routing JSON"
+title: "Ordinary Custom Routing JSON"
 description: "Use empty entry slots, ordered rules, fixed actions, local DNS and explicit Geodata dependencies."
 weight: 20
 ai_order: 50
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
-Import through Connect → traffic method → Custom Routing, not ordinary Servers import. Select the imported profile and choose existing servers on Connect.
+Import through Connect → traffic method → Custom Routing → Normal configuration, not ordinary Servers import. Select the imported profile and choose existing servers on Connect. This chapter describes the ordinary form-backed format only. For user-owned DNS, sniffing and additional inbounds, use the separate [Advanced JSON template]({{< relref "/docs/configuration/advanced-routing" >}}). Both types share three saved profiles; editing does not convert between them.
 
 ## Accepted document
 

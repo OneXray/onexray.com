@@ -40,6 +40,14 @@ for (const example of manifest.examples) {
         assert.equal(server.address, 'fakedns');
       }
     }
+  } else if (example.type === 'custom-advanced') {
+    assert.ok(config.name && [...config.name].length <= 32);
+    const slots = config.outbounds.findIndex(o => Object.keys(o).length);
+    const count = slots < 0 ? config.outbounds.length : slots;
+    assert.ok(count >= 1 && count <= 3, 'Advanced requires leading entry slots');
+    assert.ok(config.outbounds.slice(count).every(o => ['freedom', 'blackhole', 'dns'].includes(o.protocol)));
+    assert.ok(!config.routing?.balancers, 'App owns the proxy balancer');
+    assert.ok(!config.dns?.queryStrategy, 'App owns IPv6 query policy');
   } else {
     assert.ok(example.requiresReplacement, 'Server examples must be labelled credential templates');
     assert.ok(config.outbounds.every(o => o.protocol && o.tag));
@@ -108,7 +116,7 @@ for (const lang of ['en', 'zh', 'ru']) {
   assert.ok(!/development-only|\.preview\.json/.test(full), lang + ': obsolete feature status');
   assert.match(full, /outbound-vless-tls\.json/);
   const titles = [...full.matchAll(/^Source: (.+)$/gm)].map(m => m[1]);
-  assert.equal(titles.length, 17, 'Missing essential chapters in ' + lang);
+  assert.equal(titles.length, 18, 'Missing essential chapters in ' + lang);
   assert.equal(new Set(titles).size, titles.length);
   for (const example of manifest.examples) {
     assert.ok(full.includes(JSON.stringify(json(example.file), null, 2)), lang + ': missing full example ' + example.file);

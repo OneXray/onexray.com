@@ -3,7 +3,7 @@ title: "Рецепты конфигураций"
 description: "Региональная маршрутизация, корпоративный DNS, несколько proxy-путей, сопоставление протоколов и FakeDNS."
 weight: -30
 ai_order: 90
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 Выбирайте по задаче. Код на странице и скачиваемый JSON используют один файл. [Манифест](/examples/manifest.json) задаёт тип импорта, замены и зависимости.
@@ -30,7 +30,11 @@ lastmod: 2026-09-14
 
 Получите реальные параметры, используйте [outbound-шаблон]({{< relref "/docs/configuration/outbound" >}}), импортируйте в Серверы и оставьте Smart Routing. Не включайте сгенерированные TUN/metrics в серверный файл.
 
-## Полный DNS или цепочка
+## Собственные DNS с узлами приложения
+
+Используйте [продвинутый Custom JSON]({{< relref "/docs/configuration/advanced-routing" >}}) для независимых DNS, sniffing и локальных inbounds. Узлы берутся из приложения без копирования proxy-реквизитов; правила и DNS-пути остаются в шаблоне.
+
+## Собственные узлы и цепочка
 
 Используйте [Raw-примеры]({{< relref "/docs/configuration/raw-json" >}}). Базовый задаёт перехват DNS; второй — копии конечного выхода для двух входов и balancer. Это не рабочие подписки. До генерации подтвердите прямой fallback и поведение непопавшего под правила трафика.
 
@@ -40,7 +44,7 @@ lastmod: 2026-09-14
 
 ## FakeDNS
 
-Включите FakeDNS в Smart Routing или импортируйте [Custom-пример]({{< relref "/docs/configuration/custom-routing" >}}). Приложение создаёт пулы и восстановление на inbound, сохраняя реальные proxy/direct DNS. Учитывайте [кэш и системные маршруты]({{< relref "/docs/configuration/dns" >}}); не добавляйте корневой fakedns в Custom.
+Включите FakeDNS в Smart Routing или импортируйте [Custom-пример]({{< relref "/docs/configuration/custom-routing" >}}). Приложение создаёт пулы и восстановление на inbound, сохраняя реальные proxy/direct DNS. Учитывайте [кэш и системные маршруты]({{< relref "/docs/configuration/dns" >}}); не добавляйте корневой fakedns в обычный Custom. Продвинутый Custom самостоятельно задаёт пулы, DNS и sniffing.
 
 ## Только интерфейс
 

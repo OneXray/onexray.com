@@ -3,7 +3,7 @@ title: "验证与排错"
 description: "区分 JSON 语法、导入兼容、内核构造、平台启动与真实连通性。"
 weight: -10
 ai_order: 110
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 ## 分层验证
@@ -23,9 +23,9 @@ lastmod: 2026-09-14
 | --- | --- |
 | JSON 立即拒绝 | 完整错误、严格 JSON、根类型、正确入口 |
 | 自定义不支持字段 | 不需要才移除；否则选支持的模式/版本，不能丢掉需求 |
-| outbounds 错误 | 自定义为 1–3 空对象，节点/Raw 为真实出站 |
-| 自定义 DNS 错误 | 固定 tag/address 结构；一条 app-dns-direct，启用 FakeDNS 时另加一条 address 为 fakedns 的 app-dns-fake |
-| 内网域名失败 | 纯域名直连规则、本地 DNS、直连可达性；只改 TUN DNS 通常不够 |
+| outbounds 错误 | 自定义以 1–3 空对象开头，高级可追加辅助出站；节点/Raw 为真实出站 |
+| 常规自定义 DNS 错误 | 固定 tag/address 结构；一条 app-dns-direct，启用 FakeDNS 时另加一条 address 为 fakedns 的 app-dns-fake |
+| 内网域名失败 | 智能/常规：纯域名直连规则、本地 DNS 和直连可达性。高级/Raw：检查用户的 DNS 与解析路由链；只改 TUN DNS 通常不够 |
 | DAT/分类不存在 | 查看已安装分类，修正规则或显式导入真实依赖 |
 | 默认 Geodata 更新失败 | 保留旧文件；单凭这条日志不能判断 VPN 启动原因 |
 | 可保存但无法启动 | 实际启动错误、凭据、端口、权限、网卡、平台限制 |

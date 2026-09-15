@@ -1,0 +1,104 @@
+{
+  "outbounds": [
+    {},
+    {},
+    {
+      "tag": "dnsOut",
+      "protocol": "dns",
+      "settings": {
+        "rules": [
+          {
+            "action": "hijack",
+            "qType": "1,28"
+          },
+          {
+            "action": "drop"
+          }
+        ]
+      }
+    }
+  ],
+  "inbounds": [
+    {
+      "tag": "tunIn",
+      "sniffing": {
+        "enabled": true,
+        "routeOnly": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "local-socks",
+      "protocol": "socks",
+      "listen": "127.0.0.1",
+      "port": 12080,
+      "settings": {
+        "auth": "password",
+        "users": [
+          {
+            "user": "local-user",
+            "pass": "CHANGE_THIS_PASSWORD"
+          }
+        ],
+        "udp": true
+      },
+      "sniffing": {
+        "enabled": true,
+        "routeOnly": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    }
+  ],
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-proxy",
+        "address": "8.8.8.8"
+      }
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ruleTag": "Proxy DNS",
+        "inboundTag": [
+          "dns-proxy"
+        ],
+        "balancerTag": "proxy"
+      },
+      {
+        "ruleTag": "Tunnel DNS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": 53,
+        "outboundTag": "dnsOut"
+      },
+      {
+        "ruleTag": "DNS over TLS",
+        "inboundTag": [
+          "tunIn"
+        ],
+        "port": 853,
+        "balancerTag": "proxy"
+      },
+      {
+        "ruleTag": "Local SOCKS uses VPN",
+        "inboundTag": [
+          "local-socks"
+        ],
+        "balancerTag": "proxy"
+      }
+    ]
+  },
+  "name": "Local SOCKS and Sniffing"
+}

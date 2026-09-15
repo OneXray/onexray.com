@@ -3,7 +3,7 @@ title: "使用 AI 配置"
 description: "把需求转换为可以导入 OneXray 的 JSON，并明确仍需操作的平台隧道设置。"
 weight: -50
 ai_order: 10
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
 
 描述希望实现的效果，让 AI 根据这份指南选择配置类型、询问缺失资料并生成完整 JSON。OneXray 不内置 AI 服务；由你选择助手，网站不接收配置。
@@ -15,8 +15,9 @@ lastmod: 2026-09-14
 | 需求 | 推荐结果 |
 | --- | --- |
 | 使用已有服务器 | outbound 节点文件，保留智能路由 |
-| 调整直连、代理和阻断规则 | 自定义路由，复用 App 已导入的节点 |
-| 完整控制 DNS、多条代理链或普通编辑器之外的能力 | Raw JSON |
+| 调整直连、代理和阻断规则 | 常规自定义路由，复用 App 已导入的节点 |
+| 复用 App 节点，自主配置 DNS、嗅探或额外本地入站 | [高级自定义 JSON]({{< relref "/docs/configuration/advanced-routing" >}}) |
+| 自己提供实际节点、多条代理链或高级模板之外的字段 | 完整 Raw JSON |
 | Android 应用选择、Apple Wi-Fi 行为、系统排除路由、网卡 | VPN Tunnel 操作步骤，必要时配合路由 JSON |
 
 智能路由开关已经能够满足需求时，不必生成 Raw JSON。不要把平台设置写进虚构的 JSON section。

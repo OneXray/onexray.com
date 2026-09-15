@@ -2,8 +2,10 @@
 title: "Custom Routing"
 description: "Custom Routing — Import and sharing"
 weight: 20
-lastmod: 2026-09-14
+lastmod: 2026-09-15
 ---
+
+Create a profile by choosing **Normal configuration** or **Advanced JSON**. Both share the three-profile limit; their editors and import types stay separate. Advanced JSON reuses the existing editor tools for import, share, save and delete, with a documentation link. For DNS, sniffing or extra local inbounds, read the [Advanced template contract]({{< relref "/docs/configuration/advanced-routing" >}}). The following rule-form instructions apply only to Normal configuration.
 
 Open Connect → traffic method → Custom Routing. Create a named route or import a complete route file. Server selection stays on Connect.
 
